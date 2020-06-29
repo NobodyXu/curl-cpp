@@ -62,6 +62,8 @@ void check(CURLUcode code)
         throw std::invalid_argument{"A malformed input was passed to a URL API function."};
     else if (code == CURLUE_BAD_PORT_NUMBER)
         throw std::domain_error{"The port number was not a decimal number between 0 and 65535."};
+    else if (code == CURLUE_UNSUPPORTED_SCHEME)
+        throw NotSupported_error{"This libcurl build doesn't support the given URL scheme."};
     else if (code != CURLUE_OK)
         throw Url::Exception{code};
 }
