@@ -69,6 +69,8 @@ public:
 
         Exception(int err_code_arg);
         Exception(const Exception&) = default;
+
+        auto what() const noexcept -> const char*;
     };
 
     /**
