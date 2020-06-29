@@ -54,6 +54,14 @@ void check(CURLUcode code)
 {
     if (code == CURLUE_OUT_OF_MEMORY)
         throw std::bad_alloc{};
+    else if (code == CURLUE_BAD_HANDLE)
+        throw std::invalid_argument{"An argument that should be a CURLU pointer was passed in as a NULL."};
+    else if (code == CURLUE_BAD_PARTPOINTER)
+        throw std::invalid_argument{"A NULL pointer was passed to the 'part' argument of curl_url_get."};
+    else if (code == CURLUE_MALFORMED_INPUT)
+        throw std::invalid_argument{"A malformed input was passed to a URL API function."};
+    else if (code == CURLUE_BAD_PORT_NUMBER)
+        throw std::domain_error{"The port number was not a decimal number between 0 and 65535."};
     else if (code != CURLUE_OK)
         throw Url::Exception{code};
 }
