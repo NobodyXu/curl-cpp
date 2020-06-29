@@ -111,7 +111,7 @@ void Url::set_options(const char *options)
     CHECK(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
 }
 
-auto Url::get_url() -> fullurl_str
+auto Url::get_url() const -> fullurl_str
 {
     char *fullurl;
     CHECK(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
