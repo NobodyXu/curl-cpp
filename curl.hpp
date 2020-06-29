@@ -93,9 +93,9 @@ public:
 
     long get_response_code() const;
 
-    std::size_t getinfo_sizeof_uploaded();
-    std::size_t getinfo_sizeof_response_header();
-    std::size_t getinfo_sizeof_response_body();
+    std::size_t getinfo_sizeof_uploaded() const;
+    std::size_t getinfo_sizeof_response_header() const;
+    std::size_t getinfo_sizeof_response_body() const;
 
     ~handle_t();
 
