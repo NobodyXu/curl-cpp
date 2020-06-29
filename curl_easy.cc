@@ -25,26 +25,6 @@ auto handle_t::Exception::what() const noexcept -> const char*
     return curl_easy_strerror(static_cast<CURLcode>(error_code));
 }
 
-curl_t::curl_t(FILE *debug_stream_arg):
-    debug_stream{debug_stream_arg}
-{
-    CHECK(curl_global_init(CURL_GLOBAL_ALL));
-}
-bool curl_t::has_compression_support() const noexcept
-{
-    auto *info = curl_version_info(CURLVERSION_NOW);
-    return info->features & CURL_VERSION_LIBZ;
-}
-bool curl_t::has_http2_support() const noexcept
-{
-    auto *info = curl_version_info(CURLVERSION_NOW);
-    return info->features & CURL_VERSION_HTTP2;
-}
-curl_t::~curl_t()
-{
-    curl_global_cleanup();
-}
-
 handle_t::handle_t(void *p):
     curl_easy{p}
 {}
