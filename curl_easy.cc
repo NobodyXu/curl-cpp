@@ -16,14 +16,6 @@ static void check_easy(CURLcode code, const char *expr)
         throw handle_t::Exception{code};
 }
 
-Exception::Exception(const char *what_arg):
-    std::runtime_error{what_arg}
-{}
-handle_t::Exception::Exception(int err_code_arg):
-    curl::Exception{curl_easy_strerror(static_cast<CURLcode>(err_code_arg))},
-    error_code{err_code_arg}
-{}
-
 curl_t::curl_t(FILE *debug_stream_arg):
     debug_stream{debug_stream_arg}
 {

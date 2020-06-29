@@ -10,8 +10,7 @@
 namespace curl {
 class Exception: public std::runtime_error {
 public:
-    Exception(const char *what_arg);
-    Exception(const Exception&) = default;
+    using std::runtime_error::runtime_error;
 };
 class NotSupported_error: public Exception {
 public:
