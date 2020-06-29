@@ -22,8 +22,6 @@ static void check_easy(CURLcode code, const char *expr)
         throw handle_t::ConnnectionFailed_error{code};
     else if (code == CURLE_OPERATION_TIMEDOUT)
         throw handle_t::Timeout_error{code};
-    else if (code == CURLE_BAD_FUNCTION_ARGUMENT)
-        throw std::invalid_argument{expr};
     else if (code == CURLE_UNKNOWN_OPTION)
         throw std::invalid_argument{expr};
     else if (code != CURLE_OK)
