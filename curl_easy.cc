@@ -115,6 +115,13 @@ void handle_t::perform()
     CHECK(curl_easy_perform(curl_easy));
 }
 
+long handle_t::get_response_code() const
+{
+    long response_code;
+    curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
+    return response_code;
+}
+
 std::size_t handle_t::getinfo_sizeof_uploaded()
 {
     curl_off_t ul;
