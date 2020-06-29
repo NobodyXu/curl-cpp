@@ -1,16 +1,6 @@
 #include "curl.hpp"
 #include <curl/curl.h>
 
-#define CHECK(fcall)                     \
-    ({                                   \
-        CURLUcode ret = (fcall);         \
-        if (ret == CURLUE_OUT_OF_MEMORY) \
-            throw std::bad_alloc{};      \
-        else if (ret != CURLUE_OK)       \
-            throw Url::Exception{ret};   \
-        ret;                             \
-    })
-
 namespace curl {
 Url::Exception::Exception(int err_code_arg):
     curl::Exception{""},
@@ -60,6 +50,15 @@ auto Url::Exception::what() const noexcept -> const char*
 
 }
 
+void check(CURLUcode code)
+{
+    if (code == CURLUE_OUT_OF_MEMORY)
+        throw std::bad_alloc{};
+    else if (code != CURLUE_OK)
+        throw Url::Exception{code};
+}
+
+
 Url::Url():
     url{curl_url()}
 {
@@ -101,21 +100,21 @@ Url& Url::operator = (Url &&other) noexcept
 
 void Url::set_url(const char *url_arg)
 {
-    CHECK(curl_url_set(static_cast<CURLU*>(url), CURLUPART_URL, url_arg, 0));
+    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_URL, url_arg, 0));
 }
 void Url::set_scheme(const char *scheme)
 {
-    CHECK(curl_url_set(static_cast<CURLU*>(url), CURLUPART_SCHEME, scheme, 0));
+    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_SCHEME, scheme, 0));
 }
 void Url::set_options(const char *options)
 {
-    CHECK(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
+    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
 }
 
 auto Url::get_url() const -> fullurl_str
 {
     char *fullurl;
-    CHECK(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
+    check(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
     return fullurl_str(fullurl, &curl_free);
 }
 
