@@ -13,6 +13,10 @@ public:
     Exception(const char *what_arg);
     Exception(const Exception&) = default;
 };
+class NotSupported_error: public Exception {
+public:
+    using Exception::Exception;
+};
 
 class handle_t;
 class Url;
