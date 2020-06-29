@@ -28,6 +28,7 @@ public:
     ~curl_t();
 
     bool has_compression_support() const noexcept;
+    bool has_http2_support() const noexcept;
 
     /**
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).

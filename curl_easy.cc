@@ -34,6 +34,11 @@ bool curl_t::has_compression_support() const noexcept
     auto *info = curl_version_info(CURLVERSION_NOW);
     return info->features & CURL_VERSION_LIBZ;
 }
+bool curl_t::has_http2_support() const noexcept
+{
+    auto *info = curl_version_info(CURLVERSION_NOW);
+    return info->features & CURL_VERSION_HTTP2;
+}
 curl_t::~curl_t()
 {
     curl_global_cleanup();
