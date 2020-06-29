@@ -12,11 +12,25 @@ static void check_easy(CURLcode code, const char *expr)
         throw std::bad_alloc{};
     else if (code == CURLE_BAD_FUNCTION_ARGUMENT)
         throw std::invalid_argument{expr};
+    else if (code == CURLE_NOT_BUILT_IN)
+        throw NotSupported_error{"A feature, protocol or option wasn't in this libcurl at compilation."};
+    else if (code == CURLE_COULDNT_RESOLVE_PROXY)
+        throw handle_t::CannotResolve_error{code};
+    else if (code == CURLE_COULDNT_RESOLVE_HOST)
+        throw handle_t::CannotResolve_error{code};
+    else if (code == CURLE_COULDNT_CONNECT)
+        throw handle_t::ConnnectionFailed_error{code};
+    else if (code == CURLE_OPERATION_TIMEDOUT)
+        throw handle_t::Timeout_error{code};
+    else if (code == CURLE_BAD_FUNCTION_ARGUMENT)
+        throw std::invalid_argument{expr};
+    else if (code == CURLE_UNKNOWN_OPTION)
+        throw std::invalid_argument{expr};
     else if (code != CURLE_OK)
         throw handle_t::Exception{code};
 }
 
-handle_t::Exception::Exception(int err_code_arg):
+handle_t::Exception::Exception(long err_code_arg):
     curl::Exception{""},
     error_code{err_code_arg}
 {}
@@ -24,6 +38,11 @@ auto handle_t::Exception::what() const noexcept -> const char*
 {
     return curl_easy_strerror(static_cast<CURLcode>(error_code));
 }
+
+handle_t::ProtocolError::ProtocolError(long err_code_arg, long response_code_arg):
+    handle_t::Exception{err_code_arg},
+    response_code{response_code_arg}
+{}
 
 handle_t::handle_t(void *p):
     curl_easy{p}
@@ -93,7 +112,14 @@ void handle_t::request_post(const void *data, std::size_t len)
 
 void handle_t::perform()
 {
-    CHECK(curl_easy_perform(curl_easy));
+    auto code = curl_easy_perform(curl_easy);
+
+    if (code == CURLE_QUOTE_ERROR)
+        throw handle_t::ProtocolError{code, get_response_code()};
+    else if (code == CURLE_HTTP_RETURNED_ERROR)
+        throw handle_t::ProtocolError{code, get_response_code()};
+    else
+        check_easy(code, "curl_easy_perform(curl_easy)");
 }
 
 long handle_t::get_response_code() const

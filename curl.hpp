@@ -72,12 +72,31 @@ public:
 
     class Exception: public curl::Exception {
     public:
-        const int error_code;
+        const long error_code;
 
-        Exception(int err_code_arg);
+        Exception(long err_code_arg);
         Exception(const Exception&) = default;
 
         auto what() const noexcept -> const char*;
+    };
+    class CannotResolve_error: public Exception {
+    public:
+        using Exception::Exception;
+    };
+    class ConnnectionFailed_error: public Exception {
+    public:
+        using Exception::Exception;
+    };
+    class ProtocolError: public Exception {
+    public:
+        const long response_code;
+
+        ProtocolError(long err_code_arg, long response_code_arg);
+        ProtocolError(const ProtocolError&) = default;
+    };
+    class Timeout_error: public Exception {
+    public:
+        using Exception::Exception;
     };
 
     /**
