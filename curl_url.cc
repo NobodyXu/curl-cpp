@@ -12,9 +12,13 @@
     })
 
 namespace curl {
-static auto curl_url_strerror(int code) noexcept -> const char*
+Url::Exception::Exception(int err_code_arg):
+    curl::Exception{""},
+    error_code{err_code_arg}
+{}
+auto Url::Exception::what() const noexcept -> const char*
 {
-    switch (code) {
+    switch (error_code) {
         case CURLUE_BAD_HANDLE:
             return "An argument that should be a CURLU pointer was passed in as a NULL.";
         case CURLUE_BAD_PARTPOINTER:
@@ -53,11 +57,8 @@ static auto curl_url_strerror(int code) noexcept -> const char*
         default:
             return "Unknown/unsupported error code.";
     }
+
 }
-Url::Exception::Exception(int err_code_arg):
-    error_code{err_code_arg},
-    curl::Exception{curl_url_strerror(err_code_arg)}
-{}
 
 Url::Url():
     url{curl_url()}
