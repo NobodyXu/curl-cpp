@@ -28,6 +28,13 @@ class curl_t {
 
 public:
     curl_t(FILE *debug_stream_arg);
+
+    curl_t(const curl_t&) = delete;
+    curl_t(curl_t&&) = delete;
+
+    curl_t& operator = (const curl_t&) = delete;
+    curl_t& operator = (curl_t&&) = delete;
+
     ~curl_t();
 
     bool has_compression_support() const noexcept;
