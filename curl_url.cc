@@ -50,7 +50,7 @@ auto Url::Exception::what() const noexcept -> const char*
 
 }
 
-void check(CURLUcode code)
+static void check_url(CURLUcode code)
 {
     if (code == CURLUE_OUT_OF_MEMORY)
         throw std::bad_alloc{};
@@ -110,21 +110,21 @@ Url& Url::operator = (Url &&other) noexcept
 
 void Url::set_url(const char *url_arg)
 {
-    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_URL, url_arg, 0));
+    check_url(curl_url_set(static_cast<CURLU*>(url), CURLUPART_URL, url_arg, 0));
 }
 void Url::set_scheme(const char *scheme)
 {
-    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_SCHEME, scheme, 0));
+    check_url(curl_url_set(static_cast<CURLU*>(url), CURLUPART_SCHEME, scheme, 0));
 }
 void Url::set_options(const char *options)
 {
-    check(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
+    check_url(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
 }
 
 auto Url::get_url() const -> fullurl_str
 {
     char *fullurl;
-    check(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
+    check_url(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
     return fullurl_str(fullurl, &curl_free);
 }
 
