@@ -27,6 +27,8 @@ public:
     curl_t(FILE *debug_stream_arg);
     ~curl_t();
 
+    bool has_compression_support() const noexcept;
+
     /**
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).
      * @param url must exist until perform() returns.

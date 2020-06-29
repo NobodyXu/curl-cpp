@@ -29,6 +29,11 @@ curl_t::curl_t(FILE *debug_stream_arg):
 {
     CHECK(curl_global_init(CURL_GLOBAL_ALL));
 }
+bool curl_t::has_compression_support() const noexcept
+{
+    auto *info = curl_version_info(CURLVERSION_NOW);
+    return info->features & CURL_VERSION_LIBZ;
+}
 curl_t::~curl_t()
 {
     curl_global_cleanup();
