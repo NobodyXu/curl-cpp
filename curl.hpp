@@ -143,11 +143,18 @@ public:
     long get_response_code() const;
 
     /**
-     * getinfo_sizeof_* can only throw NotSupported_error
+     * @return in bytes
+     * @exception NotSupported_error
      */
     std::size_t getinfo_sizeof_uploaded() const;
     std::size_t getinfo_sizeof_response_header() const;
     std::size_t getinfo_sizeof_response_body() const;
+
+    /**
+     * @return transfer time in ms
+     * @exception NotSupported_error
+     */
+    std::size_t getinfo_transfer_time() const;
 
     ~handle_t();
 

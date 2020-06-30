@@ -113,6 +113,12 @@ std::size_t handle_t::getinfo_sizeof_response_body() const
     check_easy(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl), "CURLINFO_SIZE_DOWNLOAD_T");
     return dl;
 }
+std::size_t handle_t::getinfo_transfer_time() const
+{
+    curl_off_t total;
+    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total), "CURLINFO_TOTAL_TIME_T");
+    return total;
+}
 
 handle_t::~handle_t()
 {
