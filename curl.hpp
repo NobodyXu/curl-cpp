@@ -56,13 +56,17 @@ public:
 	 * 
      * @param buffer not null-terminated
      */
-    using download_callback_t = std::size_t (*)(char *buffer, std::size_t size, void *data);
+    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, void *data);
 
 private:
     void *curl_easy;
 
-    download_callback_t download_callback;
-    void *data;
+public:
+    /**
+     * If set to nullptr, then all response content are ignored.
+     */
+    writeback_t writeback = nullptr;
+    void *data = nullptr;
 
 protected:
     handle_t(void *p);
@@ -113,7 +117,7 @@ public:
      */
     void set(const Url &url, const char *useragent, const char *encoding);
 
-    void request_get(download_callback_t callback, void *data);
+    void request_get();
     /**
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
@@ -131,8 +135,17 @@ public:
     ~handle_t();
 
     // High-level functions
+
+    /**
+     * readall() and read() can be used for get or post.
+     * They would return the response content as std::string.
+     *
+     * readall() would return all while read would only return
+     * first bytes byte.
+     */
     std::string readall();
     std::string read(std::size_t bytes);
+
     void establish_connection_only();
 };
 

@@ -43,17 +43,6 @@ handle_t::ProtocolError::ProtocolError(long err_code_arg, long response_code_arg
     response_code{response_code_arg}
 {}
 
-handle_t::handle_t(void *p):
-    curl_easy{p}
-{}
-handle_t::handle_t(const handle_t &other):
-    curl_easy{curl_easy_duphandle(other.curl_easy)},
-    download_callback{other.download_callback},
-    data{other.data}
-{
-    if (!curl_easy)
-        throw curl::Exception("curl_easy_duphandle failed");
-}
 handle_t curl_t::create_conn(const Url &url, const char *useragent, const char *encoding)
 {
     CURL *curl = curl_easy_init();
@@ -73,10 +62,37 @@ handle_t curl_t::create_conn(const Url &url, const char *useragent, const char *
     // Fail on HTTP 4xx errors
     CHECK(curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L));
 
+    // Attempt to optimize buffer size for writeback
+    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
+
     handle_t handle{curl};
     handle.set(url, useragent, encoding);
     return handle;
 }
+handle_t::handle_t(void *p):
+    curl_easy{p}
+{
+    auto write_callback = [](char *buffer, std::size_t _, std::size_t size, void *arg) noexcept {
+        handle_t *handle = static_cast<handle_t*>(arg);
+        if (handle->writeback)
+            return handle->writeback(buffer, size, handle->data);
+        else
+            return size;
+    };
+
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
+}
+handle_t::handle_t(const handle_t &other):
+    curl_easy{curl_easy_duphandle(other.curl_easy)},
+    writeback{other.writeback},
+    data{other.data}
+{
+    if (!curl_easy)
+        throw curl::Exception("curl_easy_duphandle failed");
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+}
+
 void handle_t::set(const Url &url, const char *useragent, const char *encoding)
 {
     // Set url
@@ -87,21 +103,9 @@ void handle_t::set(const Url &url, const char *useragent, const char *encoding)
     CHECK(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
 }
 
-void handle_t::request_get(download_callback_t callback, void *data_arg)
+void handle_t::request_get()
 {
-    this->data = data_arg;
-    this->download_callback = callback;
-
-    auto write_callback = [](char *buffer, std::size_t _, std::size_t size, void *arg) noexcept {
-        handle_t *handle = static_cast<handle_t*>(arg);
-        return handle->download_callback(buffer, size, handle->data);
-    };
-
     CHECK(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L));
-    curl_easy_setopt(curl_easy, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
-
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
 }
 void handle_t::request_post(const void *data, std::size_t len)
 {
@@ -157,13 +161,13 @@ std::string handle_t::readall()
 {
     std::string response;
 
-    auto callback = [](char *buffer, std::size_t size, void *data) {
+    writeback = [](char *buffer, std::size_t size, void *data) {
         std::string &response = *static_cast<std::string*>(data);
         response.append(buffer, buffer + size);
         return size;
     };
+    data = &response;
 
-    request_get(callback, &response);
     perform();
 
     return response;
@@ -173,7 +177,7 @@ std::string handle_t::read(std::size_t bytes)
     std::string response;
     response.reserve(bytes);
 
-    auto callback = [](char *buffer, std::size_t size, void *data) {
+    writeback = [](char *buffer, std::size_t size, void *data) {
         std::string &response = *static_cast<std::string*>(data);
 
         auto str_size = response.size();
@@ -183,8 +187,8 @@ std::string handle_t::read(std::size_t bytes)
 
         return size;
     };
+    data = &response;
 
-    request_get(callback, &response);
     perform();
 
     return response;
