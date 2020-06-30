@@ -219,6 +219,7 @@ public:
     void set_url(const char *url_arg);
     void set_scheme(const char *scheme);
     void set_options(const char *options);
+    void set_query(const char *query);
 
     using fullurl_str = std::unique_ptr<char, void (*)(void*)>;
     auto get_url() const -> fullurl_str;

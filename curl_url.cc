@@ -53,6 +53,10 @@ void Url::set_options(const char *options)
 {
     check_url(curl_url_set(static_cast<CURLU*>(url), CURLUPART_OPTIONS, options, 0));
 }
+void Url::set_query(const char *query)
+{
+    check_url(curl_url_set(static_cast<CURLU*>(url), CURLUPART_QUERY, query, 0));
+}
 
 auto Url::get_url() const -> fullurl_str
 {
