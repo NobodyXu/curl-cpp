@@ -91,7 +91,7 @@ void handle_t::perform()
 long handle_t::get_response_code() const
 {
     long response_code;
-    curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
+    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code), "CURLINFO_RESPONSE_CODE");
     return response_code;
 }
 
