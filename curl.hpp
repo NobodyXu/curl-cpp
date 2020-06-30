@@ -69,6 +69,8 @@ public:
 protected:
     handle_t(void *p);
 
+    static void check_easy(int code, const char *expr);
+
 public:
     friend handle_t curl_t::create_handle();
 
@@ -150,6 +152,9 @@ public:
 
 class Url {
     void *url;
+
+protected:
+    static void check_url(int code);
 
 public:
     friend void handle_t::set(const Url &url, const char *useragent, const char *encoding);
