@@ -186,6 +186,11 @@ public:
         auto what() const noexcept -> const char*;
     };
 
+    /**
+     * ctor and assignment can throw std::bad_alloc only.
+     * noexcept mv ctor and assignment is noexcept.
+     */
+
     Url();
     Url(const char *url_arg);
     Url(const Url&);
