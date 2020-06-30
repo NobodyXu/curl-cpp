@@ -43,7 +43,7 @@ handle_t::ProtocolError::ProtocolError(long err_code_arg, long response_code_arg
     response_code{response_code_arg}
 {}
 
-handle_t curl_t::create_conn(const Url &url, const char *useragent, const char *encoding)
+handle_t curl_t::create_handle(const Url &url, const char *useragent, const char *encoding)
 {
     CURL *curl = curl_easy_init();
     if (!curl)

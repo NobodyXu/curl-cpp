@@ -45,7 +45,7 @@ public:
      * @param url must exist until perform() returns.
      * @exception curl::Exception and curl::handle_t::Exception.
      */
-    handle_t create_conn(const Url &url, const char *useragent = NULL, const char *encoding = "");
+    handle_t create_handle(const Url &url, const char *useragent = NULL, const char *encoding = "");
 };
 
 class handle_t {
@@ -72,7 +72,7 @@ protected:
     handle_t(void *p);
 
 public:
-    friend handle_t curl_t::create_conn(const Url &url, const char *useragent, const char *encoding);
+    friend handle_t curl_t::create_handle(const Url &url, const char *useragent, const char *encoding);
 
     class Exception: public curl::Exception {
     public:
