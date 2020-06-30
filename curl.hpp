@@ -217,6 +217,10 @@ public:
     Url& operator = (Url &&other) noexcept;
 
     void set_url(const char *url_arg);
+
+    /**
+     * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
+     */
     void set_scheme(const char *scheme);
     void set_options(const char *options);
     void set_query(const char *query);
