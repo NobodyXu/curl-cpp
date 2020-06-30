@@ -131,6 +131,9 @@ public:
      */
     void request_post(const void *data, std::size_t len);
 
+    /**
+     * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
+     */
     void perform();
 
     long get_response_code() const;
