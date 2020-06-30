@@ -113,7 +113,8 @@ public:
     handle_t& operator = (handle_t&&) = delete;
 
     /**
-     * @param url must exist until perform() returns.
+     * @param url content of it must not be changed during call to perform(),
+     *            but can be changed once it is finished.
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).
      * @exception std::bad_alloc or NotSupported_error
      */
