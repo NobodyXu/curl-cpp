@@ -158,8 +158,7 @@ std::string handle_t::read(std::size_t bytes)
 }
 void handle_t::establish_connection_only()
 {
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L));
-    curl_easy_setopt(curl_easy, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
+    request_get();
 
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);
     perform();
