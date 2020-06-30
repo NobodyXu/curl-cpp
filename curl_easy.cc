@@ -59,11 +59,11 @@ handle_t::handle_t(const handle_t &other):
 void handle_t::set(const Url &url, const char *useragent, const char *encoding)
 {
     // Set url
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url));
+    check_easy(curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url), "CURLOPT_CURLU");
     // Set useragent
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
+    check_easy(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent), "CURLOPT_USERAGENT");
     // Set encoding
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
+    check_easy(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding), "CURLOPT_ACCEPT_ENCODING");
 }
 
 void handle_t::request_get()

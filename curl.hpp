@@ -115,6 +115,7 @@ public:
     /**
      * @param url must exist until perform() returns.
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).
+     * @exception std::bad_alloc or NotSupported_error
      */
     void set(const Url &url, const char *useragent, const char *encoding);
 
