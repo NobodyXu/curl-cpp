@@ -155,6 +155,8 @@ public:
      *
      * readall() would return all while read would only return
      * first bytes byte.
+     *
+     * Can throw any exception that perform would throw.
      */
     std::string readall();
     std::string read(std::size_t bytes);
