@@ -20,7 +20,7 @@ void handle_t::check_easy(int code, const char *expr)
     else if (code == CURLE_OPERATION_TIMEDOUT)
         throw handle_t::Timeout_error{code};
     else if (code == CURLE_UNKNOWN_OPTION)
-        throw std::invalid_argument{expr};
+        throw NotSupported_error{expr};
     else if (code != CURLE_OK)
         throw handle_t::Exception{code};
 }
