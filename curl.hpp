@@ -161,6 +161,9 @@ public:
     std::string readall();
     std::string read(std::size_t bytes);
 
+    /**
+     * @exception any exception request_get() and perform() can throw.
+     */
     void establish_connection_only();
 };
 
