@@ -2,6 +2,7 @@
 #include <curl/curl.h>
 
 #include <utility>
+#include <algorithm>
 
 #define CHECK(expr) check_easy((expr), #expr)
 
@@ -158,7 +159,7 @@ std::string handle_t::readall()
 
     auto callback = [](char *buffer, std::size_t size, void *data) {
         std::string &response = *static_cast<std::string*>(data);
-        response.append(buffer, buffer + size - 1);
+        response.append(buffer, buffer + size);
         return size;
     };
 
