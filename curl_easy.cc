@@ -168,6 +168,27 @@ std::string handle_t::readall()
 
     return response;
 }
+std::string handle_t::read(std::size_t bytes)
+{
+    std::string response;
+    response.reserve(bytes);
+
+    auto callback = [](char *buffer, std::size_t size, void *data) {
+        std::string &response = *static_cast<std::string*>(data);
+
+        auto str_size = response.size();
+        auto str_cap = response.capacity();
+        if (str_size < str_cap)
+            response.append(buffer, buffer + std::min(size, str_cap - str_size));
+
+        return size;
+    };
+
+    request_get(callback, &response);
+    perform();
+
+    return response;
+}
 void handle_t::establish_connection_only()
 {
     CHECK(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L));

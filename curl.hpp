@@ -132,6 +132,7 @@ public:
 
     // High-level functions
     std::string readall();
+    std::string read(std::size_t bytes);
     void establish_connection_only();
 };
 
