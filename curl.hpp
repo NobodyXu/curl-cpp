@@ -41,11 +41,9 @@ public:
     bool has_http2_support() const noexcept;
 
     /**
-     * @param encoding "" for enable all, NULL for disable all (including auto decompression).
-     * @param url must exist until perform() returns.
-     * @exception curl::Exception and curl::handle_t::Exception.
+     * @exception curl::NotSupported_error.
      */
-    handle_t create_handle(const Url &url, const char *useragent = NULL, const char *encoding = "");
+    handle_t create_handle();
 };
 
 class handle_t {
@@ -72,7 +70,7 @@ protected:
     handle_t(void *p);
 
 public:
-    friend handle_t curl_t::create_handle(const Url &url, const char *useragent, const char *encoding);
+    friend handle_t curl_t::create_handle();
 
     class Exception: public curl::Exception {
     public:
@@ -114,6 +112,7 @@ public:
 
     /**
      * @param url must exist until perform() returns.
+     * @param encoding "" for enable all, NULL for disable all (including auto decompression).
      */
     void set(const Url &url, const char *useragent, const char *encoding);
 

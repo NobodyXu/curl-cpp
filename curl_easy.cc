@@ -43,7 +43,7 @@ handle_t::ProtocolError::ProtocolError(long err_code_arg, long response_code_arg
     response_code{response_code_arg}
 {}
 
-handle_t curl_t::create_handle(const Url &url, const char *useragent, const char *encoding)
+handle_t curl_t::create_handle()
 {
     CURL *curl = curl_easy_init();
     if (!curl)
@@ -60,13 +60,12 @@ handle_t curl_t::create_handle(const Url &url, const char *useragent, const char
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
     // Fail on HTTP 4xx errors
-    CHECK(curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L));
+    check_easy(curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L), "CURLOPT_FAILONERROR");
 
     // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
 
     handle_t handle{curl};
-    handle.set(url, useragent, encoding);
     return handle;
 }
 handle_t::handle_t(void *p):
