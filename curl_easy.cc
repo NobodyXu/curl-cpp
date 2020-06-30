@@ -98,19 +98,19 @@ long handle_t::get_response_code() const
 std::size_t handle_t::getinfo_sizeof_uploaded() const
 {
     curl_off_t ul;
-    CHECK(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul));
+    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul), "CURLINFO_SIZE_UPLOAD_T");
     return ul;
 }
 std::size_t handle_t::getinfo_sizeof_response_header() const
 {
     long size;
-    CHECK(curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &size));
+    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &size), "CURLINFO_HEADER_SIZE");
     return size;
 }
 std::size_t handle_t::getinfo_sizeof_response_body() const
 {
     curl_off_t dl;
-    CHECK(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl));
+    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl), "CURLINFO_SIZE_DOWNLOAD_T");
     return dl;
 }
 

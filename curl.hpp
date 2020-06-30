@@ -138,6 +138,9 @@ public:
 
     long get_response_code() const;
 
+    /**
+     * getinfo_sizeof_* can only throw NotSupported_error
+     */
     std::size_t getinfo_sizeof_uploaded() const;
     std::size_t getinfo_sizeof_response_header() const;
     std::size_t getinfo_sizeof_response_body() const;
