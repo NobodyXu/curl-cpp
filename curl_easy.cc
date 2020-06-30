@@ -72,7 +72,7 @@ void handle_t::request_get()
 }
 void handle_t::request_post(const void *data, std::size_t len)
 {
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len));
+    check_easy(curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len), "CURLOPT_POSTFIELDSIZE_LARGE");
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
 }
 

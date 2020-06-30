@@ -126,6 +126,8 @@ public:
     /**
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
+     *
+     * @exception NotSupported_error
      */
     void request_post(const void *data, std::size_t len);
 
