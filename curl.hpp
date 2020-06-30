@@ -136,6 +136,9 @@ public:
      */
     void perform();
 
+    /**
+     * @exception NotSupported_error
+     */
     long get_response_code() const;
 
     /**
