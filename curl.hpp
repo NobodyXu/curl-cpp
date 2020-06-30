@@ -119,6 +119,9 @@ public:
      */
     void set(const Url &url, const char *useragent, const char *encoding);
 
+    /**
+     * @exception NotSupported_error
+     */
     void request_get();
     /**
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 

@@ -68,7 +68,7 @@ void handle_t::set(const Url &url, const char *useragent, const char *encoding)
 
 void handle_t::request_get()
 {
-    CHECK(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L));
+    check_easy(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L), "CURLOPT_HTTPGET");
 }
 void handle_t::request_post(const void *data, std::size_t len)
 {
