@@ -131,7 +131,7 @@ public:
      *
      * @exception NotSupported_error
      */
-    void request_post(const void *data, std::size_t len);
+    auto request_post(const void *data, std::size_t len) -> Ret_except<void, NotSupported_error>;
 
     /**
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
