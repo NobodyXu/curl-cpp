@@ -89,7 +89,11 @@ auto handle_t::request_get() -> Ret_except<void, NotSupported_error>
 }
 auto handle_t::request_post(const void *data, std::size_t len) -> Ret_except<void, NotSupported_error>
 {
-    CURL_EASY_SETOPT(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
+    if (len > 2L * 1024 * 1024 * 1024 /* 2GB */)
+        CURL_EASY_SETOPT(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
+    else
+        CURL_EASY_SETOPT(curl_easy, CURLOPT_POSTFIELDSIZE, len);
+
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
     return {};
 }
