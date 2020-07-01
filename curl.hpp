@@ -118,7 +118,8 @@ public:
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).
      * @exception std::bad_alloc or NotSupported_error
      */
-    void set(const Url &url, const char *useragent, const char *encoding);
+    auto set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
+        Ret_except<void, NotSupported_error>;
 
     /**
      * @exception NotSupported_error
@@ -185,7 +186,8 @@ protected:
     static void check_url(int code);
 
 public:
-    friend void handle_t::set(const Url &url, const char *useragent, const char *encoding);
+    friend auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept ->
+        Ret_except<void, NotSupported_error>;
 
     class Exception: public curl::Exception {
     public:

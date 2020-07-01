@@ -65,14 +65,14 @@ handle_t::handle_t(handle_t &&other) noexcept:
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
 }
 
-void handle_t::set(const Url &url, const char *useragent, const char *encoding)
+auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
+    Ret_except<void, NotSupported_error>
 {
-    // Set url
-    check_easy(curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url), "CURLOPT_CURLU");
-    // Set useragent
-    check_easy(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent), "CURLOPT_USERAGENT");
-    // Set encoding
-    check_easy(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding), "CURLOPT_ACCEPT_ENCODING");
+    CURL_EASY_SETOPT(curl_easy, CURLOPT_CURLU, url.url);
+    CURL_EASY_SETOPT(curl_easy, CURLOPT_USERAGENT, useragent);
+    CURL_EASY_SETOPT(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding);
+
+    return {};
 }
 
 void handle_t::request_get()
