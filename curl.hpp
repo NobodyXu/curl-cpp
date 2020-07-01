@@ -124,7 +124,7 @@ public:
     /**
      * @exception NotSupported_error
      */
-    void request_get();
+    auto request_get() -> Ret_except<void, NotSupported_error>;
     /**
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 

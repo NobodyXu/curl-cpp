@@ -75,9 +75,10 @@ auto handle_t::set(const Url &url, const char *useragent, const char *encoding) 
     return {};
 }
 
-void handle_t::request_get()
+auto handle_t::request_get() -> Ret_except<void, NotSupported_error>
 {
-    check_easy(curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L), "CURLOPT_HTTPGET");
+    CURL_EASY_SETOPT(curl_easy, CURLOPT_HTTPGET, 1L);
+    return {};
 }
 void handle_t::request_post(const void *data, std::size_t len)
 {
