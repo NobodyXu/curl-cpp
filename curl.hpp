@@ -66,13 +66,9 @@ public:
     void *data = nullptr;
 
 protected:
-    handle_t(void *p) noexcept;
-
     static void check_easy(int code, const char *expr);
 
 public:
-    friend auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>;
-
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -101,6 +97,11 @@ public:
     public:
         using Exception::Exception;
     };
+
+    /**
+     * @param curl must be ret value of curl_easy_init()
+     */
+    handle_t(void *curl) noexcept;
 
     handle_t(const handle_t&, Ret_except<void, curl::Exception> &e) noexcept;
     /**
