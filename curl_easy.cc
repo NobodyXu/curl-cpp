@@ -59,6 +59,12 @@ handle_t::handle_t(const handle_t &other, Ret_except<void, curl::Exception> &e) 
         e.set_exception<curl::Exception>("curl_easy_duphandle failed");
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
 }
+handle_t::handle_t(handle_t &&other) noexcept:
+    curl_easy{other.curl_easy}
+{
+    other.curl_easy = nullptr;
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+}
 
 void handle_t::set(const Url &url, const char *useragent, const char *encoding)
 {

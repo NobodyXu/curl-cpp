@@ -103,7 +103,10 @@ public:
     };
 
     handle_t(const handle_t&, Ret_except<void, curl::Exception> &e) noexcept;
-    handle_t(handle_t &&other) = delete;
+    /**
+     * @param other after mv operation, other is in invalid state and can only be destroyed.
+     */
+    handle_t(handle_t &&other) noexcept;
 
     handle_t& operator = (const handle_t&) = delete;
     handle_t& operator = (handle_t&&) = delete;
