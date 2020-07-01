@@ -66,7 +66,7 @@ public:
     void *data = nullptr;
 
 protected:
-    handle_t(void *p);
+    handle_t(void *p) noexcept;
 
     static void check_easy(int code, const char *expr);
 

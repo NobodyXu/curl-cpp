@@ -36,7 +36,7 @@ auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, N
     handle_t handle{curl};
     return handle;
 }
-handle_t::handle_t(void *p):
+handle_t::handle_t(void *p) noexcept:
     curl_easy{p}
 {
     auto write_callback = [](char *buffer, std::size_t _, std::size_t size, void *arg) noexcept {
