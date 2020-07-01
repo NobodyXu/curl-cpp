@@ -33,8 +33,7 @@ auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, N
     // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
 
-    handle_t handle{curl};
-    return handle;
+    return {std::in_place_type<handle_t>, curl};
 }
 handle_t::handle_t(void *curl) noexcept:
     curl_easy{curl}
