@@ -119,7 +119,7 @@ public:
      * @exception std::bad_alloc or NotSupported_error
      */
     auto set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-        Ret_except<void, NotSupported_error>;
+        Ret_except<void, NotSupported_error, std::bad_alloc>;
 
     /**
      * @exception NotSupported_error
@@ -187,7 +187,7 @@ protected:
 
 public:
     friend auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept ->
-        Ret_except<void, NotSupported_error>;
+        Ret_except<void, NotSupported_error, std::bad_alloc>;
 
     class Exception: public curl::Exception {
     public:

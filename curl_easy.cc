@@ -6,9 +6,16 @@
 
 #define CHECK(expr) check_easy((expr), #expr)
 
-#define CURL_EASY_SETOPT(curl, opt, val)                                \
-    if (curl_easy_setopt((curl), (opt), (val)) == CURLE_UNKNOWN_OPTION) \
-        return {NotSupported_error(# opt)}
+#define CURL_EASY_SETOPT(curl, opt, val)                    \
+    ({                                                      \
+        auto code = curl_easy_setopt((curl), (opt), (val)); \
+        if (code == CURLE_UNKNOWN_OPTION)                   \
+            return {NotSupported_error(# opt)};             \
+        code;                                               \
+    })
+#define CHECK_OOM(code)                \
+    if ((code) == CURLE_OUT_OF_MEMORY) \
+            return {std::bad_alloc{}}
 
 namespace curl {
 auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>
@@ -66,11 +73,11 @@ handle_t::handle_t(handle_t &&other) noexcept:
 }
 
 auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-    Ret_except<void, NotSupported_error>
+    Ret_except<void, NotSupported_error, std::bad_alloc>
 {
     CURL_EASY_SETOPT(curl_easy, CURLOPT_CURLU, url.url);
-    CURL_EASY_SETOPT(curl_easy, CURLOPT_USERAGENT, useragent);
-    CURL_EASY_SETOPT(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding);
+    CHECK_OOM(CURL_EASY_SETOPT(curl_easy, CURLOPT_USERAGENT, useragent));
+    CHECK_OOM(CURL_EASY_SETOPT(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
 
     return {};
 }
