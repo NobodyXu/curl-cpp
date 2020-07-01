@@ -105,7 +105,7 @@ public:
     /**
      * After calling copy constructor, you must call request_* again before calling perform.
      */
-    handle_t(const handle_t&);
+    handle_t(const handle_t&, Ret_except<void, curl::Exception> &e) noexcept;
     handle_t(handle_t &&other) = delete;
 
     handle_t& operator = (const handle_t&) = delete;

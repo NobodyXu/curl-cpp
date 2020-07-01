@@ -50,13 +50,13 @@ handle_t::handle_t(void *p) noexcept:
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
 }
-handle_t::handle_t(const handle_t &other):
+handle_t::handle_t(const handle_t &other, Ret_except<void, curl::Exception> &e) noexcept:
     curl_easy{curl_easy_duphandle(other.curl_easy)},
     writeback{other.writeback},
     data{other.data}
 {
     if (!curl_easy)
-        throw curl::Exception("curl_easy_duphandle failed");
+        e.set_exception<curl::Exception>("curl_easy_duphandle failed");
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
 }
 
