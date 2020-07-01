@@ -6,12 +6,16 @@
 
 #define CHECK(expr) check_easy((expr), #expr)
 
+#define CURL_EASY_SETOPT(curl, opt, val)                                \
+    if (curl_easy_setopt((curl), (opt), (val)) == CURLE_UNKNOWN_OPTION) \
+        return {NotSupported_error(# opt)}
+
 namespace curl {
-handle_t curl_t::create_handle()
+auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>
 {
     CURL *curl = curl_easy_init();
     if (!curl)
-        throw curl::Exception("curl_easy_init failed");
+        return {curl::Exception{"curl_easy_init failed"}};
 
     if (debug_stream) {
         curl_easy_setopt(curl, CURLOPT_STDERR, debug_stream);
@@ -24,7 +28,7 @@ handle_t curl_t::create_handle()
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
     // Fail on HTTP 4xx errors
-    handle_t::check_easy(curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L), "CURLOPT_FAILONERROR");
+    CURL_EASY_SETOPT(curl, CURLOPT_FAILONERROR, 1L);
 
     // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);

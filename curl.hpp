@@ -7,6 +7,8 @@
 # include <memory>
 # include <string>
 
+# include "return-exception/ret-exception.hpp"
+
 namespace curl {
 class Exception: public std::runtime_error {
 public:
@@ -40,10 +42,7 @@ public:
     bool has_compression_support() const noexcept;
     bool has_http2_support() const noexcept;
 
-    /**
-     * @exception curl::NotSupported_error.
-     */
-    handle_t create_handle();
+    auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>;
 };
 
 class handle_t {
@@ -72,7 +71,7 @@ protected:
     static void check_easy(int code, const char *expr);
 
 public:
-    friend handle_t curl_t::create_handle();
+    friend auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>;
 
     class Exception: public curl::Exception {
     public:
