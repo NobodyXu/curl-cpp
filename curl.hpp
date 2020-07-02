@@ -62,7 +62,7 @@ public:
      * Since this variable is designed to be static, 
      * it would call errx on error.
      *
-     * It would make sure that handle_t::get_response_code() is usable.
+     * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
      */
     curl_t(FILE *debug_stream_arg) noexcept;
 
