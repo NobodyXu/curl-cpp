@@ -78,6 +78,9 @@ public:
 
     bool has_compression_support() const noexcept;
     bool has_largefile_support() const noexcept;
+    /**
+     * @param protocol should be lower-case
+     */
     bool has_protocol(const char *protocol) const noexcept;
 
     /**
