@@ -88,6 +88,11 @@ void handle_t::request_post(const void *data, std::uint32_t len)
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE, len);
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
 }
+void handle_t::request_post_large(const void *data, std::size_t len)
+{
+    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
+    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
+}
 
 void handle_t::perform()
 {

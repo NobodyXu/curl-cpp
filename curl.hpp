@@ -134,6 +134,13 @@ public:
      * @Precondition: curl_t::has_protocol("http"), len <= 2 * 1024 * 1024 * 1024 (2GB)
      */
     void request_post(const void *data, std::uint32_t len);
+    /**
+     * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
+     * the calling application until the associated transfer finishes. 
+     *
+     * @Precondition: curl_t::has_protocol("http"), curl_t::has_largefile_support()
+     */
+    void request_post_large(const void *data, std::size_t len);
 
     /**
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
