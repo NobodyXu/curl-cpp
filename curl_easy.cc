@@ -241,6 +241,6 @@ auto Easy_t::establish_connection_only() -> perform_ret_t
     auto ret = perform();
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
 
-    return ret;
+    return std::move(ret);
 }
 } /* namespace curl */
