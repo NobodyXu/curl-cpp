@@ -83,15 +83,10 @@ void handle_t::request_get()
 {
     curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);
 }
-auto handle_t::request_post(const void *data, std::size_t len) -> Ret_except<void, NotSupported_error>
+void handle_t::request_post(const void *data, std::uint32_t len)
 {
-    if (len > 2L * 1024 * 1024 * 1024 /* 2GB */)
-        CURL_EASY_SETOPT(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
-    else
-        CURL_EASY_SETOPT(curl_easy, CURLOPT_POSTFIELDSIZE, len);
-
+    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE, len);
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
-    return {};
 }
 
 void handle_t::perform()

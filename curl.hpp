@@ -2,6 +2,7 @@
 # define __curl_cpp_curl_HPP__
 
 # include <cstddef>
+# include <cstdint>
 # include <cstdio>
 # include <stdexcept>
 # include <memory>
@@ -130,9 +131,9 @@ public:
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
      *
-     * @exception NotSupported_error
+     * @Precondition: curl_t::has_protocol("http"), len <= 2 * 1024 * 1024 * 1024 (2GB)
      */
-    auto request_post(const void *data, std::size_t len) -> Ret_except<void, NotSupported_error>;
+    void request_post(const void *data, std::uint32_t len);
 
     /**
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
