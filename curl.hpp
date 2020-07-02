@@ -169,6 +169,14 @@ public:
         Ret_except<void, std::bad_alloc>;
 
     /**
+     * @Precondition curl_t::has_CURLU(), curl_t::has_protocol("http")
+     * @param encoding "" for enable all, NULL for disable all (including auto decompression).
+     * @exception std::bad_alloc or NotSupported_error
+     */
+    auto set(const char *url, const char *useragent, const char *encoding) noexcept -> 
+        Ret_except<void, std::bad_alloc>;
+
+    /**
      * @Precondition: curl_t::has_protocol("http")
      */
     void request_get() noexcept;

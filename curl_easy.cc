@@ -86,6 +86,15 @@ auto handle_t::set(const Url &url, const char *useragent, const char *encoding) 
 
     return {};
 }
+auto handle_t::set(const char *url, const char *useragent, const char *encoding) noexcept -> 
+    Ret_except<void, std::bad_alloc>
+{
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
+
+    return {};
+}
 
 void handle_t::request_get() noexcept
 {
