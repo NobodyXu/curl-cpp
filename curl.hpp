@@ -8,6 +8,8 @@
 # include <memory>
 # include <string>
 
+# include <curl/curl.h>
+
 # include "return-exception/ret-exception.hpp"
 
 namespace curl {
@@ -103,6 +105,7 @@ public:
 
 private:
     void *curl_easy;
+    char error_buffer[CURL_ERROR_SIZE];
 
 public:
     /**
@@ -205,6 +208,8 @@ public:
     };
     auto perform() noexcept -> 
         Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error>;
+
+    auto get_error_buffer() const noexcept -> const char*;
 
     long get_response_code() const noexcept;
 

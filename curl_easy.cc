@@ -45,6 +45,8 @@ handle_t::handle_t(void *curl) noexcept:
 
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
+
+    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 handle_t::handle_t(const handle_t &other, Ret_except<void, curl::Exception> &e) noexcept:
     curl_easy{curl_easy_duphandle(other.curl_easy)},
@@ -54,12 +56,14 @@ handle_t::handle_t(const handle_t &other, Ret_except<void, curl::Exception> &e) 
     if (!curl_easy)
         e.set_exception<curl::Exception>("curl_easy_duphandle failed");
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 handle_t::handle_t(handle_t &&other) noexcept:
     curl_easy{other.curl_easy}
 {
     other.curl_easy = nullptr;
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 
 void handle_t::set_url(const Url &url) noexcept
@@ -158,6 +162,11 @@ auto handle_t::perform() noexcept ->
         default:
             return {Exception{code}};
     }
+}
+
+auto handle_t::get_error_buffer() const noexcept -> const char*
+{
+    return error_buffer;
 }
 
 long handle_t::get_response_code() const noexcept
