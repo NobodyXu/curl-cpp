@@ -6,8 +6,6 @@
 #include <utility>
 #include <algorithm>
 
-#define CHECK(expr) check_easy((expr), #expr)
-
 #define CHECK_OOM(code)                \
     if ((code) == CURLE_OUT_OF_MEMORY) \
         return {std::bad_alloc{}}
