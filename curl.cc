@@ -6,58 +6,47 @@
 #include <limits>
 
 namespace curl {
-auto get_version() noexcept -> curl_t::Version
+static constexpr const auto mask = std::numeric_limits<std::uint8_t>::max();
+std::uint8_t curl_t::Version::get_major() const noexcept
 {
-    constexpr const auto mask = std::numeric_limits<std::uint8_t>::max();
-    const auto version_num = curl_version_info(CURLVERSION_NOW)->version_num;
-
-    constexpr const auto to_field = [](auto ver) noexcept {
-        return static_cast<std::uint8_t>(ver & mask);
-    };
-
-    return {to_field(version_num >> 16), to_field(version_num >> 8), to_field(version_num)};
+    return (num >> 16) & mask;
+}
+std::uint8_t curl_t::Version::get_minor() const noexcept
+{
+    return (num >> 8) & mask;
+}
+std::uint8_t curl_t::Version::get_patch() const noexcept
+{
+    return num & mask;
 }
 bool curl_t::Version::operator < (const Version &other) const noexcept
 {
-    if (major < other.major)
-        return true;
-    else if (major > other.major)
-        return false;
-
-    if (minor < other.minor)
-        return true;
-    else if (minor > other.minor)
-        return false;
-
-    if (patch < other.patch)
-        return true;
-    else
-        return false;
+    return num < other.num;
 }
 bool curl_t::Version::operator <= (const Version &other) const noexcept
 {
-    return (*this < other) || (*this == other);
+    return num <= other.num;
 }
 bool curl_t::Version::operator > (const Version &other) const noexcept
 {
-    return !(*this <= other);
+    return num > other.num;
 }
 bool curl_t::Version::operator >= (const Version &other) const noexcept
 {
-    return !(*this < other);
+    return num >= other.num;
 }
 bool curl_t::Version::operator == (const Version &other) const noexcept
 {
-    return major == other.major || minor == other.minor || patch == other.patch;
+    return num == other.num;
 }
 bool curl_t::Version::operator != (const Version &other) const noexcept
 {
-    return !(*this == other);
+    return num != other.num;
 }
 
 curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     debug_stream{debug_stream_arg},
-    version{get_version()}
+    version{curl_version_info(CURLVERSION_NOW)->version_num}
 {
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)

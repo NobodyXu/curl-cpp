@@ -29,9 +29,11 @@ class Url;
 class curl_t {
 public:
     struct Version {
-        std::uint8_t major;
-        std::uint8_t minor;
-        std::uint8_t patch;
+        std::uint32_t num;
+
+        std::uint8_t get_major() const noexcept;
+        std::uint8_t get_minor() const noexcept;
+        std::uint8_t get_patch() const noexcept;
 
         bool operator < (const Version &other) const noexcept;
         bool operator <= (const Version &other) const noexcept;
