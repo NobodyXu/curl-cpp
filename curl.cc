@@ -17,7 +17,43 @@ auto get_version() noexcept -> curl_t::Version
 
     return {to_field(version_num >> 16), to_field(version_num >> 8), to_field(version_num)};
 }
+bool curl_t::Version::operator < (const Version &other) const noexcept
+{
+    if (major < other.major)
+        return true;
+    else if (major > other.major)
+        return false;
 
+    if (minor < other.minor)
+        return true;
+    else if (minor > other.minor)
+        return false;
+
+    if (patch < other.patch)
+        return true;
+    else
+        return false;
+}
+bool curl_t::Version::operator <= (const Version &other) const noexcept
+{
+    return (*this < other) || (*this == other);
+}
+bool curl_t::Version::operator > (const Version &other) const noexcept
+{
+    return !(*this <= other);
+}
+bool curl_t::Version::operator >= (const Version &other) const noexcept
+{
+    return !(*this < other);
+}
+bool curl_t::Version::operator == (const Version &other) const noexcept
+{
+    return major == other.major || minor == other.minor || patch == other.patch;
+}
+bool curl_t::Version::operator != (const Version &other) const noexcept
+{
+    return !(*this == other);
+}
 
 curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     debug_stream{debug_stream_arg},

@@ -32,6 +32,13 @@ public:
         std::uint8_t major;
         std::uint8_t minor;
         std::uint8_t patch;
+
+        bool operator < (const Version &other) const noexcept;
+        bool operator <= (const Version &other) const noexcept;
+        bool operator > (const Version &other) const noexcept;
+        bool operator >= (const Version &other) const noexcept;
+        bool operator == (const Version &other) const noexcept;
+        bool operator != (const Version &other) const noexcept;
     };
 
     FILE *debug_stream;
