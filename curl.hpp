@@ -252,6 +252,9 @@ public:
     void establish_connection_only();
 };
 
+/**
+ * @Precondition for using this class: curl_t::has_CURLU()
+ */
 class Url {
     void *url;
 
