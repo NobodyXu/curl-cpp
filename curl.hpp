@@ -43,6 +43,14 @@ public:
         bool operator >= (const Version &other) const noexcept;
         bool operator == (const Version &other) const noexcept;
         bool operator != (const Version &other) const noexcept;
+
+        /**
+         * @param buffer is required to be at least (3 + 1 + 3 + 1 + 3 + 1) long.
+         *               Will be write in format "uint8_t.uint8_t.uint8_t" (with trailing '\0').
+         * @return If success, the number of characters writen to buffer (excluding trailing '\0');
+         *         If failed, return negative value.
+         */
+        std::size_t to_string(char buffer[12]) const noexcept;
     };
 
     FILE *debug_stream;

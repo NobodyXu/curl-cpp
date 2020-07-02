@@ -3,6 +3,7 @@
 
 #include <err.h>
 #include <cstring>
+#include <cinttypes>
 #include <limits>
 
 namespace curl {
@@ -13,6 +14,7 @@ constexpr auto curl_t::Version::from(std::uint8_t major, std::uint8_t minor, std
             static_cast<std::uint32_t>(minor << 8)  | 
             static_cast<std::uint32_t>(patch)};
 }
+
 static constexpr const auto mask = std::numeric_limits<std::uint8_t>::max();
 std::uint8_t curl_t::Version::get_major() const noexcept
 {
@@ -26,6 +28,7 @@ std::uint8_t curl_t::Version::get_patch() const noexcept
 {
     return num & mask;
 }
+
 bool curl_t::Version::operator < (const Version &other) const noexcept
 {
     return num < other.num;
@@ -49,6 +52,11 @@ bool curl_t::Version::operator == (const Version &other) const noexcept
 bool curl_t::Version::operator != (const Version &other) const noexcept
 {
     return num != other.num;
+}
+
+std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept
+{
+    return std::snprintf(buffer, 12, "%" PRIu8 ".%" PRIu8 ".%" PRIu8, get_major(), get_minor(), get_patch());
 }
 
 curl_t::curl_t(FILE *debug_stream_arg) noexcept:
