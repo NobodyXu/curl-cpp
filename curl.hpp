@@ -27,7 +27,18 @@ class Url;
  * Must be defined as a static global variable in main
  */
 class curl_t {
+public:
+    struct Version {
+        std::uint8_t major;
+        std::uint8_t minor;
+        std::uint8_t patch;
+    };
+
+private:
     FILE *debug_stream;
+
+public:
+    const Version version;
 
 public:
     curl_t(FILE *debug_stream_arg);
