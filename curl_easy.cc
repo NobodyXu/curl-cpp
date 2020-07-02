@@ -79,16 +79,16 @@ auto handle_t::set(const Url &url, const char *useragent, const char *encoding) 
     return {};
 }
 
-void handle_t::request_get()
+void handle_t::request_get() noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);
 }
-void handle_t::request_post(const void *data, std::uint32_t len)
+void handle_t::request_post(const void *data, std::uint32_t len) noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE, len);
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
 }
-void handle_t::request_post_large(const void *data, std::size_t len)
+void handle_t::request_post_large(const void *data, std::size_t len) noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
