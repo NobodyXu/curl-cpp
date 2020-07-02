@@ -40,6 +40,7 @@ public:
     ~curl_t();
 
     bool has_compression_support() const noexcept;
+    bool has_largefile_support() const noexcept;
     bool has_protocol(const char *protocol) const noexcept;
 
     auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception>;
