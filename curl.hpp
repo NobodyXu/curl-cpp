@@ -123,9 +123,9 @@ public:
         Ret_except<void, NotSupported_error, std::bad_alloc>;
 
     /**
-     * @exception NotSupported_error
+     * @Precondition: curl_t::has_protocol("http")
      */
-    auto request_get() -> Ret_except<void, NotSupported_error>;
+    void request_get();
     /**
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
