@@ -95,6 +95,11 @@ bool curl_t::has_protocol(const char *protocol) const noexcept
     return false;
 }
 
+bool curl_t::has_CURLU(const char *protocol) const noexcept
+{
+    return version >= Version::from(7, 63, 0);
+}
+
 bool curl_t::has_sizeof_upload_support() const noexcept
 {
     return version >= Version::from(7, 55, 0);

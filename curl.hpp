@@ -78,6 +78,11 @@ public:
     bool has_largefile_support() const noexcept;
     bool has_protocol(const char *protocol) const noexcept;
 
+    /**
+     * has curl::Url support
+     */
+    bool has_CURLU(const char *protocol) const noexcept;
+
     bool has_sizeof_upload_support() const noexcept;
     bool has_sizeof_response_header_support() const noexcept;
     bool has_sizeof_response_body_support() const noexcept;
