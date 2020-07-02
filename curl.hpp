@@ -147,9 +147,6 @@ public:
      */
     void perform();
 
-    /**
-     * @exception NotSupported_error
-     */
     auto get_response_code() const noexcept -> Ret_except<long, NotSupported_error>;
 
     /**
