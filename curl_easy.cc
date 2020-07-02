@@ -107,18 +107,18 @@ void handle_t::perform()
     auto code = curl_easy_perform(curl_easy);
 
     if (code == CURLE_QUOTE_ERROR)
-        throw handle_t::ProtocolError{code, get_response_code().get_return_value()};
+        throw handle_t::ProtocolError{code, get_response_code()};
     else if (code == CURLE_HTTP_RETURNED_ERROR)
-        throw handle_t::ProtocolError{code, get_response_code().get_return_value()};
+        throw handle_t::ProtocolError{code, get_response_code()};
     else
         check_easy(code, "curl_easy_perform(curl_easy)");
 }
 
-auto handle_t::get_response_code() const noexcept -> Ret_except<long, NotSupported_error>
+long handle_t::get_response_code() const noexcept
 {
     long response_code;
-    CURL_EASY_GETINFO(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
-    return {response_code};
+    curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
+    return response_code;
 }
 
 auto handle_t::getinfo_sizeof_uploaded() const noexcept -> Ret_except<std::size_t, NotSupported_error>

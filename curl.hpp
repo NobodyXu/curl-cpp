@@ -186,7 +186,7 @@ public:
      */
     void perform();
 
-    auto get_response_code() const noexcept -> Ret_except<long, NotSupported_error>;
+    void get_response_code() const noexcept;
 
     /**
      * @return in bytes
