@@ -34,13 +34,9 @@ public:
         std::uint8_t patch;
     };
 
-private:
     FILE *debug_stream;
-
-public:
     const Version version;
 
-public:
     curl_t(FILE *debug_stream_arg);
 
     curl_t(const curl_t&) = delete;
