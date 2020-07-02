@@ -186,14 +186,23 @@ public:
      */
     void perform();
 
-    void get_response_code() const noexcept;
+    long get_response_code() const noexcept;
 
     /**
+     * @Precondition curl_t::has_sizeof_upload_support()
      * @return in bytes
      */
-    auto getinfo_sizeof_uploaded() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
-    auto getinfo_sizeof_response_header() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
-    auto getinfo_sizeof_response_body() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
+    std::size_t getinfo_sizeof_uploaded() const noexcept;
+    /**
+     * @Precondition curl_t::has_sizeof_response_header_support()
+     * @return in bytes
+     */
+    std::size_t getinfo_sizeof_response_header() const noexcept;
+    /**
+     * @Precondition curl_t::has_sizeof_response_body_support()
+     * @return in bytes
+     */
+    std::size_t getinfo_sizeof_response_body() const noexcept;
 
     /**
      * @return transfer time in ms
