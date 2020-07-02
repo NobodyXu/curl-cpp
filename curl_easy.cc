@@ -233,7 +233,7 @@ auto Easy_t::read(std::string &response) -> perform_ret_t
 
     return perform();
 }
-auto Easy_t::establish_connection_only() -> perform_ret_t
+auto Easy_t::establish_connection_only() noexcept -> perform_ret_t
 {
     request_get();
 

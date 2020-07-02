@@ -271,7 +271,7 @@ public:
      */
     auto read(std::string &response) -> perform_ret_t;
 
-    auto establish_connection_only() -> perform_ret_t;
+    auto establish_connection_only() noexcept -> perform_ret_t;
 };
 
 /**
