@@ -228,9 +228,10 @@ public:
         timedout,
         recursive_api_call,
     };
-    auto perform() noexcept -> 
-        Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error, 
-                   ProtocolInternal_error>;
+    using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
+                                     Exception, NotBuiltIn_error, ProtocolInternal_error>;
+
+    auto perform() noexcept -> perform_ret_t;
 
     long get_response_code() const noexcept;
 
@@ -272,10 +273,7 @@ public:
     std::string readall();
     std::string read(std::size_t bytes);
 
-    /**
-     * @exception any exception request_get() and perform() can throw.
-     */
-    void establish_connection_only();
+    auto establish_connection_only() -> perform_ret_t;
 };
 
 /**

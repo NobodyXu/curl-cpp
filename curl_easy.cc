@@ -241,12 +241,14 @@ std::string Easy_t::read(std::size_t bytes)
 
     return response;
 }
-void Easy_t::establish_connection_only()
+auto Easy_t::establish_connection_only() -> perform_ret_t
 {
     request_get();
 
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);
-    perform();
+    auto ret = perform();
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
+
+    return ret;
 }
 } /* namespace curl */
