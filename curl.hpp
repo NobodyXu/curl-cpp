@@ -262,16 +262,14 @@ public:
     // High-level functions
 
     /**
-     * readall() and read() can be used for get or post.
-     * They would return the response content as std::string.
-     *
-     * readall() would return all while read would only return
-     * first bytes byte.
-     *
-     * Can throw any exception that perform would throw.
+     * readall() can be used for get or post.
      */
-    std::string readall();
-    std::string read(std::size_t bytes);
+    auto readall(std::string &response) -> perform_ret_t;
+    /**
+     * read() can be used for get or post.
+     * Read in response.capacity() bytes.
+     */
+    auto read(std::string &response) -> perform_ret_t;
 
     auto establish_connection_only() -> perform_ret_t;
 };
