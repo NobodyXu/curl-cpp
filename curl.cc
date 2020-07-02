@@ -6,6 +6,13 @@
 #include <limits>
 
 namespace curl {
+constexpr auto curl_t::Version::from(std::uint8_t major, std::uint8_t minor, std::uint8_t patch) noexcept -> 
+    Version
+{
+    return {static_cast<std::uint32_t>(major << 16) | 
+            static_cast<std::uint32_t>(minor << 8)  | 
+            static_cast<std::uint32_t>(patch)};
+}
 static constexpr const auto mask = std::numeric_limits<std::uint8_t>::max();
 std::uint8_t curl_t::Version::get_major() const noexcept
 {

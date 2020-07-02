@@ -31,6 +31,8 @@ public:
     struct Version {
         std::uint32_t num;
 
+        static constexpr Version from(std::uint8_t major, std::uint8_t minor, std::uint8_t patch) noexcept;
+
         std::uint8_t get_major() const noexcept;
         std::uint8_t get_minor() const noexcept;
         std::uint8_t get_patch() const noexcept;
