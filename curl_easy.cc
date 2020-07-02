@@ -1,10 +1,8 @@
 #include "curl.hpp"
+
 #include <curl/curl.h>
-
 #include <arpa/inet.h>
-
 #include <utility>
-#include <algorithm>
 
 #define CHECK_OOM(code)                \
     if ((code) == CURLE_OUT_OF_MEMORY) \
