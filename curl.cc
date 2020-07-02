@@ -1,5 +1,6 @@
 #include "curl.hpp"
 #include <curl/curl.h>
+#include <cstring>
 
 namespace curl {
 curl_t::curl_t(FILE *debug_stream_arg):
@@ -14,10 +15,15 @@ bool curl_t::has_compression_support() const noexcept
     auto *info = curl_version_info(CURLVERSION_NOW);
     return info->features & CURL_VERSION_LIBZ;
 }
-bool curl_t::has_http2_support() const noexcept
+bool curl_t::has_protocol(const char *protocol) const noexcept
 {
-    auto *info = curl_version_info(CURLVERSION_NOW);
-    return info->features & CURL_VERSION_HTTP2;
+    auto *protocols = curl_version_info(CURLVERSION_NOW)->protocols;
+
+    for (std::size_t i = 0; protocols[i]; ++i)
+        if (std::strcmp(protocols[i], protocol) == 0)
+            return true;
+
+    return false;
 }
 curl_t::~curl_t()
 {
