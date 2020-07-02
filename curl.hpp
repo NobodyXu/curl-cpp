@@ -150,7 +150,7 @@ public:
     /**
      * @exception NotSupported_error
      */
-    long get_response_code() const;
+    auto get_response_code() const noexcept -> Ret_except<long, NotSupported_error>;
 
     /**
      * @return in bytes

@@ -17,6 +17,14 @@
     if ((code) == CURLE_OUT_OF_MEMORY) \
             return {std::bad_alloc{}}
 
+#define CURL_EASY_GETINFO(curl, opt, val)                    \
+    ({                                                       \
+        auto code = curl_easy_getinfo((curl), (opt), (val)); \
+        if (code == CURLE_UNKNOWN_OPTION)                    \
+            return {NotSupported_error(# opt)};              \
+        code;                                                \
+    })
+
 namespace curl {
 auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception>
 {
@@ -99,18 +107,18 @@ void handle_t::perform()
     auto code = curl_easy_perform(curl_easy);
 
     if (code == CURLE_QUOTE_ERROR)
-        throw handle_t::ProtocolError{code, get_response_code()};
+        throw handle_t::ProtocolError{code, get_response_code().get_return_value()};
     else if (code == CURLE_HTTP_RETURNED_ERROR)
-        throw handle_t::ProtocolError{code, get_response_code()};
+        throw handle_t::ProtocolError{code, get_response_code().get_return_value()};
     else
         check_easy(code, "curl_easy_perform(curl_easy)");
 }
 
-long handle_t::get_response_code() const
+auto handle_t::get_response_code() const noexcept -> Ret_except<long, NotSupported_error>
 {
     long response_code;
-    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code), "CURLINFO_RESPONSE_CODE");
-    return response_code;
+    CURL_EASY_GETINFO(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
+    return {response_code};
 }
 
 std::size_t handle_t::getinfo_sizeof_uploaded() const
