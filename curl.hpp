@@ -159,13 +159,14 @@ public:
     handle_t& operator = (handle_t&&) = delete;
 
     /**
+     * @Precondition curl_t::has_CURLU(), curl_t::has_protocol("http")
      * @param url content of it must not be changed during call to perform(),
      *            but can be changed once it is finished.
      * @param encoding "" for enable all, NULL for disable all (including auto decompression).
      * @exception std::bad_alloc or NotSupported_error
      */
     auto set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-        Ret_except<void, NotSupported_error, std::bad_alloc>;
+        Ret_except<void, std::bad_alloc>;
 
     /**
      * @Precondition: curl_t::has_protocol("http")
@@ -245,7 +246,7 @@ protected:
 
 public:
     friend auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept ->
-        Ret_except<void, NotSupported_error, std::bad_alloc>;
+        Ret_except<void, std::bad_alloc>;
 
     class Exception: public curl::Exception {
     public:

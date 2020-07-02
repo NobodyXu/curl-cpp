@@ -78,11 +78,11 @@ handle_t::handle_t(handle_t &&other) noexcept:
 }
 
 auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-    Ret_except<void, NotSupported_error, std::bad_alloc>
+    Ret_except<void, std::bad_alloc>
 {
-    CURL_EASY_SETOPT(curl_easy, CURLOPT_CURLU, url.url);
-    CHECK_OOM(CURL_EASY_SETOPT(curl_easy, CURLOPT_USERAGENT, useragent));
-    CHECK_OOM(CURL_EASY_SETOPT(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
+    curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
 
     return {};
 }
