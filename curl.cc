@@ -1,6 +1,7 @@
 #include "curl.hpp"
 #include <curl/curl.h>
 
+#include <err.h>
 #include <cstring>
 #include <limits>
 
@@ -18,13 +19,13 @@ auto get_version() noexcept -> curl_t::Version
 }
 
 
-curl_t::curl_t(FILE *debug_stream_arg):
+curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     debug_stream{debug_stream_arg},
     version{get_version()}
 {
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)
-        throw Exception{curl_easy_strerror(code)};
+        errx(1, "curl_global_init(CURL_GLOBAL_ALL) failed with %s", curl_easy_strerror(code));
 }
 
 bool curl_t::has_compression_support() const noexcept

@@ -37,7 +37,11 @@ public:
     FILE *debug_stream;
     const Version version;
 
-    curl_t(FILE *debug_stream_arg);
+    /**
+     * Since this variable is designed to be static, 
+     * it would call errx on error.
+     */
+    curl_t(FILE *debug_stream_arg) noexcept;
 
     curl_t(const curl_t&) = delete;
     curl_t(curl_t&&) = delete;
