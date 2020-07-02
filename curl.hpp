@@ -60,6 +60,8 @@ public:
     /**
      * Since this variable is designed to be static, 
      * it would call errx on error.
+     *
+     * It would make sure that handle_t::get_response_code() is usable.
      */
     curl_t(FILE *debug_stream_arg) noexcept;
 

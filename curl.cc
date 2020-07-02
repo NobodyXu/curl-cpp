@@ -67,6 +67,9 @@ curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)
         errx(1, "curl_global_init(CURL_GLOBAL_ALL) failed with %s", curl_easy_strerror(code));
+
+    if (version < Version::from(7, 10, 8))
+        errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s", version_str);
 }
 
 bool curl_t::has_compression_support() const noexcept
