@@ -6,24 +6,9 @@
 
 #define CHECK(expr) check_easy((expr), #expr)
 
-#define CURL_EASY_SETOPT(curl, opt, val)                    \
-    ({                                                      \
-        auto code = curl_easy_setopt((curl), (opt), (val)); \
-        if (code == CURLE_UNKNOWN_OPTION)                   \
-            return {NotSupported_error(# opt)};             \
-        code;                                               \
-    })
 #define CHECK_OOM(code)                \
     if ((code) == CURLE_OUT_OF_MEMORY) \
-            return {std::bad_alloc{}}
-
-#define CURL_EASY_GETINFO(curl, opt, val)                    \
-    ({                                                       \
-        auto code = curl_easy_getinfo((curl), (opt), (val)); \
-        if (code == CURLE_UNKNOWN_OPTION)                    \
-            return {NotSupported_error(# opt)};              \
-        code;                                                \
-    })
+        return {std::bad_alloc{}}
 
 namespace curl {
 auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception>
