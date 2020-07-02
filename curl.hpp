@@ -263,11 +263,15 @@ public:
 
     /**
      * readall() can be used for get or post.
+     *
+     * @Exception std::bad_alloc
      */
     auto readall(std::string &response) -> perform_ret_t;
     /**
      * read() can be used for get or post.
      * Read in response.capacity() bytes.
+     *
+     * @Exception std::bad_alloc
      */
     auto read(std::string &response) -> perform_ret_t;
 
