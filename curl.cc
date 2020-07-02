@@ -61,7 +61,8 @@ std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept
 
 curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     debug_stream{debug_stream_arg},
-    version{curl_version_info(CURLVERSION_NOW)->version_num}
+    version{curl_version_info(CURLVERSION_NOW)->version_num},
+    version_str{curl_version_info(CURLVERSION_NOW)->version}
 {
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)

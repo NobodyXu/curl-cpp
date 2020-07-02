@@ -55,6 +55,7 @@ public:
 
     FILE *debug_stream;
     const Version version;
+    const char * const version_str;
 
     /**
      * Since this variable is designed to be static, 
