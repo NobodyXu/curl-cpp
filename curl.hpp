@@ -111,9 +111,6 @@ public:
     writeback_t writeback = nullptr;
     void *data = nullptr;
 
-protected:
-    static void check_easy(int code, const char *expr);
-
 public:
     class Exception: public curl::Exception {
     public:
@@ -124,22 +121,7 @@ public:
 
         auto what() const noexcept -> const char*;
     };
-    class CannotResolve_error: public Exception {
-    public:
-        using Exception::Exception;
-    };
-    class ConnnectionFailed_error: public Exception {
-    public:
-        using Exception::Exception;
-    };
-    class ProtocolError: public Exception {
-    public:
-        const long response_code;
-
-        ProtocolError(long err_code_arg, long response_code_arg);
-        ProtocolError(const ProtocolError&) = default;
-    };
-    class Timeout_error: public Exception {
+    class NotBuiltIn_error: public Exception {
     public:
         using Exception::Exception;
     };
@@ -202,9 +184,27 @@ public:
     void request_post_large(const void *data, std::size_t len) noexcept;
 
     /**
+     * @Precondition curl_t::has_protocol(protocol you use in url)
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
      */
-    void perform();
+    enum class code {
+        ok = 0,
+        url_malformat,
+        cannot_resolve_proxy,
+        cannot_resolve_host,
+        cannot_connect, // Cannot connect to host or proxy
+        remote_access_denied,
+        http2_frame, // error in framing layer. Check error buffer for detail
+        writeback_error,
+        upload_failure,
+        timedout,
+        ssl_connection_failed, // Check error buffer for detail
+        unknown_option,  // Check error buffer for detail
+        recursive_api_call,
+        http3_internal, //  error in http/3 layer. Check error buffer for detail
+    };
+    auto perform() noexcept -> 
+        Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error>;
 
     long get_response_code() const noexcept;
 
