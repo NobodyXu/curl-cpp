@@ -121,23 +121,23 @@ auto handle_t::get_response_code() const noexcept -> Ret_except<long, NotSupport
     return {response_code};
 }
 
-std::size_t handle_t::getinfo_sizeof_uploaded() const
+auto handle_t::getinfo_sizeof_uploaded() const noexcept -> Ret_except<std::size_t, NotSupported_error>
 {
     curl_off_t ul;
-    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul), "CURLINFO_SIZE_UPLOAD_T");
-    return ul;
+    CURL_EASY_GETINFO(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul);
+    return {std::in_place_type<std::size_t>, ul};
 }
-std::size_t handle_t::getinfo_sizeof_response_header() const
+auto handle_t::getinfo_sizeof_response_header() const noexcept -> Ret_except<std::size_t, NotSupported_error>
 {
     long size;
-    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &size), "CURLINFO_HEADER_SIZE");
-    return size;
+    CURL_EASY_GETINFO(curl_easy, CURLINFO_HEADER_SIZE, &size);
+    return {std::in_place_type<std::size_t>, size};
 }
-std::size_t handle_t::getinfo_sizeof_response_body() const
+auto handle_t::getinfo_sizeof_response_body() const noexcept -> Ret_except<std::size_t, NotSupported_error>
 {
     curl_off_t dl;
-    check_easy(curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl), "CURLINFO_SIZE_DOWNLOAD_T");
-    return dl;
+    CURL_EASY_GETINFO(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl);
+    return {std::in_place_type<std::size_t>, dl};
 }
 std::size_t handle_t::getinfo_transfer_time() const
 {

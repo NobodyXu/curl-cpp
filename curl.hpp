@@ -154,11 +154,10 @@ public:
 
     /**
      * @return in bytes
-     * @exception NotSupported_error
      */
-    std::size_t getinfo_sizeof_uploaded() const;
-    std::size_t getinfo_sizeof_response_header() const;
-    std::size_t getinfo_sizeof_response_body() const;
+    auto getinfo_sizeof_uploaded() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
+    auto getinfo_sizeof_response_header() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
+    auto getinfo_sizeof_response_body() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
 
     /**
      * @return transfer time in ms
