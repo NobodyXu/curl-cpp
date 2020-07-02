@@ -107,6 +107,10 @@ bool curl_t::has_sizeof_response_body_support() const noexcept
 {
     return version >= Version::from(7, 55, 0);
 }
+bool curl_t::has_sizeof_transfer_time_support() const noexcept
+{
+    return version >= Version::from(7, 61, 0);
+}
 
 curl_t::~curl_t()
 {

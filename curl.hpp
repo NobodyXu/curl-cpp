@@ -81,6 +81,7 @@ public:
     bool has_sizeof_upload_support() const noexcept;
     bool has_sizeof_response_header_support() const noexcept;
     bool has_sizeof_response_body_support() const noexcept;
+    bool has_sizeof_transfer_time_support() const noexcept;
 
     auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception>;
 };
