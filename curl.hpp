@@ -160,7 +160,7 @@ public:
      * @return transfer time in ms
      * @exception NotSupported_error
      */
-    std::size_t getinfo_transfer_time() const;
+    auto getinfo_transfer_time() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
 
     ~handle_t();
 
