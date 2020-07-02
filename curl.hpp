@@ -189,6 +189,11 @@ public:
     auto set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
+     * @param ip_addr can be ipv4 or ipv6 address
+     */
+    auto set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
+
+    /**
      * @Precondition: curl_t::has_protocol("http")
      */
     void request_get() noexcept;

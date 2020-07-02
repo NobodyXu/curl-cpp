@@ -1,6 +1,8 @@
 #include "curl.hpp"
 #include <curl/curl.h>
 
+#include <arpa/inet.h>
+
 #include <utility>
 #include <algorithm>
 
@@ -84,6 +86,12 @@ auto Easy_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, s
 auto Easy_t::set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>
 {
     CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
+    return {};
+}
+
+auto Easy_t::set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
+{
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, ip_addr));
     return {};
 }
 
