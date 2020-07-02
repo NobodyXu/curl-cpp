@@ -139,11 +139,11 @@ std::size_t handle_t::getinfo_sizeof_response_body() const noexcept
     curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl);
     return dl;
 }
-auto handle_t::getinfo_transfer_time() const noexcept -> Ret_except<std::size_t, NotSupported_error>
+std::size_t handle_t::getinfo_transfer_time() const noexcept
 {
     curl_off_t total;
-    CURL_EASY_GETINFO(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
-    return {std::in_place_type<std::size_t>, total};
+    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
+    return total;
 }
 
 handle_t::~handle_t()

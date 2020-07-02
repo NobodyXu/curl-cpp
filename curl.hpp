@@ -205,10 +205,10 @@ public:
     std::size_t getinfo_sizeof_response_body() const noexcept;
 
     /**
+     * @Precondition curl_t::has_transfer_time_support()
      * @return transfer time in ms
-     * @exception NotSupported_error
      */
-    auto getinfo_transfer_time() const noexcept -> Ret_except<std::size_t, NotSupported_error>;
+    std::size_t getinfo_transfer_time() const noexcept;
 
     ~handle_t();
 
