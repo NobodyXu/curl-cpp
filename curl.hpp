@@ -128,6 +128,24 @@ public:
     public:
         using Exception::Exception;
     };
+    class ProtocolInternal_error: public Exception {
+        static constexpr const auto buffer_size = 23 + 2 + CURL_ERROR_SIZE + 1;
+
+    public:
+        char buffer[buffer_size];
+
+        /**
+         * @error_code can only be one of:
+         *  - CURLE_HTTP2
+         *  - CURLE_SSL_CONNECT_ERROR
+         *  - CURLE_UNKNOWN_OPTION
+         *  - CURLE_HTTP3
+         */
+        ProtocolInternal_error(long error_code, const char *error_buffer);
+        ProtocolInternal_error(const ProtocolInternal_error&) = default;
+
+        auto what() const noexcept -> const char*;
+    };
 
     /**
      * @param curl must be ret value of curl_easy_init(), must not be nullptr
@@ -197,17 +215,14 @@ public:
         cannot_resolve_host,
         cannot_connect, // Cannot connect to host or proxy
         remote_access_denied,
-        http2_frame, // error in framing layer. Check error buffer for detail
         writeback_error,
         upload_failure,
         timedout,
-        ssl_connection_failed, // Check error buffer for detail
-        unknown_option,  // Check error buffer for detail
         recursive_api_call,
-        http3_internal, //  error in http/3 layer. Check error buffer for detail
     };
     auto perform() noexcept -> 
-        Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error>;
+        Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error, 
+                   ProtocolInternal_error>;
 
     auto get_error_buffer() const noexcept -> const char*;
 

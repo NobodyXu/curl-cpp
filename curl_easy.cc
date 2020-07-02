@@ -103,7 +103,8 @@ void handle_t::request_post_large(const void *data, std::size_t len) noexcept
 }
 
 auto handle_t::perform() noexcept -> 
-    Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error>
+    Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error, 
+               ProtocolInternal_error>
 {
     auto code = curl_easy_perform(curl_easy);
     switch (code) {
@@ -129,9 +130,6 @@ auto handle_t::perform() noexcept ->
         case CURLE_REMOTE_ACCESS_DENIED:
             return {code::remote_access_denied};
 
-        case CURLE_HTTP2:
-            return {code::http2_frame};
-
         case CURLE_WRITE_ERROR:
             return {code::writeback_error};
 
@@ -144,23 +142,20 @@ auto handle_t::perform() noexcept ->
         case CURLE_OPERATION_TIMEDOUT:
             return {code::timedout};
 
-        case CURLE_SSL_CONNECT_ERROR:
-            return {code::ssl_connection_failed};
-
         case CURLE_BAD_FUNCTION_ARGUMENT:
             return std::invalid_argument{"A function was called with a bad parameter."};
-
-        case CURLE_UNKNOWN_OPTION:
-            return {code::unknown_option};
 
         case CURLE_RECURSIVE_API_CALL:
             return {code::recursive_api_call};
 
-        case CURLE_HTTP3:
-            return {code::http3_internal};
-
         default:
             return {Exception{code}};
+
+        case CURLE_HTTP2:
+        case CURLE_SSL_CONNECT_ERROR:
+        case CURLE_UNKNOWN_OPTION:
+        case CURLE_HTTP3:
+            return {ProtocolInternal_error{code, get_error_buffer()}};
     }
 }
 
