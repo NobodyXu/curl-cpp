@@ -54,6 +54,7 @@ public:
     };
 
     FILE *debug_stream;
+    const void * const version_info;
     const Version version;
     const char * const version_str;
 

@@ -61,8 +61,9 @@ std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept
 
 curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     debug_stream{debug_stream_arg},
-    version{curl_version_info(CURLVERSION_NOW)->version_num},
-    version_str{curl_version_info(CURLVERSION_NOW)->version}
+    version_info{curl_version_info(CURLVERSION_NOW)},
+    version{static_cast<const curl_version_info_data*>(version_info)->version_num},
+    version_str{static_cast<const curl_version_info_data*>(version_info)->version}
 {
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)
@@ -74,17 +75,18 @@ curl_t::curl_t(FILE *debug_stream_arg) noexcept:
 
 bool curl_t::has_compression_support() const noexcept
 {
-    auto *info = curl_version_info(CURLVERSION_NOW);
+    auto *info = static_cast<const curl_version_info_data*>(version_info);
     return info->features & CURL_VERSION_LIBZ;
 }
 bool curl_t::has_largefile_support() const noexcept
 {
-    auto *info = curl_version_info(CURLVERSION_NOW);
+    auto *info = static_cast<const curl_version_info_data*>(version_info);
     return info->features & CURL_VERSION_LARGEFILE;
 }
 bool curl_t::has_protocol(const char *protocol) const noexcept
 {
-    auto *protocols = curl_version_info(CURLVERSION_NOW)->protocols;
+    auto *info = static_cast<const curl_version_info_data*>(version_info);
+    auto *protocols = info->protocols;
 
     for (std::size_t i = 0; protocols[i]; ++i)
         if (std::strcmp(protocols[i], protocol) == 0)
