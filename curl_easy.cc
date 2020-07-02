@@ -218,7 +218,6 @@ auto Easy_t::readall(std::string &response) -> perform_ret_t
 }
 auto Easy_t::read(std::string &response) -> perform_ret_t
 {
-
     writeback = [](char *buffer, std::size_t size, void *data) {
         std::string &response = *static_cast<std::string*>(data);
 
