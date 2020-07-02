@@ -155,13 +155,8 @@ auto handle_t::perform() noexcept ->
         case CURLE_SSL_CONNECT_ERROR:
         case CURLE_UNKNOWN_OPTION:
         case CURLE_HTTP3:
-            return {ProtocolInternal_error{code, get_error_buffer()}};
+            return {ProtocolInternal_error{code, error_buffer}};
     }
-}
-
-auto handle_t::get_error_buffer() const noexcept -> const char*
-{
-    return error_buffer;
 }
 
 long handle_t::get_response_code() const noexcept

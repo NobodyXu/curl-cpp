@@ -224,8 +224,6 @@ public:
         Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error, 
                    ProtocolInternal_error>;
 
-    auto get_error_buffer() const noexcept -> const char*;
-
     long get_response_code() const noexcept;
 
     /**
