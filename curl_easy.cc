@@ -77,22 +77,24 @@ handle_t::handle_t(handle_t &&other) noexcept:
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
 }
 
-auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-    Ret_except<void, std::bad_alloc>
+void handle_t::set_url(const Url &url) noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
-
-    return {};
 }
-auto handle_t::set(const char *url, const char *useragent, const char *encoding) noexcept -> 
-    Ret_except<void, std::bad_alloc>
+auto handle_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>
 {
     CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
+    return {};
+}
 
+auto handle_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>
+{
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
+    return {};
+}
+auto handle_t::set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>
+{
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
     return {};
 }
 

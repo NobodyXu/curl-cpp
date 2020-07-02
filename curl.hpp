@@ -157,24 +157,30 @@ public:
 
     handle_t& operator = (const handle_t&) = delete;
     handle_t& operator = (handle_t&&) = delete;
-
+    
     /**
-     * @Precondition curl_t::has_CURLU(), curl_t::has_protocol("http")
+     * @Precondition curl_t::has_CURLU()
      * @param url content of it must not be changed during call to perform(),
      *            but can be changed once it is finished.
-     * @param encoding "" for enable all, NULL for disable all (including auto decompression).
-     * @exception std::bad_alloc or NotSupported_error
      */
-    auto set(const Url &url, const char *useragent, const char *encoding) noexcept -> 
-        Ret_except<void, std::bad_alloc>;
+    void set_url(const Url &url) noexcept;
+    /**
+     * @param url content of it must not be changed during call to perform(),
+     *            but can be changed once it is finished.
+     */
+    auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @Precondition curl_t::has_CURLU(), curl_t::has_protocol("http")
-     * @param encoding "" for enable all, NULL for disable all (including auto decompression).
-     * @exception std::bad_alloc or NotSupported_error
+     * @Precondition curl::has_protocol("http")
+     * @param useragent pass nullptr for no useragent (default)
      */
-    auto set(const char *url, const char *useragent, const char *encoding) noexcept -> 
-        Ret_except<void, std::bad_alloc>;
+    auto set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>;
+    /**
+     * @Precondition curl::has_protocol("http")
+     * @param encoding "" for enable all (default);
+     *                 nullptr for disable all (including auto decompression).
+     */
+    auto set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
      * @Precondition: curl_t::has_protocol("http")
@@ -253,8 +259,7 @@ protected:
     static void check_url(int code);
 
 public:
-    friend auto handle_t::set(const Url &url, const char *useragent, const char *encoding) noexcept ->
-        Ret_except<void, std::bad_alloc>;
+    friend void handle_t::set_url(const Url &url) noexcept;
 
     class Exception: public curl::Exception {
     public:
