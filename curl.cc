@@ -99,6 +99,10 @@ bool curl_t::has_sizeof_upload_support() const noexcept
 {
     return version >= Version::from(7, 55, 0);
 }
+bool curl_t::has_sizeof_response_header_support() const noexcept
+{
+    return version >= Version::from(7, 4, 1);
+}
 
 curl_t::~curl_t()
 {
