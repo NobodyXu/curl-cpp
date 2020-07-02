@@ -42,7 +42,7 @@ public:
     bool has_compression_support() const noexcept;
     bool has_http2_support() const noexcept;
 
-    auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>;
+    auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception>;
 };
 
 class handle_t {

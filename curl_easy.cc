@@ -18,7 +18,7 @@
             return {std::bad_alloc{}}
 
 namespace curl {
-auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, NotSupported_error>
+auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception>
 {
     CURL *curl = curl_easy_init();
     if (!curl)
@@ -33,9 +33,6 @@ auto curl_t::create_handle() noexcept -> Ret_except<handle_t, curl::Exception, N
     curl_easy_setopt(curl, CURLOPT_TCP_FASTOPEN, 1L);
     // Enable TCP_keepalive
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
-
-    // Fail on HTTP 4xx errors
-    CURL_EASY_SETOPT(curl, CURLOPT_FAILONERROR, 1L);
 
     // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
