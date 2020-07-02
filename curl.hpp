@@ -99,7 +99,7 @@ public:
     };
 
     /**
-     * @param curl must be ret value of curl_easy_init()
+     * @param curl must be ret value of curl_easy_init(), must not be nullptr
      */
     handle_t(void *curl) noexcept;
 
