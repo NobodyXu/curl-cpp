@@ -22,7 +22,7 @@ public:
     using Exception::Exception;
 };
 
-class handle_t;
+class Easy_t;
 class Url;
 
 /**
@@ -90,10 +90,10 @@ public:
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
 
-    auto create_handle() noexcept -> Ret_except<handle_t, curl::Exception>;
+    auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
 };
 
-class handle_t {
+class Easy_t {
 public:
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
@@ -150,16 +150,16 @@ public:
     /**
      * @param curl must be ret value of curl_easy_init(), must not be nullptr
      */
-    handle_t(void *curl) noexcept;
+    Easy_t(void *curl) noexcept;
 
-    handle_t(const handle_t&, Ret_except<void, curl::Exception> &e) noexcept;
+    Easy_t(const Easy_t&, Ret_except<void, curl::Exception> &e) noexcept;
     /**
      * @param other after mv operation, other is in invalid state and can only be destroyed.
      */
-    handle_t(handle_t &&other) noexcept;
+    Easy_t(Easy_t &&other) noexcept;
 
-    handle_t& operator = (const handle_t&) = delete;
-    handle_t& operator = (handle_t&&) = delete;
+    Easy_t& operator = (const Easy_t&) = delete;
+    Easy_t& operator = (Easy_t&&) = delete;
     
     /**
      * @Precondition curl_t::has_CURLU()
@@ -248,7 +248,7 @@ public:
      */
     std::size_t getinfo_transfer_time() const noexcept;
 
-    ~handle_t();
+    ~Easy_t();
 
     // High-level functions
 
@@ -280,7 +280,7 @@ protected:
     static void check_url(int code);
 
 public:
-    friend void handle_t::set_url(const Url &url) noexcept;
+    friend void Easy_t::set_url(const Url &url) noexcept;
 
     class Exception: public curl::Exception {
     public:

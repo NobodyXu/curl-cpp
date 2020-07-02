@@ -6,17 +6,17 @@
 
 namespace curl {
 /* For handle_t */
-handle_t::Exception::Exception(long err_code_arg):
+Easy_t::Exception::Exception(long err_code_arg):
     curl::Exception{""},
     error_code{err_code_arg}
 {}
-auto handle_t::Exception::what() const noexcept -> const char*
+auto Easy_t::Exception::what() const noexcept -> const char*
 {
     return curl_easy_strerror(static_cast<CURLcode>(error_code));
 }
 
 
-handle_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, const char *error_buffer):
+Easy_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, const char *error_buffer):
     Exception{error_code_arg}
 {
     const char *code_name;
@@ -44,11 +44,11 @@ handle_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, co
     std::snprintf(buffer, buffer_size, "%s: %s", code_name, error_buffer);
 }
 
-auto handle_t::ProtocolInternal_error::what() const noexcept -> const char*
+auto Easy_t::ProtocolInternal_error::what() const noexcept -> const char*
 {
     return buffer;
 }
-/* End of handle_t */
+/* End of Easy_t */
 
 
 /* For Url */
