@@ -349,8 +349,8 @@ public:
     auto set_options(const char *options) noexcept -> Ret_except<set_code, std::bad_alloc>;
     auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
-    using fullurl_str = std::unique_ptr<char, void (*)(void*)>;
-    auto get_url() const -> fullurl_str;
+    using string = std::unique_ptr<char, void (*)(void*)>;
+    auto get_url() const -> string;
 
     ~Url();
 };

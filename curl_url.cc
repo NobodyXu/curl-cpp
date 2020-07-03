@@ -80,11 +80,11 @@ auto Url::set_query(const char *query) noexcept -> Ret_except<set_code, std::bad
     return curl_urlset_wrapper(url, CURLUPART_QUERY, query);
 }
 
-auto Url::get_url() const -> fullurl_str
+auto Url::get_url() const -> string
 {
     char *fullurl;
     check_url(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
-    return fullurl_str(fullurl, &curl_free);
+    return string(fullurl, &curl_free);
 }
 
 Url::~Url()
