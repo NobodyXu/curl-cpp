@@ -5,7 +5,7 @@
 #include <cassert>
 
 namespace curl {
-/* For handle_t */
+/* For Easy_t */
 Easy_t::Exception::Exception(long err_code_arg):
     curl::Exception{""},
     error_code{err_code_arg}
