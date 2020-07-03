@@ -55,7 +55,7 @@ static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg) noex
             return {Url::set_code::unsupported_scheme};
         case CURLUE_OUT_OF_MEMORY:
             return {std::bad_alloc{}};
-        case 0:
+        case CURLUE_OK:
             return {Url::set_code::ok};
 
         default:
