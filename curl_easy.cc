@@ -91,6 +91,11 @@ auto Easy_t::set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std
     return {};
 }
 
+void Easy_t::set_timeout(unsigned long timeout) noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_TIMEOUT_MS, timeout);
+}
+
 void Easy_t::request_get() noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);
