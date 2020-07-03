@@ -296,16 +296,6 @@ protected:
 public:
     friend void Easy_t::set_url(const Url &url) noexcept;
 
-    class Exception: public curl::Exception {
-    public:
-        const int error_code;
-
-        Exception(int err_code_arg);
-        Exception(const Exception&) = default;
-
-        auto what() const noexcept -> const char*;
-    };
-
     /**
      * ctor and assignment can throw std::bad_alloc only.
      * noexcept mv ctor and assignment is noexcept.
