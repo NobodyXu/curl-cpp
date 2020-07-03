@@ -318,7 +318,7 @@ public:
      */
     Url(Url &&other) noexcept;
 
-    Url& operator = (const Url&);
+    auto operator = (const Url&) noexcept -> Ret_except<void, std::bad_alloc>;
     /**
      * After other is moved, it can only be destroyed or reassigned.
      */

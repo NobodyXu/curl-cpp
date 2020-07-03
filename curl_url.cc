@@ -21,12 +21,13 @@ Url::Url(Url &&other) noexcept:
     other.url = nullptr;
 }
 
-Url& Url::operator = (const Url &other)
+auto Url::operator = (const Url &other) noexcept -> Ret_except<void, std::bad_alloc>
 {
     url = curl_url_dup(static_cast<CURLU*>(other.url));
     if (url == nullptr)
-        throw std::bad_alloc{};
-    return *this;
+        return {std::bad_alloc{}};
+    else
+        return {};
 }
 Url& Url::operator = (Url &&other) noexcept
 {
