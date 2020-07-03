@@ -270,7 +270,8 @@ public:
      * Since curl-cpp is compiled with -fno-exceptions, -fno-rtti by default, if std::string
      * happen to throw std::bad_alloc, then SIGABRT handle will be called.
      *
-     * If you need pretty message on exit, you should register callback and print exception using std::current_exception().
+     * If you need pretty message on exit, you should register callback and print exception using 
+     * std::current_exception().
      */
     auto readall(std::string &response) -> perform_ret_t;
     /**
@@ -280,7 +281,8 @@ public:
      * Since curl-cpp is compiled with -fno-exceptions, -fno-rtti by default, if std::string
      * happen to throw std::bad_alloc, then SIGABRT handle will be called.
      *
-     * If you need pretty message on exit, you should register callback and print exception using std::current_exception().
+     * If you need pretty message on exit, you should register callback and print exception using 
+     * std::current_exception().
      */
     auto read(std::string &response) -> perform_ret_t;
 
