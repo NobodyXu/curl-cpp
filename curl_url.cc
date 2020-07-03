@@ -80,11 +80,47 @@ auto Url::set_query(const char *query) noexcept -> Ret_except<set_code, std::bad
     return curl_urlset_wrapper(url, CURLUPART_QUERY, query);
 }
 
-auto Url::get_url() const -> string
+static auto curl_urlget_wrapper(void *url, CURLUPart part) noexcept -> 
+    Ret_except<Url::string, Url::get_code, std::bad_alloc>
 {
-    char *fullurl;
-    check_url(curl_url_get(static_cast<CURLU*>(url), CURLUPART_URL, &fullurl, 0));
-    return string(fullurl, &curl_free);
+    char *result;
+    auto code = curl_url_get(static_cast<CURLU*>(url), part, &result, 0);
+
+    assert(code != CURLUE_BAD_HANDLE);
+    assert(code != CURLUE_BAD_PARTPOINTER);
+
+    switch (code) {
+        case CURLUE_OK:
+            return {Url::string(result, &curl_free)};
+
+        case CURLUE_OUT_OF_MEMORY:
+            return {std::bad_alloc{}};
+
+        case CURLUE_NO_SCHEME:
+            return {Url::get_code::no_scheme};
+        case CURLUE_NO_USER:
+            return {Url::get_code::no_user};
+        case CURLUE_NO_PASSWORD:
+            return {Url::get_code::no_passwd};
+        case CURLUE_NO_OPTIONS:
+            return {Url::get_code::no_options};
+        case CURLUE_NO_HOST:
+            return {Url::get_code::no_host};
+        case CURLUE_NO_PORT:
+            return {Url::get_code::no_port};
+        case CURLUE_NO_QUERY:
+            return {Url::get_code::no_query};
+        case CURLUE_NO_FRAGMENT:
+            return {Url::get_code::no_fragment};
+
+        default:
+            assert(false);
+            break;
+    }
+}
+auto Url::get_url() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
+{
+    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_URL);
 }
 
 Url::~Url()

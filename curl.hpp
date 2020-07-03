@@ -350,7 +350,17 @@ public:
     auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     using string = std::unique_ptr<char, void (*)(void*)>;
-    auto get_url() const -> string;
+    enum class get_code {
+        no_scheme, 
+        no_user, 
+        no_passwd, 
+        no_options, 
+        no_host, 
+        no_port, 
+        no_query, 
+        no_fragment,
+    };
+    auto get_url() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
 
     ~Url();
 };
