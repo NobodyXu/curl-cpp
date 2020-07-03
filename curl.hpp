@@ -17,10 +17,6 @@ class Exception: public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
 };
-class NotSupported_error: public Exception {
-public:
-    using Exception::Exception;
-};
 
 class Easy_t;
 class Url;
