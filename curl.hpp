@@ -337,7 +337,6 @@ public:
         malform_input,
         bad_port_number,
         unsupported_scheme,
-        CURLUE_USER_NOT_ALLOWED,
     };
 
     auto set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>;
