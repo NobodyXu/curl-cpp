@@ -41,12 +41,12 @@ Url& Url::operator = (Url &&other) noexcept
 static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg) noexcept -> 
     Ret_except<Url::set_code, std::bad_alloc>
 {
-    auto set_code = curl_url_set(static_cast<CURLU*>(url), part, arg, 0);
+    auto code = curl_url_set(static_cast<CURLU*>(url), part, arg, 0);
 
-    assert(set_code != CURLUE_BAD_HANDLE);
-    assert(set_code !=  CURLUE_BAD_PARTPOINTER);
+    assert(code != CURLUE_BAD_HANDLE);
+    assert(code !=  CURLUE_BAD_PARTPOINTER);
 
-    switch (set_code) {
+    switch (code) {
         case CURLUE_MALFORMED_INPUT:
             return {Url::set_code::malform_input};
         case CURLUE_BAD_PORT_NUMBER:
