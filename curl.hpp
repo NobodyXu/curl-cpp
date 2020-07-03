@@ -324,7 +324,7 @@ public:
      */
     Url& operator = (Url &&other) noexcept;
 
-    enum class code {
+    enum class set_code {
         ok,
         /**
          * For url, it could be:
@@ -339,15 +339,15 @@ public:
         unsupported_scheme,
     };
 
-    auto set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>;
+    auto set_url(const char *url_arg) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     /**
      * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
      */
 
-    auto set_scheme(const char *scheme) noexcept -> Ret_except<code, std::bad_alloc>;
-    auto set_options(const char *options) noexcept -> Ret_except<code, std::bad_alloc>;
-    auto set_query(const char *query) noexcept -> Ret_except<code, std::bad_alloc>;
+    auto set_scheme(const char *scheme) noexcept -> Ret_except<set_code, std::bad_alloc>;
+    auto set_options(const char *options) noexcept -> Ret_except<set_code, std::bad_alloc>;
+    auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     using fullurl_str = std::unique_ptr<char, void (*)(void*)>;
     auto get_url() const -> fullurl_str;
