@@ -362,6 +362,7 @@ public:
     };
     auto get_url() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
     auto get_scheme() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
+    auto get_options() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
 
     ~Url();
 };

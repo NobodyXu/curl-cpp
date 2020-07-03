@@ -126,6 +126,10 @@ auto Url::get_scheme() const noexcept -> Ret_except<string, get_code, std::bad_a
 {
     return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_SCHEME);
 }
+auto Url::get_options() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
+{
+    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_OPTIONS);
+}
 
 Url::~Url()
 {
