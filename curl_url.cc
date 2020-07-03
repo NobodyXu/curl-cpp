@@ -9,11 +9,11 @@ Url::Url(Ret_except<void, std::bad_alloc> &e) noexcept:
     if (url == nullptr)
         e.set_exception<std::bad_alloc>();
 }
-Url::Url(const Url &other):
-    url{curl_url_dup(static_cast<CURLU*>(other.url))}
+Url::Url(const Url &other, Ret_except<void, std::bad_alloc> &e) noexcept:
+    url{(curl_url_dup(static_cast<CURLU*>(other.url)))}
 {
     if (url == nullptr)
-        throw std::bad_alloc{};
+        e.set_exception<std::bad_alloc>();
 }
 Url::Url(Url &&other) noexcept:
     url{other.url}

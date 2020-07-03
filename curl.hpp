@@ -312,7 +312,7 @@ public:
      */
 
     Url(Ret_except<void, std::bad_alloc> &e) noexcept;
-    Url(const Url&);
+    Url(const Url&, Ret_except<void, std::bad_alloc> &e) noexcept;
     /**
      * After other is moved, it can only be destroyed or reassigned.
      */
