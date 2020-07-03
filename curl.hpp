@@ -327,8 +327,9 @@ public:
     enum class code {
         ok,
         /**
-         * It could be:
+         * For url, it could be:
          *  - url is longer than 8000000 bytes (7MiB)
+         *  - scheme too long (newest libcurl support up to 40 bytes)
          *  - url does not match standard syntax
          *  - lack necessary part, e.g. scheme, host
          *  - contain junk character <= 0x1f || == 0x7f
@@ -344,9 +345,10 @@ public:
     /**
      * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
      */
-    void set_scheme(const char *scheme);
-    void set_options(const char *options);
-    void set_query(const char *query);
+
+    auto set_scheme(const char *scheme) noexcept -> Ret_except<code, std::bad_alloc>;
+    auto set_options(const char *options) noexcept -> Ret_except<code, std::bad_alloc>;
+    auto set_query(const char *query) noexcept -> Ret_except<code, std::bad_alloc>;
 
     using fullurl_str = std::unique_ptr<char, void (*)(void*)>;
     auto get_url() const -> fullurl_str;

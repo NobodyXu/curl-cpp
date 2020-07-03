@@ -38,24 +38,21 @@ Url& Url::operator = (Url &&other) noexcept
     return *this;
 }
 
-static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg)
+static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg) noexcept -> 
+    Ret_except<Url::code, std::bad_alloc>
 {
     auto code = curl_url_set(static_cast<CURLU*>(url), part, arg, 0);
+
     assert(code != CURLUE_BAD_HANDLE);
     assert(code !=  CURLUE_BAD_PARTPOINTER);
-    return code;
-}
-auto Url::set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>
-{
-    auto code = curl_urlset_wrapper(url, CURLUPART_URL, url_arg);
 
     switch (code) {
         case CURLUE_MALFORMED_INPUT:
-            return {code::malform_input};
+            return {Url::code::malform_input};
         case CURLUE_BAD_PORT_NUMBER:
-            return {code::bad_port_number};
+            return {Url::code::bad_port_number};
         case CURLUE_UNSUPPORTED_SCHEME:
-            return {code::unsupported_scheme};
+            return {Url::code::unsupported_scheme};
         case CURLUE_OUT_OF_MEMORY:
             return {std::bad_alloc{}};
         case 0:
@@ -66,17 +63,21 @@ auto Url::set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_all
             break;
     }
 }
-void Url::set_scheme(const char *scheme)
+auto Url::set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>
 {
-    check_url(curl_urlset_wrapper(url, CURLUPART_SCHEME, scheme));
+    return curl_urlset_wrapper(url, CURLUPART_URL, url_arg);
 }
-void Url::set_options(const char *options)
+auto Url::set_scheme(const char *scheme) noexcept -> Ret_except<code, std::bad_alloc>
 {
-    check_url(curl_urlset_wrapper(url, CURLUPART_OPTIONS, options));
+    return curl_urlset_wrapper(url, CURLUPART_SCHEME, scheme);
 }
-void Url::set_query(const char *query)
+auto Url::set_options(const char *options) noexcept -> Ret_except<code, std::bad_alloc>
 {
-    check_url(curl_urlset_wrapper(url, CURLUPART_QUERY, query));
+    return curl_urlset_wrapper(url, CURLUPART_OPTIONS, options);
+}
+auto Url::set_query(const char *query) noexcept -> Ret_except<code, std::bad_alloc>
+{
+    return curl_urlset_wrapper(url, CURLUPART_QUERY, query);
 }
 
 auto Url::get_url() const -> fullurl_str
