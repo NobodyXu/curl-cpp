@@ -3,11 +3,11 @@
 #include <cassert>
 
 namespace curl {
-Url::Url():
+Url::Url(Ret_except<void, std::bad_alloc> &e) noexcept:
     url{curl_url()}
 {
     if (url == nullptr)
-        throw std::bad_alloc{};
+        e.set_exception<std::bad_alloc>();
 }
 Url::Url(const char *url_arg):
     Url{}

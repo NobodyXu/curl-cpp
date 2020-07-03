@@ -311,7 +311,7 @@ public:
      * noexcept mv ctor and assignment is noexcept.
      */
 
-    Url();
+    Url(Ret_except<void, std::bad_alloc> &e) noexcept;
     Url(const char *url_arg);
     Url(const Url&);
     /**
