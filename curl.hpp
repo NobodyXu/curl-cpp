@@ -325,7 +325,22 @@ public:
      */
     Url& operator = (Url &&other) noexcept;
 
-    void set_url(const char *url_arg);
+    enum class code {
+        ok,
+        /**
+         * It could be:
+         *  - url is longer than 8000000 bytes (7MiB)
+         *  - url does not match standard syntax
+         *  - lack necessary part, e.g. scheme, host
+         *  - contain junk character <= 0x1f || == 0x7f
+         */
+        malform_input,
+        bad_port_number,
+        unsupported_scheme,
+        CURLUE_USER_NOT_ALLOWED,
+    };
+
+    auto set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>;
 
     /**
      * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>

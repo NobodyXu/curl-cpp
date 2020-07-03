@@ -49,9 +49,26 @@ static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg)
     assert(code !=  CURLUE_BAD_PARTPOINTER);
     return code;
 }
-void Url::set_url(const char *url_arg)
+auto Url::set_url(const char *url_arg) noexcept -> Ret_except<code, std::bad_alloc>
 {
-    check_url(curl_urlset_wrapper(url, CURLUPART_URL, url_arg));
+    auto code = curl_urlset_wrapper(url, CURLUPART_URL, url_arg);
+
+    switch (code) {
+        case CURLUE_MALFORMED_INPUT:
+            return {code::malform_input};
+        case CURLUE_BAD_PORT_NUMBER:
+            return {code::bad_port_number};
+        case CURLUE_UNSUPPORTED_SCHEME:
+            return {code::unsupported_scheme};
+        case CURLUE_OUT_OF_MEMORY:
+            return {std::bad_alloc{}};
+        case 0:
+            return {};
+
+        default:
+            assert(false);
+            break;
+    }
 }
 void Url::set_scheme(const char *scheme)
 {
