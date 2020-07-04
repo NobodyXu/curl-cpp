@@ -175,7 +175,11 @@ public:
     Easy_t(Easy_t &&other) noexcept;
 
     Easy_t& operator = (const Easy_t&) = delete;
-    Easy_t& operator = (Easy_t&&) = delete;
+    /**
+     * @param other after mv operation, other is in invalid state and can only be destroyed
+     *              or move assign another value.
+     */
+    Easy_t& operator = (Easy_t&&) noexcept;
 
     /**
      * @Precondition curl_t::has_CURLU()

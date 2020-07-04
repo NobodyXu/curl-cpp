@@ -67,6 +67,22 @@ Easy_t::Easy_t(Easy_t &&other) noexcept:
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
+Easy_t& Easy_t::operator = (Easy_t &&other) noexcept
+{
+    if (curl_easy)
+        curl_easy_cleanup(curl_easy);
+    curl_easy = other.curl_easy;
+    other.curl_easy = nullptr;
+
+    writeback = other.writeback;
+    data = other.data;
+
+    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
+    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
+
+    return *this;
+}
 
 void Easy_t::set_url(const Url &url) noexcept
 {
