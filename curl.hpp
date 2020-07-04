@@ -5,6 +5,7 @@
 # include <cstdint>
 # include <cstdio>
 # include <stdexcept>
+# include <exception>
 # include <memory>
 # include <string>
 
@@ -115,7 +116,11 @@ class Easy_t {
     void *curl_easy;
     char error_buffer[CURL_ERROR_SIZE];
 
+    static std::size_t write_callback(char *buffer, std::size_t _, std::size_t size, void *arg) noexcept;
+
 public:
+    friend Multi_t;
+
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
      * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
@@ -132,8 +137,7 @@ public:
     writeback_t writeback = nullptr;
     Data_t data;
 
-public:
-    friend Multi_t;
+    std::exception_ptr writeback_exception_thrown;
 
     class Exception: public curl::Exception {
     public:
@@ -254,7 +258,7 @@ public:
         cannot_resolve_host,
         cannot_connect, // Cannot connect to host or proxy
         remote_access_denied,
-        writeback_error,
+        writeback_error, // Check writeback_exception_thrown
         upload_failure,
         timedout,
         recursive_api_call,

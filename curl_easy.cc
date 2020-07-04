@@ -33,14 +33,6 @@ auto curl_t::create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>
 Easy_t::Easy_t(void *curl) noexcept:
     curl_easy{curl}
 {
-    auto write_callback = [](char *buffer, std::size_t _, std::size_t size, void *arg) noexcept {
-        Easy_t *handle = static_cast<Easy_t*>(arg);
-        if (handle->writeback)
-            return handle->writeback(buffer, size, handle->data);
-        else
-            return size;
-    };
-
     curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
 
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
@@ -135,6 +127,7 @@ void Easy_t::request_post_large(const void *data, std::size_t len) noexcept
 
 auto Easy_t::perform() noexcept -> perform_ret_t
 {
+    writeback_exception_thrown = nullptr;
     return check_perform(curl_easy_perform(curl_easy));
 }
 
