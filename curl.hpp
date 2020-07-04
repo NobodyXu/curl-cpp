@@ -375,6 +375,8 @@ public:
         Ret_except<int, std::bad_alloc>;
 
     /**
+     * perform() is called only if poll is used.
+     *
      * After perform, perform_callback will be called for each completed
      * easy, and then remove_easy would be called on it immediately after callback returns.
      *
