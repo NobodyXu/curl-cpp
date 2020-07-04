@@ -21,6 +21,10 @@ class libcurl_bug: public Exception {
 public:
     using Exception::Exception;
 };
+class Recursive_api_call_Exception: public Exception {
+public:
+    using Exception::Exception;
+};
 
 class Easy_t;
 class Multi_t;
@@ -94,7 +98,8 @@ public:
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
 
-    bool has_multi_support() const noexcept;
+    bool has_multi_poll_support() const noexcept;
+    bool has_multi_socket_support() const noexcept;
 
     auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
     auto create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>;
@@ -318,14 +323,49 @@ private:
 class Multi_t {
     void *curl_multi;
     int running_handles = 0;
+    bool using_multi_socket_interface = false;
 
 public:
     Data_t data;
+
     /**
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
      */
     void (*perform_callback)(Easy_t &easy, Easy_t::perform_ret_t ret, Data_t &data);
+
+    enum class socket_type {
+        poll_in = CURL_POLL_IN,
+        poll_out = CURL_POLL_OUT,
+        poll_inout = CURL_POLL_INOUT,
+        poll_remove = CURL_POLL_REMOVE,
+    };
+    /**
+     * I suggested that if you want to pass data for each easy handler/socket,
+     * IMHO the best way is to nherit Easy_t and add new data member to it instead of
+     * calling multi_assign during socket_callback, as that could produce recursive_api_call
+     * error.
+     */
+    void (*socket_callback)(Easy_t &easy, 
+                           curl_socket_t s, /* socket */
+                           socket_type what,
+                           Multi_t &multi, 
+                           void *per_socketp);  /* private socket pointer, register with multi_assign */
+    Data_t socket_callback_data;
+
+    /**
+     * @param timeout_ms -1 means you should delete the timer. 
+     *                   All other values are valid expire times in number of milliseconds.
+     * @return should be 0 on success
+     *                   -1 on failure.
+     *
+     * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.
+     * When time that timer fires, call multi_socket_action().
+     *
+     * The timer_callback will only be called when the timeout expire time is changed.
+     */
+    int (*timer_callback)(Multi_t &multi, long timeout_ms, Data_t &timer_data);
+    Data_t timer_data;
 
     class Exception: public curl::Exception {
     public:
@@ -368,6 +408,8 @@ public:
      */
     void remove_easy(Easy_t &easy) noexcept;
 
+    /* Interface for poll + perform - multi_poll interface */
+
     /**
      * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
      */
@@ -384,7 +426,46 @@ public:
      */
     auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
+    /* 
+     * Interface for using arbitary event-based interface - multi_socket interface 
+     *
+     * Precondition for using this interface:
+     *  - curl_t::has_multi_socket_support()
+     */
+
+    /**
+     * You must call this function before adding any easy handler.
+     */
+    void enable_multi_socket_interface() noexcept;
+
+    /**
+     * @Precondition socketfd must be valid
+     * Calling multi_assign in socket_callback could result recursive_api_call error.
+     *
+     * @return std::invalild_argument if socketfd is not valid.
+     */
+    auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
+        Ret_except<void, Recursive_api_call_Exception, std::invalid_argument>;
+
+    /**
+     * @Precondition enable_multi_socket_interface() is called,
+     *               perform_callback, socket_callback, timer_callback is set.
+     *
+     * @param socketfd fd to be notified;
+     *                 CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process.
+     * @param ev_bitmask Or-ed with 0 or one of the value below:
+     *    - CURL_CSELECT_IN,
+     *    - CURL_CSELECT_OUT,
+     *    - CURL_CSELECT_ERR,
+     */
+    auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
+        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+
     ~Multi_t();
+
+private:
+    auto check_perform(long code, int running_handles_tmp) noexcept -> 
+        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 };
 
 /**
