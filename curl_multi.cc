@@ -100,16 +100,14 @@ auto Multi_t::check_perform(long code, int running_handles_tmp) noexcept ->
 
     assert(code == CURLM_OK);
 
-    if (running_handles != running_handles_tmp) {
-        int msgq = 0;
-        for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
-            if (m->msg == CURLMSG_DONE) {
-                auto &easy = Easy_t::get_easy(m->easy_handle);
-                constexpr const auto msg = "In Multi_t::perform or Multi_t::multi_socket_action";
-                perform_callback(easy, easy.check_perform(m->data.result, msg), data);
-                remove_easy(easy);
-            }
-    }
+    int msgq = 0;
+    for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
+        if (m->msg == CURLMSG_DONE) {
+            auto &easy = Easy_t::get_easy(m->easy_handle);
+            constexpr const auto msg = "In Multi_t::perform or Multi_t::multi_socket_action";
+            perform_callback(easy, easy.check_perform(m->data.result, msg), data);
+            remove_easy(easy);
+        }
 
     running_handles = running_handles_tmp;
     return {running_handles};
