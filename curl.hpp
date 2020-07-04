@@ -326,13 +326,12 @@ class Multi_t {
     bool using_multi_socket_interface = false;
 
 public:
-    Data_t data;
-
     /**
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
      */
     void (*perform_callback)(Easy_t &easy, Easy_t::perform_ret_t ret, Data_t &data);
+    Data_t data;
 
     enum class socket_type {
         poll_in = CURL_POLL_IN,
