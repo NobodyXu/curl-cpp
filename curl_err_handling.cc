@@ -48,5 +48,70 @@ auto Easy_t::ProtocolInternal_error::what() const noexcept -> const char*
 {
     return buffer;
 }
+
+auto Easy_t::check_perform(long code) -> perform_ret_t
+{
+    switch (code) {
+        case CURLE_OK:
+            return {};
+
+        case CURLE_URL_MALFORMAT:
+            return {code::url_malformat};
+
+        case CURLE_NOT_BUILT_IN:
+            return {NotBuiltIn_error{code}};
+
+        case CURLE_COULDNT_RESOLVE_PROXY:
+            return {code::cannot_resolve_proxy};
+
+        case CURLE_COULDNT_RESOLVE_HOST:
+        case CURLE_FTP_CANT_GET_HOST:
+            return {code::cannot_resolve_host};
+
+        case CURLE_COULDNT_CONNECT:
+            return {code::cannot_connect};
+
+        case CURLE_REMOTE_ACCESS_DENIED:
+            return {code::remote_access_denied};
+
+        case CURLE_WRITE_ERROR:
+            return {code::writeback_error};
+
+        case CURLE_UPLOAD_FAILED:
+            return {code::upload_failure};
+
+        case CURLE_OUT_OF_MEMORY:
+            return {std::bad_alloc{}};
+
+        case CURLE_OPERATION_TIMEDOUT:
+            return {code::timedout};
+
+        case CURLE_BAD_FUNCTION_ARGUMENT:
+            return std::invalid_argument{"A function was called with a bad parameter."};
+
+        case CURLE_RECURSIVE_API_CALL:
+            return {code::recursive_api_call};
+
+        default:
+            return {Exception{code}};
+
+        case CURLE_HTTP2:
+        case CURLE_SSL_CONNECT_ERROR:
+        case CURLE_UNKNOWN_OPTION:
+        case CURLE_HTTP3:
+            return {ProtocolInternal_error{code, error_buffer}};
+    }
+}
 /* End of Easy_t */
+
+/* For Multi_t */
+Multi_t::Exception::Exception(long err_code_arg):
+    curl::Exception{""},
+    error_code{err_code_arg}
+{}
+auto Multi_t::Exception::what() const noexcept -> const char*
+{
+    return curl_multi_strerror(static_cast<CURLMcode>(error_code));
+}
+/* End of Multi_t */
 }

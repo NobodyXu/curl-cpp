@@ -41,6 +41,8 @@ Easy_t::Easy_t(void *curl) noexcept:
             return size;
     };
 
+    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
+
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
 
@@ -53,6 +55,7 @@ Easy_t::Easy_t(const Easy_t &other, Ret_except<void, curl::Exception> &e) noexce
 {
     if (!curl_easy)
         e.set_exception<curl::Exception>("curl_easy_duphandle failed");
+    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
@@ -60,6 +63,7 @@ Easy_t::Easy_t(Easy_t &&other) noexcept:
     curl_easy{other.curl_easy}
 {
     other.curl_easy = nullptr;
+    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
@@ -111,61 +115,9 @@ void Easy_t::request_post_large(const void *data, std::size_t len) noexcept
     curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
 }
 
-auto Easy_t::perform() noexcept -> 
-    Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, Exception, NotBuiltIn_error, 
-               ProtocolInternal_error>
+auto Easy_t::perform() noexcept -> perform_ret_t
 {
-    auto code = curl_easy_perform(curl_easy);
-    switch (code) {
-        case CURLE_OK:
-            return {};
-
-        case CURLE_URL_MALFORMAT:
-            return {code::url_malformat};
-
-        case CURLE_NOT_BUILT_IN:
-            return {NotBuiltIn_error{code}};
-
-        case CURLE_COULDNT_RESOLVE_PROXY:
-            return {code::cannot_resolve_proxy};
-
-        case CURLE_COULDNT_RESOLVE_HOST:
-        case CURLE_FTP_CANT_GET_HOST:
-            return {code::cannot_resolve_host};
-
-        case CURLE_COULDNT_CONNECT:
-            return {code::cannot_connect};
-
-        case CURLE_REMOTE_ACCESS_DENIED:
-            return {code::remote_access_denied};
-
-        case CURLE_WRITE_ERROR:
-            return {code::writeback_error};
-
-        case CURLE_UPLOAD_FAILED:
-            return {code::upload_failure};
-
-        case CURLE_OUT_OF_MEMORY:
-            return {std::bad_alloc{}};
-
-        case CURLE_OPERATION_TIMEDOUT:
-            return {code::timedout};
-
-        case CURLE_BAD_FUNCTION_ARGUMENT:
-            return std::invalid_argument{"A function was called with a bad parameter."};
-
-        case CURLE_RECURSIVE_API_CALL:
-            return {code::recursive_api_call};
-
-        default:
-            return {Exception{code}};
-
-        case CURLE_HTTP2:
-        case CURLE_SSL_CONNECT_ERROR:
-        case CURLE_UNKNOWN_OPTION:
-        case CURLE_HTTP3:
-            return {ProtocolInternal_error{code, error_buffer}};
-    }
+    return check_perform(curl_easy_perform(curl_easy));
 }
 
 long Easy_t::get_response_code() const noexcept
@@ -242,5 +194,12 @@ auto Easy_t::establish_connection_only() noexcept -> perform_ret_t
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
 
     return std::move(ret);
+}
+
+Easy_t& Easy_t::get_easy(void *curl_easy) noexcept
+{
+    void *pointer;
+    curl_easy_getinfo(curl_easy, CURLINFO_PRIVATE, &pointer);
+    return *static_cast<Easy_t*>(pointer);
 }
 } /* namespace curl */

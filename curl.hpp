@@ -17,8 +17,13 @@ class Exception: public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
 };
+class libcurl_bug: public Exception {
+public:
+    using Exception::Exception;
+};
 
 class Easy_t;
+class Multi_t;
 class Url;
 
 /**
@@ -89,7 +94,10 @@ public:
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
 
+    bool has_multi_support() const noexcept;
+
     auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
+    auto create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>;
 };
 
 class Easy_t {
@@ -114,6 +122,8 @@ public:
     void *data = nullptr;
 
 public:
+    friend Multi_t;
+
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -159,7 +169,7 @@ public:
 
     Easy_t& operator = (const Easy_t&) = delete;
     Easy_t& operator = (Easy_t&&) = delete;
-    
+
     /**
      * @Precondition curl_t::has_CURLU()
      * @param url content of it must not be changed during call to perform(),
@@ -287,6 +297,83 @@ public:
     auto read(std::string &response) -> perform_ret_t;
 
     auto establish_connection_only() noexcept -> perform_ret_t;
+
+private:
+    auto check_perform(long code) -> perform_ret_t;
+    static Easy_t& get_easy(void *curl_easy) noexcept;
+};
+
+class Multi_t {
+    void *curl_multi;
+    int running_handles = 0;
+
+public:
+    union Data_t {
+        void *ptr;
+        std::uint64_t unsigned_int;
+    } data;
+    /**
+     * perform_callback can call arbitary member functions on easy, but probably
+     * not a good idea to call easy.perform().
+     */
+    void (*perform_callback)(Easy_t &easy, Easy_t::perform_ret_t ret, Data_t &data);
+
+    class Exception: public curl::Exception {
+    public:
+        const long error_code;
+
+        Exception(long err_code_arg);
+        Exception(const Exception&) = default;
+
+        auto what() const noexcept -> const char*;
+    };
+
+    Multi_t(void *multi) noexcept;
+
+    /**
+     * @param other after mv operation, other is in invalid state and can only be destroyed
+     *              or move assign another value.
+     */
+    Multi_t(const Multi_t&) = delete;
+    Multi_t(Multi_t&&) noexcept;
+
+    Multi_t& operator = (const Multi_t&) = delete;
+    /**
+     * @param other after mv operation, other is in invalid state and can only be destroyed
+     *              or move assign another value.
+     */
+    Multi_t& operator = (Multi_t&&) noexcept;
+
+    /**
+     * all member functions mustn't be called during perform()
+     */
+
+    /**
+     * @param easy must be in valid state
+     * @return true if not yet added;
+     *         false if already added.
+     */
+    bool add_easy(Easy_t &easy) noexcept;
+    /**
+     * Undefined behavior if easy is not valid or not added to this multi.
+     */
+    void remove_easy(Easy_t &easy) noexcept;
+
+    /**
+     * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
+     */
+    auto poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
+        Ret_except<int, std::bad_alloc>;
+
+    /**
+     * After perform, perform_callback will be called for each completed
+     * easy, and then remove_easy would be called on it immediately after callback returns.
+     *
+     * @return number of running handles
+     */
+    auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+
+    ~Multi_t();
 };
 
 /**

@@ -117,6 +117,11 @@ bool curl_t::has_transfer_time_support() const noexcept
     return version >= Version::from(7, 61, 0);
 }
 
+bool curl_t::has_multi_support() const noexcept
+{
+    return version >= Version::from(7, 10, 3);
+}
+
 curl_t::~curl_t()
 {
     curl_global_cleanup();
