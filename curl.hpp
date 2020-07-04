@@ -417,6 +417,8 @@ public:
         Ret_except<int, std::bad_alloc>;
 
     /**
+     * @Precondition perform_callback is set.
+     *
      * perform() is called only if poll is used.
      *
      * After perform, perform_callback will be called for each completed
