@@ -160,19 +160,19 @@ Easy_t::~Easy_t()
 
 auto Easy_t::readall(std::string &response) -> perform_ret_t
 {
-    writeback = [](char *buffer, std::size_t size, void *data) {
-        std::string &response = *static_cast<std::string*>(data);
+    writeback = [](char *buffer, std::size_t size, Data_t &data) {
+        std::string &response = *static_cast<std::string*>(data.ptr);
         response.append(buffer, buffer + size);
         return size;
     };
-    data = &response;
+    data.ptr = &response;
 
     return perform();
 }
 auto Easy_t::read(std::string &response) -> perform_ret_t
 {
-    writeback = [](char *buffer, std::size_t size, void *data) {
-        std::string &response = *static_cast<std::string*>(data);
+    writeback = [](char *buffer, std::size_t size, Data_t &data) {
+        std::string &response = *static_cast<std::string*>(data.ptr);
 
         auto str_size = response.size();
         auto str_cap = response.capacity();
@@ -181,7 +181,7 @@ auto Easy_t::read(std::string &response) -> perform_ret_t
 
         return size;
     };
-    data = &response;
+    data.ptr = &response;
 
     return perform();
 }

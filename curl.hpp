@@ -100,6 +100,11 @@ public:
     auto create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>;
 };
 
+union Data_t {
+    void *ptr;
+    std::uint64_t unsigned_int;
+};
+
 class Easy_t {
     void *curl_easy;
     char error_buffer[CURL_ERROR_SIZE];
@@ -113,13 +118,13 @@ public:
 	 * 
      * @param buffer not null-terminated
      */
-    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, void *data);
+    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, Data_t &data);
 
     /**
      * If set to nullptr, then all response content are ignored.
      */
     writeback_t writeback = nullptr;
-    void *data = nullptr;
+    Data_t data;
 
 public:
     friend Multi_t;
@@ -309,10 +314,7 @@ class Multi_t {
     int running_handles = 0;
 
 public:
-    union Data_t {
-        void *ptr;
-        std::uint64_t unsigned_int;
-    } data;
+    Data_t data;
     /**
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
