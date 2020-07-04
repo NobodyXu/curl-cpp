@@ -379,6 +379,7 @@ public:
     Multi_t(void *multi) noexcept;
 
     /**
+     * @Precondition get_number_of_running_handles() == 0
      * @param other after mv operation, other is in invalid state and can only be destroyed
      *              or move assign another value.
      */
@@ -387,6 +388,7 @@ public:
 
     Multi_t& operator = (const Multi_t&) = delete;
     /**
+     * @Precondition get_number_of_running_handles() == 0
      * @param other after mv operation, other is in invalid state and can only be destroyed
      *              or move assign another value.
      */
