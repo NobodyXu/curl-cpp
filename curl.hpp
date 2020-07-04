@@ -466,6 +466,9 @@ public:
     auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
+    /**
+     * @Precondition get_number_of_running_handles() == 0
+     */
     ~Multi_t();
 
 private:
