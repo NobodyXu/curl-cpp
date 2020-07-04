@@ -261,7 +261,6 @@ public:
         writeback_error, // Check writeback_exception_thrown
         upload_failure,
         timedout,
-        recursive_api_call,
     };
     using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
                                      Exception, Recursive_api_call_Exception, NotBuiltIn_error, 
