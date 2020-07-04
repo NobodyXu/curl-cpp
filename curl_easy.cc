@@ -60,7 +60,9 @@ Easy_t::Easy_t(const Easy_t &other, Ret_except<void, curl::Exception> &e) noexce
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 Easy_t::Easy_t(Easy_t &&other) noexcept:
-    curl_easy{other.curl_easy}
+    curl_easy{other.curl_easy},
+    writeback{other.writeback},
+    data{other.data}
 {
     other.curl_easy = nullptr;
     curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
