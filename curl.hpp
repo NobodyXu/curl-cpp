@@ -407,6 +407,8 @@ public:
      */
     void remove_easy(Easy_t &easy) noexcept;
 
+    int get_number_of_running_handles() const noexcept;
+
     /* Interface for poll + perform - multi_poll interface */
 
     /**

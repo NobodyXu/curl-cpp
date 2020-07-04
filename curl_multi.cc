@@ -73,6 +73,11 @@ void Multi_t::remove_easy(Easy_t &easy) noexcept
     curl_multi_remove_handle(curl_multi, easy.curl_easy);
 }
 
+int Multi_t::get_number_of_running_handles() const noexcept
+{
+    return running_handles;
+}
+
 /* Interface for poll + perform - multi_poll interface */
 auto Multi_t::poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
     Ret_except<int, std::bad_alloc>
