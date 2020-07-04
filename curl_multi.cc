@@ -20,10 +20,22 @@ Multi_t::Multi_t(Multi_t &&other) noexcept:
 {
     other.curl_multi = nullptr;
 
+    running_handles = other.running_handles;
+    using_multi_socket_interface = other.using_multi_socket_interface;
+
     if (other.using_multi_socket_interface) {
         curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
         curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
     }
+
+    perform_callback = other.perform_callback;
+    data = other.data;
+
+    socket_callback = other.socket_callback;
+    socket_callback_data = other.socket_callback_data;
+
+    timer_callback = other.timer_callback;
+    timer_data = other.timer_data;
 }
 Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
 {
@@ -32,10 +44,22 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     curl_multi = other.curl_multi;
     other.curl_multi = nullptr;
 
+    running_handles = other.running_handles;
+    using_multi_socket_interface = other.using_multi_socket_interface;
+
     if (other.using_multi_socket_interface) {
         curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
         curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
     }
+
+    perform_callback = other.perform_callback;
+    data = other.data;
+
+    socket_callback = other.socket_callback;
+    socket_callback_data = other.socket_callback_data;
+
+    timer_callback = other.timer_callback;
+    timer_data = other.timer_data;
 
     return *this;
 }
