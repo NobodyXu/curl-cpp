@@ -103,6 +103,7 @@ public:
 union Data_t {
     void *ptr;
     std::uint64_t unsigned_int;
+    char spaces[8];
 };
 
 class Easy_t {
