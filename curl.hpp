@@ -101,20 +101,20 @@ public:
 };
 
 class Easy_t {
+    void *curl_easy;
+    char error_buffer[CURL_ERROR_SIZE];
+
 public:
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
      * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
+     *
+     * It would be undefined behavior to call any easy member function in writeback.
 	 * 
      * @param buffer not null-terminated
      */
     using writeback_t = std::size_t (*)(char *buffer, std::size_t size, void *data);
 
-private:
-    void *curl_easy;
-    char error_buffer[CURL_ERROR_SIZE];
-
-public:
     /**
      * If set to nullptr, then all response content are ignored.
      */
@@ -163,7 +163,8 @@ public:
 
     Easy_t(const Easy_t&, Ret_except<void, curl::Exception> &e) noexcept;
     /**
-     * @param other after mv operation, other is in invalid state and can only be destroyed.
+     * @param other after mv operation, other is in invalid state and can only be destroyed
+     *              or move assign another value.
      */
     Easy_t(Easy_t &&other) noexcept;
 
