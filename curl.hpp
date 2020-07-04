@@ -264,7 +264,8 @@ public:
         recursive_api_call,
     };
     using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
-                                     Exception, NotBuiltIn_error, ProtocolInternal_error>;
+                                     Exception, Recursive_api_call_Exception, NotBuiltIn_error, 
+                                     ProtocolInternal_error>;
 
     auto perform() noexcept -> perform_ret_t;
 
@@ -321,7 +322,7 @@ public:
     auto establish_connection_only() noexcept -> perform_ret_t;
 
 private:
-    auto check_perform(long code) -> perform_ret_t;
+    auto check_perform(long code, const char *fname) noexcept -> perform_ret_t;
 };
 
 class Multi_t {

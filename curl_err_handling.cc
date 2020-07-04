@@ -49,7 +49,7 @@ auto Easy_t::ProtocolInternal_error::what() const noexcept -> const char*
     return buffer;
 }
 
-auto Easy_t::check_perform(long code) -> perform_ret_t
+auto Easy_t::check_perform(long code, const char *fname) noexcept -> perform_ret_t
 {
     switch (code) {
         case CURLE_OK:
@@ -90,7 +90,7 @@ auto Easy_t::check_perform(long code) -> perform_ret_t
             return std::invalid_argument{"A function was called with a bad parameter."};
 
         case CURLE_RECURSIVE_API_CALL:
-            return {code::recursive_api_call};
+            return {Recursive_api_call_Exception{fname}};
 
         default:
             return {Exception{code}};
