@@ -433,6 +433,8 @@ public:
      * After perform, perform_callback will be called for each completed
      * easy, and then remove_easy would be called on it immediately after callback returns.
      *
+     * **YOU MUST CALL perform() after to start the transfer, then poll**
+     *
      * @return number of running handles
      */
     auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
@@ -468,6 +470,8 @@ public:
      *    - CURL_CSELECT_IN,
      *    - CURL_CSELECT_OUT,
      *    - CURL_CSELECT_ERR,
+     *
+     * **YOU MUST CALL perform() to start the transfer, then call waitever poll interface you use**
      */
     auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
