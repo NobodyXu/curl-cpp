@@ -113,6 +113,7 @@ union Data_t {
 };
 
 class Easy_t {
+protected:
     void *curl_easy;
     char error_buffer[CURL_ERROR_SIZE];
 
@@ -320,11 +321,12 @@ public:
 
     auto establish_connection_only() noexcept -> perform_ret_t;
 
-private:
+protected:
     auto check_perform(long code, const char *fname) noexcept -> perform_ret_t;
 };
 
 class Multi_t {
+protected:
     void *curl_multi;
     int running_handles = 0;
     bool using_multi_socket_interface = false;
@@ -475,7 +477,7 @@ public:
      */
     ~Multi_t();
 
-private:
+protected:
     auto check_perform(long code, int running_handles_tmp) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 };
@@ -484,9 +486,9 @@ private:
  * @Precondition for using this class: curl_t::has_CURLU()
  */
 class Url {
+protected:
     void *url;
 
-protected:
     static void check_url(int code);
 
 public:
