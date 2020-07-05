@@ -115,7 +115,16 @@ public:
     bool has_multi_poll_support() const noexcept;
     bool has_multi_socket_support() const noexcept;
 
+    /**
+     * http2 multiplex is turn on by default, if supported.
+     */
+    bool has_http2_multiplex_support() const noexcept;
+    bool has_max_concurrent_stream_support() const noexcept;
+
     auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
+    /**
+     * NOTE that http1 pipeline is always disabled.
+     */
     auto create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>;
 };
 
@@ -429,6 +438,22 @@ public:
     void remove_easy(Easy_t &easy) noexcept;
 
     int get_number_of_running_handles() const noexcept;
+
+    /**
+     * HTTP2 multiplexing configuration.
+     *
+     * @Precondition curl_t::has_http2_multiplex_support()
+     * @param max_concurrent_stream max concurrent stream for a given connection.
+     *                              Should be between [1, 2 ^ 31 - 1].
+     *                              Set it to 1 or 0 disable multiplexing.
+     *
+     * NOTE that libcurl not always accept max_concurrent_stream tuning.
+     * Check curl_t::has_max_concurrent_stream_support().
+     *
+     * If libcurl does not support tuning, this option will be only used
+     * for turning on and off the http2 multiplex.
+     */
+    void set_multiplexing(long max_concurrent_stream) noexcept;
 
     /* Interface for poll + perform - multi_poll interface */
 

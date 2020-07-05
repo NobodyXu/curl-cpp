@@ -78,6 +78,15 @@ int Multi_t::get_number_of_running_handles() const noexcept
     return running_handles;
 }
 
+void Multi_t::set_multiplexing(long max_concurrent_stream) noexcept
+{
+    long bitmask = max_concurrent_stream > 1 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;
+    curl_multi_setopt(curl_multi, CURLMOPT_PIPELINING, bitmask);
+
+    if (max_concurrent_stream > 1)
+        curl_multi_setopt(curl_multi, CURLMOPT_MAX_CONCURRENT_STREAMS, max_concurrent_stream);
+}
+
 /* Interface for poll + perform - multi_poll interface */
 auto Multi_t::poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
     Ret_except<int, std::bad_alloc>

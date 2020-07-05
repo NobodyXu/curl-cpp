@@ -126,6 +126,15 @@ bool curl_t::has_multi_socket_support() const noexcept
     return version >= Version::from(7, 16, 0);
 }
 
+bool curl_t::has_http2_multiplex_support() const noexcept
+{
+    return version >= Version::from(7, 43, 0);
+}
+bool curl_t::has_max_concurrent_stream_support() const noexcept
+{
+    return version >= Version::from(7, 67, 0);
+}
+
 curl_t::~curl_t()
 {
     curl_global_cleanup();
