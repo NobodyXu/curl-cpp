@@ -64,7 +64,11 @@ public:
         std::size_t to_string(char buffer[12]) const noexcept;
     };
 
+    /**
+     * Modification of debug_stream is sure not thread-safe.
+     */
     FILE *debug_stream;
+
     const void * const version_info;
     const Version version;
     const char * const version_str;
@@ -86,6 +90,10 @@ public:
     curl_t& operator = (curl_t&&) = delete;
 
     ~curl_t();
+
+    /**
+     * Any function below in this class is thread-safe!
+     */
 
     bool has_compression_support() const noexcept;
     bool has_largefile_support() const noexcept;
