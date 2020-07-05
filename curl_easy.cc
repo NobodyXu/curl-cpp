@@ -28,6 +28,9 @@ auto curl_t::create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>
     // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
 
+    if (disable_signal_handling_v)
+        curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+
     return {std::in_place_type<Easy_t>, curl};
 }
 Easy_t::Easy_t(void *curl) noexcept:

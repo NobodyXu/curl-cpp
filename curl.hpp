@@ -65,9 +65,28 @@ public:
     };
 
     /**
-     * Modification of debug_stream is sure not thread-safe.
+     * Modification of the variable below is sure not thread-safe.
      */
     FILE *debug_stream;
+
+    /**
+     * @Precondition has_disable_signal_handling_support()
+     *
+     * If your libcurl uses standard name resolver, disable signal handling might cause timeout to never 
+     * occur during name resolution.
+     *
+     * Disable signal handling makes libcurl NOT ask the system to ignore SIGPIPE signals, which otherwise 
+     * are sent by the system when trying to send data to a socket which is closed in the other end. 
+     *
+     * libcurl makes an effort to never cause such SIGPIPEs to trigger, but some operating systems have 
+     * no way to avoid them and even on those that have there are some corner cases when they may still happen, 
+     * contrary to our desire. 
+     *
+     * In addition, using CURLAUTH_NTLM_WB authentication could cause a SIGCHLD signal to be raised.
+     *
+     * Modifing this would only affect Easy_t handle created after the modification.
+     */
+    bool disable_signal_handling_v = false;
 
     const void * const version_info;
     const Version version;
@@ -101,6 +120,8 @@ public:
      * @param protocol should be lower-case
      */
     bool has_protocol(const char *protocol) const noexcept;
+
+    bool has_disable_signal_handling_support() const noexcept;
 
     /**
      * has curl::Url support
