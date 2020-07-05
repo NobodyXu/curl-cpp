@@ -27,6 +27,9 @@ public:
     using Exception::Exception;
 };
 
+/**
+ * It is unsafe to use any of class defined below in multithreaded environment without synchronization.
+ */
 class Easy_t;
 class Multi_t;
 class Url;
