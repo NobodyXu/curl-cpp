@@ -70,10 +70,12 @@ public:
     const char * const version_str;
 
     /**
-     * Since this variable is designed to be static, 
+     * Since curl_t is designed to be used as astatic variable,
      * it would call errx on error.
      *
      * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
+     *
+     * This is not thread-safe.
      */
     curl_t(FILE *debug_stream_arg) noexcept;
 
