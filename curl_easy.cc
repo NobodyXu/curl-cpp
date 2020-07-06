@@ -48,8 +48,10 @@ Easy_t::Easy_t(const Easy_t &other, Ret_except<void, curl::Exception> &e) noexce
     writeback{other.writeback},
     data{other.data}
 {
-    if (!curl_easy)
+    if (!curl_easy) {
         e.set_exception<curl::Exception>("curl_easy_duphandle failed");
+        return;
+    }
     curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, this);
     curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);

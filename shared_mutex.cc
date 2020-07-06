@@ -10,9 +10,13 @@
     if ((expr) != 0) \
         throw std::system_error(errno, std::generic_category(), # expr)
 
-#define CHECK2(expr)  \
-    if ((expr) != 0) \
-        e.set_exception<std::system_error>(errno, std::generic_category(), # expr)
+#define CHECK2(expr)       \
+    do {                   \
+        if ((expr) != 0) { \
+            e.set_exception<std::system_error>(errno, std::generic_category(), # expr); \
+            return; \
+        } \
+    } while (0)
 
 namespace curl::util {
 shared_mutex::shared_mutex()
