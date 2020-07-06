@@ -23,6 +23,9 @@ Url::Url(Url &&other) noexcept:
 
 auto Url::operator = (const Url &other) noexcept -> Ret_except<void, std::bad_alloc>
 {
+    if (url)
+        curl_url_cleanup(static_cast<CURLU*>(url));
+
     url = curl_url_dup(static_cast<CURLU*>(other.url));
     if (url == nullptr)
         return {std::bad_alloc{}};
