@@ -149,7 +149,14 @@ void Multi_t::enable_multi_socket_interface() noexcept
             multi.socket_callback(easy, s, static_cast<socket_type>(what), multi, per_socketp);
             return 0;
         };
-        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETFUNCTION, socket_callback);
+
+        using socket_callback_t = int (*)(CURL *easy, 
+                                          curl_socket_t s, 
+                                          int what, 
+                                          void *userp, 
+                                          void *socketp);
+
+        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETFUNCTION, static_cast<socket_callback_t>(socket_callback_wrapper));
         curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
 
         auto timerfunc = [](CURLM *multi_hanlder, long timeout_ms, void *multi_p) noexcept
@@ -158,7 +165,9 @@ void Multi_t::enable_multi_socket_interface() noexcept
             return multi.timer_callback(multi, timeout_ms, multi.timer_data);
         };
 
-        curl_multi_setopt(curl_multi, CURLMOPT_TIMERFUNCTION, timerfunc);
+        using timer_callback_t = int (*)(CURLM *multi, long timeout_ms, void *userp);
+
+        curl_multi_setopt(curl_multi, CURLMOPT_TIMERFUNCTION, static_cast<timer_callback_t>(timerfunc));
         curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
     }
 }
