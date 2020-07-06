@@ -130,7 +130,6 @@ void Easy_t::request_post_large(const void *data, std::size_t len) noexcept
 
 auto Easy_t::perform() noexcept -> perform_ret_t
 {
-    writeback_exception_thrown = nullptr;
     return check_perform(curl_easy_perform(curl_easy), "curl::Easy_t::perform");
 }
 
