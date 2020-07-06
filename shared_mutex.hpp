@@ -3,6 +3,7 @@
 
 # include <pthread.h>
 # include <system_error>
+# include "return-exception/ret-exception.hpp"
 
 namespace curl::util {
 class shared_mutex {
@@ -13,6 +14,7 @@ public:
      * @Exception std::system_error.
      */
     shared_mutex();
+    shared_mutex(Ret_except<void, std::system_error> &e) noexcept;
 
     shared_mutex(const shared_mutex&) = delete;
     shared_mutex(shared_mutex&&) = delete;

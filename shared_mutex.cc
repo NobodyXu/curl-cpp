@@ -10,6 +10,10 @@
     if ((expr) != 0) \
         throw std::system_error(errno, std::generic_category(), # expr)
 
+#define CHECK2(expr)  \
+    if ((expr) != 0) \
+        e.set_exception<std::system_error>(errno, std::generic_category(), # expr)
+
 namespace curl::util {
 shared_mutex::shared_mutex()
 {
@@ -19,6 +23,17 @@ shared_mutex::shared_mutex()
     CHECK(pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP));
 
     CHECK(pthread_rwlock_init(&rwlock, &attr));
+
+    pthread_rwlockattr_destroy(&attr);
+}
+shared_mutex::shared_mutex(Ret_except<void, std::system_error> &e) noexcept
+{
+    pthread_rwlockattr_t attr;
+
+    CHECK2(pthread_rwlockattr_init(&attr));
+    CHECK2(pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP));
+
+    CHECK2(pthread_rwlock_init(&rwlock, &attr));
 
     pthread_rwlockattr_destroy(&attr);
 }
