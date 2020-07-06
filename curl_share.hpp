@@ -2,7 +2,7 @@
 # define __curl_cpp_curl_share_HPP__
 
 # include "curl.hpp"
-# include <shared_mutex>
+# include "shared_mutex.hpp"
 
 namespace curl {
 class Share_base {
@@ -109,7 +109,7 @@ public:
  *                        Pass void to disable locking, which make
  *                        multithreaded use unsafe.
  */
-template <class Shared_mutex_t>
+template <class Shared_mutex_t = util::shared_mutex>
 class Share: public Share_base {
     Shared_mutex_t mutexes[5];
 
