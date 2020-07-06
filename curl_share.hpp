@@ -132,7 +132,9 @@ class Share: public Share_base {
     }
 
 public:
-    Share(Ret_except<void, Exception> &e);
+    Share(Ret_except<void, Exception> &e):
+        Share_base{e}
+    {}
 
     void enable_multithreaded_share() noexcept
     {
