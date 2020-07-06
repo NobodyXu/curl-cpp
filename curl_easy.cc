@@ -23,7 +23,6 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t,
     // Enable TCP_keepalive
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
-    // Attempt to optimize buffer size for writeback
     curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
 
     if (disable_signal_handling_v)
