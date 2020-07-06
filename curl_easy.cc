@@ -20,8 +20,6 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t,
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     }
 
-    // Enable TCP_fastopen
-    curl_easy_setopt(curl, CURLOPT_TCP_FASTOPEN, 1L);
     // Enable TCP_keepalive
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
