@@ -140,6 +140,20 @@ bool curl_t::has_max_concurrent_stream_support() const noexcept
     return version >= Version::from(7, 67, 0);
 }
 
+
+bool curl_t::has_ssl_session_sharing_support() const noexcept
+{
+    return version >= Version::from(7, 23, 0);
+}
+bool curl_t::has_connection_cache_sharing_support() const noexcept
+{
+    return version >= Version::from(7, 57, 0);
+}
+bool curl_t::has_psl_sharing_support() const noexcept
+{
+    return version >= Version::from(7, 61, 0);
+}
+
 curl_t::~curl_t()
 {
     curl_global_cleanup();

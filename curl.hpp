@@ -27,6 +27,10 @@ public:
     using Exception::Exception;
 };
 
+class Share_base;
+template <class Shared_mutex_t>
+class Share;
+
 /**
  * It is unsafe to use any of class defined below in multithreaded environment without synchronization.
  */
@@ -133,6 +137,8 @@ public:
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
 
+    auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
+
     bool has_multi_poll_support() const noexcept;
     bool has_multi_socket_support() const noexcept;
 
@@ -142,11 +148,14 @@ public:
     bool has_http2_multiplex_support() const noexcept;
     bool has_max_concurrent_stream_support() const noexcept;
 
-    auto create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>;
     /**
      * NOTE that http1 pipeline is always disabled.
      */
     auto create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>;
+
+    bool has_ssl_session_sharing_support() const noexcept;
+    bool has_connection_cache_sharing_support() const noexcept;
+    bool has_psl_sharing_support() const noexcept;
 };
 
 union Data_t {
@@ -164,6 +173,7 @@ protected:
 
 public:
     friend Multi_t;
+    friend Share_base;
 
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
