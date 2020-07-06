@@ -9,7 +9,7 @@
         return {std::bad_alloc{}}
 
 namespace curl {
-auto curl_t::create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>
+auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t, curl::Exception>
 {
     CURL *curl = curl_easy_init();
     if (!curl)
@@ -26,7 +26,7 @@ auto curl_t::create_easy() noexcept -> Ret_except<Easy_t, curl::Exception>
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
     // Attempt to optimize buffer size for writeback
-    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, CURL_MAX_READ_SIZE);
+    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
 
     if (disable_signal_handling_v)
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
