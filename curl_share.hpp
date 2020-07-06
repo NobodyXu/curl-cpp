@@ -103,6 +103,9 @@ public:
 /**
  * @tparam Shared_mutex_t For shared or single lock, their unlock function must be
  *                        the same function -- Shared_mutex_t::unlock().
+ *                        If Shared_mutex_t::lock(), Shared_mutex_t::lock_shared()
+ *                        or Shared_mutex_t::unlock() throw an exception, it would
+ *                        terminate the program.
  *                        Pass void to disable locking, which make
  *                        multithreaded use unsafe.
  */
