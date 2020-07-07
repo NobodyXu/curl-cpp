@@ -127,15 +127,29 @@ public:
 
     bool has_disable_signal_handling_support() const noexcept;
 
+    bool has_sizeof_upload_support() const noexcept;
+    bool has_sizeof_response_header_support() const noexcept;
+    bool has_sizeof_response_body_support() const noexcept;
+    bool has_transfer_time_support() const noexcept;
+
     /**
      * has curl::Url support
      */
     bool has_CURLU(const char *protocol) const noexcept;
 
-    bool has_sizeof_upload_support() const noexcept;
-    bool has_sizeof_response_header_support() const noexcept;
-    bool has_sizeof_response_body_support() const noexcept;
-    bool has_transfer_time_support() const noexcept;
+    struct Url_deleter {
+        void operator () (CURLU *p) const noexcept;
+    };
+    using Url_t = std::unique_ptr<CURLU, Url_deleter>;
+
+    /**
+     * @return nullptr if failed.
+     *
+     * Since Url_ref_t doesn't have any other data except pointer to
+     * CURLU itself, returning std::unique_ptr instead of an object like Easy_t 
+     * would make it easier to manage it in custom ways like std::shared_ptr.
+     */
+    auto create_Url() noexcept -> Url_t;
 
     /**
      * @param buffer_size size of receiver buffer.
@@ -566,36 +580,20 @@ protected:
 /**
  * @Precondition for using this class: curl_t::has_CURLU()
  */
-class Url {
+class Url_ref_t {
 protected:
-    void *url;
-
     static void check_url(int code);
 
 public:
+    /**
+     * If url == nullptr, then calling any member function has 
+     * undefined behavior.
+     */
+    CURLU *url;
+
     struct curl_delete {
         void operator () (char *p) const noexcept;
     };
-
-    friend void Easy_t::set_url(const Url &url) noexcept;
-
-    /**
-     * ctor and assignment can throw std::bad_alloc only.
-     * noexcept mv ctor and assignment is noexcept.
-     */
-
-    Url(Ret_except<void, std::bad_alloc> &e) noexcept;
-    Url(const Url&, Ret_except<void, std::bad_alloc> &e) noexcept;
-    /**
-     * After other is moved, it can only be destroyed or reassigned.
-     */
-    Url(Url &&other) noexcept;
-
-    auto operator = (const Url&) noexcept -> Ret_except<void, std::bad_alloc>;
-    /**
-     * After other is moved, it can only be destroyed or reassigned.
-     */
-    Url& operator = (Url &&other) noexcept;
 
     enum class set_code {
         ok,
@@ -646,8 +644,6 @@ public:
     auto get_scheme() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
     auto get_options() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
     auto get_query() const noexcept -> Ret_except<string, get_code, std::bad_alloc>;
-
-    ~Url();
 };
 
 } /* namespace curl */
