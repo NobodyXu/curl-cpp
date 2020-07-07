@@ -6,17 +6,17 @@
 
 namespace curl {
 /* For Easy_t */
-Easy_t::Exception::Exception(long err_code_arg):
+Easy_ref_t::Exception::Exception(long err_code_arg):
     curl::Exception{""},
     error_code{err_code_arg}
 {}
-auto Easy_t::Exception::what() const noexcept -> const char*
+auto Easy_ref_t::Exception::what() const noexcept -> const char*
 {
     return curl_easy_strerror(static_cast<CURLcode>(error_code));
 }
 
 
-Easy_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, const char *error_buffer):
+Easy_ref_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, const char *error_buffer):
     Exception{error_code_arg}
 {
     const char *code_name;
@@ -44,12 +44,12 @@ Easy_t::ProtocolInternal_error::ProtocolInternal_error(long error_code_arg, cons
     std::snprintf(buffer, buffer_size, "%s: %s", code_name, error_buffer);
 }
 
-auto Easy_t::ProtocolInternal_error::what() const noexcept -> const char*
+auto Easy_ref_t::ProtocolInternal_error::what() const noexcept -> const char*
 {
     return buffer;
 }
 
-auto Easy_t::check_perform(long code, const char *fname) noexcept -> perform_ret_t
+auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform_ret_t
 {
     switch (code) {
         case CURLE_OK:
@@ -99,7 +99,7 @@ auto Easy_t::check_perform(long code, const char *fname) noexcept -> perform_ret
         case CURLE_SSL_CONNECT_ERROR:
         case CURLE_UNKNOWN_OPTION:
         case CURLE_HTTP3:
-            return {ProtocolInternal_error{code, error_buffer}};
+            return {ProtocolInternal_error{code, ptrs.second}};
     }
 }
 /* End of Easy_t */

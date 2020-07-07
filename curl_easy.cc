@@ -1,5 +1,6 @@
 #include "curl.hpp"
 
+#include <cstdlib>
 #include <curl/curl.h>
 #include <arpa/inet.h>
 #include <utility>
@@ -9,11 +10,15 @@
         return {std::bad_alloc{}}
 
 namespace curl {
-auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t, curl::Exception>
+void curl_t::Easy_deleter::operator () (void *p) const noexcept
+{
+    curl_easy_cleanup(p);
+}
+auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
 {
     CURL *curl = curl_easy_init();
     if (!curl)
-        return {curl::Exception{"curl_easy_init failed"}};
+        return {nullptr, nullptr};
 
     if (debug_stream) {
         curl_easy_setopt(curl, CURLOPT_STDERR, debug_stream);
@@ -28,143 +33,115 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t,
     if (disable_signal_handling_v)
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 
-    return {std::in_place_type<Easy_t>, curl};
-}
-Easy_t::Easy_t(void *curl) noexcept:
-    curl_easy{curl}
-{
-    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
-}
-Easy_t::Easy_t(const Easy_t &other, Ret_except<void, curl::Exception> &e) noexcept:
-    curl_easy{curl_easy_duphandle(other.curl_easy)}
-{
-    if (!curl_easy) {
-        e.set_exception<curl::Exception>("curl_easy_duphandle failed");
-        return;
+    using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
+    using cstr_ptr = std::unique_ptr<char[]>;
+
+    auto *error_buffer = static_cast<char*>(std::malloc(CURL_ERROR_SIZE));
+    if (error_buffer) {
+        error_buffer[0] = '\0';
+        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
     }
-    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
-}
-Easy_t::Easy_t(Easy_t &&other) noexcept:
-    curl_easy{other.curl_easy}
-{
-    other.curl_easy = nullptr;
-    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
-}
-Easy_t& Easy_t::operator = (Easy_t &&other) noexcept
-{
-    if (curl_easy)
-        curl_easy_cleanup(curl_easy);
-    curl_easy = other.curl_easy;
-    other.curl_easy = nullptr;
 
-    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
-
-    return *this;
+    return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
 }
 
-void Easy_t::set_writeback(writeback_t writeback, void *userp) noexcept
+void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept
 {
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, userp);
+    curl_easy_setopt(ptrs.first, CURLOPT_WRITEFUNCTION, writeback);
+    curl_easy_setopt(ptrs.first, CURLOPT_WRITEDATA, userp);
 }
 
-void Easy_t::set_url(const Url_ref_t &url) noexcept
+void Easy_ref_t::set_url(const Url_ref_t &url) noexcept
 {
-    curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);
+    curl_easy_setopt(ptrs.first, CURLOPT_CURLU, url.url);
 }
-auto Easy_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>
+auto Easy_ref_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));
+    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_URL, url));
     return {};
 }
 
-auto Easy_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>
+auto Easy_ref_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
+    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_USERAGENT, useragent));
     return {};
 }
-auto Easy_t::set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>
+auto Easy_ref_t::set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
-    return {};
-}
-
-auto Easy_t::set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
-{
-    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, ip_addr));
+    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_ACCEPT_ENCODING, encoding));
     return {};
 }
 
-void Easy_t::set_timeout(unsigned long timeout) noexcept
+auto Easy_ref_t::set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    curl_easy_setopt(curl_easy, CURLOPT_TIMEOUT_MS, timeout);
+    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_INTERFACE, ip_addr));
+    return {};
 }
 
-void Easy_t::request_get() noexcept
+void Easy_ref_t::set_timeout(unsigned long timeout) noexcept
 {
-    curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);
-}
-void Easy_t::request_post(const void *data, std::uint32_t len) noexcept
-{
-    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE, len);
-    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
-}
-void Easy_t::request_post_large(const void *data, std::size_t len) noexcept
-{
-    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
-    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
+    curl_easy_setopt(ptrs.first, CURLOPT_TIMEOUT_MS, timeout);
 }
 
-auto Easy_t::perform() noexcept -> perform_ret_t
+void Easy_ref_t::request_get() noexcept
 {
-    return check_perform(curl_easy_perform(curl_easy), "curl::Easy_t::perform");
+    curl_easy_setopt(ptrs.first, CURLOPT_HTTPGET, 1L);
+}
+void Easy_ref_t::request_post(const void *data, std::uint32_t len) noexcept
+{
+    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE, len);
+    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
+}
+void Easy_ref_t::request_post_large(const void *data, std::size_t len) noexcept
+{
+    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE_LARGE, len);
+    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
 }
 
-long Easy_t::get_response_code() const noexcept
+auto Easy_ref_t::perform() noexcept -> perform_ret_t
+{
+    return check_perform(curl_easy_perform(ptrs.first), "curl::Easy_ref_t::perform");
+}
+
+long Easy_ref_t::get_response_code() const noexcept
 {
     long response_code;
-    curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
+    curl_easy_getinfo(ptrs.first, CURLINFO_RESPONSE_CODE, &response_code);
     return response_code;
 }
 
-std::size_t Easy_t::getinfo_sizeof_uploaded() const noexcept
+std::size_t Easy_ref_t::getinfo_sizeof_uploaded() const noexcept
 {
     curl_off_t ul;
-    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul);
+    curl_easy_getinfo(ptrs.first, CURLINFO_SIZE_UPLOAD_T, &ul);
     return ul;
 }
-std::size_t Easy_t::getinfo_sizeof_response_header() const noexcept
+std::size_t Easy_ref_t::getinfo_sizeof_response_header() const noexcept
 {
     long size;
-    curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &size);
+    curl_easy_getinfo(ptrs.first, CURLINFO_HEADER_SIZE, &size);
     return size;
 }
-std::size_t Easy_t::getinfo_sizeof_response_body() const noexcept
+std::size_t Easy_ref_t::getinfo_sizeof_response_body() const noexcept
 {
     curl_off_t dl;
-    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl);
+    curl_easy_getinfo(ptrs.first, CURLINFO_SIZE_DOWNLOAD_T, &dl);
     return dl;
 }
-std::size_t Easy_t::getinfo_transfer_time() const noexcept
+std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept
 {
     curl_off_t total;
-    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
+    curl_easy_getinfo(ptrs.first, CURLINFO_TOTAL_TIME_T, &total);
     return total;
 }
 
-Easy_t::~Easy_t()
-{
-    if (curl_easy)
-        curl_easy_cleanup(curl_easy);
-}
-
-auto Easy_t::establish_connection_only() noexcept -> perform_ret_t
+auto Easy_ref_t::establish_connection_only() noexcept -> perform_ret_t
 {
     request_get();
 
-    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);
+    curl_easy_setopt(ptrs.first, CURLOPT_NOBODY, 1);
     auto ret = perform();
-    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
+    curl_easy_setopt(ptrs.first, CURLOPT_NOBODY, 0);
 
     return std::move(ret);
 }

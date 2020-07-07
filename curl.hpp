@@ -11,6 +11,7 @@
 
 # include <curl/curl.h>
 
+# include "utils/unique_ptr_pair.hpp"
 # include "return-exception/ret-exception.hpp"
 
 namespace curl {
@@ -135,6 +136,11 @@ public:
     bool has_buffer_size_tuning_support() const noexcept;
     bool has_buffer_size_growing_support() const noexcept;
 
+    struct Easy_deleter {
+        void operator () (void *p) const noexcept;
+    };
+
+    using Easy_t = util::unique_ptr_pair<char, Easy_deleter, char[]>;
     /**
      * @param buffer_size size of receiver buffer.
      *
@@ -143,8 +149,12 @@ public:
      *                    The minimum buffer size allowed to be set is 1024.
      *
      *                    This param is just treated as a request, not an order.
+     * @return If Easy_t::p1 == nullptr, then curl_easy cannot be created.
+     *          - It can be no memory left;
+     *          - Or, initialization code for some part of lib failed.
+     *         If Easy_t::p2 == nullptr, then it means not enough memory.
      */
-    auto create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t, curl::Exception>;
+    auto create_easy(std::size_t buffer_size) noexcept -> Easy_t;
 
     /**
      * has curl::Url support
@@ -190,16 +200,12 @@ union Data_t {
     char spaces[8];
 };
 
-class Easy_t {
+class Easy_ref_t {
 protected:
-    void *curl_easy;
-    char error_buffer[CURL_ERROR_SIZE];
-
     static std::size_t write_callback(char *buffer, std::size_t _, std::size_t size, void *arg) noexcept;
 
 public:
-    friend Multi_t;
-    friend Share_base;
+    std::pair<char* /* actually is pointer to CURL */, char*> ptrs;
 
     class Exception: public curl::Exception {
     public:
@@ -232,25 +238,6 @@ public:
 
         auto what() const noexcept -> const char*;
     };
-
-    /**
-     * @param curl must be ret value of curl_easy_init(), must not be nullptr
-     */
-    Easy_t(void *curl) noexcept;
-
-    Easy_t(const Easy_t&, Ret_except<void, curl::Exception> &e) noexcept;
-    /**
-     * @param other after mv operation, other is in invalid state and can only be destroyed
-     *              or move assign another value.
-     */
-    Easy_t(Easy_t &&other) noexcept;
-
-    Easy_t& operator = (const Easy_t&) = delete;
-    /**
-     * @param other after mv operation, other is in invalid state and can only be destroyed
-     *              or move assign another value.
-     */
-    Easy_t& operator = (Easy_t&&) noexcept;
 
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
@@ -365,8 +352,6 @@ public:
      */
     std::size_t getinfo_transfer_time() const noexcept;
 
-    ~Easy_t();
-
     // High-level functions
 
     /**
@@ -429,7 +414,7 @@ public:
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
      */
-    void (*perform_callback)(Easy_t &easy, Easy_t::perform_ret_t ret, Data_t &data);
+    void (*perform_callback)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, Data_t &data);
     Data_t data;
 
     class Exception: public curl::Exception {
