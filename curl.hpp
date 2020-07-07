@@ -630,14 +630,26 @@ public:
         unsupported_scheme,
     };
 
+    /**
+     * @return all of set_code
+     */
     auto set_url(const char *url_arg) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     /**
      * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
      */
 
+    /**
+     * @return only set_code::unsupported_scheme, malform_input, ok
+     */
     auto set_scheme(const char *scheme) noexcept -> Ret_except<set_code, std::bad_alloc>;
+    /**
+     * @return only set_code::malform_input, ok
+     */
     auto set_options(const char *options) noexcept -> Ret_except<set_code, std::bad_alloc>;
+    /**
+     * @return only set_code::malform_input, ok
+     */
     auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     struct curl_delete {
