@@ -21,6 +21,7 @@ Multi_t::Multi_t(Multi_t &&other) noexcept:
     other.curl_multi = nullptr;
 
     running_handles = other.running_handles;
+    handles = other.handles;
 
     perform_callback = other.perform_callback;
     data = other.data;
@@ -33,6 +34,7 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     other.curl_multi = nullptr;
 
     running_handles = other.running_handles;
+    handles = other.handles;
 
     perform_callback = other.perform_callback;
     data = other.data;
