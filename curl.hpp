@@ -201,24 +201,6 @@ public:
     friend Multi_t;
     friend Share_base;
 
-    /**
-     * If return value is less than @param size, then it will singal an err cond to libcurl.
-     * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
-     *
-     * It would be undefined behavior to call any easy member function in writeback.
-	 * 
-     * @param buffer not null-terminated
-     */
-    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep);
-
-    /**
-     * If set to nullptr, then all response content are ignored.
-     */
-    writeback_t writeback = nullptr;
-    Data_t data;
-
-    std::exception_ptr writeback_exception_thrown;
-
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -269,6 +251,17 @@ public:
      *              or move assign another value.
      */
     Easy_t& operator = (Easy_t&&) noexcept;
+
+    /**
+     * If return value is less than @param size, then it will singal an err cond to libcurl.
+     * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
+     *
+     * It would be undefined behavior to call any easy member function in writeback.
+	 * 
+     * @param buffer not null-terminated
+     */
+    using writeback_t = std::size_t (*)(char *buffer, std::size_t _, std::size_t size, void *userp);
+    void set_writeback(writeback_t writeback, void *userp) noexcept;
 
     /**
      * @Precondition curl_t::has_CURLU()
@@ -386,12 +379,11 @@ public:
     template <class String = std::string>
     auto readall(String &response) noexcept -> perform_ret_t
     {
-        writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
-            auto &response = *static_cast<String*>(data.ptr);
+        set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
+            auto &response = *static_cast<String*>(ptr);
             response.append(buffer, buffer + size);
             return size;
-        };
-        data.ptr = &response;
+        }, &response);
 
         return perform();
     }
@@ -407,8 +399,8 @@ public:
     template <class String = std::string>
     auto read(String &response) noexcept -> perform_ret_t
     {
-        writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
-            auto &response = *static_cast<String*>(data.ptr);
+        set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
+            auto &response = *static_cast<String*>(ptr);
 
             auto str_size = response.size();
             auto str_cap = response.capacity();
@@ -416,8 +408,7 @@ public:
                 response.append(buffer, buffer + std::min(size, str_cap - str_size));
 
             return size;
-        };
-        data.ptr = &response;
+        }, &response);
 
         return perform();
     }

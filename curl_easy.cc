@@ -33,30 +33,21 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t,
 Easy_t::Easy_t(void *curl) noexcept:
     curl_easy{curl}
 {
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, write_callback);
-
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 Easy_t::Easy_t(const Easy_t &other, Ret_except<void, curl::Exception> &e) noexcept:
-    curl_easy{curl_easy_duphandle(other.curl_easy)},
-    writeback{other.writeback},
-    data{other.data}
+    curl_easy{curl_easy_duphandle(other.curl_easy)}
 {
     if (!curl_easy) {
         e.set_exception<curl::Exception>("curl_easy_duphandle failed");
         return;
     }
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 Easy_t::Easy_t(Easy_t &&other) noexcept:
-    curl_easy{other.curl_easy},
-    writeback{other.writeback},
-    data{other.data}
+    curl_easy{other.curl_easy}
 {
     other.curl_easy = nullptr;
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 Easy_t& Easy_t::operator = (Easy_t &&other) noexcept
@@ -66,13 +57,15 @@ Easy_t& Easy_t::operator = (Easy_t &&other) noexcept
     curl_easy = other.curl_easy;
     other.curl_easy = nullptr;
 
-    writeback = other.writeback;
-    data = other.data;
-
-    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, this);
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 
     return *this;
+}
+
+void Easy_t::set_writeback(writeback_t writeback, void *userp) noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, userp);
 }
 
 void Easy_t::set_url(const Url_ref_t &url) noexcept
