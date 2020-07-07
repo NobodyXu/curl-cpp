@@ -382,7 +382,7 @@ public:
      * would contain code::writeback_error and have exceptions thrown
      * captured in writeback_exception_thrown.
      */
-    template <class String>
+    template <class String = std::string>
     auto readall(String &response) noexcept -> perform_ret_t
     {
         writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
@@ -403,7 +403,7 @@ public:
      * would contain code::writeback_error and have exceptions thrown
      * captured in writeback_exception_thrown.
      */
-    template <class String>
+    template <class String = std::string>
     auto read(String &response) noexcept -> perform_ret_t
     {
         writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
