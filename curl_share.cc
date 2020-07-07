@@ -1,4 +1,5 @@
 #include "curl_share.hpp"
+#include "curl_easy.hpp"
 #include <type_traits>
 
 namespace curl {

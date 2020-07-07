@@ -1,4 +1,5 @@
-#include "curl.hpp"
+#include "curl_easy.hpp"
+#include "curl_url.hpp"
 
 #include <cstdlib>
 #include <curl/curl.h>

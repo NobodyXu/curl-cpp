@@ -1,4 +1,4 @@
-#include "curl.hpp"
+#include "curl_multi.hpp"
 #include <curl/curl.h>
 
 #include <cassert>

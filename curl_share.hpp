@@ -4,6 +4,8 @@
 # include "curl.hpp"
 # include "shared_mutex.hpp"
 
+# include <curl/curl.h>
+
 namespace curl {
 class Share_base {
     void *curl_share;
