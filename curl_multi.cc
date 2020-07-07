@@ -40,13 +40,14 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     return *this;
 }
 
-bool Multi_t::add_easy(Easy_t &easy) noexcept
+bool Multi_t::add_easy(Easy_ref_t &easy) noexcept
 {
-    return curl_multi_add_handle(curl_multi, easy.curl_easy) != CURLM_ADDED_ALREADY;
+    curl_easy_setopt(easy.ptrs.first, CURLOPT_PRIVATE, easy.ptrs.second);
+    return curl_multi_add_handle(curl_multi, easy.ptrs.first) != CURLM_ADDED_ALREADY;
 }
-void Multi_t::remove_easy(Easy_t &easy) noexcept
+void Multi_t::remove_easy(Easy_ref_t &easy) noexcept
 {
-    curl_multi_remove_handle(curl_multi, easy.curl_easy);
+    curl_multi_remove_handle(curl_multi, easy.ptrs.first);
 }
 
 int Multi_t::get_number_of_running_handles() const noexcept
@@ -88,9 +89,14 @@ auto Multi_t::check_perform(long code, int running_handles_tmp) noexcept ->
     int msgq = 0;
     for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
         if (m->msg == CURLMSG_DONE) {
-            auto &easy = Easy_t::get_easy(m->easy_handle);
+            char *error_buffer = nullptr;
+            curl_easy_getinfo(m->easy_handle, CURLINFO_PRIVATE, &error_buffer);
+
+            auto easy = Easy_ref_t{{static_cast<char*>(m->easy_handle), nullptr}};
+
             constexpr const auto msg = "In Multi_t::perform or Multi_t::multi_socket_action";
             perform_callback(easy, easy.check_perform(m->data.result, msg), data);
+
             remove_easy(easy);
         }
 

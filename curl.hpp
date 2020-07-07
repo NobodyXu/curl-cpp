@@ -35,7 +35,7 @@ class Share;
 /**
  * It is unsafe to use any of class defined below in multithreaded environment without synchronization.
  */
-class Easy_t;
+class Easy_ref_t;
 class Multi_t;
 class Url_ref_t;
 
@@ -206,6 +206,8 @@ protected:
 
 public:
     std::pair<char* /* actually is pointer to CURL */, char*> ptrs;
+
+    friend Multi_t;
 
     class Exception: public curl::Exception {
     public:
@@ -454,11 +456,11 @@ public:
      * @return true if not yet added;
      *         false if already added.
      */
-    bool add_easy(Easy_t &easy) noexcept;
+    bool add_easy(Easy_ref_t &easy) noexcept;
     /**
      * Undefined behavior if easy is not valid or not added to this multi.
      */
-    void remove_easy(Easy_t &easy) noexcept;
+    void remove_easy(Easy_ref_t &easy) noexcept;
 
     int get_number_of_running_handles() const noexcept;
 
