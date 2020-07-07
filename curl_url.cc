@@ -3,14 +3,14 @@
 #include <cassert>
 
 namespace curl {
-void curl_t::Url_deleter::operator () (CURLU *p) const noexcept
+void curl_t::Url_deleter::operator () (char *p) const noexcept
 {
     if (p)
-        curl_url_cleanup(p);
+        curl_url_cleanup(static_cast<CURLU*>(static_cast<void*>(p)));
 }
 auto curl_t::create_Url() noexcept -> Url_t
 {
-    return Url_t{curl_url()};
+    return Url_t{static_cast<char*>(static_cast<void*>(curl_url()))};
 }
 
 void Url_ref_t::curl_delete::operator () (char *p) const noexcept
@@ -100,18 +100,18 @@ static auto curl_urlget_wrapper(void *url, CURLUPart part) noexcept ->
 }
 auto Url_ref_t::get_url() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
 {
-    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_URL);
+    return curl_urlget_wrapper(url, CURLUPART_URL);
 }
 auto Url_ref_t::get_scheme() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
 {
-    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_SCHEME);
+    return curl_urlget_wrapper(url, CURLUPART_SCHEME);
 }
 auto Url_ref_t::get_options() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
 {
-    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_OPTIONS);
+    return curl_urlget_wrapper(url, CURLUPART_OPTIONS);
 }
 auto Url_ref_t::get_query() const noexcept -> Ret_except<string, get_code, std::bad_alloc>
 {
-    return curl_urlget_wrapper(static_cast<CURLU*>(url), CURLUPART_QUERY);
+    return curl_urlget_wrapper(url, CURLUPART_QUERY);
 }
 } /* namespace curl */

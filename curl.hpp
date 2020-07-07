@@ -162,9 +162,9 @@ public:
     bool has_CURLU(const char *protocol) const noexcept;
 
     struct Url_deleter {
-        void operator () (CURLU *p) const noexcept;
+        void operator () (char *p) const noexcept;
     };
-    using Url_t = std::unique_ptr<CURLU, Url_deleter>;
+    using Url_t = std::unique_ptr<char, Url_deleter>;
 
     /**
      * @return nullptr if not enough memory.
@@ -611,7 +611,7 @@ public:
      * If url == nullptr, then calling any member function has 
      * undefined behavior.
      */
-    CURLU *url;
+    char *url;
 
     enum class set_code {
         ok,
