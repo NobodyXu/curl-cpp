@@ -123,6 +123,8 @@ public:
 
     bool has_disable_signal_handling_support() const noexcept;
 
+    bool has_readfunc_abort_support() const noexcept;
+
     bool has_sizeof_upload_support() const noexcept;
     bool has_sizeof_response_header_support() const noexcept;
     bool has_sizeof_response_body_support() const noexcept;

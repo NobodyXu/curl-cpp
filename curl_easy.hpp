@@ -123,7 +123,8 @@ public:
      *
      * @return bytes writen to the buffer.
      *               0 to signal end-of-file to the library and cause it to stop the current transfer.
-     *               CURL_READFUNC_ABORT to stop immediately, result code::aborted_by_callback.
+     *               CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
+     *               stop immediately, result code::aborted_by_callback.
      *
      * If you stop the current transfer by returning 0 "pre-maturely" 
      * (i.e before the server expected it, like when you've said you will 
