@@ -368,10 +368,6 @@ public:
 
     /**
      * readall() can be used for get or post.
-     *
-     * If any exception is thrown by String, then perform_ret_t
-     * would contain code::writeback_error and have exceptions thrown
-     * captured in writeback_exception_thrown.
      */
     template <class String = std::string>
     auto readall(String &response) noexcept -> perform_ret_t
@@ -388,10 +384,6 @@ public:
     /**
      * read() can be used for get or post.
      * Read in response.capacity() bytes.
-     *
-     * If any exception is thrown by String, then perform_ret_t
-     * would contain code::writeback_error and have exceptions thrown
-     * captured in writeback_exception_thrown.
      */
     template <class String = std::string>
     auto read(String &response) noexcept -> perform_ret_t
