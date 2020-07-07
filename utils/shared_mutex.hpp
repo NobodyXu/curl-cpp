@@ -1,9 +1,9 @@
-#ifndef  __curl_cpp_shared_mutex_HPP__
-# define __curl_cpp_shared_mutex_HPP__
+#ifndef  __curl_cpp_utils_shared_mutex_HPP__
+# define __curl_cpp_utils_shared_mutex_HPP__
 
 # include <pthread.h>
 # include <system_error>
-# include "return-exception/ret-exception.hpp"
+# include "../return-exception/ret-exception.hpp"
 
 namespace curl::util {
 class shared_mutex {

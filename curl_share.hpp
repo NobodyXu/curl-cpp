@@ -2,7 +2,7 @@
 # define __curl_cpp_curl_share_HPP__
 
 # include "curl.hpp"
-# include "shared_mutex.hpp"
+# include "utils/shared_mutex.hpp"
 
 # include <curl/curl.h>
 
