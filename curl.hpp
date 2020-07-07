@@ -300,6 +300,7 @@ public:
      * the calling application until the associated transfer finishes. 
      *
      * @Precondition: curl_t::has_protocol("http"), len <= 2 * 1024 * 1024 * 1024 (2GB)
+     * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      */
     void request_post(const void *data, std::uint32_t len) noexcept;
     /**
@@ -307,6 +308,7 @@ public:
      * the calling application until the associated transfer finishes. 
      *
      * @Precondition: curl_t::has_protocol("http"), curl_t::has_largefile_support()
+     * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      */
     void request_post_large(const void *data, std::size_t len) noexcept;
 
