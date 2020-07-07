@@ -270,8 +270,6 @@ public:
      */
     Easy_t& operator = (Easy_t&&) noexcept;
 
-    static Easy_t& get_easy(void *curl_easy) noexcept;
-
     /**
      * @Precondition curl_t::has_CURLU()
      * @param url content of it must not be changed during call to perform(),
