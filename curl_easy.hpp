@@ -20,9 +20,6 @@ namespace curl {
  * which enables storing any object, isn't support until 7.10.3.
  */
 class Easy_ref_t {
-protected:
-    static std::size_t write_callback(char *buffer, std::size_t _, std::size_t size, void *arg) noexcept;
-
 public:
     std::pair<char* /* actually is pointer to CURL */, char*> ptrs;
 
