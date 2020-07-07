@@ -16,40 +16,40 @@ constexpr auto curl_t::Version::from(std::uint8_t major, std::uint8_t minor, std
 }
 
 static constexpr const auto mask = std::numeric_limits<std::uint8_t>::max();
-std::uint8_t curl_t::Version::get_major() const noexcept
+constexpr std::uint8_t curl_t::Version::get_major() const noexcept
 {
     return (num >> 16) & mask;
 }
-std::uint8_t curl_t::Version::get_minor() const noexcept
+constexpr std::uint8_t curl_t::Version::get_minor() const noexcept
 {
     return (num >> 8) & mask;
 }
-std::uint8_t curl_t::Version::get_patch() const noexcept
+constexpr std::uint8_t curl_t::Version::get_patch() const noexcept
 {
     return num & mask;
 }
 
-bool curl_t::Version::operator < (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator < (const Version &other) const noexcept
 {
     return num < other.num;
 }
-bool curl_t::Version::operator <= (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator <= (const Version &other) const noexcept
 {
     return num <= other.num;
 }
-bool curl_t::Version::operator > (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator > (const Version &other) const noexcept
 {
     return num > other.num;
 }
-bool curl_t::Version::operator >= (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator >= (const Version &other) const noexcept
 {
     return num >= other.num;
 }
-bool curl_t::Version::operator == (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator == (const Version &other) const noexcept
 {
     return num == other.num;
 }
-bool curl_t::Version::operator != (const Version &other) const noexcept
+constexpr bool curl_t::Version::operator != (const Version &other) const noexcept
 {
     return num != other.num;
 }

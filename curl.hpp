@@ -48,16 +48,16 @@ public:
 
         static constexpr Version from(std::uint8_t major, std::uint8_t minor, std::uint8_t patch) noexcept;
 
-        std::uint8_t get_major() const noexcept;
-        std::uint8_t get_minor() const noexcept;
-        std::uint8_t get_patch() const noexcept;
+        constexpr std::uint8_t get_major() const noexcept;
+        constexpr std::uint8_t get_minor() const noexcept;
+        constexpr std::uint8_t get_patch() const noexcept;
 
-        bool operator < (const Version &other) const noexcept;
-        bool operator <= (const Version &other) const noexcept;
-        bool operator > (const Version &other) const noexcept;
-        bool operator >= (const Version &other) const noexcept;
-        bool operator == (const Version &other) const noexcept;
-        bool operator != (const Version &other) const noexcept;
+        constexpr bool operator < (const Version &other) const noexcept;
+        constexpr bool operator <= (const Version &other) const noexcept;
+        constexpr bool operator > (const Version &other) const noexcept;
+        constexpr bool operator >= (const Version &other) const noexcept;
+        constexpr bool operator == (const Version &other) const noexcept;
+        constexpr bool operator != (const Version &other) const noexcept;
 
         /**
          * @param buffer is required to be at least 12 bytes long.
