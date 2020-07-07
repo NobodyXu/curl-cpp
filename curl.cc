@@ -65,7 +65,7 @@ curl_t::curl_t(FILE *debug_stream_arg) noexcept:
     version{static_cast<const curl_version_info_data*>(version_info)->version_num},
     version_str{static_cast<const curl_version_info_data*>(version_info)->version}
 {
-    if (version < Version::from(7, 10, 8))
+    if (version < Version::from(7, 4, 1))
         errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s", version_str);
 
     auto code = curl_global_init(CURL_GLOBAL_ALL);
