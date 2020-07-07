@@ -378,20 +378,48 @@ public:
     /**
      * readall() can be used for get or post.
      *
-     * If any exception is thrown by std::string, then perform_ret_t
+     * If any exception is thrown by String, then perform_ret_t
      * would contain code::writeback_error and have exceptions thrown
      * captured in writeback_exception_thrown.
      */
-    auto readall(std::string &response) -> perform_ret_t;
+    template <class String>
+    auto readall(String &response) noexcept -> perform_ret_t
+    {
+        writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
+            auto &response = *static_cast<String*>(data.ptr);
+            response.append(buffer, buffer + size);
+            return size;
+        };
+        data.ptr = &response;
+
+        return perform();
+    }
+
     /**
      * read() can be used for get or post.
      * Read in response.capacity() bytes.
      *
-     * If any exception is thrown by std::string, then perform_ret_t
+     * If any exception is thrown by String, then perform_ret_t
      * would contain code::writeback_error and have exceptions thrown
      * captured in writeback_exception_thrown.
      */
-    auto read(std::string &response) -> perform_ret_t;
+    template <class String>
+    auto read(String &response) noexcept -> perform_ret_t
+    {
+        writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
+            auto &response = *static_cast<String*>(data.ptr);
+
+            auto str_size = response.size();
+            auto str_cap = response.capacity();
+            if (str_size < str_cap)
+                response.append(buffer, buffer + std::min(size, str_cap - str_size));
+
+            return size;
+        };
+        data.ptr = &response;
+
+        return perform();
+    }
 
     auto establish_connection_only() noexcept -> perform_ret_t;
 

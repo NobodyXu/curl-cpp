@@ -170,33 +170,6 @@ Easy_t::~Easy_t()
         curl_easy_cleanup(curl_easy);
 }
 
-auto Easy_t::readall(std::string &response) -> perform_ret_t
-{
-    writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
-        std::string &response = *static_cast<std::string*>(data.ptr);
-        response.append(buffer, buffer + size);
-        return size;
-    };
-    data.ptr = &response;
-
-    return perform();
-}
-auto Easy_t::read(std::string &response) -> perform_ret_t
-{
-    writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
-        std::string &response = *static_cast<std::string*>(data.ptr);
-
-        auto str_size = response.size();
-        auto str_cap = response.capacity();
-        if (str_size < str_cap)
-            response.append(buffer, buffer + std::min(size, str_cap - str_size));
-
-        return size;
-    };
-    data.ptr = &response;
-
-    return perform();
-}
 auto Easy_t::establish_connection_only() noexcept -> perform_ret_t
 {
     request_get();
