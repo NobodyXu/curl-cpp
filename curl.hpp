@@ -36,7 +36,7 @@ class Share;
  */
 class Easy_t;
 class Multi_t;
-class Url;
+class Url_ref_t;
 
 /**
  * Must be defined as a static global variable in main
@@ -274,7 +274,7 @@ public:
      * @param url content of it must not be changed during call to perform(),
      *            but can be changed once it is finished.
      */
-    void set_url(const Url &url) noexcept;
+    void set_url(const Url_ref_t &url) noexcept;
     /**
      * @param url content of it must not be changed during call to perform(),
      *            but can be changed once it is finished.

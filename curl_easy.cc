@@ -80,7 +80,7 @@ Easy_t& Easy_t::operator = (Easy_t &&other) noexcept
     return *this;
 }
 
-void Easy_t::set_url(const Url &url) noexcept
+void Easy_t::set_url(const Url_ref_t &url) noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);
 }
