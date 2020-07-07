@@ -132,6 +132,8 @@ public:
     bool has_buffer_size_tuning_support() const noexcept;
     bool has_buffer_size_growing_support() const noexcept;
 
+    bool has_get_active_socket_support() const noexcept;
+
     struct Easy_deleter {
         void operator () (void *p) const noexcept;
     };

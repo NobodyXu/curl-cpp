@@ -137,6 +137,15 @@ std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept
     return total;
 }
 
+auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
+{
+    curl_socket_t socketfd = CURL_SOCKET_BAD;
+
+    curl_easy_getinfo(ptrs.first, CURLINFO_ACTIVESOCKET, &socketfd);;
+
+    return socketfd;
+}
+
 auto Easy_ref_t::establish_connection_only() noexcept -> perform_ret_t
 {
     request_get();

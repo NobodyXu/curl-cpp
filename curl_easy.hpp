@@ -170,6 +170,14 @@ public:
      */
     std::size_t getinfo_transfer_time() const noexcept;
 
+    /**
+     * @Precondition curl_t::has_get_active_socket_support()
+     * @return CURL_SOCKET_BAD if no valid socket or not supported
+     *
+     * The return value can be used in Multi_t::multi_assign()
+     */
+    auto get_active_socket() const noexcept -> curl_socket_t;
+
     // High-level functions
 
     /**

@@ -131,6 +131,11 @@ bool curl_t::has_buffer_size_growing_support() const noexcept
     return version >= Version::from(7, 53, 0);
 }
 
+bool curl_t::has_get_active_socket_support() const noexcept
+{
+    return version >= Version::from(7, 45, 0);
+}
+
 bool curl_t::has_multi_poll_support() const noexcept
 {
     return version >= Version::from(7, 66, 0);
