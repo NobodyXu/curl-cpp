@@ -31,12 +31,12 @@ void Share_base::disable_sharing(Options option) noexcept
     curl_share_setopt(curl_share, CURLSHOPT_UNSHARE, static_cast<curl_lock_data>(option));
 }
 
-void Share_base::add_easy(Easy_t &easy) noexcept
+void Share_base::add_easy(Easy_ref_t &easy) noexcept
 {
-    curl_easy_setopt(easy.curl_easy, CURLOPT_SHARE, curl_share);
+    curl_easy_setopt(easy.ptrs.first, CURLOPT_SHARE, curl_share);
 }
-void Share_base::remove_easy(Easy_t &easy) noexcept
+void Share_base::remove_easy(Easy_ref_t &easy) noexcept
 {
-    curl_easy_setopt(easy.curl_easy, CURLOPT_SHARE, NULL);
+    curl_easy_setopt(easy.ptrs.first, CURLOPT_SHARE, NULL);
 }
 } /* namespae curl */
