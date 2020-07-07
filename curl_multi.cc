@@ -43,16 +43,25 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
 bool Multi_t::add_easy(Easy_ref_t &easy) noexcept
 {
     curl_easy_setopt(easy.ptrs.first, CURLOPT_PRIVATE, easy.ptrs.second);
-    return curl_multi_add_handle(curl_multi, easy.ptrs.first) != CURLM_ADDED_ALREADY;
+    bool success = curl_multi_add_handle(curl_multi, easy.ptrs.first) != CURLM_ADDED_ALREADY;
+
+    handles += success;
+
+    return success;
 }
 void Multi_t::remove_easy(Easy_ref_t &easy) noexcept
 {
+    --handles;
     curl_multi_remove_handle(curl_multi, easy.ptrs.first);
 }
 
 int Multi_t::get_number_of_running_handles() const noexcept
 {
     return running_handles;
+}
+std::size_t Multi_t::get_number_of_handles() const noexcept
+{
+    return handles;
 }
 
 void Multi_t::set_multiplexing(long max_concurrent_stream) noexcept
