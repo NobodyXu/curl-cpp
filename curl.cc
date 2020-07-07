@@ -122,6 +122,15 @@ bool curl_t::has_transfer_time_support() const noexcept
     return version >= Version::from(7, 61, 0);
 }
 
+bool curl_t::has_buffer_size_tuning_support() const noexcept
+{
+    return version >= Version::from(7, 10, 0);
+}
+bool curl_t::has_buffer_size_growing_support() const noexcept
+{
+    return version >= Version::from(7, 53, 0);
+}
+
 bool curl_t::has_multi_poll_support() const noexcept
 {
     return version >= Version::from(7, 66, 0);

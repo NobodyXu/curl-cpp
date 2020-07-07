@@ -132,6 +132,20 @@ public:
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
 
+    bool has_buffer_size_tuning_support() const noexcept;
+    bool has_buffer_size_growing_support() const noexcept;
+
+    /**
+     * @param buffer_size size of receiver buffer.
+     *
+     *                    This buffer size is by default CURL_MAX_WRITE_SIZE (16kB). 
+     *                    The maximum buffer size allowed to be set is CURL_MAX_READ_SIZE (512kB). 
+     *                    The minimum buffer size allowed to be set is 1024.
+     *
+     *                    This param is just treated as a request, not an order.
+     */
+    auto create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t, curl::Exception>;
+
     /**
      * has curl::Url support
      */
@@ -150,17 +164,6 @@ public:
      * would make it easier to manage it in custom ways like std::shared_ptr.
      */
     auto create_Url() noexcept -> Url_t;
-
-    /**
-     * @param buffer_size size of receiver buffer.
-     *
-     *                    This buffer size is by default CURL_MAX_WRITE_SIZE (16kB). 
-     *                    The maximum buffer size allowed to be set is CURL_MAX_READ_SIZE (512kB). 
-     *                    The minimum buffer size allowed to be set is 1024.
-     *
-     *                    This param is just treated as a request, not an order.
-     */
-    auto create_easy(std::size_t buffer_size) noexcept -> Ret_except<Easy_t, curl::Exception>;
 
     bool has_multi_poll_support() const noexcept;
     bool has_multi_socket_support() const noexcept;
