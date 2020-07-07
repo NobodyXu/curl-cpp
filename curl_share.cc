@@ -12,7 +12,8 @@ Share_base::Share_base(Ret_except<void, Exception> &e) noexcept:
 
 Share_base::~Share_base()
 {
-    curl_share_cleanup(curl_share);
+    if (curl_share)
+        curl_share_cleanup(curl_share);
 }
 
 void Share_base::add_lock(lock_function_t lock_func, unlock_function_t unlock_func, void *userptr) noexcept
