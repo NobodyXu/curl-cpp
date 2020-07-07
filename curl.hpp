@@ -192,7 +192,7 @@ public:
 	 * 
      * @param buffer not null-terminated
      */
-    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, Data_t &data);
+    using writeback_t = std::size_t (*)(char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep);
 
     /**
      * If set to nullptr, then all response content are ignored.
