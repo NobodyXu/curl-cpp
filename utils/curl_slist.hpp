@@ -82,7 +82,7 @@ public:
     auto cend() const noexcept -> const_iterator;
 
     /**
-     * @param str isn't copied, must be kept around during lifetime of this object.
+     * @param str is copied before adding to the list.
      */
     auto push_back(const char *str) noexcept -> Ret_except<void, std::bad_alloc>;
 };
