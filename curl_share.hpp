@@ -90,8 +90,8 @@ public:
     void enable_sharing(Options option) noexcept;
     void disable_sharing(Options option) noexcept;
 
-    void add_easy(Easy_t &easy) noexcept;
-    void remove_easy(Easy_t &easy) noexcept;
+    void add_easy(Easy_ref_t &easy) noexcept;
+    void remove_easy(Easy_ref_t &easy) noexcept;
 
     /**
      * All easy handler must be removed before Share_base
