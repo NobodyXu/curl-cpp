@@ -393,7 +393,6 @@ class Multi_t {
 protected:
     void *curl_multi;
     int running_handles = 0;
-    bool using_multi_socket_interface = false;
 
 public:
     /**
@@ -402,39 +401,6 @@ public:
      */
     void (*perform_callback)(Easy_t &easy, Easy_t::perform_ret_t ret, Data_t &data);
     Data_t data;
-
-    enum class socket_type {
-        poll_in = CURL_POLL_IN,
-        poll_out = CURL_POLL_OUT,
-        poll_inout = CURL_POLL_INOUT,
-        poll_remove = CURL_POLL_REMOVE,
-    };
-    /**
-     * I suggested that if you want to pass data for each easy handler/socket,
-     * IMHO the best way is to nherit Easy_t and add new data member to it instead of
-     * calling multi_assign during socket_callback, as that could produce recursive_api_call
-     * error.
-     */
-    void (*socket_callback)(Easy_t &easy, 
-                           curl_socket_t s, /* socket */
-                           socket_type what,
-                           Multi_t &multi, 
-                           void *per_socketp);  /* private socket pointer, register with multi_assign */
-    Data_t socket_callback_data;
-
-    /**
-     * @param timeout_ms -1 means you should delete the timer. 
-     *                   All other values are valid expire times in number of milliseconds.
-     * @return should be 0 on success
-     *                   -1 on failure.
-     *
-     * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.
-     * When time that timer fires, call multi_socket_action().
-     *
-     * The timer_callback will only be called when the timeout expire time is changed.
-     */
-    int (*timer_callback)(Multi_t &multi, long timeout_ms, Data_t &timer_data);
-    Data_t timer_data;
 
     class Exception: public curl::Exception {
     public:
@@ -526,10 +492,41 @@ public:
      *  - curl_t::has_multi_socket_support()
      */
 
+    using socket_callback_t = int (*)(CURL *curl_easy, 
+                                      curl_socket_t s,
+                                      /**
+                                       * Possible value for what:
+                                       *  - CURL_POLL_IN,
+                                       *  - CURL_POLL_ OUT,
+                                       *  - CURL_POLL_INOUT,
+                                       *  - CURL_POLL_REMOVE
+                                       */
+                                      int what,
+                                      void *userp,
+                                      void *per_socketp);
+
     /**
-     * You must call this function before adding any easy handler.
+     * @param timeout_ms -1 means you should delete the timer. 
+     *                   All other values are valid expire times in number of milliseconds.
+     * @return should be 0 on success
+     *                   -1 on failure.
+     *
+     * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.
+     * When time that timer fires, call multi_socket_action().
+     *
+     * The timer_callback will only be called when the timeout expire time is changed.
      */
-    void enable_multi_socket_interface() noexcept;
+    using timer_callback_t = int (*)(CURLM *multi, long timeout_ms, void *userp);
+
+    /**
+     * You must call this function with non-NULL socket_callback and timer_callback
+     * before calling multi_socket_action(CURL_SOCKET_TIMEOUT, 0).
+     *
+     * @param socket_callback, timer_callback setting them to nullptr would
+     *                                        disable multi_socket_action interface.
+     */
+    void register_callback(socket_callback_t socket_callback, void *socket_data,
+                           timer_callback_t timer_callback, void *timer_data) noexcept;
 
     /**
      * @Precondition socketfd must be valid

@@ -21,21 +21,9 @@ Multi_t::Multi_t(Multi_t &&other) noexcept:
     other.curl_multi = nullptr;
 
     running_handles = other.running_handles;
-    using_multi_socket_interface = other.using_multi_socket_interface;
-
-    if (other.using_multi_socket_interface) {
-        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
-        curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
-    }
 
     perform_callback = other.perform_callback;
     data = other.data;
-
-    socket_callback = other.socket_callback;
-    socket_callback_data = other.socket_callback_data;
-
-    timer_callback = other.timer_callback;
-    timer_data = other.timer_data;
 }
 Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
 {
@@ -45,21 +33,9 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     other.curl_multi = nullptr;
 
     running_handles = other.running_handles;
-    using_multi_socket_interface = other.using_multi_socket_interface;
-
-    if (other.using_multi_socket_interface) {
-        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
-        curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
-    }
 
     perform_callback = other.perform_callback;
     data = other.data;
-
-    socket_callback = other.socket_callback;
-    socket_callback_data = other.socket_callback_data;
-
-    timer_callback = other.timer_callback;
-    timer_data = other.timer_data;
 
     return *this;
 }
@@ -132,44 +108,14 @@ auto Multi_t::perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, l
 }
 
 /* Interface for using arbitary event-based interface - multi_socket interface */
-void Multi_t::enable_multi_socket_interface() noexcept
+void Multi_t::register_callback(socket_callback_t socket_callback, void *socket_data,
+                                timer_callback_t timer_callback, void *timer_data) noexcept
 {
-    if (!using_multi_socket_interface) {
-        using_multi_socket_interface = true;
+    curl_multi_setopt(curl_multi, CURLMOPT_SOCKETFUNCTION, socket_callback);
+    curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, socket_data);
 
-        auto socket_callback_wrapper = [](CURL *curl_easy, 
-                                          curl_socket_t s,
-                                          int what,
-                                          void *multi_p,
-                                          void *per_socketp) noexcept
-        {
-            auto &multi = *static_cast<Multi_t*>(multi_p);
-            auto &easy = Easy_t::get_easy(curl_easy);
-
-            multi.socket_callback(easy, s, static_cast<socket_type>(what), multi, per_socketp);
-            return 0;
-        };
-
-        using socket_callback_t = int (*)(CURL *easy, 
-                                          curl_socket_t s, 
-                                          int what, 
-                                          void *userp, 
-                                          void *socketp);
-
-        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETFUNCTION, static_cast<socket_callback_t>(socket_callback_wrapper));
-        curl_multi_setopt(curl_multi, CURLMOPT_SOCKETDATA, this);
-
-        auto timerfunc = [](CURLM *multi_hanlder, long timeout_ms, void *multi_p) noexcept
-        {
-            auto &multi = *static_cast<Multi_t*>(multi_p);
-            return multi.timer_callback(multi, timeout_ms, multi.timer_data);
-        };
-
-        using timer_callback_t = int (*)(CURLM *multi, long timeout_ms, void *userp);
-
-        curl_multi_setopt(curl_multi, CURLMOPT_TIMERFUNCTION, static_cast<timer_callback_t>(timerfunc));
-        curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, this);
-    }
+    curl_multi_setopt(curl_multi, CURLMOPT_TIMERFUNCTION, timer_callback);
+    curl_multi_setopt(curl_multi, CURLMOPT_TIMERDATA, timer_data);
 }
 
 auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
