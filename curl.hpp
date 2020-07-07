@@ -5,7 +5,6 @@
 # include <cstdio>
 # include <stdexcept>
 # include <memory>
-# include <string>
 
 # include "utils/unique_ptr_pair.hpp"
 # include "return-exception/ret-exception.hpp"

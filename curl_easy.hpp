@@ -3,6 +3,7 @@
 
 # include <cstddef>
 # include <utility>
+# include <string>
 
 # include <curl/curl.h>
 
