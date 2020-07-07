@@ -92,8 +92,8 @@ public:
      */
     bool disable_signal_handling_v = false;
 
-    const void * const version_info;
     const Version version;
+    const void * const version_info;
     const char * const version_str;
 
     /**
