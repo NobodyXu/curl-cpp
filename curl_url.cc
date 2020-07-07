@@ -15,7 +15,8 @@ auto curl_t::create_Url() noexcept -> Url_t
 
 void Url_ref_t::curl_delete::operator () (char *p) const noexcept
 {
-    curl_free(p);
+    if (p)
+        curl_free(p);
 }
 
 static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg) noexcept -> 
