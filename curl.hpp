@@ -573,6 +573,10 @@ protected:
     static void check_url(int code);
 
 public:
+    struct curl_delete {
+        void operator () (char *p) const noexcept;
+    };
+
     friend void Easy_t::set_url(const Url &url) noexcept;
 
     /**
@@ -618,7 +622,7 @@ public:
     auto set_options(const char *options) noexcept -> Ret_except<set_code, std::bad_alloc>;
     auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
-    using string = std::unique_ptr<char, void (*)(void*)>;
+    using string = std::unique_ptr<char, curl_delete>;
 
     /**
      * get_code::no_* can be returned by respective get_*() function.

@@ -3,6 +3,11 @@
 #include <cassert>
 
 namespace curl {
+void Url::curl_delete::operator () (char *p) const noexcept
+{
+    curl_free(p);
+}
+
 Url::Url(Ret_except<void, std::bad_alloc> &e) noexcept:
     url{curl_url()}
 {
@@ -94,7 +99,7 @@ static auto curl_urlget_wrapper(void *url, CURLUPart part) noexcept ->
 
     switch (code) {
         case CURLUE_OK:
-            return {Url::string(result, &curl_free)};
+            return {Url::string(result)};
 
         case CURLUE_OUT_OF_MEMORY:
             return {std::bad_alloc{}};
