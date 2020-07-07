@@ -378,22 +378,18 @@ public:
     /**
      * readall() can be used for get or post.
      *
-     * Since curl-cpp is compiled with -fno-exceptions, -fno-rtti by default, if std::string
-     * happen to throw std::bad_alloc, then SIGABRT handle will be called.
-     *
-     * If you need pretty message on exit, you should register callback and print exception using 
-     * std::current_exception().
+     * If any exception is thrown by std::string, then perform_ret_t
+     * would contain code::writeback_error and have exceptions thrown
+     * captured in writeback_exception_thrown.
      */
     auto readall(std::string &response) -> perform_ret_t;
     /**
      * read() can be used for get or post.
      * Read in response.capacity() bytes.
      *
-     * Since curl-cpp is compiled with -fno-exceptions, -fno-rtti by default, if std::string
-     * happen to throw std::bad_alloc, then SIGABRT handle will be called.
-     *
-     * If you need pretty message on exit, you should register callback and print exception using 
-     * std::current_exception().
+     * If any exception is thrown by std::string, then perform_ret_t
+     * would contain code::writeback_error and have exceptions thrown
+     * captured in writeback_exception_thrown.
      */
     auto read(std::string &response) -> perform_ret_t;
 
