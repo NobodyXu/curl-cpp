@@ -12,7 +12,8 @@
 namespace curl {
 void curl_t::Easy_deleter::operator () (void *p) const noexcept
 {
-    curl_easy_cleanup(p);
+    if (p)
+        curl_easy_cleanup(p);
 }
 auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
 {
