@@ -157,7 +157,7 @@ public:
     using Url_t = std::unique_ptr<CURLU, Url_deleter>;
 
     /**
-     * @return nullptr if failed.
+     * @return nullptr if not enough memory.
      *
      * Since Url_ref_t doesn't have any other data except pointer to
      * CURLU itself, returning std::unique_ptr instead of an object like Easy_t 
