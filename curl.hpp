@@ -200,6 +200,16 @@ union Data_t {
     char spaces[8];
 };
 
+/**
+ * Why make Easy_ref_t RAII-less?
+ *
+ * It would simplify design of Easy_ref_t, since it doesn't need to
+ * implement RAII-part logic.
+ *
+ * It would also make it easier to use member function of Easy_ref_t in Multi_t,
+ * provided that libcurl callback provides CURL* and that option CURLOPT_PRIVATE 
+ * which enables storing any object, isn't support until 7.10.3.
+ */
 class Easy_ref_t {
 protected:
     static std::size_t write_callback(char *buffer, std::size_t _, std::size_t size, void *arg) noexcept;
@@ -501,6 +511,9 @@ public:
      *
      * **YOU MUST CALL perform() after to start the transfer, then poll**
      *
+     * Using libcurl version >= 7.10.3 can provide better error message
+     * if Easy_ref_t::ProtocolInternal_error is thrown.
+     *
      * @return number of running handles
      */
     auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
@@ -569,6 +582,9 @@ public:
      *    - CURL_CSELECT_ERR,
      *
      * **YOU MUST CALL perform() to start the transfer, then call waitever poll interface you use**
+     *
+     * Using libcurl version >= 7.10.3 can provide better error message
+     * if Easy_ref_t::ProtocolInternal_error is thrown.
      */
     auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
