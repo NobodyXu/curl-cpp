@@ -113,18 +113,10 @@ public:
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
      *
-     * @Precondition: curl_t::has_protocol("http"), len <= 2 * 1024 * 1024 * 1024 (2GB)
-     * @param len if set to -1, then libcurl would strlen(data) to determine its length.
-     */
-    void request_post(const void *data, std::uint32_t len) noexcept;
-    /**
-     * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
-     * the calling application until the associated transfer finishes. 
-     *
      * @Precondition: curl_t::has_protocol("http"))
      * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      */
-    void request_post_large(const void *data, std::size_t len) noexcept;
+    void request_post(const void *data, std::size_t len) noexcept;
 
     /**
      * @Precondition curl_t::has_protocol(protocol you use in url)

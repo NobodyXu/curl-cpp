@@ -89,12 +89,7 @@ void Easy_ref_t::request_get() noexcept
 {
     curl_easy_setopt(ptrs.first, CURLOPT_HTTPGET, 1L);
 }
-void Easy_ref_t::request_post(const void *data, std::uint32_t len) noexcept
-{
-    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE, len);
-    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
-}
-void Easy_ref_t::request_post_large(const void *data, std::size_t len) noexcept
+void Easy_ref_t::request_post(const void *data, std::size_t len) noexcept
 {
     curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE_LARGE, len);
     curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
