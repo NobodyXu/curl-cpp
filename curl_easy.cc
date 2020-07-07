@@ -172,7 +172,7 @@ Easy_t::~Easy_t()
 
 auto Easy_t::readall(std::string &response) -> perform_ret_t
 {
-    writeback = [](char *buffer, std::size_t size, Data_t &data) {
+    writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
         std::string &response = *static_cast<std::string*>(data.ptr);
         response.append(buffer, buffer + size);
         return size;
@@ -183,7 +183,7 @@ auto Easy_t::readall(std::string &response) -> perform_ret_t
 }
 auto Easy_t::read(std::string &response) -> perform_ret_t
 {
-    writeback = [](char *buffer, std::size_t size, Data_t &data) {
+    writeback = [](char *buffer, std::size_t size, Data_t &data, std::exception_ptr &ep) {
         std::string &response = *static_cast<std::string*>(data.ptr);
 
         auto str_size = response.size();
