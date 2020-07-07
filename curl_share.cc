@@ -1,6 +1,5 @@
 #include "curl_share.hpp"
 #include "curl_easy.hpp"
-#include <type_traits>
 
 namespace curl {
 Share_base::Share_base(Ret_except<void, Exception> &e) noexcept:
