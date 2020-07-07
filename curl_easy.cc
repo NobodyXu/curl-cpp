@@ -94,6 +94,13 @@ void Easy_ref_t::request_post(const void *data, std::size_t len) noexcept
     curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE_LARGE, len);
     curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
 }
+void Easy_ref_t::request_post(readback_t readback, void *userp, std::size_t len) noexcept
+{
+    request_post(nullptr, len);
+
+    curl_easy_setopt(ptrs.first, CURLOPT_READFUNCTION, readback);
+    curl_easy_setopt(ptrs.first, CURLOPT_READDATA, userp);
+}
 
 auto Easy_ref_t::perform() noexcept -> perform_ret_t
 {

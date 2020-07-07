@@ -119,6 +119,25 @@ public:
     void request_post(const void *data, std::size_t len) noexcept;
 
     /**
+     * The length of buffer is size * nitems.
+     *
+     * @return bytes writen to the buffer.
+     *               0 to signal end-of-file to the library and cause it to stop the current transfer.
+     *               CURL_READFUNC_ABORT to stop immediately, result code::aborted_by_callback.
+     *
+     * If you stop the current transfer by returning 0 "pre-maturely" 
+     * (i.e before the server expected it, like when you've said you will 
+     * upload N bytes and you upload less than N bytes), you may experience 
+     * that the server "hangs" waiting for the rest of the data that won't come.
+     */
+    using readback_t = std::size_t (*)(char *buffer, std::size_t size, std::size_t nitems, void *userp);
+
+    /**
+     * @param len optional. Set to -1 means length of data is not known ahead of time.
+     */
+    void request_post(readback_t readback, void *userp, std::size_t len = -1) noexcept;
+
+    /**
      * @Precondition curl_t::has_protocol(protocol you use in url)
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
      */
@@ -130,8 +149,9 @@ public:
         cannot_connect, // Cannot connect to host or proxy
         remote_access_denied,
         writeback_error, // Check writeback_exception_thrown
-        upload_failure,
+        upload_failure, // Failed starting the upload
         timedout,
+        aborted_by_callback, // If readback return CURL_READFUNC_ABORT.
     };
     using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
                                      Exception, Recursive_api_call_Exception, NotBuiltIn_error, 

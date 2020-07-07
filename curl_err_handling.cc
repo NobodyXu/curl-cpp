@@ -82,6 +82,9 @@ auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform
         case CURLE_UPLOAD_FAILED:
             return {code::upload_failure};
 
+        case CURLE_ABORTED_BY_CALLBACK:
+            return {code::aborted_by_callback};
+
         case CURLE_OUT_OF_MEMORY:
             return {std::bad_alloc{}};
 
