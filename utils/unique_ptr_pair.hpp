@@ -1,5 +1,5 @@
-#ifndef  __curl_cpp_unique_ptr_pair_HPP__
-# define __curl_cpp_unique_ptr_pair_HPP__
+#ifndef  __curl_cpp_utils_unique_ptr_pair_HPP__
+# define __curl_cpp_utils_unique_ptr_pair_HPP__
 
 # include <memory>
 # include <utility>
