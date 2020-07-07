@@ -124,7 +124,7 @@ bool curl_t::has_transfer_time_support() const noexcept
 
 bool curl_t::has_multi_poll_support() const noexcept
 {
-    return version >= Version::from(7, 10, 3);
+    return version >= Version::from(7, 66, 0);
 }
 bool curl_t::has_multi_socket_support() const noexcept
 {
