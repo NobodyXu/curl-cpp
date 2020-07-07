@@ -53,7 +53,7 @@ auto Easy_t::check_perform(long code, const char *fname) noexcept -> perform_ret
 {
     switch (code) {
         case CURLE_OK:
-            return {};
+            return {code::ok};
 
         case CURLE_URL_MALFORMAT:
             return {code::url_malformat};
