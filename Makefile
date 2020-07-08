@@ -38,6 +38,6 @@ test/%.out: test/%.cc libcurl_cpp.a test/utility.hpp
 	./$@
 
 clean:
-	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
+	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) $(TEST_OBJS)
 
 .PHONY: clean test
