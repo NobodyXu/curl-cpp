@@ -289,21 +289,25 @@ public:
 
     /**
      * read() can be used for get or post.
-     * Read in response.capacity() bytes.
+     * @param len read in len bytes
      */
     template <class String = std::string>
-    auto read(String &response) noexcept -> perform_ret_t
+    auto read(String &response, std::size_t len) noexcept -> perform_ret_t
     {
+        struct Args {
+            String &response;
+            std::size_t len;
+        } args{response, len};
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
-            auto &response = *static_cast<String*>(ptr);
+            auto &args = *static_cast<Args*>(ptr);
+            auto &response = args.response;
 
             auto str_size = response.size();
-            auto str_cap = response.capacity();
-            if (str_size < str_cap)
-                response.append(buffer, buffer + std::min(size, str_cap - str_size));
+            if (str_size < args.len)
+                response.append(buffer, buffer + std::min(size, args.len - str_size));
 
             return size;
-        }, &response);
+        }, &args);
 
         return perform();
     }
