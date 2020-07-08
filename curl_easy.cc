@@ -74,9 +74,9 @@ auto Easy_ref_t::set_encoding(const char *encoding) noexcept -> Ret_except<void,
     return {};
 }
 
-auto Easy_ref_t::set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
+auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_INTERFACE, ip_addr));
+    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_INTERFACE, value));
     return {};
 }
 

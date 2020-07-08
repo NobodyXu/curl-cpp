@@ -95,10 +95,10 @@ public:
     auto set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @param ip_addr can be ipv4 or ipv6 address.
-     *                If it is nullptr, then set to whatever TCP stack find available (default).
+     * @param value can be ipv4 or ipv6 address/hostname/interface.
+     *              If it is nullptr, then set to whatever TCP stack find available (default).
      */
-    auto set_source_ip(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
+    auto set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
      * @param timeout in milliseconds. Set to 0 to disable;
