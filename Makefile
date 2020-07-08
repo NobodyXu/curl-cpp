@@ -1,6 +1,6 @@
 CXX := clang++
 
-CXXFLAGS := -std=c++17 $(shell curl-config --cflags)
+CXXFLAGS := -std=c++17 -flto -fno-fat-lto-objects -O2 $(shell curl-config --cflags)
 LDFLAGS := $(shell curl-config --libs)
 
 SRCS := $(wildcard *.cc)
@@ -21,7 +21,8 @@ include $(wildcard $(DEPS))
 	mv -f $*.Td $*.d && touch $@
 
 libcurl_cpp.a: $(OBJS)
-	llvm-ar rcs $@ $^
+	llvm-ar rcsT $@ $^
+	llvm-ranlib $@
 
 clean:
 	rm -rf *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
