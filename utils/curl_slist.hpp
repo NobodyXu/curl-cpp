@@ -39,6 +39,16 @@ class slist {
         {
             return ptr->data;
         }
+
+        bool operator == (const Iterator_template &other) const noexcept
+        {
+            return ptr == other.ptr;
+        }
+
+        bool operator != (const Iterator_template &other) const noexcept
+        {
+            return ptr != other.ptr;
+        }
     };
 
 public:
