@@ -156,6 +156,12 @@ public:
      *         If Easy_t::p2 == nullptr, then it means not enough memory.
      */
     auto create_easy(std::size_t buffer_size) noexcept -> Easy_t;
+    /**
+     * @param e must not be nullptr
+     * @param buffer_size same as create_easy
+     * @preturn same as create_easy
+     */
+    auto dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy_t;
 
     /**
      * has curl::Url support

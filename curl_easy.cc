@@ -46,6 +46,33 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
 
     return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
 }
+auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy_t
+{
+    CURL *curl = curl_easy_duphandle(e.p1.get());
+    if (!curl)
+        return {nullptr, nullptr};
+
+    if (debug_stream) {
+        curl_easy_setopt(curl, CURLOPT_STDERR, debug_stream);
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    }
+
+    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
+
+    if (disable_signal_handling_v)
+        curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+
+    using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
+    using cstr_ptr = std::unique_ptr<char[]>;
+
+    auto *error_buffer = static_cast<char*>(std::malloc(CURL_ERROR_SIZE));
+    if (error_buffer) {
+        error_buffer[0] = '\0';
+        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
+    }
+
+    return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
+}
 
 void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept
 {
