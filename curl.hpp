@@ -156,12 +156,20 @@ public:
      *          - It can be no memory left;
      *          - Or, initialization code for some part of lib failed.
      *         If Easy_t::p2 == nullptr, then it means not enough memory.
+     *
+     * If debug_stream set to non-NULL, verbose info will be printed
+     * there.
+     * If disable_signal_handling_v is set, signal handling is disabled.
      */
     auto create_easy(std::size_t buffer_size = 0) noexcept -> Easy_t;
     /**
      * @param e must not be nullptr
      * @param buffer_size same as create_easy
      * @preturn same as create_easy
+     *
+     * If debug_stream set to non-NULL, verbose info will be printed
+     * there.
+     * If disable_signal_handling_v is set, signal handling is disabled.
      */
     auto dup_easy(const Easy_t &e, std::size_t buffer_size = 0) noexcept -> Easy_t;
 
