@@ -36,7 +36,7 @@ test/test_curl_version.out: test/test_curl_version.cc test/utility.hpp
 	$(CXX) -std=c++17 $(LDFLAGS) $< -o $@
 
 test/%.out: test/%.cc libcurl_cpp.a test/utility.hpp
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< libcurl_cpp.a -o $@
+	$(CXX) -std=c++17 -flto $(LDFLAGS) $< libcurl_cpp.a -o $@
 
 clean:
 	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) $(TEST_OBJS)
