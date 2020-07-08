@@ -24,7 +24,7 @@ shared_mutex::shared_mutex()
     pthread_rwlockattr_t attr;
 
     CHECK(pthread_rwlockattr_init(&attr));
-    CHECK(pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP));
+    pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP);
 
     CHECK(pthread_rwlock_init(&rwlock, &attr));
 
@@ -35,7 +35,7 @@ shared_mutex::shared_mutex(Ret_except<void, std::system_error> &e) noexcept
     pthread_rwlockattr_t attr;
 
     CHECK2(pthread_rwlockattr_init(&attr));
-    CHECK2(pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP));
+    pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP);
 
     CHECK2(pthread_rwlock_init(&rwlock, &attr));
 
