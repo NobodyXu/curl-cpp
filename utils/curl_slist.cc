@@ -62,6 +62,11 @@ auto slist::cend() const noexcept -> const_iterator
     return {};
 }
 
+auto slist::get_underlying_ptr() const noexcept -> void*
+{
+    return list;
+}
+
 bool slist::is_empty() const noexcept
 {
     return nodes == 0;

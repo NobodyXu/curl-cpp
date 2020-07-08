@@ -81,6 +81,8 @@ public:
     auto cbegin() const noexcept -> const_iterator;
     auto cend() const noexcept -> const_iterator;
 
+    auto get_underlying_ptr() const noexcept -> void*;
+
     /**
      * @param str is copied before adding to the list.
      */
