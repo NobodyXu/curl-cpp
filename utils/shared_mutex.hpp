@@ -10,11 +10,9 @@ class shared_mutex {
     pthread_rwlock_t rwlock;
 
 public:
-    /**
-     * @Exception std::system_error.
-     */
-    shared_mutex();
-    shared_mutex(Ret_except<void, std::system_error> &e) noexcept;
+    using Ret_except_t = Ret_except<void, std::system_error>;
+
+    shared_mutex(Ret_except_t &e) noexcept;
 
     shared_mutex(const shared_mutex&) = delete;
     shared_mutex(shared_mutex&&) = delete;
