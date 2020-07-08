@@ -1,5 +1,7 @@
 CXX := clang++
 
+LDFLAGS := 
+
 include linking.mk
 
 SRCS := $(wildcard *.cc)
