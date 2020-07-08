@@ -177,7 +177,7 @@ public:
     /**
      * has curl::Url support
      */
-    bool has_CURLU(const char *protocol) const noexcept;
+    bool has_CURLU() const noexcept;
 
     struct Url_deleter {
         void operator () (char *p) const noexcept;
