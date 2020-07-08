@@ -24,6 +24,19 @@ libcurl_cpp.a: $(OBJS)
 	llvm-ar rcsT $@ $^
 	llvm-ranlib $@
 
+TEST_SRCS := $(wildcard test/*.cc)
+TEST_OBJS := $(TEST_SRCS:.cc=.out)
+
+test: $(TEST_OBJS)
+
+test/test_curl_version.out: test/test_curl_version.cc test/utility.hpp
+	$(CXX) -std=c++17 $(LDFLAGS) $< -o $@
+	./$@
+
+test/%.out: test/%.cc libcurl_cpp.a test/utility.hpp
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< libcurl_cpp.a -o $@
+	./$@
+
 clean:
 	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
 
