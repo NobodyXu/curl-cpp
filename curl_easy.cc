@@ -30,7 +30,8 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
     // Enable TCP_keepalive
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
-    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
+    if (buffer_size)
+        curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
 
     if (disable_signal_handling_v)
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
@@ -57,7 +58,8 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     }
 
-    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
+    if (buffer_size)
+        curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, buffer_size);
 
     if (disable_signal_handling_v)
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);

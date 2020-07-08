@@ -149,19 +149,21 @@ public:
      *                    The maximum buffer size allowed to be set is CURL_MAX_READ_SIZE (512kB). 
      *                    The minimum buffer size allowed to be set is 1024.
      *
+     *                    Set to 0 to use default value.
+     *
      *                    This param is just treated as a request, not an order.
      * @return If Easy_t::p1 == nullptr, then curl_easy cannot be created.
      *          - It can be no memory left;
      *          - Or, initialization code for some part of lib failed.
      *         If Easy_t::p2 == nullptr, then it means not enough memory.
      */
-    auto create_easy(std::size_t buffer_size) noexcept -> Easy_t;
+    auto create_easy(std::size_t buffer_size = 0) noexcept -> Easy_t;
     /**
      * @param e must not be nullptr
      * @param buffer_size same as create_easy
      * @preturn same as create_easy
      */
-    auto dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy_t;
+    auto dup_easy(const Easy_t &e, std::size_t buffer_size = 0) noexcept -> Easy_t;
 
     /**
      * has curl::Url support
