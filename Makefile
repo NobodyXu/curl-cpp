@@ -40,6 +40,6 @@ test/%.out: test/%.cc libcurl_cpp.a test/utility.hpp
 	$(CXX) $(TEST_CXXFLAGS) $(LDFLAGS) $< libcurl_cpp.a -o $@
 
 clean:
-	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) $(TEST_OBJS)
+	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) $(TEST_OBJS) libcurl_cpp.a
 
 .PHONY: clean test
