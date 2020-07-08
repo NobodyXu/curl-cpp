@@ -26,6 +26,7 @@ libcurl_cpp.a: $(OBJS)
 
 TEST_SRCS := $(wildcard test/*.cc)
 TEST_OBJS := $(TEST_SRCS:.cc=.out)
+TEST_CXXFLAGS := -std=c++17 -flto -g -fsanitize=address
 
 test: $(TEST_OBJS:.out=_run)
 
@@ -33,10 +34,10 @@ test/%_run: test/%.out
 	./$<
 
 test/test_curl_version.out: test/test_curl_version.cc test/utility.hpp
-	$(CXX) -std=c++17 $(LDFLAGS) $< -o $@
+	$(CXX) $(TEST_CXXFLAGS) $(LDFLAGS) $< -o $@
 
 test/%.out: test/%.cc libcurl_cpp.a test/utility.hpp
-	$(CXX) -std=c++17 -flto -g -fsanitize=address $(LDFLAGS) $< libcurl_cpp.a -o $@
+	$(CXX) $(TEST_CXXFLAGS) $(LDFLAGS) $< libcurl_cpp.a -o $@
 
 clean:
 	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) $(TEST_OBJS)
