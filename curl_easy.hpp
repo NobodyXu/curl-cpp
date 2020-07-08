@@ -60,6 +60,12 @@ public:
     };
 
     /**
+     * @param stderr_stream_arg if not null, enable verbose mode and
+     *                          print them onto stderr_stream_arg.
+     */
+    void set_verbose(FILE *stderr_stream_arg) noexcept;
+
+    /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
      * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
      *

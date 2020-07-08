@@ -76,6 +76,14 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
     return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
 }
 
+void Easy_ref_t::set_verbose(FILE *stderr_stream_arg) noexcept
+{
+    if (stderr_stream_arg) {
+        curl_easy_setopt(ptrs.first, CURLOPT_STDERR, stderr_stream_arg);
+        curl_easy_setopt(ptrs.first, CURLOPT_VERBOSE, 1L);
+    }
+}
+
 void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept
 {
     curl_easy_setopt(ptrs.first, CURLOPT_WRITEFUNCTION, writeback);
