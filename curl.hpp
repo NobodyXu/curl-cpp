@@ -191,6 +191,10 @@ public:
      * would make it easier to manage it in custom ways like std::shared_ptr.
      */
     auto create_Url() noexcept -> Url_t;
+    /**
+     * @param url != nullptr
+     */
+    auto dup_Url(const Url_t &url) noexcept -> Url_t;
 
     bool has_multi_poll_support() const noexcept;
     bool has_multi_socket_support() const noexcept;
