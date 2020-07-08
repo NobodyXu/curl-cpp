@@ -3,26 +3,22 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "shared_mutex.hpp"
-#include <system_error>
 #include <cerrno>
+#include <err.h>
 
-#define CHECK2(expr)       \
-    do {                   \
-        if ((expr) != 0) { \
-            e.set_exception<std::system_error>(errno, std::generic_category(), # expr); \
-            return; \
-        } \
-    } while (0)
+#define CHECK(expr)  \
+    if ((expr) != 0) \
+        err(1, "In %s" # expr " failed", __PRETTY_FUNCTION__)
 
 namespace curl::util {
-shared_mutex::shared_mutex(Ret_except_t &e) noexcept
+shared_mutex::shared_mutex() noexcept
 {
     pthread_rwlockattr_t attr;
 
-    CHECK2(pthread_rwlockattr_init(&attr));
+    CHECK(pthread_rwlockattr_init(&attr));
     pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP);
 
-    CHECK2(pthread_rwlock_init(&rwlock, &attr));
+    CHECK(pthread_rwlock_init(&rwlock, &attr));
 
     pthread_rwlockattr_destroy(&attr);
 }

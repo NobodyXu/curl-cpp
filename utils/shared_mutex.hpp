@@ -2,17 +2,16 @@
 # define __curl_cpp_utils_shared_mutex_HPP__
 
 # include <pthread.h>
-# include <system_error>
-# include "../return-exception/ret-exception.hpp"
 
 namespace curl::util {
 class shared_mutex {
     pthread_rwlock_t rwlock;
 
 public:
-    using Ret_except_t = Ret_except<void, std::system_error>;
-
-    shared_mutex(Ret_except_t &e) noexcept;
+    /**
+     * On failure, call err to terminate the program.
+     */
+    shared_mutex() noexcept;
 
     shared_mutex(const shared_mutex&) = delete;
     shared_mutex(shared_mutex&&) = delete;
