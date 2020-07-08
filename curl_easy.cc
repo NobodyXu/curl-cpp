@@ -1,7 +1,7 @@
 #include "curl_easy.hpp"
 #include "curl_url.hpp"
 
-#include <cstdlib>
+#include <new>
 #include <curl/curl.h>
 #include <arpa/inet.h>
 #include <utility>
@@ -39,7 +39,7 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
     using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
     using cstr_ptr = std::unique_ptr<char[]>;
 
-    auto *error_buffer = static_cast<char*>(std::malloc(CURL_ERROR_SIZE));
+    auto *error_buffer = new (std::nothrow) char[CURL_ERROR_SIZE];
     if (error_buffer) {
         error_buffer[0] = '\0';
         curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
@@ -67,7 +67,7 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
     using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
     using cstr_ptr = std::unique_ptr<char[]>;
 
-    auto *error_buffer = static_cast<char*>(std::malloc(CURL_ERROR_SIZE));
+    auto *error_buffer = new (std::nothrow) char[CURL_ERROR_SIZE];
     if (error_buffer) {
         error_buffer[0] = '\0';
         curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
