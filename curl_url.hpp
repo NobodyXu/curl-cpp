@@ -6,6 +6,15 @@
 namespace curl {
 /**
  * @Precondition for using this class: curl_t::has_CURLU()
+ *
+ * Why make Url_ref_t RAII-less?
+ *
+ * Since url can be used by multiple Easy_ref_t, users might want to
+ * manage it using std::shared_ptr.
+ *
+ * It Url_ref_t is RAII-ed, then user would have to write
+ * std::shared_ptr<Url_ref_t>, introducing another layer of indirection
+ * while it doesn't have to.
  */
 class Url_ref_t {
 protected:
