@@ -67,7 +67,7 @@ public:
     /**
      * Modification of the variable below is sure not thread-safe.
      */
-    FILE *debug_stream;
+    FILE *stderr_stream;
 
     /**
      * @Precondition has_disable_signal_handling_support()
@@ -100,7 +100,7 @@ public:
      *
      * This is not thread-safe.
      */
-    curl_t(FILE *debug_stream_arg) noexcept;
+    curl_t(FILE *stderr_stream_arg) noexcept;
 
     curl_t(const curl_t&) = delete;
     curl_t(curl_t&&) = delete;
@@ -157,7 +157,7 @@ public:
      *          - Or, initialization code for some part of lib failed.
      *         If Easy_t::p2 == nullptr, then it means not enough memory.
      *
-     * If debug_stream set to non-NULL, verbose info will be printed
+     * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
      */
@@ -167,7 +167,7 @@ public:
      * @param buffer_size same as create_easy
      * @preturn same as create_easy
      *
-     * If debug_stream set to non-NULL, verbose info will be printed
+     * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
      */

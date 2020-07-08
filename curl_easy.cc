@@ -22,8 +22,8 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
     if (!curl)
         return {nullptr, nullptr};
 
-    if (debug_stream) {
-        curl_easy_setopt(curl, CURLOPT_STDERR, debug_stream);
+    if (stderr_stream) {
+        curl_easy_setopt(curl, CURLOPT_STDERR, stderr_stream);
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     }
 
@@ -53,8 +53,8 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
     if (!curl)
         return {nullptr, nullptr};
 
-    if (debug_stream) {
-        curl_easy_setopt(curl, CURLOPT_STDERR, debug_stream);
+    if (stderr_stream) {
+        curl_easy_setopt(curl, CURLOPT_STDERR, stderr_stream);
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     }
 

@@ -59,8 +59,8 @@ std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept
     return std::snprintf(buffer, 12, "%" PRIu8 ".%" PRIu8 ".%" PRIu8, get_major(), get_minor(), get_patch());
 }
 
-curl_t::curl_t(FILE *debug_stream_arg) noexcept:
-    debug_stream{debug_stream_arg},
+curl_t::curl_t(FILE *stderr_stream_arg) noexcept:
+    stderr_stream{stderr_stream_arg},
     version_info{curl_version_info(CURLVERSION_NOW)},
     version{static_cast<const curl_version_info_data*>(version_info)->version_num},
     version_str{static_cast<const curl_version_info_data*>(version_info)->version}
