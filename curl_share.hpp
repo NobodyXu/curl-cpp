@@ -11,7 +11,9 @@ class Share_base {
     void *curl_share;
 
 public:
-    Share_base(Ret_except<void, Exception> &e) noexcept;
+    using Ret_except_t = Ret_except<void, Exception>;
+
+    Share_base(Ret_except_t &e) noexcept;
 
     /**
      * Delete cp/mv ctor and assignment:
@@ -117,6 +119,8 @@ public:
  */
 template <class Shared_mutex_t = util::shared_mutex>
 class Share: public Share_base {
+    static constexpr const std::size_t mutex_num = 5;
+
     Shared_mutex_t mutexes[5];
 
     auto& get_mutex(Options option) noexcept
@@ -138,7 +142,7 @@ class Share: public Share_base {
     }
 
 public:
-    Share(Ret_except<void, Exception> &e):
+    Share(Share_base::Ret_except_t &e):
         Share_base{e}
     {}
 

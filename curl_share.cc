@@ -2,7 +2,7 @@
 #include "curl_easy.hpp"
 
 namespace curl {
-Share_base::Share_base(Ret_except<void, Exception> &e) noexcept:
+Share_base::Share_base(Ret_except_t &e) noexcept:
     curl_share{curl_share_init()}
 {
     if (!curl_share)
