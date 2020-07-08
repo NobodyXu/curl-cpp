@@ -1,6 +1,6 @@
 CXX := clang++
 
-CXXFLAGS := -std=c++17 -flto -fno-fat-lto-objects -O2 $(shell curl-config --cflags)
+CXXFLAGS := -std=c++17 -flto -O2 $(shell curl-config --cflags)
 LDFLAGS := $(shell curl-config --libs)
 
 SRCS := $(wildcard *.cc)
@@ -9,7 +9,7 @@ OBJS := $(SRCS:.cc=.o)
 
 # Autobuild dependency, adapted from:
 #    http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/#include
-DEPFLAGS := -MT $@ -MMD -MP -MF $*.Td
+DEPFLAGS = -MT $@ -MMD -MP -MF $*.Td
 
 $(DEPS): 
 include $(wildcard $(DEPS))
@@ -17,7 +17,7 @@ include $(wildcard $(DEPS))
 ## Disable implict pattern
 %.o : %.cc
 %.o : %.cc %.d
-	$(CXX) -c -o $@ $< $(CXXFLAGS) $(DEPFLAGS)
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -c -o $@ $<
 	mv -f $*.Td $*.d && touch $@
 
 libcurl_cpp.a: $(OBJS)
@@ -27,4 +27,4 @@ libcurl_cpp.a: $(OBJS)
 clean:
 	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
 
-.PHONY: clean
+.PHONY: clean test
