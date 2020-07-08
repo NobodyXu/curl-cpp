@@ -101,6 +101,12 @@ public:
     auto set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
+     * @Precondition curl_t::has_set_ip_addr_only_support()
+     * @param ip_addr ipv4/ipv6 address
+     */
+    auto set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
+
+    /**
      * @param timeout in milliseconds. Set to 0 to disable;
      *                should be less than std::numeric_limits<long>::max().
      */

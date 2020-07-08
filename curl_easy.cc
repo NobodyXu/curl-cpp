@@ -79,6 +79,14 @@ auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, s
     CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_INTERFACE, value));
     return {};
 }
+auto Easy_ref_t::set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
+{
+    constexpr const auto buffer_size = 5 + INET6_ADDRSTRLEN + 1;
+    char buffer[buffer_size];
+    std::snprintf(buffer, buffer_size, "host!%s", ip_addr);
+
+    return set_interface(buffer);
+}
 
 void Easy_ref_t::set_timeout(unsigned long timeout) noexcept
 {

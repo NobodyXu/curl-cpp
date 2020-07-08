@@ -124,8 +124,8 @@ public:
     bool has_disable_signal_handling_support() const noexcept;
 
     bool has_readfunc_abort_support() const noexcept;
-
     bool has_header_option_support() const noexcept;
+    bool has_set_ip_addr_only_support() const noexcept;
 
     bool has_sizeof_upload_support() const noexcept;
     bool has_sizeof_response_header_support() const noexcept;
