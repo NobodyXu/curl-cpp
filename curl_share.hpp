@@ -108,7 +108,7 @@ public:
  * @tparam Shared_mutex_t For shared or single lock, their unlock function must be
  *                        the same function -- Shared_mutex_t::unlock().
  *
- *                        If Shared_mutex_t default ctor, lock, lock_shared or unlock
+ *                        If Shared_mutex_t lock, lock_shared or unlock
  *                        throw an exception, it would terminte the program.
  *
  *                        If Shared_mutex_t has type Ret_except_t (Ret == void), then 
