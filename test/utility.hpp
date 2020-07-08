@@ -77,8 +77,8 @@ auto& operator << (std::ostream &os, curl::Easy_ref_t::code code)
     }
 }
 
-template <class T>
-void assert_same_impl(const T &v1, const char *expr1, const T &v2, const char *expr2) noexcept
+template <class T1, class T2>
+void assert_same_impl(const T1 &v1, const char *expr1, const T2 &v2, const char *expr2) noexcept
 {
     if (v1 != v2) {
         std::cerr << expr1 << " != " << expr2 << ": " 
