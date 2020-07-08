@@ -24,6 +24,6 @@ libcurl_cpp.a: $(OBJS)
 	llvm-ranlib $@
 
 clean:
-	rm -rf *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
+	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS)
 
 .PHONY: clean
