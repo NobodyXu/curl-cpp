@@ -42,7 +42,7 @@ class slist {
     };
 
 public:
-    using value_type = const char*;
+    using value_type = char* const;
 
     using size_type = std::size_t;
     using difference_type = std::ptrdiff_t;
@@ -53,8 +53,8 @@ public:
     using pointer = value_type*;
     using const_pointer = const value_type*;
 
-    using iterator = Iterator_template<curl_slist*, value_type>;
-    using const_iterator = Iterator_template<const curl_slist*, const value_type>;
+    using iterator = Iterator_template<curl_slist*, char * const>;
+    using const_iterator = Iterator_template<const curl_slist*, const char * const>;
 
     slist() = default;
 
