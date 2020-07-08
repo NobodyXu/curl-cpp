@@ -1,8 +1,7 @@
 CXX := clang++
 
-LDFLAGS := 
-
-include linking.mk
+CXXFLAGS := -std=c++17 -flto -fno-fat-lto-objects -O2 $(shell curl-config --cflags)
+LDFLAGS := $(shell curl-config --libs)
 
 SRCS := $(wildcard *.cc)
 DEPS := $(SRCS:.cc=.d)
