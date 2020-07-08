@@ -9,11 +9,6 @@ template <class T1, class Deleter1, class T2, class Deleter2 = std::default_dele
 struct unique_ptr_pair {
     std::unique_ptr<T1, Deleter1> p1;
     std::unique_ptr<T2, Deleter2> p2;
-
-    auto get_pointer_pair() const noexcept
-    {
-        return std::pair{p1.get(), p2.get()};
-    }
 };
 } /* namespace curl::util */
 
