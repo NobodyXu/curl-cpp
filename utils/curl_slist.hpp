@@ -85,6 +85,7 @@ public:
 
     /**
      * @param str is copied before adding to the list.
+     *            Must not be CRLF-terminated for use in curl::Easy_ref_t::set_http_header.
      */
     auto push_back(const char *str) noexcept -> Ret_except<void, std::bad_alloc>;
 };

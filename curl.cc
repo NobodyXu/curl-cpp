@@ -105,6 +105,11 @@ bool curl_t::has_readfunc_abort_support() const noexcept
     return version >= Version::from(7, 12, 1);
 }
 
+bool curl_t::has_header_option_support() const noexcept
+{
+    return version >= Version::from(7, 37, 0);
+}
+
 bool curl_t::has_CURLU(const char *protocol) const noexcept
 {
     return version >= Version::from(7, 63, 0);

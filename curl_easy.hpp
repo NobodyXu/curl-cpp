@@ -8,6 +8,7 @@
 # include <curl/curl.h>
 
 # include "curl.hpp"
+# include "utils/curl_slist.hpp"
 
 namespace curl {
 /**
@@ -104,6 +105,58 @@ public:
      *                should be less than std::numeric_limits<long>::max().
      */
     void set_timeout(unsigned long timeout) noexcept;
+
+    enum class header_option {
+        /**
+         * If unspecified is passed to set_http_header, then the
+         * previous header_option (or default) will be used.
+         *
+         * If curl_t::has_header_option_support() == false, then
+         * it is default to unified.
+         *
+         * Before 7.42.1, default is unified.
+         * After 7.42.1, default is separate.
+         */
+        unspecified,
+        /**
+         * The following options only take effect when 
+         * curl_t::has_header_option_support() == true.
+         */
+        unified, // header specified with set_http_header will also be used for proxy
+        separate, // reverse of unified
+    };
+    /**
+     * @Precondition curl_t::has_protocol("http")
+     * @param l will not be copied, thus it is required to be kept
+     *          around until another set_http_header is issued or 
+     *          this Easy_t is destroyed.
+     *
+     *          Must not be CRLF-terminated.
+     * @param option control whether header set here will also sent to
+     *               proxy
+     *
+     * Example:
+     *  - Replace hedaer 'Accept:'
+     *    
+     *      utils::slist l;
+     *      l.push_back("Accept: deflate");
+     *      easy.set_http_header(l);
+     *
+     *  - Remove header 'Accept:'
+     *      
+     *      easy.set_http_header(utils::slist{});
+     *
+     * Starting in 7.58.0, libcurl will specifically prevent 
+     * "Authorization:" headers from being sent to hosts other 
+     * than the first used one, unless specifically permitted 
+     * with the CURLOPT_UNRESTRICTED_AUTH option.
+     * 
+     * Starting in 7.64.0, libcurl will specifically prevent 
+     * "Cookie:" headers from being sent to hosts other than 
+     * the first used one, unless specifically permitted with 
+     * the CURLOPT_UNRESTRICTED_AUTH option.
+     */
+    void set_http_header(const utils::slist &l, header_option option = header_option::unspecified) noexcept;
 
     /**
      * @Precondition: curl_t::has_protocol("http")

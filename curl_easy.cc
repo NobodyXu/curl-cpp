@@ -85,6 +85,20 @@ void Easy_ref_t::set_timeout(unsigned long timeout) noexcept
     curl_easy_setopt(ptrs.first, CURLOPT_TIMEOUT_MS, timeout);
 }
 
+void Easy_ref_t::set_http_header(const utils::slist &l, header_option option) noexcept
+{
+    curl_easy_setopt(ptrs.first, CURLOPT_HTTPHEADER, static_cast<struct curl_slist*>(l.get_underlying_ptr()));
+    if (option != header_option::unspecified) {
+        long value;
+        if (option == header_option::separate)
+            value = CURLHEADER_SEPARATE;
+        else
+            value = CURLHEADER_UNIFIED;
+
+        curl_easy_setopt(ptrs.first, CURLOPT_HEADEROPT, value);
+    }
+}
+
 void Easy_ref_t::request_get() noexcept
 {
     curl_easy_setopt(ptrs.first, CURLOPT_HTTPGET, 1L);
