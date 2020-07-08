@@ -1,56 +1,12 @@
 #include "../curl_url.hpp"
 
-#include <iostream>
-#include <type_traits>
-
-using curl::Url_ref_t;
-using set_code = Url_ref_t::set_code;
-using get_code = Url_ref_t::get_code;
-
-auto& operator << (std::ostream &os, set_code code)
-{
-    switch (code) {
-        case set_code::ok:
-            return os << "ok";
-        case set_code::malform_input:
-            return os << "malform_input";
-        case set_code::bad_port_number:
-            return os << "bad_port_number";
-        case set_code::unsupported_scheme:
-            return os << "unsupported_scheme";
-        default:
-            return os << "Unknown set_code";
-    }
-}
-auto& operator << (std::ostream &os, get_code code)
-{
-    switch (code) {
-        case get_code::no_scheme:
-            return os << "no_scheme";
-        case get_code::no_user:
-            return os << "no_user";
-        case get_code::no_passwd:
-            return os << "no_passwd";
-        case get_code::no_options:
-            return os << "no_options";
-        case get_code::no_host:
-            return os << "no_host";
-        case get_code::no_port:
-            return os << "no_port";
-        case get_code::no_query:
-            return os << "no_query";
-        case get_code::no_fragment:
-            return os << "no_fragment";
-        default:
-            return os << "Unknown get_code";
-    }
-}
-
-
 #include "utility.hpp"
 #include <cassert>
 
 using namespace std::literals;
+using curl::Url_ref_t;
+using set_code = Url_ref_t::set_code;
+using get_code = Url_ref_t::get_code;
 
 static constexpr const auto malform_scheme = "1111111111111111111111111111111111111111111111111111111";
 
