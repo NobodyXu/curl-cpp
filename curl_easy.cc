@@ -76,44 +76,48 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
     return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
 }
 
+Easy_ref_t::Easy_ref_t(const curl_t::Easy_t &e) noexcept:
+    curl_easy{e.p1.get()},
+    error_buffer{e.p2.get()}
+{}
 void Easy_ref_t::set_verbose(FILE *stderr_stream_arg) noexcept
 {
     if (stderr_stream_arg) {
-        curl_easy_setopt(ptrs.first, CURLOPT_STDERR, stderr_stream_arg);
-        curl_easy_setopt(ptrs.first, CURLOPT_VERBOSE, 1L);
+        curl_easy_setopt(curl_easy, CURLOPT_STDERR, stderr_stream_arg);
+        curl_easy_setopt(curl_easy, CURLOPT_VERBOSE, 1L);
     }
 }
 
 void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_WRITEFUNCTION, writeback);
-    curl_easy_setopt(ptrs.first, CURLOPT_WRITEDATA, userp);
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);
+    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, userp);
 }
 
 void Easy_ref_t::set_url(const Url_ref_t &url) noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_CURLU, url.url);
+    curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);
 }
 auto Easy_ref_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_URL, url));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));
     return {};
 }
 
 auto Easy_ref_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_USERAGENT, useragent));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
     return {};
 }
 auto Easy_ref_t::set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_ACCEPT_ENCODING, encoding));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));
     return {};
 }
 
 auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    CHECK_OOM(curl_easy_setopt(ptrs.first, CURLOPT_INTERFACE, value));
+    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, value));
     return {};
 }
 auto Easy_ref_t::set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
@@ -127,12 +131,12 @@ auto Easy_ref_t::set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<vo
 
 void Easy_ref_t::set_timeout(unsigned long timeout) noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_TIMEOUT_MS, timeout);
+    curl_easy_setopt(curl_easy, CURLOPT_TIMEOUT_MS, timeout);
 }
 
 void Easy_ref_t::set_http_header(const utils::slist &l, header_option option) noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_HTTPHEADER, static_cast<struct curl_slist*>(l.get_underlying_ptr()));
+    curl_easy_setopt(curl_easy, CURLOPT_HTTPHEADER, static_cast<struct curl_slist*>(l.get_underlying_ptr()));
     if (option != header_option::unspecified) {
         long value;
         if (option == header_option::separate)
@@ -140,61 +144,61 @@ void Easy_ref_t::set_http_header(const utils::slist &l, header_option option) no
         else
             value = CURLHEADER_UNIFIED;
 
-        curl_easy_setopt(ptrs.first, CURLOPT_HEADEROPT, value);
+        curl_easy_setopt(curl_easy, CURLOPT_HEADEROPT, value);
     }
 }
 
 void Easy_ref_t::request_get() noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_HTTPGET, 1L);
+    curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);
 }
 void Easy_ref_t::request_post(const void *data, std::size_t len) noexcept
 {
-    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDSIZE_LARGE, len);
-    curl_easy_setopt(ptrs.first, CURLOPT_POSTFIELDS, data);
+    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);
+    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);
 }
 void Easy_ref_t::request_post(readback_t readback, void *userp, std::size_t len) noexcept
 {
     request_post(nullptr, len);
 
-    curl_easy_setopt(ptrs.first, CURLOPT_READFUNCTION, readback);
-    curl_easy_setopt(ptrs.first, CURLOPT_READDATA, userp);
+    curl_easy_setopt(curl_easy, CURLOPT_READFUNCTION, readback);
+    curl_easy_setopt(curl_easy, CURLOPT_READDATA, userp);
 }
 
 auto Easy_ref_t::perform() noexcept -> perform_ret_t
 {
-    return check_perform(curl_easy_perform(ptrs.first), "curl::Easy_ref_t::perform");
+    return check_perform(curl_easy_perform(curl_easy), "curl::Easy_ref_t::perform");
 }
 
 long Easy_ref_t::get_response_code() const noexcept
 {
     long response_code;
-    curl_easy_getinfo(ptrs.first, CURLINFO_RESPONSE_CODE, &response_code);
+    curl_easy_getinfo(curl_easy, CURLINFO_RESPONSE_CODE, &response_code);
     return response_code;
 }
 
 std::size_t Easy_ref_t::getinfo_sizeof_uploaded() const noexcept
 {
     curl_off_t ul;
-    curl_easy_getinfo(ptrs.first, CURLINFO_SIZE_UPLOAD_T, &ul);
+    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul);
     return ul;
 }
 std::size_t Easy_ref_t::getinfo_sizeof_response_header() const noexcept
 {
     long size;
-    curl_easy_getinfo(ptrs.first, CURLINFO_HEADER_SIZE, &size);
+    curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &size);
     return size;
 }
 std::size_t Easy_ref_t::getinfo_sizeof_response_body() const noexcept
 {
     curl_off_t dl;
-    curl_easy_getinfo(ptrs.first, CURLINFO_SIZE_DOWNLOAD_T, &dl);
+    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl);
     return dl;
 }
 std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept
 {
     curl_off_t total;
-    curl_easy_getinfo(ptrs.first, CURLINFO_TOTAL_TIME_T, &total);
+    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
     return total;
 }
 
@@ -202,7 +206,7 @@ auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
 {
     curl_socket_t socketfd = CURL_SOCKET_BAD;
 
-    curl_easy_getinfo(ptrs.first, CURLINFO_ACTIVESOCKET, &socketfd);;
+    curl_easy_getinfo(curl_easy, CURLINFO_ACTIVESOCKET, &socketfd);;
 
     return socketfd;
 }
@@ -211,9 +215,9 @@ auto Easy_ref_t::establish_connection_only() noexcept -> perform_ret_t
 {
     request_get();
 
-    curl_easy_setopt(ptrs.first, CURLOPT_NOBODY, 1);
+    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);
     auto ret = perform();
-    curl_easy_setopt(ptrs.first, CURLOPT_NOBODY, 0);
+    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
 
     return std::move(ret);
 }

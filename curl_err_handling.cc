@@ -104,7 +104,7 @@ auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform
         case CURLE_SSL_CONNECT_ERROR:
         case CURLE_UNKNOWN_OPTION:
         case CURLE_HTTP3:
-            return {ProtocolInternal_error{code, ptrs.second}};
+            return {ProtocolInternal_error{code, error_buffer}};
     }
 }
 /* End of Easy_t */

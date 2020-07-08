@@ -23,7 +23,20 @@ namespace curl {
  */
 class Easy_ref_t {
 public:
-    std::pair<char* /* actually is pointer to CURL */, char*> ptrs;
+    char *curl_easy = nullptr;
+    char *error_buffer = nullptr;
+
+    Easy_ref_t(const curl_t::Easy_t &e) noexcept;
+
+    Easy_ref_t() = default;
+
+    Easy_ref_t(const Easy_ref_t&) = default;
+    Easy_ref_t(Easy_ref_t&&) = default;
+
+    Easy_ref_t& operator = (const Easy_ref_t&) = default;
+    Easy_ref_t& operator = (Easy_ref_t&&) = default;
+
+    ~Easy_ref_t() = default;
 
     friend Multi_t;
 
