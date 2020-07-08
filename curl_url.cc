@@ -29,9 +29,6 @@ static auto curl_urlset_wrapper(void *url, CURLUPart part, const char *arg) noex
 {
     auto code = curl_url_set(static_cast<CURLU*>(url), part, arg, 0);
 
-    assert(code != CURLUE_BAD_HANDLE);
-    assert(code !=  CURLUE_BAD_PARTPOINTER);
-
     switch (code) {
         case CURLUE_MALFORMED_INPUT:
             return {Url_ref_t::set_code::malform_input};
