@@ -15,7 +15,7 @@ auto curl_t::create_Url() noexcept -> Url_t
 auto curl_t::dup_Url(const Url_t &url) noexcept -> Url_t
 {
     auto *new_curl_url = curl_url_dup(static_cast<CURLU*>(static_cast<void*>(url.get())));
-    return Url_t{static_cast<char*>(static_cast<void*>(curl_url()))};
+    return Url_t{static_cast<char*>(static_cast<void*>(new_curl_url))};
 }
 
 void Url_ref_t::curl_delete::operator () (char *p) const noexcept
