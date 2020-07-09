@@ -225,9 +225,7 @@ auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
 auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
 {
     curl_socket_t socketfd = CURL_SOCKET_BAD;
-
-    curl_easy_getinfo(curl_easy, CURLINFO_ACTIVESOCKET, &socketfd);;
-
+    curl_easy_getinfo(curl_easy, CURLINFO_ACTIVESOCKET, &socketfd);
     return socketfd;
 }
 
