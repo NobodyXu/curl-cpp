@@ -124,6 +124,11 @@ auto Easy_ref_t::set_encoding(const char *encoding) noexcept -> Ret_except<void,
     return {};
 }
 
+void Easy_ref_t::set_nobody(bool enable) noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, enable);
+}
+
 auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>
 {
     CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, value));
