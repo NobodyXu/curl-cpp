@@ -185,6 +185,7 @@ public:
 
     /**
      * @Precondition: curl_t::has_protocol("http")
+     * This is the default for http.
      */
     void request_get() noexcept;
     /**
