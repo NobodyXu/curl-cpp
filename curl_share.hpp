@@ -7,13 +7,21 @@
 # include <curl/curl.h>
 
 namespace curl {
+/**
+ * All easy handler must be removed before Share_base
+ * can be destroyed.
+ */
 class Share_base {
-    void *curl_share;
+    curl_t::share_t curl_share;
 
 public:
-    using Ret_except_t = Ret_except<void, Exception>;
-
-    Share_base(Ret_except_t &e) noexcept;
+    /**
+     * @param share must be != nullptr
+     *
+     * After this ctor call, share.get() == nullptr,
+     * this class will take over the ownership.
+     */
+    Share_base(curl_t::share_t &&share) noexcept;
 
     /**
      * Delete cp/mv ctor and assignment:
@@ -96,12 +104,6 @@ public:
 
     void add_easy(Easy_ref_t &easy) noexcept;
     void remove_easy(Easy_ref_t &easy) noexcept;
-
-    /**
-     * All easy handler must be removed before Share_base
-     * can be destroyed.
-     */
-    ~Share_base();
 };
 
 /**
@@ -142,9 +144,7 @@ class Share: public Share_base {
     }
 
 public:
-    Share(Share_base::Ret_except_t &e):
-        Share_base{e}
-    {}
+    using Share_base::Share_base;
 
     void enable_multithreaded_share() noexcept
     {

@@ -229,6 +229,12 @@ public:
     bool has_ssl_session_sharing_support() const noexcept;
     bool has_connection_cache_sharing_support() const noexcept;
     bool has_psl_sharing_support() const noexcept;
+
+    struct Share_deleter {
+        void operator () (char *p) const noexcept;
+    };
+    using share_t = std::unique_ptr<char, Share_deleter>;
+    auto create_share() noexcept -> share_t;
 };
 
 union Data_t {
