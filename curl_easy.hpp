@@ -87,6 +87,10 @@ public:
      * @param buffer not null-terminated
      */
     using writeback_t = std::size_t (*)(char *buffer, std::size_t _, std::size_t size, void *userp);
+
+    /**
+     * By default, writeback == std::fwrite, userp == stdout
+     */
     void set_writeback(writeback_t writeback, void *userp) noexcept;
 
     /**
