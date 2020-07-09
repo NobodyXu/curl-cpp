@@ -94,6 +94,9 @@ auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform
         case CURLE_BAD_FUNCTION_ARGUMENT:
             return std::invalid_argument{"A function was called with a bad parameter."};
 
+        case CURLE_TOO_MANY_REDIRECTS:
+            return {code::too_many_redirects};
+
         case CURLE_RECURSIVE_API_CALL:
             return {Recursive_api_call_Exception{fname}};
 

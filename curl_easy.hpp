@@ -244,6 +244,7 @@ public:
         upload_failure, // Failed starting the upload
         timedout,
         aborted_by_callback, // If readback return CURL_READFUNC_ABORT.
+        too_many_redirects, 
     };
     using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
                                      Exception, Recursive_api_call_Exception, NotBuiltIn_error, 
