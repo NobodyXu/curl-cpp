@@ -338,6 +338,31 @@ public:
         }, &arg);
     }
 
+    /**
+     * After this call, Easy_ref_t::perform/Multi_t::perform or multi_socket_action must be 
+     * called to establish the connection.
+     *
+     * To use the established connection, call set_nobody(false) or request_*()
+     * to disable nobody.
+     *
+     * Example usage:
+     *
+     * int main(int argc, char* argv[]) {
+     *     curl::curl_t curl{nullptr};
+     *
+     *     auto easy = curl.create_easy();
+     *     assert(easy.p1 && easy.p2);
+     *
+     *     auto easy_ref = curl::Easy_ref_t{easy};
+     *     easy_ref.set_url("https://www.google.com");
+     *
+     *     setup_establish_connection_only();
+     *     easy_ref.perform(); // Establish the connection
+     *
+     *     request_get();
+     *     easy_ref.perform(); // Now result is writen to stdout.
+     * }
+     */
     void setup_establish_connection_only() noexcept;
 
 protected:

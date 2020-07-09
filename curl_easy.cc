@@ -231,14 +231,9 @@ auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
     return socketfd;
 }
 
-auto Easy_ref_t::setup_establish_connection_only() noexcept
+void Easy_ref_t::setup_establish_connection_only() noexcept
 {
     request_get();
-
     curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);
-    auto ret = perform();
-    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 0);
-
-    return std::move(ret);
 }
 } /* namespace curl */
