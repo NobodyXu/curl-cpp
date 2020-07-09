@@ -7,22 +7,22 @@ SRCS := $(wildcard *.cc)
 DEPS := $(SRCS:.cc=.d)
 OBJS := $(SRCS:.cc=.o)
 
-# Autobuild dependency, adapted from:
-#    http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/#include
-DEPFLAGS = -MT $@ -MMD -MP -MF $*.Td
+libcurl_cpp.a: $(OBJS)
+	llvm-ar rcsT $@ $^
+	llvm-ranlib $@
 
 $(DEPS): 
 include $(wildcard $(DEPS))
+
+# Autobuild dependency, adapted from:
+#    http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/#include
+DEPFLAGS = -MT $@ -MMD -MP -MF $*.Td
 
 ## Disable implict pattern
 %.o : %.cc
 %.o : %.cc %.d
 	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -c -o $@ $<
 	mv -f $*.Td $*.d && touch $@
-
-libcurl_cpp.a: $(OBJS)
-	llvm-ar rcsT $@ $^
-	llvm-ranlib $@
 
 TEST_SRCS := $(wildcard test/*.cc)
 TEST_OBJS := $(TEST_SRCS:.cc=.out)
