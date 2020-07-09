@@ -24,6 +24,9 @@ public:
 
     ~shared_mutex();
 
+    /**
+     * Undefined behavior if deadlocks.
+     */
     auto lock() noexcept;
     /**
      * Undefined behavior if deadlocks.
