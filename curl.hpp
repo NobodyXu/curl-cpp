@@ -157,7 +157,7 @@ public:
      *          - It can be no memory left;
      *          - Or, initialization code for some part of lib failed.
      *         If Easy_t::p2 == nullptr, then it means not enough memory.
-     *
+     * 
      * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
@@ -168,9 +168,21 @@ public:
      * @param buffer_size same as create_easy
      * @preturn same as create_easy
      *
+     * All string passed into curl_easy_setopt using char* will be pointed by the 
+     * new hanlde as well.
+     * Thus they must be kept around until both handles is destroyed.
+     *
+     * The new handle will not inherit any state information, no connections, 
+     * no SSL sessions and no cookies. 
+     *
+     * It also will not inherit any share object states or options 
+     * (it will be made as if CURLOPT_SHARE was set to NULL).
+     *
      * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
+     *
+     * This function is not thread-safe. e must not be used in any way during this functino call.
      */
     auto dup_easy(const Easy_t &e, std::size_t buffer_size = 0) noexcept -> Easy_t;
 
