@@ -39,45 +39,45 @@ public:
      */
     enum class Options {
         none = CURL_LOCK_DATA_NONE,
-      cookie = CURL_LOCK_DATA_COOKIE,
-      /**
-       * share cached DNS hosts.
-       *
-       * NOTE that Multi_t interface share this by default 
-       * without setting this option.
-       */
-      dns = CURL_LOCK_DATA_DNS, 
-      /**
-       * SSL session IDs will be shared across the easy handles 
-       * using this shared object. 
-       *
-       * This will reduce the time spent in the SSL handshake 
-       * when reconnecting to the same server. 
-       *
-       * If curl_t::has_ssl_session_sharing_support() == false, setting
-       * this option shares nothing.
-       *
-       * NOTE SSL session IDs are reused within the same easy handle by default.
-       */
-      ssl_session = CURL_LOCK_DATA_SSL_SESSION,
-      /**
-       * If curl_t::has_connection_cache_sharing_support() == false, setting
-       * this option shares nothing.
-       *
-       * NOTE that Multi_t interface share this by default 
-       * without setting this option.
-       */
-      connection_cache = CURL_LOCK_DATA_CONNECT,
-      /**
-       * Share Public Suffix List.
-       *
-       * If curl_t::has_psl_sharing_support() == false, setting
-       * this option shares nothing.
-       *
-       * NOTE that Multi_t interface share this by default 
-       * without setting this option.
-       */
-      psl = CURL_LOCK_DATA_PSL,
+        cookie = CURL_LOCK_DATA_COOKIE,
+        /**
+         * share cached DNS hosts.
+         *
+         * NOTE that Multi_t interface share this by default 
+         * without setting this option.
+         */
+        dns = CURL_LOCK_DATA_DNS, 
+        /**
+         * SSL session IDs will be shared across the easy handles 
+         * using this shared object. 
+         *
+         * This will reduce the time spent in the SSL handshake 
+         * when reconnecting to the same server. 
+         *
+         * If curl_t::has_ssl_session_sharing_support() == false, setting
+         * this option shares nothing.
+         *
+         * NOTE SSL session IDs are reused within the same easy handle by default.
+         */
+        ssl_session = CURL_LOCK_DATA_SSL_SESSION,
+        /**
+         * If curl_t::has_connection_cache_sharing_support() == false, setting
+         * this option shares nothing.
+         *
+         * NOTE that Multi_t interface share this by default 
+         * without setting this option.
+         */
+        connection_cache = CURL_LOCK_DATA_CONNECT,
+        /**
+         * Share Public Suffix List.
+         *
+         * If curl_t::has_psl_sharing_support() == false, setting
+         * this option shares nothing.
+         *
+         * NOTE that Multi_t interface share this by default 
+         * without setting this option.
+         */
+        psl = CURL_LOCK_DATA_PSL,
     };
 
     /**
