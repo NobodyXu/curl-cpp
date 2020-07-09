@@ -106,6 +106,14 @@ public:
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
+     * @Precondition curl_t::has_protocol("http")
+     * @param redir set to 0 to disable redirection.
+     *              set to -1 to allow infinite number of redirections.
+     *              Other number enables redir number of redirections.
+     */
+    void set_follow_location(long redir) noexcept;
+
+    /**
      * @Precondition curl::has_protocol("http")
      * @param useragent pass nullptr for no useragent (default)
      */

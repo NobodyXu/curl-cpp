@@ -104,6 +104,15 @@ auto Easy_ref_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_
     return {};
 }
 
+void Easy_ref_t::set_follow_location(long redir) noexcept
+{
+    if (redir != 0) {
+        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 1L);
+        curl_easy_setopt(curl_easy, CURLOPT_MAXREDIRS, redir);
+    } else
+        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 0L);
+}
+
 auto Easy_ref_t::set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>
 {
     CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));
