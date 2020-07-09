@@ -338,7 +338,7 @@ public:
         }, &arg);
     }
 
-    auto establish_connection_only() noexcept -> perform_ret_t;
+    void setup_establish_connection_only() noexcept;
 
 protected:
     auto check_perform(long code, const char *fname) noexcept -> perform_ret_t;

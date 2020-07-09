@@ -231,7 +231,7 @@ auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
     return socketfd;
 }
 
-auto Easy_ref_t::establish_connection_only() noexcept -> perform_ret_t
+auto Easy_ref_t::setup_establish_connection_only() noexcept
 {
     request_get();
 

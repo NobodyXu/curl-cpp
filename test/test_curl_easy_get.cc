@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
                 curl::Url_ref_t::set_code::ok);
 
     auto easy1 = curl.create_easy();
-    assert(easy1.p1.get());
-    assert(easy1.p2.get());
+    assert(easy1.p1);
+    assert(easy1.p2);
 
     curl::Easy_ref_t easy_ref1 = easy1;
 
@@ -30,8 +30,8 @@ int main(int argc, char* argv[])
     assert_same(easy_ref1.get_response_code(), 302L);
 
     auto easy2 = curl.dup_easy(easy1);
-    assert(easy2.p1.get());
-    assert(easy2.p2.get());
+    assert(easy2.p1);
+    assert(easy2.p2);
 
     curl::Easy_ref_t easy_ref2{easy2};
 
