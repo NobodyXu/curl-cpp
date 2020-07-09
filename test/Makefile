@@ -20,8 +20,9 @@ test_curl_version.out: test_curl_version.cc utility.hpp
 %.out: %.cc ../libcurl_cpp.a utility.hpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< ../libcurl_cpp.a -o $@
 
-../libcurl_cpp.a:
+../libcurl_cpp.a: FORCE
 	$(MAKE) -C ../
+FORCE: ;
 
 clean:
 	rm -f $(OBJS)
