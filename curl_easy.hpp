@@ -299,43 +299,36 @@ public:
     // High-level functions
 
     /**
-     * readall() can be used for get or post.
+     * set_readall_callback() can be used for get or post.
      */
     template <class String = std::string>
-    auto readall(String &response) noexcept -> perform_ret_t
+    auto set_readall_callback(String &response) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
             auto &response = *static_cast<String*>(ptr);
             response.append(buffer, buffer + size);
             return size;
         }, &response);
-
-        return perform();
     }
 
     /**
-     * read() can be used for get or post.
+     * set_read_callback() can be used for get or post.
      * @param len read in len bytes
      */
-    template <class String = std::string>
-    auto read(String &response, std::size_t len) noexcept -> perform_ret_t
+    template <class String = std::string, class size_type = typename String::size_type>
+    auto set_read_callback(std::pair<String, size_type> arg) noexcept
     {
-        struct Args {
-            String &response;
-            std::size_t len;
-        } args{response, len};
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
-            auto &args = *static_cast<Args*>(ptr);
-            auto &response = args.response;
+            auto &args = *static_cast<std::pair<String, size_type>*>(ptr);
+            auto &response = args.first;
+            auto &requested_len = args.second;
 
             auto str_size = response.size();
-            if (str_size < args.len)
-                response.append(buffer, buffer + std::min(size, args.len - str_size));
+            if (str_size < requested_len)
+                response.append(buffer, buffer + std::min(size, requested_len - str_size));
 
             return size;
-        }, &args);
-
-        return perform();
+        }, &arg);
     }
 
     auto establish_connection_only() noexcept -> perform_ret_t;

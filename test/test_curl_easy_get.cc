@@ -41,7 +41,8 @@ int main(int argc, char* argv[])
     //std::string response;
     //response.reserve(expected_len);
 
-    //assert_same(easy_ref2.read(response, expected_len).get_return_value(), curl::Easy_ref_t::code::ok);
+    //easy_ref2.set_read_callback(std::pair{response, expected_len});
+    //assert_same(easy_ref2.perform().get_return_value(), curl::Easy_ref_t::code::ok);
     //assert_same(easy_ref2.get_response_code(), 302L);
 
     //assert_same(response, std::string_view{expected_response});
