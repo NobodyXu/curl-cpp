@@ -7,12 +7,12 @@ void curl_t::Share_deleter::operator () (char *p) const noexcept
     if (p)
         curl_share_cleanup(p);
 }
-auto curl_t::create_share() noexcept -> share_t
+auto curl_t::create_share() noexcept -> Share_t
 {
-    return share_t{static_cast<char*>(static_cast<void*>(curl_share_init()))};
+    return Share_t{static_cast<char*>(static_cast<void*>(curl_share_init()))};
 }
 
-Share_base::Share_base(curl_t::share_t &&share) noexcept:
+Share_base::Share_base(curl_t::Share_t &&share) noexcept:
     curl_share{std::move(share)}
 {}
 

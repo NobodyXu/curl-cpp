@@ -233,8 +233,8 @@ public:
     struct Share_deleter {
         void operator () (char *p) const noexcept;
     };
-    using share_t = std::unique_ptr<char, Share_deleter>;
-    auto create_share() noexcept -> share_t;
+    using Share_t = std::unique_ptr<char, Share_deleter>;
+    auto create_share() noexcept -> Share_t;
 };
 
 union Data_t {

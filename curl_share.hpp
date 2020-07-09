@@ -12,7 +12,7 @@ namespace curl {
  * can be destroyed.
  */
 class Share_base {
-    curl_t::share_t curl_share;
+    curl_t::Share_t curl_share;
 
 public:
     /**
@@ -21,7 +21,7 @@ public:
      * After this ctor call, share.get() == nullptr,
      * this class will take over the ownership.
      */
-    Share_base(curl_t::share_t &&share) noexcept;
+    Share_base(curl_t::Share_t &&share) noexcept;
 
     /**
      * Delete cp/mv ctor and assignment:
