@@ -27,11 +27,11 @@ shared_mutex::~shared_mutex()
     pthread_rwlock_destroy(&rwlock);
 }
 
-auto shared_mutex::lock() noexcept
+void shared_mutex::lock() noexcept
 {
     pthread_rwlock_wrlock(&rwlock);
 }
-auto shared_mutex::lock_shared() noexcept
+void shared_mutex::lock_shared() noexcept
 {
     int ret;
     do {
@@ -39,7 +39,7 @@ auto shared_mutex::lock_shared() noexcept
     } while (ret != 0 && errno == EAGAIN);
 }
 
-auto shared_mutex::unlock() noexcept
+void shared_mutex::unlock() noexcept
 {
     pthread_rwlock_unlock(&rwlock);
 }

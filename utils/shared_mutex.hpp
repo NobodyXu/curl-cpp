@@ -27,13 +27,13 @@ public:
     /**
      * Undefined behavior if deadlocks.
      */
-    auto lock() noexcept;
+    void lock() noexcept;
     /**
      * Undefined behavior if deadlocks.
      */
-    auto lock_shared() noexcept;
+    void lock_shared() noexcept;
 
-    auto unlock() noexcept;
+    void unlock() noexcept;
 };
 } /* namespace curl::util */
 
