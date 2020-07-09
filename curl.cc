@@ -135,6 +135,10 @@ bool curl_t::has_transfer_time_support() const noexcept
 {
     return version >= Version::from(7, 61, 0);
 }
+bool curl_t::has_redirect_url_support() const noexcept
+{
+    return version >= Version::from(7, 18, 2);
+}
 
 bool curl_t::has_buffer_size_tuning_support() const noexcept
 {

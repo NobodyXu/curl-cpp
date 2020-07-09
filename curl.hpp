@@ -132,6 +132,7 @@ public:
     bool has_sizeof_response_header_support() const noexcept;
     bool has_sizeof_response_body_support() const noexcept;
     bool has_transfer_time_support() const noexcept;
+    bool has_redirect_url_support() const noexcept;
 
     bool has_buffer_size_tuning_support() const noexcept;
     bool has_buffer_size_growing_support() const noexcept;

@@ -277,6 +277,18 @@ public:
     std::size_t getinfo_transfer_time() const noexcept;
 
     /**
+     * @Precondition curl_t::has_redirect_url_support()
+     * @return null-terminated string, freeing not required.
+     *
+     * If you disable redirection or CURLOPT_MAXREDIRS limit 
+     * prevented a redirect to happen (since 7.54.1), 
+     * a would-be redirect-to url is returned.
+     *
+     * This function is only meaningful for http(s) protocol.
+     */
+    auto getinfo_redirect_url() const noexcept -> const char*;
+
+    /**
      * @Precondition curl_t::has_get_active_socket_support()
      * @return CURL_SOCKET_BAD if no valid socket or not supported
      *

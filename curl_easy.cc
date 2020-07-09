@@ -210,6 +210,12 @@ std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept
     curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
     return total;
 }
+auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
+{
+    char *url = nullptr;
+    curl_easy_getinfo(curl_easy, CURLINFO_REDIRECT_URL, &url);
+    return url;
+}
 
 auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
 {
