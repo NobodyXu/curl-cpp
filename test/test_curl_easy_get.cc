@@ -35,16 +35,16 @@ int main(int argc, char* argv[])
 
     curl::Easy_ref_t easy_ref2{easy2};
 
-    constexpr const char expected_response[] = "<!DOCTYPE HTML PUBLIC ";
-    constexpr const auto expected_len = sizeof(expected_response) - 1;
+    //constexpr const char expected_response[] = "<!DOCTYPE HTML PUBLIC ";
+    //constexpr const auto expected_len = sizeof(expected_response) - 1;
 
-    std::string response;
-    response.reserve(expected_len);
+    //std::string response;
+    //response.reserve(expected_len);
 
-    assert_same(easy_ref2.read(response, expected_len).get_return_value(), curl::Easy_ref_t::code::ok);
-    assert_same(easy_ref2.get_response_code(), 302L);
+    //assert_same(easy_ref2.read(response, expected_len).get_return_value(), curl::Easy_ref_t::code::ok);
+    //assert_same(easy_ref2.get_response_code(), 302L);
 
-    assert_same(response, std::string_view{expected_response});
+    //assert_same(response, std::string_view{expected_response});
 
     return 0;
 }
