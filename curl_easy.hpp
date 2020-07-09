@@ -126,12 +126,6 @@ public:
     auto set_encoding(const char *encoding) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @param enable if true, then it would not request body data to be transfered;
-     *               if false, then a normal request (default).
-     */
-    void set_nobody(bool enable) noexcept;
-
-    /**
      * @param value can be ipv4 or ipv6 address/hostname/interface.
      *              If it is nullptr, then set to whatever TCP stack find available (default).
      */
@@ -202,8 +196,15 @@ public:
     void set_http_header(const utils::slist &l, header_option option = header_option::unspecified) noexcept;
 
     /**
+     * @param enable if true, then it would not request body data to be transfered;
+     *               if false, then a normal request (default).
+     */
+    void set_nobody(bool enable) noexcept;
+
+    /**
      * @Precondition: curl_t::has_protocol("http")
-     * This is the default for http.
+     *
+     * This is the default for http, and would also set_nobody(false).
      */
     void request_get() noexcept;
     /**
