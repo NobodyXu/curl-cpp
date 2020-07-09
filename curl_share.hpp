@@ -38,6 +38,7 @@ public:
      * Defines data to share among Easy_t handles.
      */
     enum class Options {
+        none = CURL_LOCK_DATA_NONE,
       cookie = CURL_LOCK_DATA_COOKIE,
       /**
        * share cached DNS hosts.
@@ -123,24 +124,26 @@ template <class Shared_mutex_t = util::shared_mutex>
 class Share: public Share_base {
     static constexpr const std::size_t mutex_num = 5;
 
-    Shared_mutex_t mutexes[5];
+    Shared_mutex_t mutexes[mutex_num];
 
-    auto& get_mutex(Options option) noexcept
+    auto get_mutex(Options option) noexcept -> Shared_mutex_t*
     {
-        Shared_mutex_t *mutex_p;
         switch (option) {
+            case Options::none:
+                return nullptr;
             case Options::cookie:
-                mutex_p = &mutexes[0];
+                return &mutexes[0];
             case Options::dns:
-                mutex_p = &mutexes[1];
+                return &mutexes[1];
             case Options::ssl_session:
-                mutex_p = &mutexes[2];
+                return &mutexes[2];
             case Options::connection_cache:
-                mutex_p = &mutexes[3];
+                return &mutexes[3];
             case Options::psl:
-                mutex_p = &mutexes[4];
+                return &mutexes[4];
+            default:
+                return nullptr;
         }
-        return *mutex_p;
     }
 
 public:
@@ -150,17 +153,21 @@ public:
     {
         add_lock([](CURL *handle, curl_lock_data data, curl_lock_access access, void *userptr) noexcept {
             auto &share = *static_cast<Share*>(userptr);
-            auto &mutex = share.get_mutex(static_cast<Share_base::Options>(data));
+            auto *mutex = share.get_mutex(static_cast<Share_base::Options>(data));
+
+            if (!mutex)
+                return;
 
             if (access == CURL_LOCK_ACCESS_SHARED)
-                mutex.lock_shared();
+                mutex->lock_shared();
             else
-                mutex.lock();
+                mutex->lock();
         }, [](CURL *handle, curl_lock_data data, void *userptr) noexcept {
             auto &share = *static_cast<Share*>(userptr);
-            auto &mutex = share.get_mutex(static_cast<Share_base::Options>(data));
+            auto *mutex = share.get_mutex(static_cast<Share_base::Options>(data));
 
-            mutex.unlock();
+            if (mutex)
+                mutex->unlock();
         }, this);
     }
     void disable_multithreaded_share() noexcept
