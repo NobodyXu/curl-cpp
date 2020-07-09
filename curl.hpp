@@ -206,6 +206,8 @@ public:
     auto create_Url() noexcept -> Url_t;
     /**
      * @param url != nullptr
+     *
+     * Not thread-safe. url must not be used during this function call.
      */
     auto dup_Url(const Url_t &url) noexcept -> Url_t;
 
