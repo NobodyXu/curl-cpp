@@ -29,6 +29,10 @@ int main(int argc, char* argv[])
     assert_same(easy_ref1.perform().get_return_value(), curl::Easy_ref_t::code::ok);
     assert_same(easy_ref1.get_response_code(), 302L);
 
+    easy_ref1.set_url("http://en.cppreference.com/");
+    assert_same(easy_ref1.perform().get_return_value(), curl::Easy_ref_t::code::ok);
+    assert_same(easy_ref1.get_response_code(), 302L);
+
     auto easy2 = curl.dup_easy(easy1);
     assert(easy2.p1);
     assert(easy2.p2);
