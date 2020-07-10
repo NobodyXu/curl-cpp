@@ -95,7 +95,7 @@ public:
      * It also can return due to pending internal timeout that 
      * has a shorter expiry time than timeout_ms.
      */
-    auto poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
+    auto poll(curl_waitfd *extra_fds = nullptr, unsigned extra_nfds = 0U, int timeout = 0) noexcept -> 
         Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
