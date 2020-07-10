@@ -90,6 +90,15 @@ auto Multi_t::poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noe
         return {numfds};
 }
 
+auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
+    Ret_except<int, std::bad_alloc, libcurl_bug>
+{
+    if (get_number_of_handles() == 0)
+        return {-1};
+    else
+        return poll(extra_fds, extra_nfds, timeout);
+}
+
 auto Multi_t::check_perform(long code, int running_handles_tmp, const char *fname) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {

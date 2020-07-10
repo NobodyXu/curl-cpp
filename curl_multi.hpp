@@ -99,6 +99,17 @@ public:
         Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
+     * @Precondition curl_t::has_multi_poll_support()
+     * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
+     * @return -1 when get_number_of_handles() == 0;
+     *         Otherwise number of fd on which interested events occured, can be 0.
+     *
+     * Behavior is same as poll.
+     */
+    auto break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
+        Ret_except<int, std::bad_alloc, libcurl_bug>;
+
+    /**
      * @Precondition perform_callback is set.
      *
      * perform() is called only if poll is used.
