@@ -8,6 +8,7 @@ OBJS := $(SRCS:.cc=.out)
 CXXFLAGS += -g -fsanitize=address
 
 test: $(OBJS)
+	web_server/stop_nginx.sh
 
 $(OBJS):
 
@@ -17,7 +18,7 @@ test_curl_version.out: test_curl_version.cc utility.hpp
 
 %.out: %.cc ../libcurl_cpp.a utility.hpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< ../libcurl_cpp.a -o $@
-	./$@
+	web_server/run_nginx.sh && ./$@
 
 ../libcurl_cpp.a: FORCE
 	$(MAKE) -C ../
