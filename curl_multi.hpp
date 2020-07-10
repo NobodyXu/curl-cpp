@@ -87,6 +87,7 @@ public:
     /**
      * @Precondition curl_t::has_multi_poll_support()
      * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
+     * @return number of fd on which interested events occured.
      */
     auto poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
         Ret_except<int, std::bad_alloc>;
