@@ -237,6 +237,10 @@ public:
     auto create_share() noexcept -> Share_t;
 };
 
+using Easy_t = curl_t::Easy_t;
+using Url_t = curl_t::Url_t;
+using Share_t = curl_t::Share_t;
+
 union Data_t {
     void *ptr;
     std::uint64_t unsigned_int;
