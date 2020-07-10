@@ -149,7 +149,10 @@ auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexce
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
     int running_handles_tmp;
-    auto code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles_tmp);
+
+    CURLMcode code;
+    while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles_tmp)) == CURLM_CALL_MULTI_PERFORM);
+
     return check_perform(code, running_handles_tmp);
 }
 
