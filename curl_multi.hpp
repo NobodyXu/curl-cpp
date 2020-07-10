@@ -7,7 +7,6 @@ namespace curl {
 class Multi_t {
 protected:
     void *curl_multi;
-    int running_handles = 0;
     std::size_t handles = 0;
 
 public:
@@ -61,7 +60,6 @@ public:
      */
     void remove_easy(Easy_ref_t &easy) noexcept;
 
-    int get_number_of_running_handles() const noexcept;
     std::size_t get_number_of_handles() const noexcept;
 
     /**

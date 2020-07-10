@@ -20,7 +20,6 @@ Multi_t::Multi_t(Multi_t &&other) noexcept:
 {
     other.curl_multi = nullptr;
 
-    running_handles = other.running_handles;
     handles = other.handles;
 
     perform_callback = other.perform_callback;
@@ -33,7 +32,6 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     curl_multi = other.curl_multi;
     other.curl_multi = nullptr;
 
-    running_handles = other.running_handles;
     handles = other.handles;
 
     perform_callback = other.perform_callback;
@@ -57,10 +55,6 @@ void Multi_t::remove_easy(Easy_ref_t &easy) noexcept
     curl_multi_remove_handle(curl_multi, easy.curl_easy);
 }
 
-int Multi_t::get_number_of_running_handles() const noexcept
-{
-    return running_handles;
-}
 std::size_t Multi_t::get_number_of_handles() const noexcept
 {
     return handles;
@@ -100,7 +94,7 @@ auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int tim
         return poll(extra_fds, extra_nfds, timeout);
 }
 
-auto Multi_t::check_perform(long code, int running_handles_tmp, const char *fname) noexcept -> 
+auto Multi_t::check_perform(long code, int running_handles, const char *fname) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
     if (code == CURLM_OUT_OF_MEMORY)
@@ -122,17 +116,16 @@ auto Multi_t::check_perform(long code, int running_handles_tmp, const char *fnam
             remove_easy(easy);
         }
 
-    running_handles = running_handles_tmp;
     return {running_handles};
 }
 auto Multi_t::perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
-    int running_handles_tmp = 0;
+    int running_handles = 0;
 
     CURLMcode code;
-    while ((code = curl_multi_perform(curl_multi, &running_handles_tmp)) == CURLM_CALL_MULTI_PERFORM);
+    while ((code = curl_multi_perform(curl_multi, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles_tmp, "In curl_multi_perform");
+    return check_perform(code, running_handles, "In curl_multi_perform");
 }
 
 /* Interface for using arbitary event-based interface - multi_socket interface */
@@ -160,12 +153,12 @@ auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -
 auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
-    int running_handles_tmp;
+    int running_handles;
 
     CURLMcode code;
-    while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles_tmp)) == CURLM_CALL_MULTI_PERFORM);
+    while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles_tmp, "In curl_multi_socket_action");
+    return check_perform(code, running_handles, "In curl_multi_socket_action");
 }
 
 Multi_t::~Multi_t()
