@@ -18,7 +18,8 @@ test_curl_version.out: test_curl_version.cc utility.hpp
 
 %.out: %.cc ../libcurl_cpp.a utility.hpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< ../libcurl_cpp.a -o $@
-	web_server/run_nginx.sh && ./$@
+	web_server/run_nginx.sh
+	./$@
 
 ../libcurl_cpp.a: FORCE
 	$(MAKE) -C ../
