@@ -106,7 +106,7 @@ public:
      *
      * Behavior is same as poll.
      */
-    auto break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
+    auto break_or_poll(curl_waitfd *extra_fds = nullptr, unsigned extra_nfds = 0U, int timeout = 0) noexcept -> 
         Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
