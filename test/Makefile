@@ -26,4 +26,6 @@ FORCE: ;
 
 clean:
 	rm -f $(OBJS)
+	web_server/stop_nginx.sh
+
 .PHONY: clean test
