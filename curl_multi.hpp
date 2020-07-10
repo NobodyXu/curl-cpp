@@ -111,6 +111,7 @@ public:
 
     /**
      * @Precondition perform_callback is set.
+     * @return number of running handles
      *
      * perform() is called only if poll is used.
      *
@@ -121,8 +122,6 @@ public:
      *
      * Using libcurl version >= 7.10.3 can provide better error message
      * if Easy_ref_t::ProtocolInternal_error is thrown.
-     *
-     * @return number of running handles
      */
     auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
@@ -160,11 +159,11 @@ public:
     using timer_callback_t = int (*)(CURLM *multi, long timeout_ms, void *userp);
 
     /**
-     * You must call this function with non-NULL socket_callback and timer_callback
-     * before calling multi_socket_action(CURL_SOCKET_TIMEOUT, 0).
-     *
      * @param socket_callback, timer_callback setting them to nullptr would
      *                                        disable multi_socket_action interface.
+     *
+     * You must call this function with non-NULL socket_callback and timer_callback
+     * before calling multi_socket_action(CURL_SOCKET_TIMEOUT, 0).
      */
     void register_callback(socket_callback_t socket_callback, void *socket_data,
                            timer_callback_t timer_callback, void *timer_data) noexcept;
