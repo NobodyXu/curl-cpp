@@ -90,7 +90,7 @@ public:
      * @return number of fd on which interested events occured.
      */
     auto poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
-        Ret_except<int, std::bad_alloc>;
+        Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
      * @Precondition perform_callback is set.

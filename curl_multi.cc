@@ -77,12 +77,15 @@ void Multi_t::set_multiplexing(long max_concurrent_stream) noexcept
 
 /* Interface for poll + perform - multi_poll interface */
 auto Multi_t::poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
-    Ret_except<int, std::bad_alloc>
+    Ret_except<int, std::bad_alloc, libcurl_bug>
 {
     int numfds;
 
-    if (curl_multi_poll(curl_multi, extra_fds, extra_nfds, timeout, &numfds) == CURLM_OUT_OF_MEMORY)
+    auto code = curl_multi_poll(curl_multi, extra_fds, extra_nfds, timeout, &numfds);
+    if (code == CURLM_OUT_OF_MEMORY)
         return {std::bad_alloc{}};
+    else if (code == CURLM_INTERNAL_ERROR)
+        return {libcurl_bug{"Bug in curl_multi_poll!"}};
     else
         return {numfds};
 }
