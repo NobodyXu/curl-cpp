@@ -23,9 +23,13 @@ int main(int argc, char* argv[])
     curl::Easy_ref_t easy_ref1 = easy1;
 
     easy_ref1.set_url(url_ref);
-    easy_ref1.set_writeback(reinterpret_cast<decltype(easy_ref1)::writeback_t>(std::fwrite), stdout);
+
+    easy_ref1.setup_establish_connection_only();
+    easy_ref1.perform();
 
     easy_ref1.request_get();
+    easy_ref1.set_writeback(reinterpret_cast<decltype(easy_ref1)::writeback_t>(std::fwrite), stdout);
+
     assert_same(easy_ref1.perform().get_return_value(), curl::Easy_ref_t::code::ok);
     assert_same(easy_ref1.get_response_code(), 302L);
 
