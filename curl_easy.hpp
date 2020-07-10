@@ -309,7 +309,7 @@ public:
      * set_readall_callback() can be used for get or post.
      */
     template <class String = std::string>
-    auto set_readall_callback(String &response) noexcept
+    auto set_readall_writeback(String &response) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
             auto &response = *static_cast<String*>(ptr);
@@ -323,7 +323,7 @@ public:
      * @param len read in len bytes
      */
     template <class String = std::string, class size_type = typename String::size_type>
-    auto set_read_callback(std::pair<String, size_type> arg) noexcept
+    auto set_read_writeback(std::pair<String, size_type> arg) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
             auto &args = *static_cast<std::pair<String, size_type>*>(ptr);
