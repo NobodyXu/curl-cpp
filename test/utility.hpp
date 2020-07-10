@@ -77,16 +77,30 @@ auto& operator << (std::ostream &os, curl::Easy_ref_t::code code)
     }
 }
 
-template <class T1, class T2>
-void assert_same_impl(const T1 &v1, const char *expr1, const T2 &v2, const char *expr2) noexcept
+namespace impl {
+template <class ...Ts>
+void print(std::ostream &os, Ts &&...args)
+{
+    ((os << std::forward<Ts>(args)), ...);
+}
+
+constexpr void print(std::ostream &os) noexcept
+{}
+} /* namespace impl */
+
+template <class T1, class T2, class ...Ts>
+void assert_same_impl(const T1 &v1, const char *expr1, const T2 &v2, const char *expr2,
+                      Ts &&...args) noexcept
 {
     if (v1 != v2) {
+        impl::print(std::cerr, std::forward<Ts>(args)...);
         std::cerr << expr1 << " != " << expr2 << ": " 
                   << expr1 << " = " << v1 << ", " << expr2 << " = " << v2 << std::endl;
         std::exit(1);
     }
 }
 
-#define assert_same(expr1, expr2) assert_same_impl((expr1), # expr1, (expr2), # expr2)
+#define assert_same(expr1, expr2, ...) \
+    assert_same_impl((expr1), # expr1, (expr2), # expr2, ## __VA_ARGS__)
 
 #endif
