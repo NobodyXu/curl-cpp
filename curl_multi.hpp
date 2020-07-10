@@ -186,7 +186,7 @@ public:
     ~Multi_t();
 
 protected:
-    auto check_perform(long code, int running_handles_tmp) noexcept -> 
+    auto check_perform(long code, int running_handles_tmp, const char *fname) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 };
 } /* namespace curl */
