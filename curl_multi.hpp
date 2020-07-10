@@ -72,6 +72,8 @@ public:
      *                              Should be between [1, 2 ^ 31 - 1].
      *                              Set it to 1 or 0 disable multiplexing.
      *
+     * Since curl_t::version >= 7.62.0, multiplex is turned on by default.
+     *
      * NOTE that libcurl not always accept max_concurrent_stream tuning.
      * Check curl_t::has_max_concurrent_stream_support().
      *
