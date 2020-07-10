@@ -191,6 +191,9 @@ public:
      * **YOU MUST CALL multi_socket_action(CURL_SOCKET_TIMEOUT, 0) to start the transfer, 
      * then call waitever poll interface you use**
      *
+     * After multi_socket_action, perform_callback will be called for each completed
+     * easy, and then remove_easy would be called on it immediately after callback returns.
+     *
      * Using libcurl version >= 7.10.3 can provide better error message
      * if Easy_ref_t::ProtocolInternal_error is thrown.
      */
