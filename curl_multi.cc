@@ -86,8 +86,9 @@ auto Multi_t::poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noe
         return {std::bad_alloc{}};
     else if (code == CURLM_INTERNAL_ERROR)
         return {libcurl_bug{"Bug in curl_multi_poll!"}};
-    else
-        return {numfds};
+
+    assert(code == CURLM_OK);
+    return {numfds};
 }
 
 auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int timeout) noexcept -> 
