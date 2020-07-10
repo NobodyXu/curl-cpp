@@ -7,8 +7,7 @@ SRCS := $(wildcard *.cc)
 OBJS := $(SRCS:.cc=.out)
 CXXFLAGS += -g -fsanitize=address
 
-test: $(OBJS)
-	web_server/stop_nginx.sh
+test: $(OBJS) ;
 
 $(OBJS):
 
