@@ -25,12 +25,6 @@ int main(int argc, char* argv[])
     auto multi = curl.create_multi().get_return_value();
     multi.set_multiplexing(30);
 
-    multi.perform_callback = [](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, curl::Data_t &data) noexcept
-    {
-        assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
-        assert_same(easy_ref.get_response_code(), 200L);
-    };
-
     int timeout; // in milliseconds (ms)
     auto epfd = epoll_create1(0);
     if (epfd == -1)
@@ -114,12 +108,18 @@ int main(int argc, char* argv[])
     constexpr const std::size_t maxevents = 20;
     struct epoll_event events[maxevents];
 
-    multi.multi_socket_action(CURL_SOCKET_TIMEOUT, 0);
+    auto perform_callback = [](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, void*) noexcept
+    {
+        assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
+        assert_same(easy_ref.get_response_code(), 200L);
+    };
+
+    multi.multi_socket_action(CURL_SOCKET_TIMEOUT, 0, perform_callback, nullptr);
     while (multi.get_number_of_handles()) {
         auto ret = epoll_wait(epfd, events, maxevents, timeout);
         if (ret == -1) {
             if (errno == EINTR)
-                multi.multi_socket_action(CURL_SOCKET_TIMEOUT, 0);
+                multi.multi_socket_action(CURL_SOCKET_TIMEOUT, 0, perform_callback, nullptr);
             else
                 err(1, "epoll_wait(%d, %p, %zu, %d) failed", epfd, events, maxevents, timeout);
         } else {
@@ -131,7 +131,7 @@ int main(int argc, char* argv[])
                     event |= CURL_CSELECT_OUT;
                 if (events[i].events * EPOLLERR)
                     event |= CURL_CSELECT_ERR;
-                multi.multi_socket_action(events[i].data.fd, event);
+                multi.multi_socket_action(events[i].data.fd, event, perform_callback, nullptr);
             }
         }
     }

@@ -10,13 +10,6 @@ protected:
     std::size_t handles = 0;
 
 public:
-    /**
-     * perform_callback can call arbitary member functions on easy, but probably
-     * not a good idea to call easy.perform().
-     */
-    void (*perform_callback)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, Data_t &data);
-    Data_t data;
-
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -108,6 +101,11 @@ public:
         Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
+     * perform_callback can call arbitary member functions on easy, but probably
+     * not a good idea to call easy.perform().
+     */
+    using perform_callback_t = void (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, void *arg);
+    /**
      * @Precondition perform_callback is set.
      * @return number of running handles
      *
@@ -121,7 +119,8 @@ public:
      * Using libcurl version >= 7.10.3 can provide better error message
      * if Easy_ref_t::ProtocolInternal_error is thrown.
      */
-    auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+    auto perform(perform_callback_t perform_callback, void *arg) noexcept -> 
+        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
     /* 
      * @return should be 0
@@ -197,7 +196,8 @@ public:
      * Using libcurl version >= 7.10.3 can provide better error message
      * if Easy_ref_t::ProtocolInternal_error is thrown.
      */
-    auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
+    auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, 
+                             perform_callback_t perform_callback, void *arg) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
     /**
@@ -206,7 +206,8 @@ public:
     ~Multi_t();
 
 protected:
-    auto check_perform(long code, int running_handles_tmp, const char *fname) noexcept -> 
+    auto check_perform(long code, int running_handles_tmp, const char *fname,
+                       perform_callback_t perform_callback, void *arg) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 };
 } /* namespace curl */

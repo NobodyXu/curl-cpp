@@ -21,9 +21,6 @@ Multi_t::Multi_t(Multi_t &&other) noexcept:
     other.curl_multi = nullptr;
 
     handles = other.handles;
-
-    perform_callback = other.perform_callback;
-    data = other.data;
 }
 Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
 {
@@ -33,9 +30,6 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     other.curl_multi = nullptr;
 
     handles = other.handles;
-
-    perform_callback = other.perform_callback;
-    data = other.data;
 
     return *this;
 }
@@ -94,7 +88,8 @@ auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int tim
         return poll(extra_fds, extra_nfds, timeout);
 }
 
-auto Multi_t::check_perform(long code, int running_handles, const char *fname) noexcept -> 
+auto Multi_t::check_perform(long code, int running_handles, const char *fname,
+                            perform_callback_t perform_callback, void *arg) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
     if (code == CURLM_OUT_OF_MEMORY)
@@ -111,21 +106,22 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname) n
             easy.curl_easy = static_cast<char*>(m->easy_handle);
             curl_easy_getinfo(m->easy_handle, CURLINFO_PRIVATE, &easy.error_buffer);
 
-            perform_callback(easy, easy.check_perform(m->data.result, fname), data);
+            perform_callback(easy, easy.check_perform(m->data.result, fname), arg);
 
             remove_easy(easy);
         }
 
     return {running_handles};
 }
-auto Multi_t::perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
+auto Multi_t::perform(perform_callback_t perform_callback, void *arg) noexcept -> 
+    Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
     int running_handles = 0;
 
     CURLMcode code;
     while ((code = curl_multi_perform(curl_multi, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles, "In curl_multi_perform");
+    return check_perform(code, running_handles, "In curl_multi_perform", perform_callback, arg);
 }
 
 /* Interface for using arbitary event-based interface - multi_socket interface */
@@ -150,7 +146,8 @@ auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -
 
     return {};
 }
-auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexcept -> 
+auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask, 
+                                  perform_callback_t perform_callback, void *arg) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
 {
     int running_handles;
@@ -158,7 +155,7 @@ auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask) noexce
     CURLMcode code;
     while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles, "In curl_multi_socket_action");
+    return check_perform(code, running_handles, "In curl_multi_socket_action", perform_callback, arg);
 }
 
 Multi_t::~Multi_t()

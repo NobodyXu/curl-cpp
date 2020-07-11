@@ -20,12 +20,6 @@ int main(int argc, char* argv[])
     auto multi = curl.create_multi().get_return_value();
     multi.set_multiplexing(30);
 
-    multi.perform_callback = [](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, curl::Data_t &data) noexcept
-    {
-        assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
-        assert_same(easy_ref.get_response_code(), 200L);
-    };
-
     std::vector<std::pair<curl::Easy_t, std::string>> pool;
     for (auto i = 0UL; i != connection_cnt; ++i) {
         auto easy = curl.create_easy();
@@ -49,7 +43,11 @@ int main(int argc, char* argv[])
     assert_same(multi.get_number_of_handles(), connection_cnt);
 
     do {
-        multi.perform();
+        multi.perform([](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, void*) noexcept
+        {
+            assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
+            assert_same(easy_ref.get_response_code(), 200L);
+        }, nullptr);
     } while (multi.break_or_poll().get_return_value() != -1);
 
     assert_same(multi.get_number_of_handles(), 0);
