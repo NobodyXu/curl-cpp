@@ -161,7 +161,7 @@ public:
      * The cookie data can be in either the old Netscape / Mozilla cookie data format or 
      * just regular HTTP headers (Set-Cookie style) dumped to a file.
      *
-     * It enables the cookie engine, making libcurl parse and send cookies on 
+     * It enables the cookie engine, making libcurl parse response and send cookies on 
      * subsequent requests with this handle.
      * 
      * It only reads cookies. To make libcurl write cookies to file, see set_cookiejar.
