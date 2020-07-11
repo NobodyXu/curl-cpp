@@ -12,7 +12,6 @@
 namespace curl::utils {
 class slist {
     void *list = nullptr;
-    std::size_t nodes = 0;
 
     template <class Pointer, class value_t>
     struct Iterator_template {
@@ -80,7 +79,6 @@ public:
     ~slist();
 
     bool is_empty() const noexcept;
-    std::size_t size() const noexcept;
 
     auto begin() noexcept -> iterator;
     auto end() noexcept -> iterator;

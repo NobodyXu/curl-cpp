@@ -19,14 +19,12 @@ slist& slist::operator = (slist &&other) noexcept
 void slist::swap(slist &other) noexcept
 {
     std::swap(list, other.list);
-    std::swap(nodes, other.nodes);
 }
 void slist::clear() noexcept
 {
     if (list)
         curl_slist_free_all(static_cast<struct curl_slist*>(list));
     list = nullptr;
-    nodes = 0;
 }
 
 slist::~slist()
@@ -69,11 +67,7 @@ auto slist::get_underlying_ptr() const noexcept -> void*
 
 bool slist::is_empty() const noexcept
 {
-    return nodes == 0;
-}
-std::size_t slist::size() const noexcept
-{
-    return nodes;
+    return list == nullptr;
 }
 
 auto slist::push_back(const char *str) noexcept -> Ret_except<void, std::bad_alloc>
@@ -83,7 +77,6 @@ auto slist::push_back(const char *str) noexcept -> Ret_except<void, std::bad_all
         return {std::bad_alloc{}};
 
     list = temp;
-    ++nodes;
 
     return {};
 }
