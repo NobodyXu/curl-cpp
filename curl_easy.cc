@@ -286,6 +286,16 @@ auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
     return url;
 }
 
+auto Easy_ref_t::getinfo_cookie_list() noexcept ->
+    Ret_except<utils::slist, curl::NotBuiltIn_error>
+{
+    curl_slist *cookies = nullptr;
+    if (curl_easy_getinfo(curl_easy, CURLINFO_COOKIELIST, &cookies) == CURLE_UNKNOWN_OPTION)
+        return {curl::NotBuiltIn_error{"cookies not supported"}};
+
+    return {utils::slist{cookies}};
+}
+
 auto Easy_ref_t::get_active_socket() const noexcept -> curl_socket_t
 {
     curl_socket_t socketfd = CURL_SOCKET_BAD;

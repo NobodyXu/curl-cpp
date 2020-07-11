@@ -531,6 +531,22 @@ public:
     auto getinfo_redirect_url() const noexcept -> const char*;
 
     /**
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     *               curl_t::has_getinfo_cookie_list_support()
+     *
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
+     *         If utils::slist is empty, it might be due to std::bad_alloc, or
+     *         no cookie is present(cookie engine not enabled or no cookie has
+     *         received).
+     *
+     * Since 7.43.0 cookies that were imported in the Set-Cookie format 
+     * without a domain name are not exported by this option.
+     */
+    auto getinfo_cookie_list() noexcept ->
+        Ret_except<utils::slist, curl::NotBuiltIn_error>;
+
+    /**
      * @Precondition curl_t::has_get_active_socket_support()
      * @return CURL_SOCKET_BAD if no valid socket or not supported
      *

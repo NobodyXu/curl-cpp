@@ -196,11 +196,6 @@ bool curl_t::has_set_ip_addr_only_support() const noexcept
     return version >= Version::from(7, 24, 0);
 }
 
-bool curl_t::has_CURLU() const noexcept
-{
-    return version >= Version::from(7, 63, 0);
-}
-
 bool curl_t::has_sizeof_upload_support() const noexcept
 {
     return version >= Version::from(7, 55, 0);
@@ -222,6 +217,11 @@ bool curl_t::has_redirect_url_support() const noexcept
     return version >= Version::from(7, 18, 2);
 }
 
+bool curl_t::has_getinfo_cookie_list_support() const noexcept
+{
+    return version >= Version::from(7, 14, 1);
+}
+
 bool curl_t::has_buffer_size_tuning_support() const noexcept
 {
     return version >= Version::from(7, 10, 0);
@@ -234,6 +234,11 @@ bool curl_t::has_buffer_size_growing_support() const noexcept
 bool curl_t::has_get_active_socket_support() const noexcept
 {
     return version >= Version::from(7, 45, 0);
+}
+
+bool curl_t::has_CURLU() const noexcept
+{
+    return version >= Version::from(7, 63, 0);
 }
 
 bool curl_t::has_multi_poll_support() const noexcept
