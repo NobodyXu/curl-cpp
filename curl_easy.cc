@@ -132,6 +132,17 @@ auto Easy_ref_t::set_cookiejar(const char *cookie_filename) noexcept ->
 
     return {};
 }
+auto Easy_ref_t::set_cookielist(const char *cookie) noexcept -> 
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    auto code = curl_easy_setopt(curl_easy, CURLOPT_COOKIELIST, cookie);
+    if (code == CURLE_UNKNOWN_OPTION)
+        return {curl::NotBuiltIn_error{"cookies not supported"}};
+    else if (code == CURLE_OUT_OF_MEMORY)
+        return {std::bad_alloc{}};
+
+    return {};
+}
 void Easy_ref_t::start_new_cookie_session() noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_COOKIESESSION, 1L);
