@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
     curl::curl_t curl{nullptr};
     assert(curl.has_http2_multiplex_support());
     assert(curl.has_max_concurrent_stream_support());
+    assert(curl.has_multi_poll_support());
 
     auto multi = curl.create_multi().get_return_value();
     multi.set_multiplexing(30);
