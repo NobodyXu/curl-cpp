@@ -20,13 +20,13 @@ $(OBJS):
 $(DEPS): 
 include $(wildcard $(DEPS))
 
-%.out: %.cc %.d ../libcurl_cpp.a utility.hpp
+%.out: %.cc %.d ../libcurl_cpp.a
 	$(CXX) $(CXXFLAGS) $(DEPFLAGS) $(LDFLAGS) $< ../libcurl_cpp.a -o $@
 	mv -f $*.Td $*.d && touch $@
 	web_server/run_nginx.sh
 	./$@
 
-test_curl_version.out: test_curl_version.cc utility.hpp test_curl_version.d
+test_curl_version.out: test_curl_version.cc test_curl_version.d
 	$(CXX) $(CXXFLAGS) $(DEPFLAGS) $(LDFLAGS) $< -o $@
 	mv -f $*.Td $*.d && touch $@
 	./$@
