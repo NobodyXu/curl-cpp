@@ -171,6 +171,8 @@ public:
     /**
      * @Precondition socketfd must be valid
      * @return std::invalild_argument if socketfd is not valid.
+     *
+     * By default, per_sockptr == nullptr.
      */
     auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
         Ret_except<void, Recursive_api_call_Exception, std::invalid_argument>;
