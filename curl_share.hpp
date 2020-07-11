@@ -3,8 +3,10 @@
 
 # include "curl.hpp"
 # include "utils/shared_mutex.hpp"
+# include "return-exception/ret-exception.hpp"
 
 # include <curl/curl.h>
+# include <memory>
 
 namespace curl {
 /**
@@ -99,8 +101,11 @@ public:
     /**
      * @param option must be one of enum class Options.
      *               Cannot be or-ed value.
+     *
+     * All sharing enable/disable must be done when no easy is added
+     * or all easy is removed.
      */
-    void enable_sharing(Options option) noexcept;
+    auto enable_sharing(Options option) noexcept -> Ret_except<void, std::bad_alloc>;
     void disable_sharing(Options option) noexcept;
 
     void add_easy(Easy_ref_t &easy) noexcept;
