@@ -76,6 +76,17 @@ void Easy_ref_t::set_error_buffer(char *error_buffer) noexcept
     curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 
+void Easy_ref_t::set_private(void *userp) noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, userp);
+}
+void* Easy_ref_t::get_private() const noexcept
+{
+    char *userp;
+    curl_easy_getinfo(curl_easy, CURLINFO_PRIVATE, &userp);
+    return userp;
+}
+
 void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);

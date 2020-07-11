@@ -123,6 +123,8 @@ public:
 
     bool has_disable_signal_handling_support() const noexcept;
 
+    bool has_private_ptr_support() const noexcept;
+
     bool has_readfunc_abort_support() const noexcept;
     bool has_header_option_support() const noexcept;
     bool has_set_ip_addr_only_support() const noexcept;

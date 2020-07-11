@@ -101,6 +101,11 @@ bool curl_t::has_disable_signal_handling_support() const noexcept
     return version >= Version::from(7, 10, 0);
 }
 
+bool curl_t::has_private_ptr_support() const noexcept
+{
+    return version >= Version::from(7, 10, 3);
+}
+
 bool curl_t::has_readfunc_abort_support() const noexcept
 {
     return version >= Version::from(7, 12, 1);
