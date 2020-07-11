@@ -137,12 +137,48 @@ public:
      *
      * A request to the server will send both the 'foo' held by the cookie engine and 
      * the 'foo' held by this option. 
-     * To set a cookie that is instead held by the cookie engine and can be modified by the server use CURLOPT_COOKIELIST.
+     * To set a cookie that is instead held by the cookie engine and can be modified by the 
+     * server use CURLOPT_COOKIELIST.
      *
-     * This option will not enable the cookie engine. Use CURLOPT_COOKIEFILE or CURLOPT_COOKIEJAR to enable parsing and sending cookies automatically.
+     * This option will not enable the cookie engine. 
+     * Use set_cookiefile or CURLOPT_COOKIEJAR to enable parsing and sending cookies automatically.
      */
     auto set_cookie(const char *cookies) noexcept -> 
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
+
+    /**
+     * @Precondition url is set to use http(s)
+     * @param cookie_filename null-terminte string for the filename of the cookie file;
+     *                        "" to enable cookie engine without any initial cookies;
+     *                        "-" to read the cookie from stdin;
+     *                        Does not have to keep around after this call.
+     *                        This is default to nullptr.
+     *
+     * The cookie data can be in either the old Netscape / Mozilla cookie data format or 
+     * just regular HTTP headers (Set-Cookie style) dumped to a file.
+     *
+     * It enables the cookie engine, making libcurl parse and send cookies on 
+     * subsequent requests with this handle.
+     * 
+     * It only reads cookies. To make libcurl write cookies to file, see CURLOPT_COOKIEJAR.
+     * 
+     * Exercise caution if you are using this option and multiple transfers may occur. 
+     *
+     * If you use the Set-Cookie format and don't specify a domain 
+     * then 
+     *     the cookie is sent for any domain (even after redirects are followed) 
+     *     and cannot be modified by a server-set cookie. 
+     *
+     *     If a server sets a cookie of the same name then both will be sent 
+     *     on a future transfer to that server, likely not what you intended. 
+     * To address these issues set a domain in Set-Cookie HTTP header
+     * (doing that will include sub-domains) or use the Netscape format.
+     * 
+     * If you call this function multiple times, you just add more files to read. 
+     * Subsequent files will add more cookies.
+     */
+    auto set_cookiefile(const char *cookie_filename) noexcept -> 
+        Ret_except<void, curl::NotBuiltIn_error>;
 
     /**
      * @Precondition url is set to use http(s)

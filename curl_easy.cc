@@ -114,6 +114,13 @@ auto Easy_ref_t::set_cookie(const char *cookies) noexcept ->
 
     return {};
 }
+auto Easy_ref_t::set_cookiefile(const char *cookie_filename) noexcept -> 
+    Ret_except<void, curl::NotBuiltIn_error>
+{
+    if (curl_easy_setopt(curl_easy, CURLOPT_COOKIEFILE, cookie_filename) == CURLE_UNKNOWN_OPTION)
+        return {curl::NotBuiltIn_error{"cookies not supported"}};
+    return {};
+}
 
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {
