@@ -124,6 +124,8 @@ public:
     auto perform() noexcept -> Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
 
     /* 
+     * @return should be 0
+     *
      * Interface for using arbitary event-based interface - multi_socket interface 
      *
      * Precondition for using this interface:
