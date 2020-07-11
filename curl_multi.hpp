@@ -163,7 +163,7 @@ public:
      *                                        disable multi_socket_action interface.
      *
      * You must call this function with non-NULL socket_callback and timer_callback
-     * before calling multi_socket_action(CURL_SOCKET_TIMEOUT, 0).
+     * before adding any easy handles.
      */
     void register_callback(socket_callback_t socket_callback, void *socket_data,
                            timer_callback_t timer_callback, void *timer_data) noexcept;
