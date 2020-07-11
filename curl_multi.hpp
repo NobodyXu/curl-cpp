@@ -137,7 +137,7 @@ public:
                                       /**
                                        * Possible value for what:
                                        *  - CURL_POLL_IN,
-                                       *  - CURL_POLL_ OUT,
+                                       *  - CURL_POLL_OUT,
                                        *  - CURL_POLL_INOUT,
                                        *  - CURL_POLL_REMOVE
                                        */
