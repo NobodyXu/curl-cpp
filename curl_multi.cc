@@ -135,13 +135,11 @@ void Multi_t::register_callback(socket_callback_t socket_callback, void *socket_
 }
 
 auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
-    Ret_except<void, Recursive_api_call_Exception, std::invalid_argument>
+    Ret_except<void, std::invalid_argument>
 {
     auto code = curl_multi_assign(curl_multi, socketfd, per_sockptr);
     if (code == CURLM_BAD_SOCKET)
         return {std::invalid_argument{"In curl::Multi_t::multi_assign: socketfd is not valid."}};
-    else if (code == CURLM_RECURSIVE_API_CALL)
-        return {Recursive_api_call_Exception{__PRETTY_FUNCTION__}};
 
     return {};
 }

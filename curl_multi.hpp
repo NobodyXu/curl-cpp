@@ -175,9 +175,11 @@ public:
      * @return std::invalild_argument if socketfd is not valid.
      *
      * By default, per_sockptr == nullptr.
+     *
+     * You can call this function from socket_callback.
      */
     auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
-        Ret_except<void, Recursive_api_call_Exception, std::invalid_argument>;
+        Ret_except<void, std::invalid_argument>;
 
     /**
      * @Precondition enable_multi_socket_interface() is called,
