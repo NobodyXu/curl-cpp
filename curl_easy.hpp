@@ -18,6 +18,27 @@ namespace curl {
  * It would also make it easier to use member function of Easy_ref_t in Multi_t,
  * provided that libcurl callback provides CURL* and that option CURLOPT_PRIVATE 
  * which enables storing any object, isn't support until 7.10.3.
+ *
+ * PERSISTENT CONNECTIONS
+ *     Persistent connections means that libcurl can re-use the same connection for several transfers, 
+ *     if the conditions are right.
+ * 
+ *     libcurl  will  always  attempt  to use persistent connections. 
+ *     Whenever you use curl_easy_perform or curl_multi_perform/curl_multi_socket_action etc, 
+ *     libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
+ *     open a new one that will be subject for re-use on a possible following call curl_easy_perform or 
+ *     curl_multi_perform/curl_multi_socket_action.
+ * 
+ *     To allow libcurl to take full advantage of persistent connections, you should do 
+ *     as many of your file transfers as possible using the same handle.
+ * 
+ *     If you use the easy interface, and you call curl_easy_cleanup(3), all the possibly 
+ *     open connections held by libcurl will be closed and forgotten.
+ * 
+ *     When you've created a multi handle and are using the multi interface, the connection pool is 
+ *     instead kept in the multi handle so closing and creating new easy handles to do transfers 
+ *     will not affect them. 
+ *     Instead all added easy handles can take advantage of the single shared pool.
  */
 class Easy_ref_t {
 public:
