@@ -141,6 +141,21 @@ public:
     curl_t& operator = (const curl_t&) = delete;
     curl_t& operator = (curl_t&&) = delete;
 
+    /**
+     * Destructor is not thread safe.
+     *
+     * This dtor does not block waiting for any libcurl-created threads 
+     * to terminate (such as threads used for name resolving). 
+     *
+     * If a module containing libcurl is dynamically unloaded while 
+     * libcurl-created threads are still running then your program 
+     * may crash or other corruption may occur. 
+     *
+     * We recommend you do not run libcurl from any module that may be 
+     * unloaded dynamically. 
+     *
+     * This behavior may be addressed in the future.
+     */
     ~curl_t();
 
     /**
