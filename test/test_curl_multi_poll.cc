@@ -23,14 +23,13 @@ int main(int argc, char* argv[])
     std::vector<std::pair<curl::Easy_t, std::string>> pool;
     for (auto i = 0UL; i != connection_cnt; ++i) {
         auto easy = curl.create_easy();
-        assert(easy.p1);
-        assert(easy.p2);
+        assert(easy);
 
         pool.emplace_back(std::move(easy), std::string());
     }
 
     for (auto &pair: pool) {
-        auto easy_ref = Easy_ref_t{pair.first};
+        auto easy_ref = Easy_ref_t{pair.first.get()};
 
         easy_ref.request_get();
         easy_ref.set_url("http://localhost:8787/");

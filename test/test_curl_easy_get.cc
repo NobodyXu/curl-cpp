@@ -17,10 +17,9 @@ int main(int argc, char* argv[])
                 curl::Url_ref_t::set_code::ok);
 
     auto easy1 = curl.create_easy();
-    assert(easy1.p1);
-    assert(easy1.p2);
+    assert(easy1);
 
-    curl::Easy_ref_t easy_ref1 = easy1;
+    curl::Easy_ref_t easy_ref1{easy1.get()};
 
     easy_ref1.set_url(url_ref);
 
@@ -38,10 +37,9 @@ int main(int argc, char* argv[])
     assert_same(easy_ref1.get_response_code(), 302L);
 
     auto easy2 = curl.dup_easy(easy1);
-    assert(easy2.p1);
-    assert(easy2.p2);
+    assert(easy2);
 
-    curl::Easy_ref_t easy_ref2{easy2};
+    curl::Easy_ref_t easy_ref2{easy2.get()};
 
     //constexpr const char expected_response[] = "<!DOCTYPE HTML PUBLIC ";
     //constexpr const auto expected_len = sizeof(expected_response) - 1;

@@ -6,7 +6,6 @@
 # include <stdexcept>
 # include <memory>
 
-# include "utils/unique_ptr_pair.hpp"
 # include "return-exception/ret-exception.hpp"
 
 namespace curl {
@@ -143,7 +142,7 @@ public:
         void operator () (void *p) const noexcept;
     };
 
-    using Easy_t = util::unique_ptr_pair<char, Easy_deleter, char[]>;
+    using Easy_t = std::unique_ptr<char, Easy_deleter>;
     /**
      * @param buffer_size size of receiver buffer.
      *
@@ -154,10 +153,9 @@ public:
      *                    Set to 0 to use default value.
      *
      *                    This param is just treated as a request, not an order.
-     * @return If Easy_t::p1 == nullptr, then curl_easy cannot be created.
+     * @return If  == nullptr, then curl_easy cannot be created.
      *          - It can be no memory left;
      *          - Or, initialization code for some part of lib failed.
-     *         If Easy_t::p2 == nullptr, then it means not enough memory.
      * 
      * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
@@ -167,7 +165,7 @@ public:
     /**
      * @param e must not be nullptr
      * @param buffer_size same as create_easy
-     * @preturn same as create_easy
+     * @return same as create_easy
      *
      * All string passed into curl_easy_setopt using char* will be pointed by the 
      * new hanlde as well.

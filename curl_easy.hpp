@@ -5,8 +5,6 @@
 # include <utility>
 # include <string>
 
-# include <curl/curl.h>
-
 # include "curl.hpp"
 # include "utils/curl_slist.hpp"
 
@@ -24,19 +22,6 @@ namespace curl {
 class Easy_ref_t {
 public:
     char *curl_easy = nullptr;
-    char *error_buffer = nullptr;
-
-    Easy_ref_t(const curl_t::Easy_t &e) noexcept;
-
-    Easy_ref_t() = default;
-
-    Easy_ref_t(const Easy_ref_t&) = default;
-    Easy_ref_t(Easy_ref_t&&) = default;
-
-    Easy_ref_t& operator = (const Easy_ref_t&) = default;
-    Easy_ref_t& operator = (Easy_ref_t&&) = default;
-
-    ~Easy_ref_t() = default;
 
     friend Multi_t;
 
@@ -54,22 +39,8 @@ public:
         using Exception::Exception;
     };
     class ProtocolInternal_error: public Exception {
-        static constexpr const auto buffer_size = 23 + 2 + CURL_ERROR_SIZE + 1;
-
     public:
-        char buffer[buffer_size];
-
-        /**
-         * @error_code can only be one of:
-         *  - CURLE_HTTP2
-         *  - CURLE_SSL_CONNECT_ERROR
-         *  - CURLE_UNKNOWN_OPTION
-         *  - CURLE_HTTP3
-         */
-        ProtocolInternal_error(long error_code, const char *error_buffer);
-        ProtocolInternal_error(const ProtocolInternal_error&) = default;
-
-        auto what() const noexcept -> const char*;
+        using Exception::Exception;
     };
 
     /**
@@ -77,6 +48,22 @@ public:
      *                          print them onto stderr_stream_arg.
      */
     void set_verbose(FILE *stderr_stream_arg) noexcept;
+
+    /**
+     * Minimum length for error buffer.
+     */
+    static std::size_t get_error_buffer_size() noexcept;
+
+    /**
+     * @para buffer either nullptr to disable error buffer,
+     *              or at least get_error_buffer_size() big.
+     *
+     * The error buffer must be kept around until call set_error_buffer again
+     * or curl::Easy_t is destroyed.
+     *
+     * The error buffer is only set if ProtocolInternal_error is thrown.
+     */
+    void set_error_buffer(char *error_buffer) noexcept;
 
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
@@ -366,7 +353,7 @@ public:
     void setup_establish_connection_only() noexcept;
 
 protected:
-    auto check_perform(long code, const char *fname) noexcept -> perform_ret_t;
+    static auto check_perform(long code, const char *fname) noexcept -> perform_ret_t;
 };
 } /* namespace curl */
 

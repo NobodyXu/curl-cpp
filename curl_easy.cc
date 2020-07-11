@@ -20,7 +20,7 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
 {
     CURL *curl = curl_easy_init();
     if (!curl)
-        return {nullptr, nullptr};
+        return {nullptr};
 
     if (stderr_stream) {
         curl_easy_setopt(curl, CURLOPT_STDERR, stderr_stream);
@@ -37,21 +37,13 @@ auto curl_t::create_easy(std::size_t buffer_size) noexcept -> Easy_t
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 
     using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
-    using cstr_ptr = std::unique_ptr<char[]>;
-
-    auto *error_buffer = new (std::nothrow) char[CURL_ERROR_SIZE];
-    if (error_buffer) {
-        error_buffer[0] = '\0';
-        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
-    }
-
-    return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
+    return {Easy_ptr{static_cast<char*>(curl)}};
 }
 auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy_t
 {
-    CURL *curl = curl_easy_duphandle(e.p1.get());
+    CURL *curl = curl_easy_duphandle(e.get());
     if (!curl)
-        return {nullptr, nullptr};
+        return {nullptr};
 
     if (stderr_stream) {
         curl_easy_setopt(curl, CURLOPT_STDERR, stderr_stream);
@@ -65,27 +57,23 @@ auto curl_t::dup_easy(const Easy_t &e, std::size_t buffer_size) noexcept -> Easy
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 
     using Easy_ptr = std::unique_ptr<char, Easy_deleter>;
-    using cstr_ptr = std::unique_ptr<char[]>;
-
-    auto *error_buffer = new (std::nothrow) char[CURL_ERROR_SIZE];
-    if (error_buffer) {
-        error_buffer[0] = '\0';
-        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
-    }
-
-    return {Easy_ptr{static_cast<char*>(curl)}, cstr_ptr{error_buffer}};
+    return {Easy_ptr{static_cast<char*>(curl)}};
 }
 
-Easy_ref_t::Easy_ref_t(const curl_t::Easy_t &e) noexcept:
-    curl_easy{e.p1.get()},
-    error_buffer{e.p2.get()}
-{}
 void Easy_ref_t::set_verbose(FILE *stderr_stream_arg) noexcept
 {
     if (stderr_stream_arg) {
         curl_easy_setopt(curl_easy, CURLOPT_STDERR, stderr_stream_arg);
         curl_easy_setopt(curl_easy, CURLOPT_VERBOSE, 1L);
     }
+}
+std::size_t Easy_ref_t::get_error_buffer_size() noexcept
+{
+    return CURL_ERROR_SIZE;
+}
+void Easy_ref_t::set_error_buffer(char *error_buffer) noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);
 }
 
 void Easy_ref_t::set_writeback(writeback_t writeback, void *userp) noexcept

@@ -19,10 +19,9 @@ int main(int argc, char* argv[])
     curl::curl_t curl{nullptr};
 
     auto easy1 = curl.create_easy();
-    assert(easy1.p1);
-    assert(easy1.p2);
+    assert(easy1);
 
-    curl::Easy_ref_t easy_ref = easy1;
+    curl::Easy_ref_t easy_ref{easy1.get()};
 
     auto share = create_share(curl);
 

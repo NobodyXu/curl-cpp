@@ -36,7 +36,6 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
 
 bool Multi_t::add_easy(Easy_ref_t &easy) noexcept
 {
-    curl_easy_setopt(easy.curl_easy, CURLOPT_PRIVATE, easy.error_buffer);
     bool success = curl_multi_add_handle(curl_multi, easy.curl_easy) != CURLM_ADDED_ALREADY;
 
     handles += success;
@@ -102,9 +101,7 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname,
     int msgq = 0;
     for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
         if (m->msg == CURLMSG_DONE) {
-            Easy_ref_t easy;
-            easy.curl_easy = static_cast<char*>(m->easy_handle);
-            curl_easy_getinfo(m->easy_handle, CURLINFO_PRIVATE, &easy.error_buffer);
+            Easy_ref_t easy{static_cast<char*>(m->easy_handle)};
 
             auto ret = perform_callback(easy, easy.check_perform(m->data.result, fname), arg);
 
