@@ -67,7 +67,6 @@ static auto initialize_and_return_arg(FILE *stderr_stream_arg) noexcept
 
     return stderr_stream_arg;
 }
-
 curl_t::curl_t(FILE *stderr_stream_arg) noexcept:
     stderr_stream{initialize_and_return_arg(stderr_stream_arg)},
     version_info {curl_version_info(CURLVERSION_NOW)},
@@ -78,6 +77,52 @@ curl_t::curl_t(FILE *stderr_stream_arg) noexcept:
         errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s, %" PRIu32, 
                  version_str, version.num);
 }
+
+static auto initialize_and_return_last_arg(curl_t::malloc_callback_t  malloc_callback,
+                                           curl_t::free_callback_t    free_callback,
+                                           curl_t::realloc_callback_t realloc_callback,
+                                           curl_t::strdup_callback_t  strdup_callback,
+                                           curl_t::calloc_callback_t  calloc_callback,
+                                           FILE *stderr_stream_arg) noexcept
+{
+    auto code = curl_global_init_mem(CURL_GLOBAL_ALL,
+                                     malloc_callback,
+                                     free_callback,
+                                     realloc_callback,
+                                     strdup_callback,
+                                     calloc_callback);
+    if (code != CURLE_OK)
+        errx(1, "curl_global_init_mem(CURL_GLOBAL_ALL, %p, %p, %p, %p, %p) failed with %s", 
+                 malloc_callback, 
+                 free_callback, 
+                 realloc_callback, 
+                 strdup_callback, 
+                 calloc_callback, 
+                 curl_easy_strerror(code));
+
+    return stderr_stream_arg;
+}
+curl_t::curl_t(FILE *stderr_stream_arg, 
+               malloc_callback_t  malloc_callback,
+               free_callback_t    free_callback,
+               realloc_callback_t realloc_callback,
+               strdup_callback_t  strdup_callback,
+               calloc_callback_t  calloc_callback) noexcept:
+    stderr_stream{initialize_and_return_last_arg(malloc_callback,
+                                                 free_callback,
+                                                 realloc_callback,
+                                                 strdup_callback,
+                                                 calloc_callback,
+                                                 stderr_stream_arg)},
+    version_info {curl_version_info(CURLVERSION_NOW)},
+    version      {static_cast<const curl_version_info_data*>(version_info)->version_num},
+    version_str  {static_cast<const curl_version_info_data*>(version_info)->version}
+{
+    if (version < Version::from(7, 4, 1))
+        errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s, %" PRIu32, 
+                 version_str, version.num);
+}
+
 
 bool curl_t::has_compression_support() const noexcept
 {

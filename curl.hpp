@@ -101,6 +101,40 @@ public:
      */
     curl_t(FILE *stderr_stream_arg) noexcept;
 
+    using malloc_callback_t = void* (*)(std::size_t size);
+    using free_callback_t = void (*)(void *ptr);
+    using realloc_callback_t = void* (*)(void *old_ptr, std::size_t size);
+    using strdup_callback_t = char* (*)(const char *str);
+    using calloc_callback_t = void* (*)(std::size_t nmemb, std::size_t size);
+
+    /**
+     * If you are using libcurl from multiple threads or libcurl was built 
+     * with the threaded resolver option, then the callback functions 
+     * must be thread safe. 
+     *
+     * The threaded resolver is a common build option to enable 
+     * (and in some cases the default) so portable application should make
+     * these callback functions thread safe.
+     * 
+     * All callback arguments must be set to valid function pointers. 
+     *
+     * libcurl support this from 7.12.0.
+     * If this wasn't supported, you binary probably would have problem
+     * during dynamic binding.
+     *
+     * it would call errx on error.
+     *
+     * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
+     *
+     * This is not thread-safe.
+     */
+    curl_t(FILE *stderr_stream_arg, 
+           malloc_callback_t  malloc_callback,
+           free_callback_t    free_callback,
+           realloc_callback_t realloc_callback,
+           strdup_callback_t  strdup_callback,
+           calloc_callback_t  calloc_callback) noexcept;
+
     curl_t(const curl_t&) = delete;
     curl_t(curl_t&&) = delete;
 
