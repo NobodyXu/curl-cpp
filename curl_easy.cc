@@ -147,6 +147,11 @@ void Easy_ref_t::start_new_cookie_session() noexcept
 {
     curl_easy_setopt(curl_easy, CURLOPT_COOKIESESSION, 1L);
 }
+auto Easy_ref_t::erase_all_cookies_in_mem() noexcept ->
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    return set_cookielist("ALL");
+}
 
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {

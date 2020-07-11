@@ -156,6 +156,11 @@ bool curl_t::has_ipv6_support() const noexcept
     return info->features & CURL_VERSION_IPV6;
 }
 
+bool curl_t::has_erase_all_cookies_in_mem_support() const noexcept
+{
+    return version >= Version::from(7, 14, 1);
+}
+
 bool curl_t::has_disable_signal_handling_support() const noexcept
 {
     return version >= Version::from(7, 10, 0);
