@@ -103,8 +103,11 @@ public:
     /**
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
+     *
+     * @return 1 if you want easy to be added to Multi_t again after it is removed.
+     *         0 otherwise.
      */
-    using perform_callback_t = void (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, void *arg);
+    using perform_callback_t = int (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, void *arg);
     /**
      * @Precondition perform_callback is set.
      * @return number of running handles

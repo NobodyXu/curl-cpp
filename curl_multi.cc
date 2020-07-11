@@ -106,9 +106,11 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname,
             easy.curl_easy = static_cast<char*>(m->easy_handle);
             curl_easy_getinfo(m->easy_handle, CURLINFO_PRIVATE, &easy.error_buffer);
 
-            perform_callback(easy, easy.check_perform(m->data.result, fname), arg);
+            auto ret = perform_callback(easy, easy.check_perform(m->data.result, fname), arg);
 
             remove_easy(easy);
+            if (ret)
+                add_easy(easy);
         }
 
     return {running_handles};
