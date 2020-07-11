@@ -286,7 +286,7 @@ auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
     return url;
 }
 
-auto Easy_ref_t::getinfo_cookie_list() noexcept ->
+auto Easy_ref_t::getinfo_cookie_list() const noexcept ->
     Ret_except<utils::slist, curl::NotBuiltIn_error>
 {
     curl_slist *cookies = nullptr;

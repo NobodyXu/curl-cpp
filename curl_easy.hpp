@@ -543,7 +543,7 @@ public:
      * Since 7.43.0 cookies that were imported in the Set-Cookie format 
      * without a domain name are not exported by this option.
      */
-    auto getinfo_cookie_list() noexcept ->
+    auto getinfo_cookie_list() const noexcept ->
         Ret_except<utils::slist, curl::NotBuiltIn_error>;
 
     /**
