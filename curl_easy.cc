@@ -103,6 +103,18 @@ auto Easy_ref_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_
     return {};
 }
 
+auto Easy_ref_t::set_cookie(const char *cookies) noexcept -> 
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    auto code = curl_easy_setopt(curl_easy, CURLOPT_COOKIE, cookies);
+    if (code == CURLE_UNKNOWN_OPTION)
+        return curl::NotBuiltIn_error{"cookies not supported"};
+    else if (code == CURLE_OUT_OF_MEMORY)
+        return {std::bad_alloc{}};
+
+    return {};
+}
+
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {
     if (redir != 0) {

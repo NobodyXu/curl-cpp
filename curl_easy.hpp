@@ -121,6 +121,31 @@ public:
 
     /**
      * @Precondition url is set to use http(s)
+     * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
+     *                This string will be strdup-ed and override previous call.
+     *                This is defaulted to nullptr.
+     *
+     * This option sets the cookie header explicitly in the outgoing request(s). 
+     * If multiple requests are done due to authentication, followed redirections or similar, 
+     * they will all get this cookie passed on.
+     *
+     * The cookies set by this option are separate from the internal cookie storage held 
+     * by the cookie engine and will not be modified by it. 
+     *
+     * If you enable the cookie engine and either you've imported a cookie of the same name 
+     * (e.g. 'foo') or the server has set one, it will have no effect on the cookies you set here. 
+     *
+     * A request to the server will send both the 'foo' held by the cookie engine and 
+     * the 'foo' held by this option. 
+     * To set a cookie that is instead held by the cookie engine and can be modified by the server use CURLOPT_COOKIELIST.
+     *
+     * This option will not enable the cookie engine. Use CURLOPT_COOKIEFILE or CURLOPT_COOKIEJAR to enable parsing and sending cookies automatically.
+     */
+    auto set_cookie(const char *cookies) noexcept -> 
+        Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
+
+    /**
+     * @Precondition url is set to use http(s)
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
      *              Other number enables redir number of redirections.
