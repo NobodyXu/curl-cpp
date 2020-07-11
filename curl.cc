@@ -164,6 +164,10 @@ bool curl_t::has_erase_all_session_cookies_in_mem_support() const noexcept
 {
     return version >= Version::from(7, 15, 4);
 }
+bool curl_t::has_flush_cookies_to_jar() const noexcept
+{
+    return version >= Version::from(7, 17, 1);
+}
 
 bool curl_t::has_disable_signal_handling_support() const noexcept
 {
