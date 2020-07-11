@@ -124,6 +124,8 @@ public:
      * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
      *                This string will be strdup-ed and override previous call.
      *                This is defaulted to nullptr.
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
      *
      * This option sets the cookie header explicitly in the outgoing request(s). 
      * If multiple requests are done due to authentication, followed redirections or similar, 
@@ -153,6 +155,8 @@ public:
      *                        "-" to read the cookie from stdin;
      *                        Does not have to keep around after this call.
      *                        This is default to nullptr.
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
      *
      * The cookie data can be in either the old Netscape / Mozilla cookie data format or 
      * just regular HTTP headers (Set-Cookie style) dumped to a file.
@@ -186,6 +190,8 @@ public:
      *                        "-" write cookies to stdout;
      *                        Does not have to keep around after this call.
      *                        This is default to nullptr.
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
      *
      * This will make libcurl write all internally known cookies to 
      * the specified file when curl::Easy_t is destroyed. 
