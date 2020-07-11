@@ -185,7 +185,7 @@ bool curl_t::has_max_concurrent_stream_support() const noexcept
 
 bool curl_t::has_ssl_session_sharing_support() const noexcept
 {
-    return version >= Version::from(7, 23, 0);
+    return version >= Version::from(7, 23, 0) && has_ssl_support();
 }
 bool curl_t::has_connection_cache_sharing_support() const noexcept
 {
