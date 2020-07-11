@@ -3,7 +3,7 @@ LDFLAGS :=
 
 include ../linking.mk
 
-CXXFLAGS += -g -fsanitize=address
+CXXFLAGS += -g -fsanitize=address -lpthread
 
 SRCS := $(wildcard *.cc)
 DEPS := $(SRCS:.cc=.d)
