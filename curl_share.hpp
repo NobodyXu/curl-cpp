@@ -128,7 +128,7 @@ public:
  *                        Pass void to disable locking, which make
  *                        multithreaded use unsafe.
  */
-template <class Shared_mutex_t = util::shared_mutex>
+template <class Shared_mutex_t = utils::shared_mutex>
 class Share: public Share_base {
     static constexpr const std::size_t mutex_num = 5;
 

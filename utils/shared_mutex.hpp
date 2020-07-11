@@ -3,7 +3,7 @@
 
 # include <pthread.h>
 
-namespace curl::util {
+namespace curl::utils {
 /**
  * C++ RAII wrapper for pthread_rwlock_t.
  *
@@ -38,6 +38,6 @@ public:
 
     void unlock() noexcept;
 };
-} /* namespace curl::util */
+} /* namespace curl::utils */
 
 #endif
