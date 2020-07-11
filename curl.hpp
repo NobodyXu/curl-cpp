@@ -176,6 +176,7 @@ public:
     bool has_ipv6_support() const noexcept;
 
     bool has_erase_all_cookies_in_mem_support() const noexcept;
+    bool has_erase_all_session_cookies_in_mem_support() const noexcept;
 
     bool has_disable_signal_handling_support() const noexcept;
 

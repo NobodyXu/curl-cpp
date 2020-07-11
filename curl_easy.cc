@@ -152,6 +152,11 @@ auto Easy_ref_t::erase_all_cookies_in_mem() noexcept ->
 {
     return set_cookielist("ALL");
 }
+auto Easy_ref_t::erase_all_session_cookies_in_mem() noexcept ->
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    return set_cookielist("SESS");
+}
 
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {

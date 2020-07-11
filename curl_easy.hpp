@@ -302,6 +302,21 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     *               curl_t::has_erase_all_session_cookies_in_mem_support()
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
+     *
+     * Session cookies are cookies without expiry date and they are meant 
+     * to be alive and existing for this "session" only.
+     *
+     * A "session" is usually defined in browser land for as long as 
+     * you have your browser up, more or less.
+     */
+    auto erase_all_session_cookies_in_mem() noexcept ->
+        Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
+
+    /**
      * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
