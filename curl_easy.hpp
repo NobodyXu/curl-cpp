@@ -120,7 +120,7 @@ public:
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
      *                This string will be strdup-ed and override previous call.
      *                This is defaulted to nullptr.
@@ -149,7 +149,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminte string for the filename of the cookie file;
      *                        "" to enable cookie engine without any initial cookies;
      *                        "-" to read the cookie from stdin;
@@ -185,7 +185,7 @@ public:
         Ret_except<void, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminated string;
      *                        "-" write cookies to stdout;
      *                        Does not have to keep around after this call.
@@ -217,7 +217,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
      *              Other number enables redir number of redirections.
@@ -225,12 +225,12 @@ public:
     void set_follow_location(long redir) noexcept;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param useragent pass nullptr for no useragent (default)
      */
     auto set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>;
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param encoding "" for enable all (default);
      *                 nullptr for disable all (including auto decompression).
      */
@@ -313,13 +313,13 @@ public:
     void set_nobody(bool enable) noexcept;
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      *
      * This is the default for http, and would also set_nobody(false).
      */
     void request_get() noexcept;
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      *
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
@@ -343,7 +343,7 @@ public:
     using readback_t = std::size_t (*)(char *buffer, std::size_t size, std::size_t nitems, void *userp);
 
     /**
-     * @Precondition url is set to use http(s)
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param len optional. Set to -1 means length of data is not known ahead of time.
      */
     void request_post(readback_t readback, void *userp, std::size_t len = -1) noexcept;
@@ -396,8 +396,8 @@ public:
     std::size_t getinfo_transfer_time() const noexcept;
 
     /**
-     * @Precondition curl_t::has_redirect_url_support()
-     *               url is set to use http(s)
+     * @Precondition curl_t::has_redirect_url_support() && 
+     *               url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *
      * If you disable redirection or CURLOPT_MAXREDIRS limit 
