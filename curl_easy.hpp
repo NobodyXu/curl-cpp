@@ -476,6 +476,7 @@ public:
      */
     enum class code {
         ok = 0,
+        unsupported_protocol,
         url_malformat,
         cannot_resolve_proxy,
         cannot_resolve_host,

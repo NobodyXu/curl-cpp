@@ -26,6 +26,9 @@ auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform
         case CURLE_URL_MALFORMAT:
             return {code::url_malformat};
 
+        case CURLE_UNSUPPORTED_PROTOCOL:
+            return {code::unsupported_protocol};
+
         case CURLE_NOT_BUILT_IN:
             return {NotBuiltIn_error{code}};
 
