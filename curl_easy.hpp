@@ -294,7 +294,7 @@ public:
 
     /**
      * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               .
+     *               curl_t::has_erase_all_cookies_in_mem_support().
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      */
