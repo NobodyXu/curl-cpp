@@ -168,7 +168,7 @@ public:
      * 
      * Exercise caution if you are using this option and multiple transfers may occur. 
      *
-     * If you use the Set-Cookie format and don't specify a domain 
+     * If you use the Set-Cookie format or "name1=content1; name2=content2;" and don't specify a domain 
      * then 
      *     the cookie is sent for any domain (even after redirects are followed) 
      *     and cannot be modified by a server-set cookie. 
