@@ -120,7 +120,7 @@ public:
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @Precondition curl_t::has_protocol("http")
+     * @Precondition url is set to use http(s)
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
      *              Other number enables redir number of redirections.
@@ -128,12 +128,12 @@ public:
     void set_follow_location(long redir) noexcept;
 
     /**
-     * @Precondition curl::has_protocol("http")
+     * @Precondition url is set to use http(s)
      * @param useragent pass nullptr for no useragent (default)
      */
     auto set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>;
     /**
-     * @Precondition curl::has_protocol("http")
+     * @Precondition url is set to use http(s)
      * @param encoding "" for enable all (default);
      *                 nullptr for disable all (including auto decompression).
      */
@@ -177,7 +177,7 @@ public:
         separate, // reverse of unified
     };
     /**
-     * @Precondition curl_t::has_protocol("http")
+     * @Precondition url is set to use http(s)
      * @param l will not be copied, thus it is required to be kept
      *          around until another set_http_header is issued or 
      *          this Easy_t is destroyed.
@@ -216,17 +216,17 @@ public:
     void set_nobody(bool enable) noexcept;
 
     /**
-     * @Precondition: curl_t::has_protocol("http")
+     * @Precondition url is set to use http(s)
      *
      * This is the default for http, and would also set_nobody(false).
      */
     void request_get() noexcept;
     /**
+     * @Precondition url is set to use http(s)
+     * @param len if set to -1, then libcurl would strlen(data) to determine its length.
+     *
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
      * the calling application until the associated transfer finishes. 
-     *
-     * @Precondition: curl_t::has_protocol("http"))
-     * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      */
     void request_post(const void *data, std::size_t len) noexcept;
 
@@ -246,6 +246,7 @@ public:
     using readback_t = std::size_t (*)(char *buffer, std::size_t size, std::size_t nitems, void *userp);
 
     /**
+     * @Precondition url is set to use http(s)
      * @param len optional. Set to -1 means length of data is not known ahead of time.
      */
     void request_post(readback_t readback, void *userp, std::size_t len = -1) noexcept;
@@ -299,6 +300,7 @@ public:
 
     /**
      * @Precondition curl_t::has_redirect_url_support()
+     *               url is set to use http(s)
      * @return null-terminated string, freeing not required.
      *
      * If you disable redirection or CURLOPT_MAXREDIRS limit 
