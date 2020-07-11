@@ -6,6 +6,9 @@
 namespace curl::util {
 /**
  * C++ RAII wrapper for pthread_rwlock_t.
+ *
+ * To use this interface, you'd have to add
+ * -lpthread to LDFLAGS of your project.
  */
 class shared_mutex {
     pthread_rwlock_t rwlock;
