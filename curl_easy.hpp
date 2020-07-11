@@ -141,7 +141,7 @@ public:
      * server use CURLOPT_COOKIELIST.
      *
      * This option will not enable the cookie engine. 
-     * Use set_cookiefile or CURLOPT_COOKIEJAR to enable parsing and sending cookies automatically.
+     * Use set_cookiefile or set_cookiejar to enable parsing and sending cookies automatically.
      */
     auto set_cookie(const char *cookies) noexcept -> 
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
@@ -160,7 +160,7 @@ public:
      * It enables the cookie engine, making libcurl parse and send cookies on 
      * subsequent requests with this handle.
      * 
-     * It only reads cookies. To make libcurl write cookies to file, see CURLOPT_COOKIEJAR.
+     * It only reads cookies. To make libcurl write cookies to file, see set_cookiejar.
      * 
      * Exercise caution if you are using this option and multiple transfers may occur. 
      *
@@ -179,6 +179,35 @@ public:
      */
     auto set_cookiefile(const char *cookie_filename) noexcept -> 
         Ret_except<void, curl::NotBuiltIn_error>;
+
+    /**
+     * @Precondition url is set to use http(s)
+     * @param cookie_filename null-terminated string;
+     *                        "-" write cookies to stdout;
+     *                        Does not have to keep around after this call.
+     *                        This is default to nullptr.
+     *
+     * This will make libcurl write all internally known cookies to 
+     * the specified file when curl::Easy_t is destroyed. 
+     *
+     * If no cookies, then no file will be created. 
+     *
+     * Using this option also enables cookies for this session, so if you 
+     * for example follow a location it will make matching cookies get sent accordingly.
+     * 
+     * Note that libcurl doesn't read any cookies from the cookie jar. 
+     * If you want to read cookies from a file, use set_cookiefile.
+     * 
+     * If the cookie jar file can't be created or written to , libcurl will not 
+     * and cannot report an error for this. 
+     * Using CURLOPT_VERBOSE or CURLOPT_DEBUGFUNCTION will get a warning to display, 
+     * but that is the only visible feedback you get about this possibly lethal situation.
+     * 
+     * Since 7.43.0 cookies that were imported in the Set-Cookie format without 
+     * a domain name are not exported by this function.
+     */
+    auto set_cookiejar(const char *cookie_filename) noexcept -> 
+        Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
      * @Precondition url is set to use http(s)
