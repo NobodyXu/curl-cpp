@@ -206,7 +206,8 @@ public:
      * 
      * If the cookie jar file can't be created or written to , libcurl will not 
      * and cannot report an error for this. 
-     * Using CURLOPT_VERBOSE or CURLOPT_DEBUGFUNCTION will get a warning to display, 
+     * Using set_verbose, set curl::stderr_stream to non-null before creating curl::Easy_t 
+     * or CURLOPT_DEBUGFUNCTION will get a warning to display, 
      * but that is the only visible feedback you get about this possibly lethal situation.
      * 
      * Since 7.43.0 cookies that were imported in the Set-Cookie format without 
