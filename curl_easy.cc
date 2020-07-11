@@ -132,6 +132,10 @@ auto Easy_ref_t::set_cookiejar(const char *cookie_filename) noexcept ->
 
     return {};
 }
+void Easy_ref_t::start_new_cookie_session() noexcept
+{
+    curl_easy_setopt(curl_easy, CURLOPT_COOKIESESSION, 1L);
+}
 
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {

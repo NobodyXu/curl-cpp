@@ -218,6 +218,26 @@ public:
 
     /**
      * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     *
+     * It will force libcurl to ignore all cookies it is about to load that 
+     * are "session cookies" from the previous session. 
+     *
+     * Session cookies are cookies without expiry date and they are meant 
+     * to be alive and existing for this "session" only.
+     *
+     * A "session" is usually defined in browser land for as long as 
+     * you have your browser up, more or less.
+     *
+     * By default, libcurl always stores and loads all cookies, independent 
+     * if they are session cookies or not. 
+     *
+     * NOTE that cookie support can be removed in compile time of libcurl, there is
+     * no guarantee this would work.
+     */
+    void start_new_cookie_session() noexcept;
+
+    /**
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
      *              Other number enables redir number of redirections.
