@@ -168,6 +168,10 @@ bool curl_t::has_flush_cookies_to_jar() const noexcept
 {
     return version >= Version::from(7, 17, 1);
 }
+bool curl_t::has_reload_cookies_from_file() const noexcept
+{
+    return version >= Version::from(7, 39, 0);
+}
 
 bool curl_t::has_disable_signal_handling_support() const noexcept
 {

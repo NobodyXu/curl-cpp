@@ -328,6 +328,17 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
+     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     *               curl_t::has_reload_cookies_from_file()
+     * @return note that libcurl can be built with cookies disabled, thus this library
+     *         can return exception curl::NotBuiltIn_error.
+     *
+     * loads all cookies from the files specified by set_cookiefile.
+     */
+     auto reload_cookies_from_file() noexcept ->
+        Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
+
+    /**
      * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.

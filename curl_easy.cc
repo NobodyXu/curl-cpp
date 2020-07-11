@@ -162,6 +162,11 @@ auto Easy_ref_t::flush_cookies_to_jar() noexcept ->
 {
     return set_cookielist("FLUSH");
 }
+auto Easy_ref_t::reload_cookies_from_file() noexcept ->
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    return set_cookielist("RELOAD");
+}
 
 void Easy_ref_t::set_follow_location(long redir) noexcept
 {
