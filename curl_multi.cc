@@ -89,12 +89,14 @@ auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int tim
 
 auto Multi_t::check_perform(long code, int running_handles, const char *fname,
                             perform_callback_t perform_callback, void *arg) noexcept -> 
-    Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
+    Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
 {
     if (code == CURLM_OUT_OF_MEMORY)
         return {std::bad_alloc{}};
     else if (code == CURLM_INTERNAL_ERROR)
         return {libcurl_bug{fname}};
+    else if (code == CURLM_RECURSIVE_API_CALL)
+        return {Recursive_api_call_Exception{fname}};
 
     assert(code == CURLM_OK);
 
@@ -113,7 +115,7 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname,
     return {running_handles};
 }
 auto Multi_t::perform(perform_callback_t perform_callback, void *arg) noexcept -> 
-    Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
+    Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
 {
     int running_handles = 0;
 
@@ -145,7 +147,7 @@ auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -
 }
 auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask, 
                                   perform_callback_t perform_callback, void *arg) noexcept -> 
-    Ret_except<int, std::bad_alloc, Exception, libcurl_bug>
+    Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
 {
     int running_handles;
 

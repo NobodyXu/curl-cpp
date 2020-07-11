@@ -123,7 +123,7 @@ public:
      * if Easy_ref_t::ProtocolInternal_error is thrown.
      */
     auto perform(perform_callback_t perform_callback, void *arg) noexcept -> 
-        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+        Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>;
 
     /* 
      * @return should be 0
@@ -203,7 +203,7 @@ public:
      */
     auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, 
                              perform_callback_t perform_callback, void *arg) noexcept -> 
-        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+        Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>;
 
     /**
      * @Precondition get_number_of_handles() == 0
@@ -213,7 +213,7 @@ public:
 protected:
     auto check_perform(long code, int running_handles_tmp, const char *fname,
                        perform_callback_t perform_callback, void *arg) noexcept -> 
-        Ret_except<int, std::bad_alloc, Exception, libcurl_bug>;
+        Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>;
 };
 } /* namespace curl */
 
