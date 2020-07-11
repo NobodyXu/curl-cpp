@@ -3,6 +3,9 @@
 #include <utility>
 
 namespace curl::utils {
+slist::slist(curl_slist *l) noexcept:
+    list{l}
+{}
 slist::slist(slist &&other) noexcept:
     slist{}
 {

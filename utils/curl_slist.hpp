@@ -67,6 +67,8 @@ public:
 
     slist() = default;
 
+    slist(curl_slist *l) noexcept;
+
     slist(const slist&) = delete;
     slist(slist &&other) noexcept;
 
