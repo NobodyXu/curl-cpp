@@ -100,6 +100,11 @@ bool curl_t::has_ssl_support() const noexcept
     auto *info = static_cast<const curl_version_info_data*>(version_info);
     return info->features & CURL_VERSION_SSL;
 }
+bool curl_t::has_ipv6_support() const noexcept
+{
+    auto *info = static_cast<const curl_version_info_data*>(version_info);
+    return info->features & CURL_VERSION_IPV6;
+}
 
 bool curl_t::has_disable_signal_handling_support() const noexcept
 {

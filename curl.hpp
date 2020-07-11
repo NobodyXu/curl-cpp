@@ -121,6 +121,7 @@ public:
      */
     bool has_protocol(const char *protocol) const noexcept;
     bool has_ssl_support() const noexcept;
+    bool has_ipv6_support() const noexcept;
 
     bool has_disable_signal_handling_support() const noexcept;
 
