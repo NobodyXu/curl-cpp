@@ -163,6 +163,8 @@ public:
      *
      * It enables the cookie engine, making libcurl parse response and send cookies on 
      * subsequent requests with this handle.
+     *
+     * This function can be used with set_cookielist.
      * 
      * It only reads cookies right before a transfer is started. 
      * To make libcurl write cookies to file, see set_cookiejar.
@@ -235,7 +237,8 @@ public:
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
-     * The cookie will be immediately loaded.
+     * The cookie will be immediately loaded, and this function can be mixed with
+     * set_cookiefile.
      *
      * Such a cookie can be either a single line in Netscape / Mozilla format or 
      * just regular HTTP-style header (Set-Cookie: ...) format. 
