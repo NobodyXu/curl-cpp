@@ -170,8 +170,6 @@ public:
 
     /**
      * @Precondition socketfd must be valid
-     * Calling multi_assign in socket_callback could result recursive_api_call error.
-     *
      * @return std::invalild_argument if socketfd is not valid.
      */
     auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -> 
