@@ -188,7 +188,8 @@ bool curl_t::has_connection_cache_sharing_support() const noexcept
 }
 bool curl_t::has_psl_sharing_support() const noexcept
 {
-    return version >= Version::from(7, 61, 0);
+    auto *info = static_cast<const curl_version_info_data*>(version_info);
+    return version >= Version::from(7, 61, 0) && info->features & CURL_VERSION_PSL;
 }
 
 curl_t::~curl_t()
