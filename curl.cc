@@ -59,19 +59,24 @@ std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept
     return std::snprintf(buffer, 12, "%" PRIu8 ".%" PRIu8 ".%" PRIu8, get_major(), get_minor(), get_patch());
 }
 
-curl_t::curl_t(FILE *stderr_stream_arg) noexcept:
-    stderr_stream{stderr_stream_arg}
+static auto initialize_and_return_arg(FILE *stderr_stream_arg) noexcept
 {
     auto code = curl_global_init(CURL_GLOBAL_ALL);
     if (code != CURLE_OK)
         errx(1, "curl_global_init(CURL_GLOBAL_ALL) failed with %s", curl_easy_strerror(code));
 
-    version_info = curl_version_info(CURLVERSION_NOW);
-    version = Version{static_cast<const curl_version_info_data*>(version_info)->version_num};
-    version_str = static_cast<const curl_version_info_data*>(version_info)->version;
+    return stderr_stream_arg;
+}
 
+curl_t::curl_t(FILE *stderr_stream_arg) noexcept:
+    stderr_stream{initialize_and_return_arg(stderr_stream_arg)},
+    version_info {curl_version_info(CURLVERSION_NOW)},
+    version      {static_cast<const curl_version_info_data*>(version_info)->version_num},
+    version_str  {static_cast<const curl_version_info_data*>(version_info)->version}
+{
     if (version < Version::from(7, 4, 1))
-        errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s", version_str);
+        errx(1, "CURLINFO_RESPONSE_CODE isn't supported in this version: %s, %" PRIu32, 
+                 version_str, version.num);
 }
 
 bool curl_t::has_compression_support() const noexcept

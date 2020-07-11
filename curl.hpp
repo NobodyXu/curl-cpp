@@ -87,10 +87,9 @@ public:
      */
     bool disable_signal_handling_v = false;
 
-    // User program should not modify these variable
-    Version version;
-    const void * version_info;
-    const char * version_str;
+    const void * const version_info;
+    const Version version;
+    const char * const version_str;
 
     /**
      * Since curl_t is designed to be used as astatic variable,
