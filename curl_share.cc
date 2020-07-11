@@ -23,13 +23,15 @@ void Share_base::add_lock(lock_function_t lock_func, unlock_function_t unlock_fu
     curl_share_setopt(curl_share.get(), CURLSHOPT_USERDATA, userptr);
 }
 
-auto Share_base::enable_sharing(Options option) noexcept -> Ret_except<void, std::bad_alloc>
+auto Share_base::enable_sharing(Options option) noexcept -> Ret_except<int, std::bad_alloc>
 {
     auto code = curl_share_setopt(curl_share.get(), CURLSHOPT_SHARE, static_cast<curl_lock_data>(option));
     if (code == CURLSHE_NOMEM)
         return {std::bad_alloc{}};
+    else if (code == CURLSHE_NOT_BUILT_IN)
+        return {0};
 
-    return {};
+    return {1};
 }
 void Share_base::disable_sharing(Options option) noexcept
 {

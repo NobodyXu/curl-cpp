@@ -27,10 +27,10 @@ int main(int argc, char* argv[])
 
     share.enable_multithreaded_share();
 
-    share.enable_sharing(Options::dns);
-    share.enable_sharing(Options::ssl_session);
-    share.enable_sharing(Options::connection_cache);
-    share.enable_sharing(Options::psl);
+    assert_same(share.enable_sharing(Options::dns).get_return_value(), 1);
+    assert_same(share.enable_sharing(Options::ssl_session).get_return_value(), 1);
+    assert_same(share.enable_sharing(Options::connection_cache).get_return_value(), 1);
+    assert_same(share.enable_sharing(Options::psl).get_return_value(), 1);
 
     share.add_easy(easy_ref);
 

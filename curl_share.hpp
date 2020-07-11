@@ -45,6 +45,9 @@ public:
         /**
          * share cached DNS hosts.
          *
+         * If the libcurl has cookies disabled, then 
+         * enable_sharing(Options::cookie) will return 0.
+         *
          * NOTE that Multi_t interface share this by default 
          * without setting this option.
          */
@@ -105,7 +108,7 @@ public:
      * All sharing enable/disable must be done when no easy is added
      * or all easy is removed.
      */
-    auto enable_sharing(Options option) noexcept -> Ret_except<void, std::bad_alloc>;
+    auto enable_sharing(Options option) noexcept -> Ret_except<int, std::bad_alloc>;
     void disable_sharing(Options option) noexcept;
 
     void add_easy(Easy_ref_t &easy) noexcept;
