@@ -3,7 +3,7 @@ LDFLAGS := -lpthread
 
 include ../linking.mk
 
-CXXFLAGS += -g -flto -O2 -fno-exceptions
+CXXFLAGS += -g -flto -O2 -fno-exceptions -fno-rtti
 
 SRCS := $(wildcard *.cc)
 DEPS := $(SRCS:.cc=.d)
