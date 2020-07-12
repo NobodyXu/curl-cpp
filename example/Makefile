@@ -26,6 +26,12 @@ include $(wildcard $(DEPS))
 	web_server/run_nginx.sh
 	./$@
 
+curl_multi_socket_action_uv.out: curl_multi_socket_action_uv.cc curl_multi_socket_action_uv.d ../libcurl_cpp.a
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) $(LDFLAGS) -luv $< ../libcurl_cpp.a -o $@
+	mv -f $*.Td $*.d && touch $@
+	web_server/run_nginx.sh
+	./$@
+
 ../libcurl_cpp.a: FORCE
 	$(MAKE) -C ../
 
