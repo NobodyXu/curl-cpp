@@ -1,6 +1,6 @@
 CXX := clang++
 
-CXXFLAGS := -std=c++17 -flto -O2 -fno-exceptions $(shell curl-config --cflags)
+CXXFLAGS := -std=c++17 -flto -O2 -fno-exceptions -fno-rtti $(shell curl-config --cflags)
 LDFLAGS := $(shell curl-config --libs)
 
 SRCS := $(wildcard *.cc) $(wildcard utils/*.cc)
