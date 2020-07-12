@@ -10,7 +10,7 @@
     if ((expr) != 0) \
         err(1, "In %s" # expr " failed", __PRETTY_FUNCTION__)
 
-namespace curl::util {
+namespace curl::utils {
 shared_mutex::shared_mutex() noexcept
 {
     pthread_rwlockattr_t attr;
@@ -43,4 +43,4 @@ void shared_mutex::unlock() noexcept
 {
     pthread_rwlock_unlock(&rwlock);
 }
-} /* namespace curl::util */
+} /* namespace curl::utils */
