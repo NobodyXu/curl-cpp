@@ -1,5 +1,5 @@
 CXX := clang++
-LDFLAGS := -lpthread -Wl,--strip-all
+LDFLAGS := -lpthread -Wl,--plugin-opt=O3,-O2,--discard-all,--strip-all,--gc-sections
 
 include ../linking.mk
 
