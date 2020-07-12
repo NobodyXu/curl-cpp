@@ -104,12 +104,7 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname,
     for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
         if (m->msg == CURLMSG_DONE) {
             Easy_ref_t easy{static_cast<char*>(m->easy_handle)};
-
-            auto ret = perform_callback(easy, easy.check_perform(m->data.result, fname), arg);
-
-            remove_easy(easy);
-            if (ret)
-                add_easy(easy);
+            perform_callback(easy, easy.check_perform(m->data.result, fname), *this, arg);
         }
 
     return {running_handles};

@@ -42,12 +42,11 @@ int main(int argc, char* argv[])
     assert_same(multi.get_number_of_handles(), connection_cnt);
 
     do {
-        multi.perform([](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, void*) noexcept
+        multi.perform([](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, curl::Multi_t &multi, void*) noexcept
         {
             assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
             assert_same(easy_ref.get_response_code(), 200L);
-
-            return 0;
+            multi.remove_easy(easy_ref);
         }, nullptr);
     } while (multi.break_or_poll().get_return_value() != -1);
 

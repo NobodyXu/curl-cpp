@@ -15,12 +15,12 @@ using curl::Easy_ref_t;
 static constexpr const auto connection_cnt = 20UL;
 static constexpr const auto expected_response = "<p>Hello, world!\\n</p>\n";
 
-int perform_callback(Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, void*) noexcept
+void perform_callback(Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, 
+                      curl::Multi_t &multi, void*) noexcept
 {
     assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
     assert_same(easy_ref.get_response_code(), 200L);
-
-    return 0;
+    multi.remove_easy(easy_ref);
 }
 
 curl::Multi_t *multi_p;

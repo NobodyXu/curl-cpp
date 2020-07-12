@@ -107,12 +107,12 @@ int main(int argc, char* argv[])
     constexpr const std::size_t maxevents = 20;
     struct epoll_event events[maxevents];
 
-    auto perform_callback = [](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, void*) noexcept
+    auto perform_callback = [](Easy_ref_t &easy_ref, Easy_ref_t::perform_ret_t ret, 
+                               curl::Multi_t &multi, void*) noexcept
     {
         assert_same(ret.get_return_value(), Easy_ref_t::code::ok);
         assert_same(easy_ref.get_response_code(), 200L);
-
-        return 0;
+        multi.remove_easy(easy_ref);
     };
 
     multi.multi_socket_action(CURL_SOCKET_TIMEOUT, 0, perform_callback, nullptr);

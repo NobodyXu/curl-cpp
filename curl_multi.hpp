@@ -104,10 +104,13 @@ public:
      * perform_callback can call arbitary member functions on easy, but probably
      * not a good idea to call easy.perform().
      *
-     * @return 1 if you want easy to be added to Multi_t again after it is removed.
-     *         0 otherwise.
+     * If you want to destroy and free easy.curl_easy, you must first 
+     * multi.remove_easy(easy_ref) it.
+     *
+     * If easy_ref isn't removed from Multi, then the same transfer will happen again.
      */
-    using perform_callback_t = int (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, void *arg);
+    using perform_callback_t = void (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, 
+                                        Multi_t &multi, void *arg);
     /**
      * @Precondition perform_callback is set.
      * @return number of running handles
@@ -115,7 +118,7 @@ public:
      * perform() is called only if poll is used.
      *
      * After perform, perform_callback will be called for each completed
-     * easy, and then remove_easy would be called on it immediately after callback returns.
+     * easy.
      *
      * **YOU MUST CALL perform() after to start the transfer, then poll**
      *
@@ -196,7 +199,7 @@ public:
      * then call waitever poll interface you use**
      *
      * After multi_socket_action, perform_callback will be called for each completed
-     * easy, and then remove_easy would be called on it immediately after callback returns.
+     * easy.
      *
      * Using libcurl version >= 7.10.3 can provide better error message
      * if Easy_ref_t::ProtocolInternal_error is thrown.
