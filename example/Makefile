@@ -1,5 +1,5 @@
 CXX := clang++
-LDFLAGS := -lpthread
+LDFLAGS := -lpthread -Wl,--strip-all
 
 include ../linking.mk
 
