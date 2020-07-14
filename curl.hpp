@@ -128,8 +128,18 @@ public:
      */
     bool disable_signal_handling_v = false;
 
+    /**
+     * Result of curl_version_info(CURLVERSION_NOW).
+     * Cached for faster access.
+     */
     const void * const version_info;
+    /**
+     * Version of the libcurl loaded dynamically.
+     */
     const Version version;
+    /**
+     * Version of the libcurl linked dynamically in string.
+     */
     const char * const version_str;
 
     /**
