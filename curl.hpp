@@ -9,18 +9,34 @@
 # include "return-exception/ret-exception.hpp"
 
 namespace curl {
+/**
+ * Base class for all exceptions can throw
+ * via Ret_except in this library.
+ */
 class Exception: public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
 };
+/**
+ * This exception mean that the libcurl found at
+ * runtime doesn't support particular feature/function
+ * you called.
+ */
 class NotBuiltIn_error: public Exception {
 public:
     using Exception::Exception;
 };
+/**
+ * Bugs in the libcurl found at runtime!
+ */
 class libcurl_bug: public Exception {
 public:
     using Exception::Exception;
 };
+/**
+ * You call libcurl API which perform callback from libcurl
+ * callback!
+ */
 class Recursive_api_call_Exception: public Exception {
 public:
     using Exception::Exception;
@@ -42,6 +58,9 @@ class Url_ref_t;
  */
 class curl_t {
 public:
+    /**
+     * This struct encapsulate operations on libcurl version.
+     */
     struct Version {
         std::uint32_t num;
 
@@ -162,10 +181,6 @@ public:
      */
     ~curl_t();
 
-    /**
-     * Any function below in this class is thread-safe!
-     */
-
     bool has_compression_support() const noexcept;
     bool has_largefile_support() const noexcept;
     /**
@@ -201,10 +216,16 @@ public:
 
     bool has_get_active_socket_support() const noexcept;
 
+    /**
+     * Deleter for curl::curl_t::Easy_t.
+     */
     struct Easy_deleter {
         void operator () (void *p) const noexcept;
     };
 
+    /**
+     * RAII wrapper for curl's easy handler.
+     */
     using Easy_t = std::unique_ptr<char, Easy_deleter>;
     /**
      * @param buffer_size size of receiver buffer.
@@ -223,10 +244,13 @@ public:
      * If stderr_stream set to non-NULL, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
+     *
+     * As long as stderr_stream and disable_signal_handling_v is not modified
+     * when create_easy is called, this function is thread-safe.
      */
     auto create_easy(std::size_t buffer_size = 0) noexcept -> Easy_t;
     /**
-     * @param e must not be nullptr
+     * @param easy must not be nullptr
      * @param buffer_size same as create_easy
      * @return same as create_easy
      *
@@ -244,18 +268,24 @@ public:
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
      *
-     * This function is not thread-safe. e must not be used in any way during this functino call.
+     * easy must not be used in any way during this function call.
      */
-    auto dup_easy(const Easy_t &e, std::size_t buffer_size = 0) noexcept -> Easy_t;
+    auto dup_easy(const Easy_t &easy, std::size_t buffer_size = 0) noexcept -> Easy_t;
 
     /**
      * has curl::Url support
      */
     bool has_CURLU() const noexcept;
 
+    /**
+     * Deleter for curl::curl_t::Url_t
+     */
     struct Url_deleter {
         void operator () (char *p) const noexcept;
     };
+    /**
+     * RAII wrapper for curl's Url parser.
+     */
     using Url_t = std::unique_ptr<char, Url_deleter>;
 
     /**
@@ -264,12 +294,14 @@ public:
      * Since Url_ref_t doesn't have any other data except pointer to
      * CURLU itself, returning std::unique_ptr instead of an object like Easy_t 
      * would make it easier to manage it in custom ways like std::shared_ptr.
+     *
+     * It is thread-safe.
      */
     auto create_Url() noexcept -> Url_t;
     /**
      * @param url != nullptr
      *
-     * Not thread-safe. url must not be used during this function call.
+     * url must not be used during this function call.
      */
     auto dup_Url(const Url_t &url) noexcept -> Url_t;
 
@@ -291,10 +323,21 @@ public:
     bool has_connection_cache_sharing_support() const noexcept;
     bool has_psl_sharing_support() const noexcept;
 
+    /**
+     * Deleter for curl::curl_t::Share_t
+     */
     struct Share_deleter {
         void operator () (char *p) const noexcept;
     };
+    /**
+     * RAII wrapper for curl's Share handler.
+     */
     using Share_t = std::unique_ptr<char, Share_deleter>;
+    /**
+     * Create share handler.
+     *
+     * It is thread-safe.
+     */
     auto create_share() noexcept -> Share_t;
 };
 
