@@ -14,6 +14,11 @@ namespace curl::utils {
  * Container wrapper for curl's struct curl_slist,
  * which is a single-linked list storing
  * string.
+ *
+ * Thread-safety:
+ *  - If all threads access only const member function, then it is thread-safe;
+ *  - Only one thread can call non-const member function at a time;
+ *  - If another thread is modifing this class, other reader should wait until it is done.
  */
 class slist {
 protected:
