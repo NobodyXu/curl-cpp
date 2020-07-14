@@ -70,11 +70,29 @@ public:
         constexpr std::uint8_t get_minor() const noexcept;
         constexpr std::uint8_t get_patch() const noexcept;
 
+        /**
+         * Check whether version x is older than version y.
+         */
         friend constexpr bool operator <  (const Version &x, const Version &y) noexcept;
+        /**
+         * Check whether version x is older than or the same as version y.
+         */
         friend constexpr bool operator <= (const Version &x, const Version &y) noexcept;
+        /**
+         * Check whether version x is newer than version y.
+         */
         friend constexpr bool operator >  (const Version &x, const Version &y) noexcept;
+        /**
+         * Check whether version x is newer than or the same as version y.
+         */
         friend constexpr bool operator >= (const Version &x, const Version &y) noexcept;
+        /**
+         * Check whether version x is the same as version y.
+         */
         friend constexpr bool operator == (const Version &x, const Version &y) noexcept;
+        /**
+         * Check whether version x is not the same as version y.
+         */
         friend constexpr bool operator != (const Version &x, const Version &y) noexcept;
 
         /**
