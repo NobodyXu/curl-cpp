@@ -29,29 +29,29 @@ constexpr std::uint8_t curl_t::Version::get_patch() const noexcept
     return num & mask;
 }
 
-constexpr bool curl_t::Version::operator < (const Version &other) const noexcept
+constexpr bool operator <  (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num < other.num;
+    return x.num < y.num;
 }
-constexpr bool curl_t::Version::operator <= (const Version &other) const noexcept
+constexpr bool operator <= (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num <= other.num;
+    return x.num <= y.num;
 }
-constexpr bool curl_t::Version::operator > (const Version &other) const noexcept
+constexpr bool operator >  (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num > other.num;
+    return x.num > y.num;
 }
-constexpr bool curl_t::Version::operator >= (const Version &other) const noexcept
+constexpr bool operator >= (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num >= other.num;
+    return x.num >= y.num;
 }
-constexpr bool curl_t::Version::operator == (const Version &other) const noexcept
+constexpr bool operator == (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num == other.num;
+    return x.num == y.num;
 }
-constexpr bool curl_t::Version::operator != (const Version &other) const noexcept
+constexpr bool operator != (const curl_t::Version &x, const curl_t::Version &y) noexcept
 {
-    return num != other.num;
+    return x.num != y.num;
 }
 
 std::size_t curl_t::Version::to_string(char buffer[12]) const noexcept

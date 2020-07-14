@@ -70,12 +70,12 @@ public:
         constexpr std::uint8_t get_minor() const noexcept;
         constexpr std::uint8_t get_patch() const noexcept;
 
-        constexpr bool operator < (const Version &other) const noexcept;
-        constexpr bool operator <= (const Version &other) const noexcept;
-        constexpr bool operator > (const Version &other) const noexcept;
-        constexpr bool operator >= (const Version &other) const noexcept;
-        constexpr bool operator == (const Version &other) const noexcept;
-        constexpr bool operator != (const Version &other) const noexcept;
+        friend constexpr bool operator <  (const Version &x, const Version &y) noexcept;
+        friend constexpr bool operator <= (const Version &x, const Version &y) noexcept;
+        friend constexpr bool operator >  (const Version &x, const Version &y) noexcept;
+        friend constexpr bool operator >= (const Version &x, const Version &y) noexcept;
+        friend constexpr bool operator == (const Version &x, const Version &y) noexcept;
+        friend constexpr bool operator != (const Version &x, const Version &y) noexcept;
 
         /**
          * @param buffer is required to be at least 12 bytes long.
