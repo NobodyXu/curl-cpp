@@ -31,4 +31,7 @@ clean:
 	rm -f *.o $(DEPS) $(DEPS:.d=.Td) $(OBJS) libcurl_cpp.a
 	$(MAKE) -C test/ clean
 
-.PHONY: clean test
+gendoc:
+	doxygen Doxyfile
+
+.PHONY: clean test gendoc
