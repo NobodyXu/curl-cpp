@@ -10,6 +10,11 @@
 # include "../return-exception/ret-exception.hpp"
 
 namespace curl::utils {
+/**
+ * Container wrapper for curl's struct curl_slist,
+ * which is a single-linked list storing
+ * string.
+ */
 class slist {
     void *list = nullptr;
 
@@ -76,6 +81,12 @@ public:
     slist& operator = (slist &&other) noexcept;
 
     void swap(slist &other) noexcept;
+    /**
+     * Free all elements stored in the slist and the slist
+     * itself.
+     *
+     * Set private member slist::list to nullptr.
+     */
     void clear() noexcept;
 
     ~slist();
@@ -91,10 +102,13 @@ public:
     auto cbegin() const noexcept -> const_iterator;
     auto cend() const noexcept -> const_iterator;
 
+    /**
+     * Get underlying struct curl_slist* pointer.
+     */
     auto get_underlying_ptr() const noexcept -> void*;
 
     /**
-     * @param str is copied before adding to the list.
+     * @param str is dupped before adding to the list.
      *            Must not be CRLF-terminated for use in curl::Easy_ref_t::set_http_header.
      */
     auto push_back(const char *str) noexcept -> Ret_except<void, std::bad_alloc>;
