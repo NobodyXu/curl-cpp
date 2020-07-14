@@ -14,6 +14,7 @@ namespace curl {
  * can be destroyed.
  */
 class Share_base {
+protected:
     curl_t::Share_t curl_share;
 
 public:
