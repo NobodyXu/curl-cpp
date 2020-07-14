@@ -71,7 +71,7 @@ public:
     /**
      * HTTP2 multiplexing configuration.
      *
-     * @Precondition curl_t::has_http2_multiplex_support()
+     * @pre curl_t::has_http2_multiplex_support()
      * @param max_concurrent_stream max concurrent stream for a given connection.
      *                              Should be between [1, 2 ^ 31 - 1].
      *                              Set it to 1 or 0 disable multiplexing.
@@ -89,7 +89,7 @@ public:
     /* Interface for poll + perform - multi_poll interface */
 
     /**
-     * @Precondition curl_t::has_multi_poll_support()
+     * @pre curl_t::has_multi_poll_support()
      * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
      * @return number of fd on which interested events occured.
      *
@@ -103,7 +103,7 @@ public:
         Ret_except<int, std::bad_alloc, libcurl_bug>;
 
     /**
-     * @Precondition curl_t::has_multi_poll_support()
+     * @pre curl_t::has_multi_poll_support()
      * @param timeout Must be >= 0, in ms. Pass 0 for infinite.
      * @return -1 when get_number_of_handles() == 0;
      *         Otherwise number of fd on which interested events occured, can be 0.
@@ -125,7 +125,7 @@ public:
     using perform_callback_t = void (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, 
                                         Multi_t &multi, void *arg);
     /**
-     * @Precondition perform_callback is set.
+     * @pre perform_callback is set.
      * @return number of running handles
      *
      * perform() is called only if poll is used.
@@ -187,7 +187,7 @@ public:
                            timer_callback_t timer_callback, void *timer_data) noexcept;
 
     /**
-     * @Precondition socketfd must be valid
+     * @pre socketfd must be valid
      * @return std::invalild_argument if socketfd is not valid.
      *
      * By default, per_sockptr == nullptr.
@@ -198,7 +198,7 @@ public:
         Ret_except<void, std::invalid_argument>;
 
     /**
-     * @Precondition enable_multi_socket_interface() is called,
+     * @pre enable_multi_socket_interface() is called,
      *               perform_callback, socket_callback, timer_callback is set.
      *
      * @param socketfd fd to be notified;
@@ -222,7 +222,7 @@ public:
         Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>;
 
     /**
-     * @Precondition get_number_of_handles() == 0
+     * @pre get_number_of_handles() == 0
      */
     ~Multi_t();
 

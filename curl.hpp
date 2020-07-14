@@ -92,7 +92,7 @@ public:
     FILE *stderr_stream;
 
     /**
-     * @Precondition has_disable_signal_handling_support()
+     * @pre has_disable_signal_handling_support()
      *
      * If your libcurl uses standard name resolver, disable signal handling might cause timeout to never 
      * occur during name resolution.

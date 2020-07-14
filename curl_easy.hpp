@@ -98,7 +98,7 @@ public:
     static std::size_t get_error_buffer_size() noexcept;
 
     /**
-     * @para buffer either nullptr to disable error buffer,
+     * @param buffer either nullptr to disable error buffer,
      *              or at least get_error_buffer_size() big.
      *
      * The error buffer must be kept around until call set_error_buffer again
@@ -109,12 +109,12 @@ public:
     void set_error_buffer(char *error_buffer) noexcept;
 
     /**
-     * @Precondition curl_t::has_private_ptr_support()
+     * @pre curl_t::has_private_ptr_support()
      * @param userp any user-defined pointer. Default to nullptr.
      */
     void set_private(void *userp) noexcept;
     /**
-     * @Precondition curl_t::has_private_ptr_support()
+     * @pre curl_t::has_private_ptr_support()
      * @return pointer set via set_private or nullptr if not set at all.
      */
     void* get_private() const noexcept;
@@ -135,7 +135,7 @@ public:
     void set_writeback(writeback_t writeback, void *userp) noexcept;
 
     /**
-     * @Precondition curl_t::has_CURLU()
+     * @pre curl_t::has_CURLU()
      * @param url content of it must not be changed during call to perform(),
      *            but can be changed once it is finished.
      */
@@ -147,7 +147,7 @@ public:
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
      *                This string will be strdup-ed and override previous call.
      *                This is defaulted to nullptr.
@@ -176,7 +176,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminte string for the filename of the cookie file;
      *                        "" to enable cookie engine without any initial cookies;
      *                        "-" to read the cookie from stdin;
@@ -225,7 +225,7 @@ public:
         Ret_except<void, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminated string;
      *                        "-" write cookies to stdout;
      *                        Does not have to keep around after this call.
@@ -257,7 +257,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminte string for the filename of the cookie file;
      *                        Does not have to keep around after this call.
      *                        This is default to nullptr.
@@ -300,7 +300,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      *
      * It will force libcurl to ignore all cookies it is about to load that 
      * are "session cookies" from the previous session. 
@@ -320,7 +320,7 @@ public:
     void start_new_cookie_session() noexcept;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *               curl_t::has_erase_all_cookies_in_mem_support().
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
@@ -329,7 +329,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *               curl_t::has_erase_all_session_cookies_in_mem_support()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
@@ -344,7 +344,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *               curl_t::has_flush_cookies_to_jar()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
@@ -355,7 +355,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *               curl_t::has_reload_cookies_from_file()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
@@ -366,7 +366,7 @@ public:
         Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param redir set to 0 to disable redirection.
      *              set to -1 to allow infinite number of redirections.
      *              Other number enables redir number of redirections.
@@ -374,12 +374,12 @@ public:
     void set_follow_location(long redir) noexcept;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param useragent pass nullptr for no useragent (default)
      */
     auto set_useragent(const char *useragent) noexcept -> Ret_except<void, std::bad_alloc>;
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param encoding "" for enable all (default);
      *                 nullptr for disable all (including auto decompression).
      */
@@ -392,7 +392,7 @@ public:
     auto set_interface(const char *value) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @Precondition curl_t::has_set_ip_addr_only_support()
+     * @pre curl_t::has_set_ip_addr_only_support()
      * @param ip_addr ipv4/ipv6 address
      */
     auto set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
@@ -423,7 +423,7 @@ public:
         separate, // reverse of unified
     };
     /**
-     * @Precondition url is set to use http(s)
+     * @pre url is set to use http(s)
      * @param l will not be copied, thus it is required to be kept
      *          around until another set_http_header is issued or 
      *          this Easy_t is destroyed.
@@ -462,13 +462,13 @@ public:
     void set_nobody(bool enable) noexcept;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      *
      * This is the default for http, and would also set_nobody(false).
      */
     void request_get() noexcept;
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param len if set to -1, then libcurl would strlen(data) to determine its length.
      *
      * The data pointed to is NOT copied by the library: as a consequence, it must be preserved by 
@@ -492,13 +492,13 @@ public:
     using readback_t = std::size_t (*)(char *buffer, std::size_t size, std::size_t nitems, void *userp);
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param len optional. Set to -1 means length of data is not known ahead of time.
      */
     void request_post(readback_t readback, void *userp, std::size_t len = -1) noexcept;
 
     /**
-     * @Precondition curl_t::has_protocol(protocol you use in url)
+     * @pre curl_t::has_protocol(protocol you use in url)
      * @exception NotSupported_error, std::bad_alloc or any exception defined in this class
      */
     enum class code {
@@ -524,29 +524,29 @@ public:
     long get_response_code() const noexcept;
 
     /**
-     * @Precondition curl_t::has_sizeof_upload_support()
+     * @pre curl_t::has_sizeof_upload_support()
      * @return in bytes
      */
     std::size_t getinfo_sizeof_uploaded() const noexcept;
     /**
-     * @Precondition curl_t::has_sizeof_response_header_support()
+     * @pre curl_t::has_sizeof_response_header_support()
      * @return in bytes
      */
     std::size_t getinfo_sizeof_response_header() const noexcept;
     /**
-     * @Precondition curl_t::has_sizeof_response_body_support()
+     * @pre curl_t::has_sizeof_response_body_support()
      * @return in bytes
      */
     std::size_t getinfo_sizeof_response_body() const noexcept;
 
     /**
-     * @Precondition curl_t::has_transfer_time_support()
+     * @pre curl_t::has_transfer_time_support()
      * @return transfer time in ms
      */
     std::size_t getinfo_transfer_time() const noexcept;
 
     /**
-     * @Precondition curl_t::has_redirect_url_support() && 
+     * @pre curl_t::has_redirect_url_support() && 
      *               url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *
@@ -559,7 +559,7 @@ public:
     auto getinfo_redirect_url() const noexcept -> const char*;
 
     /**
-     * @Precondition url is set to use http(s) && curl_t::has_protocol("http") &&
+     * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *               curl_t::has_getinfo_cookie_list_support()
      *
      * @return note that libcurl can be built with cookies disabled, thus this library
@@ -575,7 +575,7 @@ public:
         Ret_except<utils::slist, curl::NotBuiltIn_error>;
 
     /**
-     * @Precondition curl_t::has_get_active_socket_support()
+     * @pre curl_t::has_get_active_socket_support()
      * @return CURL_SOCKET_BAD if no valid socket or not supported
      *
      * The return value can be used in Multi_t::multi_assign()
