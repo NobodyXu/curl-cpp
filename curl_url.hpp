@@ -65,14 +65,14 @@ public:
     /**
      * Deleter for curl::Url_ref_t::string.
      */
-    struct curl_delete {
+    struct curl_string_deleter {
         void operator () (char *p) const noexcept;
     };
     /**
      * std::unique_ptr for any libcurl-returned string
      * that requires deallocation.
      */
-    using string = std::unique_ptr<char, curl_delete>;
+    using string = std::unique_ptr<char, curl_string_deleter>;
 
     /**
      * get_code::no_* can be returned by respective get_*() function.

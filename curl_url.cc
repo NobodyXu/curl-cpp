@@ -18,7 +18,7 @@ auto curl_t::dup_Url(const Url_t &url) noexcept -> Url_t
     return Url_t{static_cast<char*>(static_cast<void*>(new_curl_url))};
 }
 
-void Url_ref_t::curl_delete::operator () (char *p) const noexcept
+void Url_ref_t::curl_string_deleter::operator () (char *p) const noexcept
 {
     if (p)
         curl_free(p);
