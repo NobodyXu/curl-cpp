@@ -16,7 +16,9 @@ namespace curl {
  * std::shared_ptr<Url_ref_t>, introducing another layer of indirection
  * while it doesn't have to.
  *
- * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
+ * Url_ref_t's member function cannot be called in multiple threads simultaneously. 
+ *
+ * "<scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>"
  */
 class Url_ref_t {
 protected:
