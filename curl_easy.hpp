@@ -19,6 +19,8 @@ namespace curl {
  * provided that libcurl callback provides CURL* and that option CURLOPT_PRIVATE 
  * which enables storing any object, isn't support until 7.10.3.
  *
+ * Easy_ref_t's member function cannot be called in multiple threads simultaneously. 
+ *
  * PERSISTENT CONNECTIONS
  *     Persistent connections means that libcurl can re-use the same connection for several transfers, 
  *     if the conditions are right.
