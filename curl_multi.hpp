@@ -4,12 +4,31 @@
 # include "curl_easy.hpp"
 
 namespace curl {
+/**
+ * Multi_t enables user to simultaneously do multiple request
+ * in the same thread, using any polling interface they prefer.
+ *
+ * This class contains poll() interface (wrapping curl_multi_poll, doesn't
+ * add additional space to use it), and multi_socket_action interface 
+ * that enables using any interface. They are incompatible and should not be 
+ * mixed.
+ *
+ * Multi_t can only be used in one thread at a time.
+ *
+ * All easy handles must be removed from this class before it can be 
+ * properly destroyed.
+ * Failure to do so invokes undefined behavior.
+ */
 class Multi_t {
 protected:
     void *curl_multi;
     std::size_t handles = 0;
 
 public:
+    /**
+     * Base class for any exceptions thrown via Ret_except in 
+     * this class.
+     */
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -22,25 +41,19 @@ public:
 
     Multi_t(void *multi) noexcept;
 
+    Multi_t(const Multi_t&) = delete;
     /**
-     * @Precondition get_number_of_running_handles() == 0
      * @param other after mv operation, other is in invalid state and can only be destroyed
      *              or move assign another value.
      */
-    Multi_t(const Multi_t&) = delete;
     Multi_t(Multi_t&&) noexcept;
 
     Multi_t& operator = (const Multi_t&) = delete;
     /**
-     * @Precondition get_number_of_running_handles() == 0
      * @param other after mv operation, other is in invalid state and can only be destroyed
      *              or move assign another value.
      */
     Multi_t& operator = (Multi_t&&) noexcept;
-
-    /**
-     * all member functions mustn't be called during perform()
-     */
 
     /**
      * @param easy must be in valid state
