@@ -16,6 +16,7 @@ namespace curl::utils {
  * string.
  */
 class slist {
+protected:
     void *list = nullptr;
 
     template <class Pointer, class value_t>
@@ -85,7 +86,7 @@ public:
      * Free all elements stored in the slist and the slist
      * itself.
      *
-     * Set private member slist::list to nullptr.
+     * Set protected member slist::list to nullptr.
      */
     void clear() noexcept;
 
