@@ -94,6 +94,14 @@ public:
      * The mutex you used must be pthread_rwlock_t or std::shared_mutex.
      */
     using lock_function_t = void (*)(CURL *handle, curl_lock_data data, curl_lock_access access, void *userptr);
+    /**
+     * Possible value of data: same as enum class Options
+     *
+     * Possible value of access:
+     *  - CURL_LOCK_ACCESS_SHARED,
+     *  - CURL_LOCK_ACCESS_SINGLE,
+     * The mutex you used must be pthread_rwlock_t or std::shared_mutex.
+     */
     using unlock_function_t = void (*)(CURL *handle, curl_lock_data data, void *userptr);
 
     /**
@@ -109,7 +117,14 @@ public:
      * or all easy is removed.
      */
     auto enable_sharing(Options option) noexcept -> Ret_except<int, std::bad_alloc>;
-    void disable_sharing(Options option) noexcept;
+    /**
+     * @param option must be one of enum class Options.
+     *               Cannot be or-ed value.
+     *
+     * All sharing enable/disable must be done when no easy is added
+     * or all easy is removed.
+     */
+     void disable_sharing(Options option) noexcept;
 
     void add_easy(Easy_ref_t &easy) noexcept;
     void remove_easy(Easy_ref_t &easy) noexcept;
@@ -184,6 +199,14 @@ public:
     }
 };
 
+/**
+ * Sepecialiation of Share that does no locking, thus
+ * is multithread unsafe.
+ *
+ * This provides the same interface as any other Share<T>, 
+ * so that your template can simply pass void to 
+ * disable locking.
+ */
 template <>
 class Share<void>: public Share_base {
 public:
