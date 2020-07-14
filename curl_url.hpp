@@ -15,6 +15,8 @@ namespace curl {
  * It Url_ref_t is RAII-ed, then user would have to write
  * std::shared_ptr<Url_ref_t>, introducing another layer of indirection
  * while it doesn't have to.
+ *
+ * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
  */
 class Url_ref_t {
 protected:
@@ -48,10 +50,6 @@ public:
     auto set_url(const char *url_arg) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
     /**
-     * <scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<fragment>
-     */
-
-    /**
      * @return only set_code::unsupported_scheme, malform_input, ok
      */
     auto set_scheme(const char *scheme) noexcept -> Ret_except<set_code, std::bad_alloc>;
@@ -64,9 +62,16 @@ public:
      */
     auto set_query(const char *query) noexcept -> Ret_except<set_code, std::bad_alloc>;
 
+    /**
+     * Deleter for curl::Url_ref_t::string.
+     */
     struct curl_delete {
         void operator () (char *p) const noexcept;
     };
+    /**
+     * std::unique_ptr for any libcurl-returned string
+     * that requires deallocation.
+     */
     using string = std::unique_ptr<char, curl_delete>;
 
     /**
