@@ -1,1 +1,0 @@
-../test/test_curl_multi_socket_action.cc
