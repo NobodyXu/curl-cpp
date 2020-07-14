@@ -9,6 +9,11 @@ namespace curl::utils {
  *
  * To use this interface, you'd have to add
  * -lpthread to LDFLAGS of your project.
+ *
+ * This class is designed specifically for
+ * curl::Share, which requires a std::shared_mutex
+ * like interface, but have to be able to unlock
+ * shared lock/normal lock with a single function.
  */
 class shared_mutex {
     pthread_rwlock_t rwlock;
@@ -36,6 +41,9 @@ public:
      */
     void lock_shared() noexcept;
 
+    /**
+     * One unlock function for lock()/lock_shared().
+     */
     void unlock() noexcept;
 };
 } /* namespace curl::utils */
