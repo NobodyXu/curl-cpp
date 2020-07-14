@@ -12,6 +12,9 @@ namespace curl {
 /**
  * All easy handler must be removed before Share_base
  * can be destroyed.
+ *
+ * To use in a thread-safe manner, you must call
+ * add_lock with non-nullptr.
  */
 class Share_base {
 protected:
