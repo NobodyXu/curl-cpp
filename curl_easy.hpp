@@ -46,6 +46,12 @@ public:
 
     friend Multi_t;
 
+    /**
+     * Base class for any exception thrown via
+     * Ret_except in this class -- except for
+     * cookie-related function, which can throw
+     * curl::NotBuiltIn_error.
+     */
     class Exception: public curl::Exception {
     public:
         const long error_code;
@@ -55,10 +61,26 @@ public:
 
         auto what() const noexcept -> const char*;
     };
+    /**
+     * It means that 
+     *
+     *  > A requested feature, protocol or option was not found built-in in this libcurl 
+     *  > due to a build-time decision. 
+     *  > This means that a feature or option was not enabled or explicitly disabled 
+     *  > when libcurl was built and in order to get it to function you have to get a rebuilt libcurl.
+     *
+     * From https://curl.haxx.se/libcurl/c/libcurl-errors.html
+     */
     class NotBuiltIn_error: public Exception {
     public:
         using Exception::Exception;
     };
+    /**
+     * Internal error in protocol layer.
+     *
+     * If you have error buffer set via set_error_buffer,
+     * you can check that for an in-detail error message.
+     */
     class ProtocolInternal_error: public Exception {
     public:
         using Exception::Exception;
@@ -87,9 +109,14 @@ public:
     void set_error_buffer(char *error_buffer) noexcept;
 
     /**
-     * @Precondition
+     * @Precondition curl_t::has_private_ptr_support()
+     * @param userp any user-defined pointer. Default to nullptr.
      */
     void set_private(void *userp) noexcept;
+    /**
+     * @Precondition curl_t::has_private_ptr_support()
+     * @return pointer set via set_private or nullptr if not set at all.
+     */
     void* get_private() const noexcept;
 
     /**
