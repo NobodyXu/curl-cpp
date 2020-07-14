@@ -13,7 +13,7 @@ namespace curl {
  * that enables using any interface. They are incompatible and should not be 
  * mixed.
  *
- * Multi_t can only be used in one thread at a time.
+ * Multi_t's member function cannot be called in multiple threads simultaneously. 
  *
  * All easy handles must be removed from this class before it can be 
  * properly destroyed.
