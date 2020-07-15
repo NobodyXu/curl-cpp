@@ -200,6 +200,13 @@ class Share: public Share_base {
 public:
     using Share_base::Share_base;
 
+    /**
+     * @param base any usable Share_base object.
+     */
+    Share(Share_base &&base) noexcept:
+        Share_base{std::move(base)}
+    {}
+
     void enable_multithreaded_share() noexcept
     {
         add_lock([](CURL *handle, curl_lock_data data, curl_lock_access access, void *userptr) noexcept {
