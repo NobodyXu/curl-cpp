@@ -300,7 +300,7 @@ public:
      * It also will not inherit any share object states or options 
      * (it will be made as if CURLOPT_SHARE was set to NULL).
      *
-     * If stderr_stream set to non-NULL, verbose info will be printed
+     * If stderr_stream set to non-nullptr, verbose info will be printed
      * there.
      * If disable_signal_handling_v is set, signal handling is disabled.
      *
