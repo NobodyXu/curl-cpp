@@ -8,6 +8,5 @@ var searchData=
   ['create_5fshare_8',['create_share',['../classcurl_1_1curl__t.html#a5d99a996754e19eb3c2b74f2701a8f67',1,'curl::curl_t']]],
   ['create_5furl_9',['create_Url',['../classcurl_1_1curl__t.html#a59e1bed85dc1666ee6d3e055082da19f',1,'curl::curl_t']]],
   ['curl_5fstring_5fdeleter_10',['curl_string_deleter',['../structcurl_1_1Url__ref__t_1_1curl__string__deleter.html',1,'curl::Url_ref_t']]],
-  ['curl_5ft_11',['curl_t',['../classcurl_1_1curl__t.html',1,'curl::curl_t'],['../classcurl_1_1curl__t.html#a6b08f4c868948bea1f13dfb0e5a2236d',1,'curl::curl_t::curl_t(FILE *stderr_stream_arg) noexcept'],['../classcurl_1_1curl__t.html#a7afd1e67a8cdacde25381720128d0574',1,'curl::curl_t::curl_t(FILE *stderr_stream_arg, malloc_callback_t malloc_callback, free_callback_t free_callback, realloc_callback_t realloc_callback, strdup_callback_t strdup_callback, calloc_callback_t calloc_callback) noexcept']]],
-  ['curl_2dcpp_12',['curl-cpp',['../md_README.html',1,'']]]
+  ['curl_5ft_11',['curl_t',['../classcurl_1_1curl__t.html',1,'curl::curl_t'],['../classcurl_1_1curl__t.html#a6b08f4c868948bea1f13dfb0e5a2236d',1,'curl::curl_t::curl_t(FILE *stderr_stream_arg) noexcept'],['../classcurl_1_1curl__t.html#a7afd1e67a8cdacde25381720128d0574',1,'curl::curl_t::curl_t(FILE *stderr_stream_arg, malloc_callback_t malloc_callback, free_callback_t free_callback, realloc_callback_t realloc_callback, strdup_callback_t strdup_callback, calloc_callback_t calloc_callback) noexcept']]]
 ];
