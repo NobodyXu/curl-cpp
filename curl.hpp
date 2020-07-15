@@ -54,7 +54,7 @@ class Multi_t;
 class Url_ref_t;
 
 /**
- * Must be defined as a static global variable in main
+ * Must be defined before any thread is created.
  */
 class curl_t {
 public:
