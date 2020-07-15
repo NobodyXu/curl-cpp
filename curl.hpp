@@ -195,6 +195,14 @@ public:
     /**
      * Destructor is not thread safe.
      *
+     * You must not call it when any other thread in the program 
+     * (i.e. a thread sharing the same memory) is running. 
+     *
+     * This doesn't just mean no other thread that is using libcurl. 
+     * Because curl_global_cleanup calls functions of other libraries that 
+     * are similarly thread unsafe, it could conflict with any other thread that 
+     * uses these other libraries.
+     *
      * This dtor does not block waiting for any libcurl-created threads 
      * to terminate (such as threads used for name resolving). 
      *
