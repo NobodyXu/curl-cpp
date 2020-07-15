@@ -15,6 +15,7 @@ auto curl_t::create_multi() noexcept -> Ret_except<Multi_t, curl::Exception>
 Multi_t::Multi_t(void *multi) noexcept:
     curl_multi{multi}
 {}
+
 Multi_t::Multi_t(Multi_t &&other) noexcept:
     curl_multi{other.curl_multi}
 {
@@ -32,6 +33,17 @@ Multi_t& Multi_t::operator = (Multi_t &&other) noexcept
     handles = other.handles;
 
     return *this;
+}
+
+Multi_t::operator bool () const noexcept
+{
+    return curl_multi != nullptr;
+}
+
+Multi_t::~Multi_t()
+{
+    if (curl_multi)
+        curl_multi_cleanup(curl_multi);
 }
 
 bool Multi_t::add_easy(Easy_ref_t &easy) noexcept
@@ -150,11 +162,5 @@ auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask,
     while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
     return check_perform(code, running_handles, "In curl_multi_socket_action", perform_callback, arg);
-}
-
-Multi_t::~Multi_t()
-{
-    if (curl_multi)
-        curl_multi_cleanup(curl_multi);
 }
 } /* namespace curl */

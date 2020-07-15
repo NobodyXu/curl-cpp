@@ -43,17 +43,22 @@ public:
 
     Multi_t(const Multi_t&) = delete;
     /**
-     * @param other after mv operation, other is in invalid state and can only be destroyed
+     * @param other after mv operation, other is in unusable state and can only be destroyed
      *              or move assign another value.
      */
     Multi_t(Multi_t&&) noexcept;
 
     Multi_t& operator = (const Multi_t&) = delete;
     /**
-     * @param other after mv operation, other is in invalid state and can only be destroyed
+     * @param other after mv operation, other is in unusable state and can only be destroyed
      *              or move assign another value.
      */
     Multi_t& operator = (Multi_t&&) noexcept;
+
+    /**
+     * @return true if this object is usable, false otherwise
+     */
+    operator bool () const noexcept;
 
     /**
      * @param easy must be in valid state
