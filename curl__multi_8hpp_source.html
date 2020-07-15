@@ -134,219 +134,226 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Multi_t(<span class="keyword">const</span> <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     * @param other after mv operation, other is in invalid state and can only be destroyed</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     * @param other after mv operation, other is in unusable state and can only be destroyed</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     *              or move assign another value.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classcurl_1_1Multi__t.html#a0fa5766946a2e509fb96d91f1c46a783">Multi_t</a>(<a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp;&amp;) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp; operator = (<span class="keyword">const</span> <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     * @param other after mv operation, other is in invalid state and can only be destroyed</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     * @param other after mv operation, other is in unusable state and can only be destroyed</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     *              or move assign another value.</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp; <a class="code" href="classcurl_1_1Multi__t.html#af726c6abf5ecf7973a8566be2b89ed50">operator</a> = (<a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&amp;&amp;) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     * @param easy must be in valid state</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     * @return true if not yet added;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">     *         false if already added.</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classcurl_1_1Multi__t.html#a8c14c2e67419178ba0f01f3c6cfde4c6">add_easy</a>(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     * Undefined behavior if easy is not valid or not added to this multi.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#a4352a0222ebe30882867481b0eb915ef">remove_easy</a>(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::size_t get_number_of_handles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">     * HTTP2 multiplexing configuration.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">     * @pre curl_t::has_http2_multiplex_support()</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * @param max_concurrent_stream max concurrent stream for a given connection.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     *                              Should be between [1, 2 ^ 31 - 1].</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     *                              Set it to 1 or 0 disable multiplexing.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     * @return true if this object is usable, false otherwise</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classcurl_1_1Multi__t.html#aaa2894dade63837d638acc8d6a96dad7">operator</a> <span class="keywordtype">bool</span> () <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     * @param easy must be in valid state</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     * @return true if not yet added;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     *         false if already added.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classcurl_1_1Multi__t.html#a8c14c2e67419178ba0f01f3c6cfde4c6">add_easy</a>(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     * Undefined behavior if easy is not valid or not added to this multi.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#a4352a0222ebe30882867481b0eb915ef">remove_easy</a>(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::size_t get_number_of_handles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * HTTP2 multiplexing configuration.</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     * Since curl_t::version &gt;= 7.62.0, multiplex is turned on by default.</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * NOTE that libcurl not always accept max_concurrent_stream tuning.</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * Check curl_t::has_max_concurrent_stream_support().</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     * @pre curl_t::has_http2_multiplex_support()</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     * @param max_concurrent_stream max concurrent stream for a given connection.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     *                              Should be between [1, 2 ^ 31 - 1].</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     *                              Set it to 1 or 0 disable multiplexing.</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     * If libcurl does not support tuning, this option will be only used</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     * for turning on and off the http2 multiplex.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">set_multiplexing</a>(<span class="keywordtype">long</span> max_concurrent_stream) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">/* Interface for poll + perform - multi_poll interface */</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">     * @pre curl_t::has_multi_poll_support()</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">     * @param timeout Must be &gt;= 0, in ms. Pass 0 for infinite.</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">     * @return number of fd on which interested events occured.</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">     * poll can return if interesting events has happened or timeout ms</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * has passed and nothing has heppend.</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">     * It also can return due to pending internal timeout that </span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">     * has a shorter expiry time than timeout_ms.</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">poll</a>(curl_waitfd *extra_fds = <span class="keywordtype">nullptr</span>, <span class="keywordtype">unsigned</span> extra_nfds = 0U, <span class="keywordtype">int</span> timeout = 0) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">     * @pre curl_t::has_multi_poll_support()</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">     * @param timeout Must be &gt;= 0, in ms. Pass 0 for infinite.</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">     * @return -1 when get_number_of_handles() == 0;</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">     *         Otherwise number of fd on which interested events occured, can be 0.</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">     * Behavior is same as poll.</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a2d8a8a61610b3df723c71c0597e67283">break_or_poll</a>(curl_waitfd *extra_fds = <span class="keywordtype">nullptr</span>, <span class="keywordtype">unsigned</span> extra_nfds = 0U, <span class="keywordtype">int</span> timeout = 0) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">     * perform_callback can call arbitary member functions on easy, but probably</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">     * not a good idea to call easy.perform().</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">     * If you want to destroy and free easy.curl_easy, you must first </span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">     * multi.remove_easy(easy_ref) it.</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">     * If easy_ref isn&#39;t removed from Multi, then the same transfer will happen again.</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">using</span> perform_callback_t = <span class="keywordtype">void</span> (*)(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy, <a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a>::perform_ret_t ret,</div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#a09f95344eee9e5ea1b9e5b9491addb60">  126</a></span>&#160;                                        <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a> &amp;multi, <span class="keywordtype">void</span> *arg);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">     * @pre perform_callback is set.</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     * @return number of running handles</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">     * perform() is called only if poll is used.</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">     * After perform, perform_callback will be called for each completed</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">     * easy.</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">     * **YOU MUST CALL perform() after to start the transfer, then poll**</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     * Since curl_t::version &gt;= 7.62.0, multiplex is turned on by default.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">     * NOTE that libcurl not always accept max_concurrent_stream tuning.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">     * Check curl_t::has_max_concurrent_stream_support().</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">     * If libcurl does not support tuning, this option will be only used</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     * for turning on and off the http2 multiplex.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">set_multiplexing</a>(<span class="keywordtype">long</span> max_concurrent_stream) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">/* Interface for poll + perform - multi_poll interface */</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * @pre curl_t::has_multi_poll_support()</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     * @param timeout Must be &gt;= 0, in ms. Pass 0 for infinite.</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">     * @return number of fd on which interested events occured.</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">     * poll can return if interesting events has happened or timeout ms</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">     * has passed and nothing has heppend.</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">     * It also can return due to pending internal timeout that </span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">     * has a shorter expiry time than timeout_ms.</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">poll</a>(curl_waitfd *extra_fds = <span class="keywordtype">nullptr</span>, <span class="keywordtype">unsigned</span> extra_nfds = 0U, <span class="keywordtype">int</span> timeout = 0) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">     * @pre curl_t::has_multi_poll_support()</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">     * @param timeout Must be &gt;= 0, in ms. Pass 0 for infinite.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">     * @return -1 when get_number_of_handles() == 0;</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     *         Otherwise number of fd on which interested events occured, can be 0.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">     * Behavior is same as poll.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a2d8a8a61610b3df723c71c0597e67283">break_or_poll</a>(curl_waitfd *extra_fds = <span class="keywordtype">nullptr</span>, <span class="keywordtype">unsigned</span> extra_nfds = 0U, <span class="keywordtype">int</span> timeout = 0) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">     * perform_callback can call arbitary member functions on easy, but probably</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">     * not a good idea to call easy.perform().</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">     * If you want to destroy and free easy.curl_easy, you must first </span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">     * multi.remove_easy(easy_ref) it.</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">     * If easy_ref isn&#39;t removed from Multi, then the same transfer will happen again</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     * in the next call to Multi_t::perform or </span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     * Multi_t::multi_socket_action(socketfd of this easy handler, events, ...).</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">using</span> perform_callback_t = <span class="keywordtype">void</span> (*)(<a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy, <a class="code" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a>::perform_ret_t ret,</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#a09f95344eee9e5ea1b9e5b9491addb60">  133</a></span>&#160;                                        <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a> &amp;multi, <span class="keywordtype">void</span> *arg);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">     * @pre perform_callback is set.</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">     * @return number of running handles</span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">     * Using libcurl version &gt;= 7.10.3 can provide better error message</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">     * if Easy_ref_t::ProtocolInternal_error is thrown.</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">perform</a>(perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">/* </span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">     * @return should be 0</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">     * Interface for using arbitary event-based interface - multi_socket interface </span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">     * Precondition for using this interface:</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">     *  - curl_t::has_multi_socket_support()</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">using</span> socket_callback_t = <span class="keywordtype">int</span> (*)(CURL *curl_easy,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                                      curl_socket_t s,</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                      <span class="comment">/**</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">                                       * Possible value for what:</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">                                       *  - CURL_POLL_IN,</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">                                       *  - CURL_POLL_OUT,</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">                                       *  - CURL_POLL_INOUT,</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">                                       *  - CURL_POLL_REMOVE</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">                                       */</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                                      <span class="keywordtype">int</span> what,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                      <span class="keywordtype">void</span> *userp,</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                                      <span class="keywordtype">void</span> *per_socketp);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">     * @param timeout_ms -1 means you should delete the timer. </span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">     *                   All other values are valid expire times in number of milliseconds.</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">     * @return should be 0 on success</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">     *                   -1 on failure.</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">     * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">     * When time that timer fires, call multi_socket_action().</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">     * The timer_callback will only be called when the timeout expire time is changed.</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7">  177</a></span>&#160;    <span class="keyword">using</span> timer_callback_t = <span class="keywordtype">int</span> (*)(CURLM *multi, <span class="keywordtype">long</span> timeout_ms, <span class="keywordtype">void</span> *userp);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">     * @param socket_callback, timer_callback setting them to nullptr would</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">     *                                        disable multi_socket_action interface.</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">     * You must call this function with non-NULL socket_callback and timer_callback</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">     * before adding any easy handles.</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">register_callback</a>(socket_callback_t socket_callback, <span class="keywordtype">void</span> *socket_data,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                           timer_callback_t timer_callback, <span class="keywordtype">void</span> *timer_data) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">     * @pre socketfd must be valid</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">     * @return std::invalild_argument if socketfd is not valid.</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">     * By default, per_sockptr == nullptr.</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">     * You can call this function from socket_callback.</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">multi_assign</a>(curl_socket_t socketfd, <span class="keywordtype">void</span> *per_sockptr) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        Ret_except&lt;<span class="keywordtype">void</span>, std::invalid_argument&gt;;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">     * @pre enable_multi_socket_interface() is called,</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">     *               perform_callback, socket_callback, timer_callback is set.</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">     * @param socketfd fd to be notified;</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">     *                 CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process.</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">     * @param ev_bitmask Or-ed with 0 or one of the value below:</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">     *    - CURL_CSELECT_IN,</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">     *    - CURL_CSELECT_OUT,</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">     *    - CURL_CSELECT_ERR,</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">     * **YOU MUST CALL multi_socket_action(CURL_SOCKET_TIMEOUT, 0) to start the transfer, </span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">     * then call waitever poll interface you use**</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">     * After multi_socket_action, perform_callback will be called for each completed</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">     * easy.</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">     * perform() is called only if poll is used.</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">     * After perform, perform_callback will be called for each completed</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">     * easy.</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">     * **YOU MUST CALL perform() after to start the transfer, then poll**</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">     * Using libcurl version &gt;= 7.10.3 can provide better error message</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">     * if Easy_ref_t::ProtocolInternal_error is thrown.</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">perform</a>(perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment">/* </span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">     * @return should be 0</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">     * Interface for using arbitary event-based interface - multi_socket interface </span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">     * Precondition for using this interface:</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">     *  - curl_t::has_multi_socket_support()</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">using</span> socket_callback_t = <span class="keywordtype">int</span> (*)(CURL *curl_easy,</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                                      curl_socket_t s,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                                      <span class="comment">/**</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">                                       * Possible value for what:</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">                                       *  - CURL_POLL_IN,</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">                                       *  - CURL_POLL_OUT,</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">                                       *  - CURL_POLL_INOUT,</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">                                       *  - CURL_POLL_REMOVE</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">                                       */</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                      <span class="keywordtype">int</span> what,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                      <span class="keywordtype">void</span> *userp,</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                      <span class="keywordtype">void</span> *per_socketp);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">     * @param timeout_ms -1 means you should delete the timer. </span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">     *                   All other values are valid expire times in number of milliseconds.</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">     * @return should be 0 on success</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">     *                   -1 on failure.</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">     * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">     * When time that timer fires, call multi_socket_action().</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">     * The timer_callback will only be called when the timeout expire time is changed.</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7">  183</a></span>&#160;    <span class="keyword">using</span> timer_callback_t = <span class="keywordtype">int</span> (*)(CURLM *multi, <span class="keywordtype">long</span> timeout_ms, <span class="keywordtype">void</span> *userp);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">     * @param socket_callback, timer_callback setting them to nullptr would</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">     *                                        disable multi_socket_action interface.</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">     * You must call this function with non-NULL socket_callback and timer_callback</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">     * before adding any easy handles.</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">register_callback</a>(socket_callback_t socket_callback, <span class="keywordtype">void</span> *socket_data,</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                           timer_callback_t timer_callback, <span class="keywordtype">void</span> *timer_data) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">     * @pre socketfd must be valid</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">     * @return std::invalild_argument if socketfd is not valid.</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">     * By default, per_sockptr == nullptr.</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">     * You can call this function from socket_callback.</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">multi_assign</a>(curl_socket_t socketfd, <span class="keywordtype">void</span> *per_sockptr) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        Ret_except&lt;<span class="keywordtype">void</span>, std::invalid_argument&gt;;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">     * @pre enable_multi_socket_interface() is called,</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">     *               perform_callback, socket_callback, timer_callback is set.</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">     * @param socketfd fd to be notified;</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">     *                 CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process.</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">     * @param ev_bitmask Or-ed with 0 or one of the value below:</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">     *    - CURL_CSELECT_IN,</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">     *    - CURL_CSELECT_OUT,</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">     *    - CURL_CSELECT_ERR,</span></div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">     * Using libcurl version &gt;= 7.10.3 can provide better error message</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">     * if Easy_ref_t::ProtocolInternal_error is thrown.</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action</a>(curl_socket_t socketfd, <span class="keywordtype">int</span> ev_bitmask,</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                             perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">     * @pre get_number_of_handles() == 0</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    ~<a class="code" href="classcurl_1_1Multi__t.html#a385abb44801116b88407294df484ba4b">Multi_t</a>();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">auto</span> check_perform(<span class="keywordtype">long</span> code, <span class="keywordtype">int</span> running_handles_tmp, <span class="keyword">const</span> <span class="keywordtype">char</span> *fname,</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                       perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;};</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;} <span class="comment">/* namespace curl */</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">     * **YOU MUST CALL multi_socket_action(CURL_SOCKET_TIMEOUT, 0) to start the transfer, </span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">     * then call waitever poll interface you use**</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">     * After multi_socket_action, perform_callback will be called for each completed</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">     * easy.</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">     * Using libcurl version &gt;= 7.10.3 can provide better error message</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment">     * if Easy_ref_t::ProtocolInternal_error is thrown.</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action</a>(curl_socket_t socketfd, <span class="keywordtype">int</span> ev_bitmask,</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                             perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">     * @pre get_number_of_handles() == 0</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    ~<a class="code" href="classcurl_1_1Multi__t.html#a385abb44801116b88407294df484ba4b">Multi_t</a>();</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">auto</span> check_perform(<span class="keywordtype">long</span> code, <span class="keywordtype">int</span> running_handles_tmp, <span class="keyword">const</span> <span class="keywordtype">char</span> *fname,</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                       perform_callback_t perform_callback, <span class="keywordtype">void</span> *arg) <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        Ret_except&lt;<span class="keywordtype">int</span>, std::bad_alloc, <a class="code" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="code" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="code" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a>&gt;;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;};</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;} <span class="comment">/* namespace curl */</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a301adcac2e96560001d9cf2c68fce1fb"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">curl::Multi_t::perform</a></div><div class="ttdeci">auto perform(perform_callback_t perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00112">curl_multi.cc:112</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a10b5e7bb9d13d02263af2cb2e642ce66"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">curl::Multi_t::register_callback</a></div><div class="ttdeci">void register_callback(socket_callback_t socket_callback, void *socket_data, timer_callback_t timer_callback, void *timer_data) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00124">curl_multi.cc:124</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a301adcac2e96560001d9cf2c68fce1fb"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">curl::Multi_t::perform</a></div><div class="ttdeci">auto perform(perform_callback_t perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00124">curl_multi.cc:124</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a10b5e7bb9d13d02263af2cb2e642ce66"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">curl::Multi_t::register_callback</a></div><div class="ttdeci">void register_callback(socket_callback_t socket_callback, void *socket_data, timer_callback_t timer_callback, void *timer_data) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00136">curl_multi.cc:136</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Exception_html"><div class="ttname"><a href="classcurl_1_1Exception.html">curl::Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00016">curl.hpp:16</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a0fa5766946a2e509fb96d91f1c46a783"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a0fa5766946a2e509fb96d91f1c46a783">curl::Multi_t::Multi_t</a></div><div class="ttdeci">Multi_t(Multi_t &amp;&amp;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00018">curl_multi.cc:18</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_ad9e0c1117b58aad4fcb4350b92276e3a"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">curl::Multi_t::poll</a></div><div class="ttdeci">auto poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00066">curl_multi.cc:66</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_af726c6abf5ecf7973a8566be2b89ed50"><div class="ttname"><a href="classcurl_1_1Multi__t.html#af726c6abf5ecf7973a8566be2b89ed50">curl::Multi_t::operator=</a></div><div class="ttdeci">Multi_t &amp; operator=(Multi_t &amp;&amp;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00025">curl_multi.cc:25</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_ae7fc43c375eb97ee584bc8592cd16fc6"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">curl::Multi_t::multi_assign</a></div><div class="ttdeci">auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -&gt; Ret_except&lt; void, std::invalid_argument &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00134">curl_multi.cc:134</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a3ec91024af38c4a687811bb6444c9652"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">curl::Multi_t::multi_socket_action</a></div><div class="ttdeci">auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, perform_callback_t perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00143">curl_multi.cc:143</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html">curl::Easy_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00045">curl_easy.hpp:45</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_adf6b697512b20c4811a542ed47896ce1"><div class="ttname"><a href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">curl::Multi_t::set_multiplexing</a></div><div class="ttdeci">void set_multiplexing(long max_concurrent_stream) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00056">curl_multi.cc:56</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a0fa5766946a2e509fb96d91f1c46a783"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a0fa5766946a2e509fb96d91f1c46a783">curl::Multi_t::Multi_t</a></div><div class="ttdeci">Multi_t(Multi_t &amp;&amp;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00019">curl_multi.cc:19</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_ad9e0c1117b58aad4fcb4350b92276e3a"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">curl::Multi_t::poll</a></div><div class="ttdeci">auto poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00078">curl_multi.cc:78</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_af726c6abf5ecf7973a8566be2b89ed50"><div class="ttname"><a href="classcurl_1_1Multi__t.html#af726c6abf5ecf7973a8566be2b89ed50">curl::Multi_t::operator=</a></div><div class="ttdeci">Multi_t &amp; operator=(Multi_t &amp;&amp;) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00026">curl_multi.cc:26</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_ae7fc43c375eb97ee584bc8592cd16fc6"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">curl::Multi_t::multi_assign</a></div><div class="ttdeci">auto multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -&gt; Ret_except&lt; void, std::invalid_argument &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00146">curl_multi.cc:146</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a3ec91024af38c4a687811bb6444c9652"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">curl::Multi_t::multi_socket_action</a></div><div class="ttdeci">auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, perform_callback_t perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00155">curl_multi.cc:155</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html">curl::Easy_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00049">curl_easy.hpp:49</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_adf6b697512b20c4811a542ed47896ce1"><div class="ttname"><a href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">curl::Multi_t::set_multiplexing</a></div><div class="ttdeci">void set_multiplexing(long max_concurrent_stream) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00068">curl_multi.cc:68</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html"><div class="ttname"><a href="classcurl_1_1Multi__t.html">curl::Multi_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8hpp_source.html#l00022">curl_multi.hpp:22</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a385abb44801116b88407294df484ba4b"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a385abb44801116b88407294df484ba4b">curl::Multi_t::~Multi_t</a></div><div class="ttdeci">~Multi_t()</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00155">curl_multi.cc:155</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a385abb44801116b88407294df484ba4b"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a385abb44801116b88407294df484ba4b">curl::Multi_t::~Multi_t</a></div><div class="ttdeci">~Multi_t()</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00043">curl_multi.cc:43</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_1_1Exception_html"><div class="ttname"><a href="classcurl_1_1Multi__t_1_1Exception.html">curl::Multi_t::Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8hpp_source.html#l00032">curl_multi.hpp:32</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a8c14c2e67419178ba0f01f3c6cfde4c6"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a8c14c2e67419178ba0f01f3c6cfde4c6">curl::Multi_t::add_easy</a></div><div class="ttdeci">bool add_easy(Easy_ref_t &amp;easy) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00037">curl_multi.cc:37</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a8c14c2e67419178ba0f01f3c6cfde4c6"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a8c14c2e67419178ba0f01f3c6cfde4c6">curl::Multi_t::add_easy</a></div><div class="ttdeci">bool add_easy(Easy_ref_t &amp;easy) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00049">curl_multi.cc:49</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Recursive__api__call__Exception_html"><div class="ttname"><a href="classcurl_1_1Recursive__api__call__Exception.html">curl::Recursive_api_call_Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00040">curl.hpp:40</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a2d8a8a61610b3df723c71c0597e67283"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a2d8a8a61610b3df723c71c0597e67283">curl::Multi_t::break_or_poll</a></div><div class="ttdeci">auto break_or_poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00081">curl_multi.cc:81</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a4352a0222ebe30882867481b0eb915ef"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a4352a0222ebe30882867481b0eb915ef">curl::Multi_t::remove_easy</a></div><div class="ttdeci">void remove_easy(Easy_ref_t &amp;easy) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00045">curl_multi.cc:45</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_aaa2894dade63837d638acc8d6a96dad7"><div class="ttname"><a href="classcurl_1_1Multi__t.html#aaa2894dade63837d638acc8d6a96dad7">curl::Multi_t::operator bool</a></div><div class="ttdeci">operator bool() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00038">curl_multi.cc:38</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a2d8a8a61610b3df723c71c0597e67283"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a2d8a8a61610b3df723c71c0597e67283">curl::Multi_t::break_or_poll</a></div><div class="ttdeci">auto break_or_poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00093">curl_multi.cc:93</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a4352a0222ebe30882867481b0eb915ef"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a4352a0222ebe30882867481b0eb915ef">curl::Multi_t::remove_easy</a></div><div class="ttdeci">void remove_easy(Easy_ref_t &amp;easy) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00057">curl_multi.cc:57</a></div></div>
 <div class="ttc" id="aclasscurl_1_1libcurl__bug_html"><div class="ttname"><a href="classcurl_1_1libcurl__bug.html">curl::libcurl_bug</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00032">curl.hpp:32</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 15 2020 14:33:53 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2020 16:50:28 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

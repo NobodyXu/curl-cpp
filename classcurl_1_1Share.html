@@ -106,12 +106,14 @@ Collaboration diagram for curl::Share&lt; Shared_mutex_t &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcurl_1_1Share__coll__graph.jpg" border="0" usemap="#curl_1_1Share_3_01Shared__mutex__t_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="curl_1_1Share_3_01Shared__mutex__t_01_4_coll__map" id="curl_1_1Share_3_01Shared__mutex__t_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,188,185"/>
+<area shape="rect" title=" " alt="" coords="5,5,188,200"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a171de9cc9f609d9b949b1ecb5dae2f65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Share.html#a171de9cc9f609d9b949b1ecb5dae2f65">Share</a> (<a class="el" href="classcurl_1_1Share__base.html">Share_base</a> &amp;&amp;base) noexcept</td></tr>
+<tr class="separator:a171de9cc9f609d9b949b1ecb5dae2f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93fc3c491c8d51b56e8e5fa93cf02efd"><td class="memItemLeft" align="right" valign="top"><a id="a93fc3c491c8d51b56e8e5fa93cf02efd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>enable_multithreaded_share</b> () noexcept</td></tr>
 <tr class="separator:a93fc3c491c8d51b56e8e5fa93cf02efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,9 +124,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>disable_multithreaded
 <tr class="separator:a4b818c3a78fe0e740b6c08ef1e6aa9c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae605d489c64cd3a02cff3ec7094835f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Share.html#ae605d489c64cd3a02cff3ec7094835f3">Share_base</a> (const <a class="el" href="classcurl_1_1Share__base.html">Share_base</a> &amp;)=delete</td></tr>
 <tr class="separator:ae605d489c64cd3a02cff3ec7094835f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1efc4eac49ab2ebeebca239ae156d831"><td class="memItemLeft" align="right" valign="top"><a id="a1efc4eac49ab2ebeebca239ae156d831"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Share_base</b> (<a class="el" href="classcurl_1_1Share__base.html">Share_base</a> &amp;&amp;)=delete</td></tr>
-<tr class="separator:a1efc4eac49ab2ebeebca239ae156d831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8180b60fe584792addac9fa973c759e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Share.html#ac8180b60fe584792addac9fa973c759e">Share_base</a> (<a class="el" href="classcurl_1_1Share__base.html">Share_base</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:ac8180b60fe584792addac9fa973c759e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class Shared_mutex_t = utils::shared_mutex&gt;<br />
@@ -141,9 +142,49 @@ class curl::Share&lt; Shared_mutex_t &gt;</h3>
 <p>Pass void to disable locking, which make multithreaded use unsafe. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00047">47</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a171de9cc9f609d9b949b1ecb5dae2f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171de9cc9f609d9b949b1ecb5dae2f65">&#9670;&nbsp;</a></span>Share()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcurl_1_1Share.html">curl::Share</a>&lt; Shared_mutex_t &gt;::<a class="el" href="classcurl_1_1Share.html">Share</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcurl_1_1Share__base.html">Share_base</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>any usable <a class="el" href="classcurl_1_1Share__base.html">Share_base</a> object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00206">206</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                                     :</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <a class="code" href="classcurl_1_1Share.html#a4b818c3a78fe0e740b6c08ef1e6aa9c0">Share_base</a>{std::move(base)}</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    {}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4b818c3a78fe0e740b6c08ef1e6aa9c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b818c3a78fe0e740b6c08ef1e6aa9c0">&#9670;&nbsp;</a></span>Share_base() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b818c3a78fe0e740b6c08ef1e6aa9c0">&#9670;&nbsp;</a></span>Share_base() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,7 +220,7 @@ template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
 </div>
 </div>
 <a id="ae605d489c64cd3a02cff3ec7094835f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae605d489c64cd3a02cff3ec7094835f3">&#9670;&nbsp;</a></span>Share_base() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae605d489c64cd3a02cff3ec7094835f3">&#9670;&nbsp;</a></span>Share_base() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,11 +240,43 @@ template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Delete cp/mv ctor and assignment:</p><ul>
-<li>such operation is useless;</li>
-<li>is deleted for std::shared_mutex. </li>
-</ul>
+<p>Since libcurl doesn't provide a dup function for curl_share, neither will <a class="el" href="classcurl_1_1Share__base.html">Share_base</a>. </p>
 
+</div>
+</div>
+<a id="ac8180b60fe584792addac9fa973c759e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8180b60fe584792addac9fa973c759e">&#9670;&nbsp;</a></span>Share_base() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">curl::Share_base::Share_base</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>bool(other) can be false, but then this new instance of <a class="el" href="classcurl_1_1Share__base.html">Share_base</a> will be unusable. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="curl__share_8cc_source.html#l00019">19</a> of file <a class="el" href="curl__share_8cc_source.html">curl_share.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                 :</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    curl_share{std::move(other.curl_share)}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -211,9 +284,10 @@ template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
 <li><a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a></li>
 </ul>
 </div><!-- contents -->
+<div class="ttc" id="aclasscurl_1_1Share_html_a4b818c3a78fe0e740b6c08ef1e6aa9c0"><div class="ttname"><a href="classcurl_1_1Share.html#a4b818c3a78fe0e740b6c08ef1e6aa9c0">curl::Share::Share_base</a></div><div class="ttdeci">Share_base(curl_t::Share_t &amp;&amp;share) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__share_8cc_source.html#l00015">curl_share.cc:15</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 15 2020 14:33:55 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2020 16:50:29 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
