@@ -143,7 +143,7 @@ public:
     const char * const version_str;
 
     /**
-     * Since curl_t is designed to be used as static variable,
+     * Since curl_t is designed to be usable as static variable,
      * it would call errx on error.
      *
      * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
