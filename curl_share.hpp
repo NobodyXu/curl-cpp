@@ -30,15 +30,39 @@ public:
     Share_base(curl_t::Share_t &&share) noexcept;
 
     /**
-     * Delete cp/mv ctor and assignment:
-     *  - such operation is useless;
-     *  - is deleted for std::shared_mutex.
+     * Since libcurl doesn't provide a dup 
+     * function for curl_share, neither will Share_base.
      */
     Share_base(const Share_base&) = delete;
-    Share_base(Share_base&&) = delete;
 
+    /**
+     * @param other bool(other) can be false, but then this new instance
+     * of Share_base will be unusable.
+     */
+    Share_base(Share_base &&other) noexcept;
+
+    /**
+     * Since libcurl doesn't provide a dup 
+     * function for curl_share, neither will Share_base.
+     */
     Share_base& operator = (const Share_base&) = delete;
-    Share_base& operator = (Share_base&&) = delete;
+    /**
+     * @param other if bool(other) is true, then it will be unusable after this operation.
+     *              otherwise, this object will also be destroyed.
+     * @param this this object can also be an unusable object which bool(*this) is false.
+     *             Calling this function on an unusable object will make that object again
+     *             usable.
+     *
+     * **NOTE that if this object still holds easy handler and bool(other) is false,
+     * then it is undefined behavior.**
+     *
+     */
+    Share_base& operator = (Share_base &&other) noexcept;
+
+    /**
+     * @return true if this object is usable, false otherwise.
+     */
+    operator bool () const noexcept;
 
     /**
      * Defines data to share among Easy_t handles.

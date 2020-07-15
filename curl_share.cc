@@ -16,6 +16,20 @@ Share_base::Share_base(curl_t::Share_t &&share) noexcept:
     curl_share{std::move(share)}
 {}
 
+Share_base::Share_base(Share_base &&other) noexcept:
+    curl_share{std::move(other.curl_share)}
+{}
+Share_base& Share_base::operator = (Share_base &&other) noexcept
+{
+    curl_share = std::move(other.curl_share);
+    return *this;
+}
+
+Share_base::operator bool () const noexcept
+{
+    return bool(curl_share);
+}
+
 void Share_base::add_lock(lock_function_t lock_func, unlock_function_t unlock_func, void *userptr) noexcept
 {
     curl_share_setopt(curl_share.get(), CURLSHOPT_LOCKFUNC, lock_func);
