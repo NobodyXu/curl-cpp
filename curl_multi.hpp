@@ -151,7 +151,6 @@ public:
      * Precondition for using this interface:
      *  - curl_t::has_multi_socket_support()
      */
-
     using socket_callback_t = int (*)(CURL *curl_easy, 
                                       curl_socket_t s,
                                       /**
