@@ -120,7 +120,9 @@ public:
      * If you want to destroy and free easy.curl_easy, you must first 
      * multi.remove_easy(easy_ref) it.
      *
-     * If easy_ref isn't removed from Multi, then the same transfer will happen again.
+     * If easy_ref isn't removed from Multi, then the same transfer will happen again
+     * in the next call to Multi_t::perform or 
+     * Multi_t::multi_socket_action(socketfd of this easy handler, events, ...).
      */
     using perform_callback_t = void (*)(Easy_ref_t &easy, Easy_ref_t::perform_ret_t ret, 
                                         Multi_t &multi, void *arg);
