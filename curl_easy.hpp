@@ -22,25 +22,29 @@ namespace curl {
  * Easy_ref_t's member function cannot be called in multiple threads simultaneously. 
  *
  * PERSISTENT CONNECTIONS
+ *
  *     Persistent connections means that libcurl can re-use the same connection for several transfers, 
  *     if the conditions are right.
  * 
  *     libcurl  will  always  attempt  to use persistent connections. 
- *     Whenever you use curl_easy_perform or curl_multi_perform/curl_multi_socket_action etc, 
+ *
+ *     Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, 
  *     libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
- *     open a new one that will be subject for re-use on a possible following call curl_easy_perform or 
- *     curl_multi_perform/curl_multi_socket_action.
+ *     open a new one that will be subject for re-use on a possible following call to these functions.
  * 
  *     To allow libcurl to take full advantage of persistent connections, you should do 
  *     as many of your file transfers as possible using the same handle.
  * 
- *     If you use the easy interface, and you call curl_easy_cleanup(3), all the possibly 
+ *     If you use the easy interface, and the Easy_t get destroyed, all the possibly 
  *     open connections held by libcurl will be closed and forgotten.
  * 
  *     When you've created a multi handle and are using the multi interface, the connection pool is 
  *     instead kept in the multi handle so closing and creating new easy handles to do transfers 
  *     will not affect them. 
  *     Instead all added easy handles can take advantage of the single shared pool.
+ *
+ *     It can also be archieved by using curl::Share_base or curl::Share and 
+ *     enable_sharing(Share_base::Options::connection_cache).
  */
 class Easy_ref_t {
 public:
