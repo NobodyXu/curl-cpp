@@ -127,7 +127,8 @@ public:
 
     /**
      * If return value is less than @param size, then it will singal an err cond to libcurl.
-     * This will cause the transfer to get aborted and the libcurl function used will return CURLE_WRITE_ERROR.
+     * This will cause the transfer to get aborted and the libcurl function used will return 
+     * code::writeback_error.
      *
      * It would be undefined behavior to call any easy member function in writeback.
 	 * 
