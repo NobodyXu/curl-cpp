@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['protocolinternal_5ferror_124',['ProtocolInternal_error',['../classcurl_1_1Easy__ref__t_1_1ProtocolInternal__error.html',1,'curl::Easy_ref_t']]]
+  ['notbuiltin_5ferror_133',['NotBuiltIn_error',['../classcurl_1_1NotBuiltIn__error.html',1,'curl::NotBuiltIn_error'],['../classcurl_1_1Easy__ref__t_1_1NotBuiltIn__error.html',1,'curl::Easy_ref_t::NotBuiltIn_error']]]
 ];

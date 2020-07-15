@@ -204,7 +204,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8cf8634c46040ce98a63c2b2ab839ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee93710d546606f86cc1a287dca5e2f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#aee93710d546606f86cc1a287dca5e2f9">set_timeout</a> (unsigned long timeout) noexcept</td></tr>
 <tr class="separator:aee93710d546606f86cc1a287dca5e2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada6cc9aaee28fa7890c28ec2a6506791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#ada6cc9aaee28fa7890c28ec2a6506791">set_http_header</a> (const utils::slist &amp;l, <a class="el" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883">header_option</a> option=<a class="el" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48">header_option::unspecified</a>) noexcept</td></tr>
+<tr class="memitem:ada6cc9aaee28fa7890c28ec2a6506791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#ada6cc9aaee28fa7890c28ec2a6506791">set_http_header</a> (const <a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a> &amp;l, <a class="el" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883">header_option</a> option=<a class="el" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48">header_option::unspecified</a>) noexcept</td></tr>
 <tr class="separator:ada6cc9aaee28fa7890c28ec2a6506791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1674252bb4572aead49f52ebaab8af48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#a1674252bb4572aead49f52ebaab8af48">set_nobody</a> (bool enable) noexcept</td></tr>
 <tr class="separator:a1674252bb4572aead49f52ebaab8af48"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,7 +230,7 @@ long&#160;</td><td class="memItemRight" valign="bottom"><b>get_response_code</b>
 <tr class="separator:a91f464a50d3cbdc02eddbb82fbb130db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2414e845752592f46acbfdacfe833643"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#a2414e845752592f46acbfdacfe833643">getinfo_redirect_url</a> () const noexcept -&gt; const char *</td></tr>
 <tr class="separator:a2414e845752592f46acbfdacfe833643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6442217bc09ebb2f5d22c17319aec569"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#a6442217bc09ebb2f5d22c17319aec569">getinfo_cookie_list</a> () const noexcept -&gt; Ret_except&lt; utils::slist, <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a> &gt;</td></tr>
+<tr class="memitem:a6442217bc09ebb2f5d22c17319aec569"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#a6442217bc09ebb2f5d22c17319aec569">getinfo_cookie_list</a> () const noexcept -&gt; Ret_except&lt; <a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a>, <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a> &gt;</td></tr>
 <tr class="separator:a6442217bc09ebb2f5d22c17319aec569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b66b3aacacdc8546c0a896a318100a1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Easy__ref__t.html#a6b66b3aacacdc8546c0a896a318100a1">get_active_socket</a> () const noexcept -&gt; curl_socket_t</td></tr>
 <tr class="separator:a6b66b3aacacdc8546c0a896a318100a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1417,7 +1417,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void curl::Easy_ref_t::set_http_header </td>
           <td>(</td>
-          <td class="paramtype">const utils::slist &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a> &amp;&#160;</td>
           <td class="paramname"><em>l</em>, </td>
         </tr>
         <tr>
@@ -1453,10 +1453,10 @@ Here is the call graph for this function:</div>
 </dl>
 <p>Example:</p><ul>
 <li><p class="startli">Replace hedaer 'Accept:'</p>
-<p class="startli">utils::slist l; l.push_back("Accept: deflate"); easy.set_http_header(l);</p>
+<p class="startli"><a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a> l; l.push_back("Accept: deflate"); easy.set_http_header(l);</p>
 </li>
 <li><p class="startli">Remove header 'Accept:'</p>
-<p class="startli">easy.set_http_header(utils::slist{});</p>
+<p class="startli">easy.set_http_header(<a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a>{});</p>
 </li>
 </ul>
 <p>Starting in 7.58.0, libcurl will specifically prevent "Authorization:" headers from being sent to hosts other than the first used one, unless specifically permitted with the CURLOPT_UNRESTRICTED_AUTH option.</p>
@@ -1475,7 +1475,16 @@ Here is the call graph for this function:</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_HEADEROPT, value);</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcurl_1_1Easy__ref__t_ada6cc9aaee28fa7890c28ec2a6506791_cgraph.jpg" border="0" usemap="#classcurl_1_1Easy__ref__t_ada6cc9aaee28fa7890c28ec2a6506791_cgraph" alt=""/></div>
+<map name="classcurl_1_1Easy__ref__t_ada6cc9aaee28fa7890c28ec2a6506791_cgraph" id="classcurl_1_1Easy__ref__t_ada6cc9aaee28fa7890c28ec2a6506791_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,156,47"/>
+<area shape="rect" href="classcurl_1_1utils_1_1slist.html#a00066f84356410c824a4a3a208eaee7a" title=" " alt="" coords="204,5,356,47"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="a1674252bb4572aead49f52ebaab8af48"></a>
@@ -1866,7 +1875,7 @@ Here is the call graph for this function:</div>
           <td class="memname">auto curl::Easy_ref_t::getinfo_cookie_list </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const -&gt; Ret_except&lt;utils::slist, <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>&gt;</td>
+          <td> const -&gt; Ret_except&lt;<a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a>, <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>&gt;</td>
         </tr>
       </table>
   </td>
@@ -1876,7 +1885,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") &amp;&amp; curl_t::has_getinfo_cookie_list_support()</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>. If utils::slist is empty, it might be due to std::bad_alloc, or no cookie is present(cookie engine not enabled or no cookie has received).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>. If <a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a> is empty, it might be due to std::bad_alloc, or no cookie is present(cookie engine not enabled or no cookie has received).</dd></dl>
 <p>Since 7.43.0 cookies that were imported in the Set-Cookie format without a domain name are not exported by this option. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00289">289</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
@@ -2094,7 +2103,7 @@ Here is the call graph for this function:</div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a75c60a5b6f839f1808fc81fb48e424de"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">curl::Easy_ref_t::set_writeback</a></div><div class="ttdeci">void set_writeback(writeback_t writeback, void *userp) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00090">curl_easy.cc:90</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 14 2020 23:08:09 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2020 14:27:21 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
