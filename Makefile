@@ -34,4 +34,7 @@ clean:
 gendoc:
 	doxygen Doxyfile
 
-.PHONY: clean test gendoc
+cleandoc:
+	rm -rf doc/*
+
+.PHONY: clean test gendoc cleandoc
