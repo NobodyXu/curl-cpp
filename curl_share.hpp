@@ -10,6 +10,8 @@
 
 namespace curl {
 /**
+ * @example curl_share.cc
+ *
  * All easy handler must be removed before Share_base
  * can be destroyed.
  *

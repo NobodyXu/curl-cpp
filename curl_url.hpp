@@ -6,6 +6,7 @@
 namespace curl {
 /**
  * @pre for using this class: curl_t::has_CURLU()
+ * @example curl_url.cc
  *
  * Why make Url_ref_t RAII-less?
  *

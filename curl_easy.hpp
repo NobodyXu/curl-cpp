@@ -12,6 +12,8 @@
 
 namespace curl {
 /**
+ * @example curl_easy_get.cc
+ *
  * Why make Easy_ref_t RAII-less?
  *
  * It would simplify design of Easy_ref_t, since it doesn't need to

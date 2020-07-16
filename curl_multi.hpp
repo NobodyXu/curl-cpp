@@ -6,6 +6,12 @@
 
 namespace curl {
 /**
+ * @example curl_multi_poll.cc
+ * @example curl_multi_poll2.cc
+ * @example curl_multi_socket_action_epoll.cc
+ * @example curl_multi_socket_action_event.cc
+ * @example curl_multi_socket_action_uv.cc
+ *
  * Multi_t enables user to simultaneously do multiple request
  * in the same thread, using any polling interface they prefer.
  *
