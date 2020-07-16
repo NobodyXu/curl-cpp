@@ -3,7 +3,7 @@
 #include <utility>
 
 namespace curl::utils {
-slist::slist(curl_slist *l) noexcept:
+slist::slist(void *l) noexcept:
     list{l}
 {}
 slist::slist(slist &&other) noexcept:
@@ -36,13 +36,28 @@ slist::~slist()
         curl_slist_free_all(static_cast<struct curl_slist*>(list));
 }
 
-auto slist::begin() noexcept -> iterator
+auto slist::const_iterator::operator ++ () noexcept -> const_iterator&
 {
-    return {static_cast<struct curl_slist*>(list)};
+    list_ptr = static_cast<const curl_slist*>(list_ptr)->next;
+    return *this;
 }
-auto slist::end() noexcept -> iterator
+auto slist::const_iterator::operator ++ (int) noexcept -> const_iterator
 {
-    return {};
+    auto ret = *this;
+    ++(*this);
+    return ret;
+}
+auto slist::const_iterator::operator * () const noexcept -> value_type
+{
+    return static_cast<const curl_slist*>(list_ptr)->data;
+}
+bool operator == (const slist::const_iterator &x, const slist::const_iterator &y) noexcept
+{
+    return x.list_ptr == y.list_ptr;
+}
+bool operator != (const slist::const_iterator &x, const slist::const_iterator &y) noexcept
+{
+    return x.list_ptr != y.list_ptr;
 }
 
 auto slist::begin() const noexcept -> const_iterator

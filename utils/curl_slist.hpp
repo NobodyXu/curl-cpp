@@ -5,8 +5,6 @@
 # include <memory>
 # include <iterator>
 
-# include <curl/curl.h>
-
 # include "../return-exception/ret-exception.hpp"
 
 namespace curl::utils {
@@ -24,45 +22,8 @@ class slist {
 protected:
     void *list = nullptr;
 
-    template <class Pointer, class value_t>
-    struct Iterator_template {
-        Pointer ptr = nullptr;
-
-        using value_type = value_t;
-        using pointer = value_type*;
-        using reference = value_type&;
-        using difference_type = std::ptrdiff_t;
-        using iterator_category = std::forward_iterator_tag;
-
-        auto& operator ++ () noexcept
-        {
-            ptr = ptr->next;
-        }
-        auto operator ++ (int) noexcept
-        {
-            auto ret = *this;
-            ++(*this);
-            return ret;
-        }
-
-        auto operator * () const noexcept -> reference
-        {
-            return ptr->data;
-        }
-
-        bool operator == (const Iterator_template &other) const noexcept
-        {
-            return ptr == other.ptr;
-        }
-
-        bool operator != (const Iterator_template &other) const noexcept
-        {
-            return ptr != other.ptr;
-        }
-    };
-
 public:
-    using value_type = char* const;
+    using value_type = const char*;
 
     using size_type = std::size_t;
     using difference_type = std::ptrdiff_t;
@@ -73,12 +34,27 @@ public:
     using pointer = value_type*;
     using const_pointer = const value_type*;
 
-    using iterator = Iterator_template<curl_slist*, char * const>;
-    using const_iterator = Iterator_template<const curl_slist*, const char * const>;
+    struct const_iterator {
+        const void *list_ptr = nullptr;
+
+        using value_type = slist::value_type;
+        using pointer = value_type*;
+        using reference = value_type&;
+        using difference_type = std::ptrdiff_t;
+        using iterator_category = std::forward_iterator_tag;
+
+        auto operator ++ () noexcept -> const_iterator&;
+        auto operator ++ (int) noexcept -> const_iterator;
+
+        auto operator * () const noexcept -> value_type;
+
+        friend bool operator == (const const_iterator &x, const const_iterator &y) noexcept;
+        friend bool operator != (const const_iterator &x, const const_iterator &y) noexcept;
+    };
 
     slist() = default;
 
-    slist(curl_slist *l) noexcept;
+    slist(void *l) noexcept;
 
     slist(const slist&) = delete;
     slist(slist &&other) noexcept;
@@ -98,9 +74,6 @@ public:
     ~slist();
 
     bool is_empty() const noexcept;
-
-    auto begin() noexcept -> iterator;
-    auto end() noexcept -> iterator;
 
     auto begin() const noexcept -> const_iterator;
     auto end() const noexcept -> const_iterator;
