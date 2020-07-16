@@ -123,8 +123,7 @@ Classes</h2></td></tr>
 Public Types</h2></td></tr>
 <tr class="memitem:a09f95344eee9e5ea1b9e5b9491addb60"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#a09f95344eee9e5ea1b9e5b9491addb60">perform_callback_t</a> = void(*)(<a class="el" href="classcurl_1_1Easy__ref__t.html">Easy_ref_t</a> &amp;easy, Easy_ref_t::perform_ret_t ret, <a class="el" href="classcurl_1_1Multi__t.html">Multi_t</a> &amp;multi, void *arg)</td></tr>
 <tr class="separator:a09f95344eee9e5ea1b9e5b9491addb60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae414c11111a8edd7958db605f589f346"><td class="memItemLeft" align="right" valign="top"><a id="ae414c11111a8edd7958db605f589f346"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>socket_callback_t</b> = int(*)(CURL *curl_easy, curl_socket_t s, int what, void *userp, void *per_socketp)</td></tr>
+<tr class="memitem:ae414c11111a8edd7958db605f589f346"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#ae414c11111a8edd7958db605f589f346">socket_callback_t</a> = int(*)(CURL *curl_easy, curl_socket_t s, int what, void *userp, void *per_socketp)</td></tr>
 <tr class="separator:ae414c11111a8edd7958db605f589f346"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac673ac44e050f4108999d583988e5bb7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7">timer_callback_t</a> = int(*)(CURLM *multi, long timeout_ms, void *userp)</td></tr>
 <tr class="separator:ac673ac44e050f4108999d583988e5bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,7 +160,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>get_number_of_
 <tr class="separator:a2d8a8a61610b3df723c71c0597e67283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a301adcac2e96560001d9cf2c68fce1fb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">perform</a> (<a class="el" href="classcurl_1_1Multi__t.html#a09f95344eee9e5ea1b9e5b9491addb60">perform_callback_t</a> perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, <a class="el" href="classcurl_1_1Multi__t_1_1Exception.html">Exception</a>, <a class="el" href="classcurl_1_1Recursive__api__call__Exception.html">Recursive_api_call_Exception</a>, <a class="el" href="classcurl_1_1libcurl__bug.html">libcurl_bug</a> &gt;</td></tr>
 <tr class="separator:a301adcac2e96560001d9cf2c68fce1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10b5e7bb9d13d02263af2cb2e642ce66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">register_callback</a> (socket_callback_t socket_callback, void *socket_data, <a class="el" href="classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7">timer_callback_t</a> timer_callback, void *timer_data) noexcept</td></tr>
+<tr class="memitem:a10b5e7bb9d13d02263af2cb2e642ce66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#a10b5e7bb9d13d02263af2cb2e642ce66">register_callback</a> (<a class="el" href="classcurl_1_1Multi__t.html#ae414c11111a8edd7958db605f589f346">socket_callback_t</a> socket_callback, void *socket_data, <a class="el" href="classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7">timer_callback_t</a> timer_callback, void *timer_data) noexcept</td></tr>
 <tr class="separator:a10b5e7bb9d13d02263af2cb2e642ce66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7fc43c375eb97ee584bc8592cd16fc6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">multi_assign</a> (curl_socket_t socketfd, void *per_sockptr) noexcept -&gt; Ret_except&lt; void, std::invalid_argument &gt;</td></tr>
 <tr class="separator:ae7fc43c375eb97ee584bc8592cd16fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,6 +208,27 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
 <p>If easy_ref isn't removed from Multi, then the same transfer will happen again in the next call to <a class="el" href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">Multi_t::perform</a> or Multi_t::multi_socket_action(socketfd of this easy handler, events, ...). </p>
 
 <p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00133">133</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae414c11111a8edd7958db605f589f346"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae414c11111a8edd7958db605f589f346">&#9670;&nbsp;</a></span>socket_callback_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcurl_1_1Multi__t.html#ae414c11111a8edd7958db605f589f346">curl::Multi_t::socket_callback_t</a> =  int (*)(CURL *curl_easy, curl_socket_t s, int what, void *userp, void *per_socketp)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>should be 0</dd></dl>
+<p>Interface for using arbitary event-based interface - multi_socket interface</p>
+<p>Precondition for using this interface:</p><ul>
+<li>curl_t::has_multi_socket_support() </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00170">170</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
 
 </div>
 </div>
@@ -707,7 +727,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void curl::Multi_t::register_callback </td>
           <td>(</td>
-          <td class="paramtype">socket_callback_t&#160;</td>
+          <td class="paramtype"><a class="el" href="classcurl_1_1Multi__t.html#ae414c11111a8edd7958db605f589f346">socket_callback_t</a>&#160;</td>
           <td class="paramname"><em>socket_callback</em>, </td>
         </tr>
         <tr>
@@ -890,7 +910,7 @@ Here is the call graph for this function:</div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_ad9e0c1117b58aad4fcb4350b92276e3a"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">curl::Multi_t::poll</a></div><div class="ttdeci">auto poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00078">curl_multi.cc:78</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 15 2020 16:50:29 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 19:19:37 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
