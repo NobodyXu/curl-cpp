@@ -44,8 +44,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -101,8 +103,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">curl::Share_base Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for curl::Share_base:</div>
 <div class="dyncontent">
@@ -173,10 +173,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aee4cd69c8b29bc627469eb1b83befaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>All easy handler must be removed before <a class="el" href="classcurl_1_1Share__base.html">Share_base</a> can be destroyed.</p>
-<p>To use in a thread-safe manner, you must call add_lock with non-nullptr. </p>
-
-<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00019">19</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00021">21</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a653e050ae6e5622cedea37f977236b64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a653e050ae6e5622cedea37f977236b64">&#9670;&nbsp;</a></span>lock_function_t</h2>
@@ -195,7 +193,7 @@ Protected Attributes</h2></td></tr>
 <li>CURL_LOCK_ACCESS_SINGLE, The mutex you used must be pthread_rwlock_t or std::shared_mutex. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00124">124</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00126">126</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
 
 </div>
 </div>
@@ -216,7 +214,7 @@ Protected Attributes</h2></td></tr>
 <li>CURL_LOCK_ACCESS_SINGLE, The mutex you used must be pthread_rwlock_t or std::shared_mutex. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00133">133</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00135">135</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
 
 </div>
 </div>
@@ -259,16 +257,18 @@ Protected Attributes</h2></td></tr>
 <p>NOTE that <a class="el" href="classcurl_1_1Multi__t.html">Multi_t</a> interface share this by default without setting this option. </p>
 </td></tr>
 </table>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="curl_share_8cc-example.html#a2">curl_share.cc</a>.</dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00070">70</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                       {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        none = CURL_LOCK_DATA_NONE,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        cookie = CURL_LOCK_DATA_COOKIE,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        dns = CURL_LOCK_DATA_DNS, </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        ssl_session = CURL_LOCK_DATA_SSL_SESSION,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        connection_cache = CURL_LOCK_DATA_CONNECT,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        psl = CURL_LOCK_DATA_PSL,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00072">72</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                       {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        none = CURL_LOCK_DATA_NONE,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        cookie = CURL_LOCK_DATA_COOKIE,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        dns = CURL_LOCK_DATA_DNS, </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        ssl_session = CURL_LOCK_DATA_SSL_SESSION,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        connection_cache = CURL_LOCK_DATA_CONNECT,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        psl = CURL_LOCK_DATA_PSL,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -613,7 +613,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 16 2020 19:53:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 20:41:37 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

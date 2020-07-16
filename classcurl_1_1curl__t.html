@@ -44,8 +44,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -287,6 +289,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Must be defined before any thread is created. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="curl_easy_get_8cc-example.html#_a0">curl_easy_get.cc</a>, <a class="el" href="curl_multi_poll_8cc-example.html#_a1">curl_multi_poll.cc</a>, <a class="el" href="curl_multi_poll2_8cc-example.html#_a1">curl_multi_poll2.cc</a>, <a class="el" href="curl_multi_socket_action_epoll_8cc-example.html#_a1">curl_multi_socket_action_epoll.cc</a>, <a class="el" href="curl_multi_socket_action_event_8cc-example.html#_a2">curl_multi_socket_action_event.cc</a>, <a class="el" href="curl_multi_socket_action_uv_8cc-example.html#_a2">curl_multi_socket_action_uv.cc</a>, <a class="el" href="curl_share_8cc-example.html#_a0">curl_share.cc</a>, and <a class="el" href="curl_url_8cc-example.html#_a1">curl_url.cc</a>.</dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00059">59</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -303,7 +307,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's easy handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00265">265</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00267">267</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -320,7 +324,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's Url parser. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00325">325</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00327">327</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -337,7 +341,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's <a class="el" href="classcurl_1_1Share.html">Share</a> handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00371">371</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00373">373</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -584,6 +588,8 @@ Public Attributes</h2></td></tr>
 </dd></dl>
 <p>If stderr_stream set to non-NULL, verbose info will be printed there. If disable_signal_handling_v is set, signal handling is disabled.</p>
 <p>As long as stderr_stream and disable_signal_handling_v is not modified when create_easy is called, this function is thread-safe. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="curl_share_8cc-example.html#a3">curl_share.cc</a>.</dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00019">19</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
@@ -895,7 +901,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Modification of the variable below is sure not thread-safe. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00110">110</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00112">112</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -917,7 +923,7 @@ Public Attributes</h2></td></tr>
 <p>In addition, using CURLAUTH_NTLM_WB authentication could cause a SIGCHLD signal to be raised.</p>
 <p>Modifing this would only affect Easy_t handle created after the modification. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00129">129</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00131">131</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -934,7 +940,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Result of curl_version_info(CURLVERSION_NOW). Cached for faster access. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00135">135</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00137">137</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -951,7 +957,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a> of the libcurl loaded dynamically. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00139">139</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00141">141</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -968,7 +974,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a> of the libcurl linked dynamically in string. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00143">143</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00145">145</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -981,17 +987,17 @@ Public Attributes</h2></td></tr>
 <li><a class="el" href="curl__url_8cc_source.html">curl_url.cc</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclasscurl_1_1curl__t_html_aa9e6a5ecbcfb72cb5c1aa6392f907a01"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa9e6a5ecbcfb72cb5c1aa6392f907a01">curl::curl_t::Share_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Share_deleter &gt; Share_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00371">curl.hpp:371</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_aa9e6a5ecbcfb72cb5c1aa6392f907a01"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa9e6a5ecbcfb72cb5c1aa6392f907a01">curl::curl_t::Share_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Share_deleter &gt; Share_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00373">curl.hpp:373</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Exception_html"><div class="ttname"><a href="classcurl_1_1Exception.html">curl::Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00016">curl.hpp:16</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_ae65ae20228883dd1bd8ac01ae47a1903"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae65ae20228883dd1bd8ac01ae47a1903">curl::curl_t::version_str</a></div><div class="ttdeci">const char *const version_str</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00143">curl.hpp:143</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_a12469ff0e13014cb131f5956ea8a7ee1"><div class="ttname"><a href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">curl::curl_t::disable_signal_handling_v</a></div><div class="ttdeci">bool disable_signal_handling_v</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00129">curl.hpp:129</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_acd13a0e33585608406f05bef322392a7"><div class="ttname"><a href="classcurl_1_1curl__t.html#acd13a0e33585608406f05bef322392a7">curl::curl_t::version_info</a></div><div class="ttdeci">const void *const version_info</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00135">curl.hpp:135</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_ae02fa1776f894802fc1f10e50e35fa49"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae02fa1776f894802fc1f10e50e35fa49">curl::curl_t::stderr_stream</a></div><div class="ttdeci">FILE * stderr_stream</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00110">curl.hpp:110</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl::curl_t::version</a></div><div class="ttdeci">const Version version</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00139">curl.hpp:139</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_a66467a053125e69aff37db2295c38c0a"><div class="ttname"><a href="classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a">curl::curl_t::Url_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Url_deleter &gt; Url_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00325">curl.hpp:325</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_ae65ae20228883dd1bd8ac01ae47a1903"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae65ae20228883dd1bd8ac01ae47a1903">curl::curl_t::version_str</a></div><div class="ttdeci">const char *const version_str</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00145">curl.hpp:145</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_a12469ff0e13014cb131f5956ea8a7ee1"><div class="ttname"><a href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">curl::curl_t::disable_signal_handling_v</a></div><div class="ttdeci">bool disable_signal_handling_v</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00131">curl.hpp:131</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_acd13a0e33585608406f05bef322392a7"><div class="ttname"><a href="classcurl_1_1curl__t.html#acd13a0e33585608406f05bef322392a7">curl::curl_t::version_info</a></div><div class="ttdeci">const void *const version_info</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00137">curl.hpp:137</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_ae02fa1776f894802fc1f10e50e35fa49"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae02fa1776f894802fc1f10e50e35fa49">curl::curl_t::stderr_stream</a></div><div class="ttdeci">FILE * stderr_stream</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00112">curl.hpp:112</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl::curl_t::version</a></div><div class="ttdeci">const Version version</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00141">curl.hpp:141</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_a66467a053125e69aff37db2295c38c0a"><div class="ttname"><a href="classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a">curl::curl_t::Url_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Url_deleter &gt; Url_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00327">curl.hpp:327</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 16 2020 19:53:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 20:41:37 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

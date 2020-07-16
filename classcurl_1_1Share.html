@@ -44,8 +44,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -140,6 +142,8 @@ class curl::Share&lt; Shared_mutex_t &gt;</h3>
 <p>If Shared_mutex_t lock, lock_shared or unlock throw an exception, it would terminte the program.</p>
 <p>If Shared_mutex_t has type Ret_except_t (Ret == void), then Shared_mutex_t(Ret_except_t&amp;) would be called.</p>
 <p>Pass void to disable locking, which make multithreaded use unsafe. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="curl_share_8cc-example.html#_a1">curl_share.cc</a>.</dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00047">47</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -175,10 +179,10 @@ template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00206">206</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                                     :</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <a class="code" href="classcurl_1_1Share.html#a4b818c3a78fe0e740b6c08ef1e6aa9c0">Share_base</a>{std::move(base)}</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    {}</div>
+<p class="definition">Definition at line <a class="el" href="curl__share_8hpp_source.html#l00208">208</a> of file <a class="el" href="curl__share_8hpp_source.html">curl_share.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                                     :</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <a class="code" href="classcurl_1_1Share.html#a4b818c3a78fe0e740b6c08ef1e6aa9c0">Share_base</a>{std::move(base)}</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -287,7 +291,7 @@ template&lt;class Shared_mutex_t  = utils::shared_mutex&gt; </div>
 <div class="ttc" id="aclasscurl_1_1Share_html_a4b818c3a78fe0e740b6c08ef1e6aa9c0"><div class="ttname"><a href="classcurl_1_1Share.html#a4b818c3a78fe0e740b6c08ef1e6aa9c0">curl::Share::Share_base</a></div><div class="ttdeci">Share_base(curl_t::Share_t &amp;&amp;share) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__share_8cc_source.html#l00015">curl_share.cc:15</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 16 2020 19:53:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 20:41:37 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

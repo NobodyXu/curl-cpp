@@ -44,8 +44,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -97,117 +99,118 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace</span> curl {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * @pre for using this class: curl_t::has_CURLU()</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * Why make Url_ref_t RAII-less?</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * Since url can be used by multiple Easy_ref_t, users might want to</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * manage it using std::shared_ptr.</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * It Url_ref_t is RAII-ed, then user would have to write</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * std::shared_ptr&lt;Url_ref_t&gt;, introducing another layer of indirection</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * while it doesn&#39;t have to.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * Url_ref_t&#39;s member function cannot be called in multiple threads simultaneously. </span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * &quot;&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;fragment&gt;&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html">   23</a></span>&#160;<span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html">Url_ref_t</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> check_url(<span class="keywordtype">int</span> code);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">     * If url == nullptr, then calling any member function has </span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     * undefined behavior.</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">   32</a></span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">url</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">   34</a></span>&#160;    <span class="keyword">enum</span> <span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        ok,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="comment">/**</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">         * For url, it could be:</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">         *  - url is longer than 8000000 bytes (7MiB)</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">         *  - scheme too long (newest libcurl support up to 40 bytes)</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">         *  - url does not match standard syntax</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">         *  - lack necessary part, e.g. scheme, host</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">         *  - contain junk character &lt;= 0x1f || == 0x7f</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55a48acc9d6bdaca34e0358116dd19eb5d4">malform_input</a>,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        bad_port_number,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        unsupported_scheme,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">     * @return all of set_code</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a0b60a9d9db7c6d7fbb54cc9be30e94ed">set_url</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *url_arg) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     * @return only set_code::unsupported_scheme, malform_input, ok</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a981658a18a44b25c563ab890c0234f05">set_scheme</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *scheme) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     * @return only set_code::malform_input, ok</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a3747eff0fb120edc4d742e732df88321">set_options</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *options) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">     * @return only set_code::malform_input, ok</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a8d5f0b4c825ae2ae2054fa4b55e2dd68">set_query</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *query) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     * Deleter for curl::Url_ref_t::string.</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">   70</a></span>&#160;    <span class="keyword">struct</span> <a class="code" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl_string_deleter</a> {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> operator () (<span class="keywordtype">char</span> *p) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">     * std::unique_ptr for any libcurl-returned string</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * that requires deallocation.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#aedc8fea0c3723696344ec8c0434ab53c">   77</a></span>&#160;    <span class="keyword">using</span> string = std::unique_ptr&lt;<span class="keywordtype">char</span>, <a class="code" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl_string_deleter</a>&gt;;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     * get_code::no_* can be returned by respective get_*() function.</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">   82</a></span>&#160;    <span class="keyword">enum</span> <span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a> {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        no_scheme,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        no_user,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        no_passwd,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        no_options,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        no_host,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        no_port,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        no_query,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        no_fragment,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    };</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">     * @return no_scheme or no_host</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a48173ce87b4fecc77762a2e06193f94e">get_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> get_scheme() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">auto</span> get_options() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">auto</span> get_query() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">/* namespace curl */</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * @example curl_url.cc</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * Why make Url_ref_t RAII-less?</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * Since url can be used by multiple Easy_ref_t, users might want to</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * manage it using std::shared_ptr.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * It Url_ref_t is RAII-ed, then user would have to write</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * std::shared_ptr&lt;Url_ref_t&gt;, introducing another layer of indirection</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * while it doesn&#39;t have to.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * Url_ref_t&#39;s member function cannot be called in multiple threads simultaneously. </span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * &quot;&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;fragment&gt;&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html">   24</a></span>&#160;<span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html">Url_ref_t</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> check_url(<span class="keywordtype">int</span> code);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     * If url == nullptr, then calling any member function has </span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     * undefined behavior.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">   33</a></span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">url</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">   35</a></span>&#160;    <span class="keyword">enum</span> <span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        ok,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">         * For url, it could be:</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">         *  - url is longer than 8000000 bytes (7MiB)</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">         *  - scheme too long (newest libcurl support up to 40 bytes)</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">         *  - url does not match standard syntax</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">         *  - lack necessary part, e.g. scheme, host</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">         *  - contain junk character &lt;= 0x1f || == 0x7f</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55a48acc9d6bdaca34e0358116dd19eb5d4">malform_input</a>,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        bad_port_number,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        unsupported_scheme,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    };</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">     * @return all of set_code</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a0b60a9d9db7c6d7fbb54cc9be30e94ed">set_url</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *url_arg) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     * @return only set_code::unsupported_scheme, malform_input, ok</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a981658a18a44b25c563ab890c0234f05">set_scheme</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *scheme) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     * @return only set_code::malform_input, ok</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a3747eff0fb120edc4d742e732df88321">set_options</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *options) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     * @return only set_code::malform_input, ok</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a8d5f0b4c825ae2ae2054fa4b55e2dd68">set_query</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *query) <span class="keyword">noexcept</span> -&gt; Ret_except&lt;<a class="code" href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">set_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     * Deleter for curl::Url_ref_t::string.</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">   71</a></span>&#160;    <span class="keyword">struct</span> <a class="code" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl_string_deleter</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">void</span> operator () (<span class="keywordtype">char</span> *p) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * std::unique_ptr for any libcurl-returned string</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * that requires deallocation.</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#aedc8fea0c3723696344ec8c0434ab53c">   78</a></span>&#160;    <span class="keyword">using</span> string = std::unique_ptr&lt;<span class="keywordtype">char</span>, <a class="code" href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl_string_deleter</a>&gt;;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * get_code::no_* can be returned by respective get_*() function.</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">   83</a></span>&#160;    <span class="keyword">enum</span> <span class="keyword">class</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a> {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        no_scheme,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        no_user,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        no_passwd,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        no_options,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        no_host,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        no_port,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        no_query,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        no_fragment,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    };</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     * @return no_scheme or no_host</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Url__ref__t.html#a48173ce87b4fecc77762a2e06193f94e">get_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">auto</span> get_scheme() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">auto</span> get_options() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">auto</span> get_query() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; Ret_except&lt;string, <a class="code" href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">get_code</a>, std::bad_alloc&gt;;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">/* namespace curl */</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a21ac5e8f74e0ea461b9d050f431fbd55"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">curl::Url_ref_t::set_code</a></div><div class="ttdeci">set_code</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00034">curl_url.hpp:34</a></div></div>
-<div class="ttc" id="astructcurl_1_1Url__ref__t_1_1curl__string__deleter_html"><div class="ttname"><a href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl::Url_ref_t::curl_string_deleter</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00070">curl_url.hpp:70</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a21ac5e8f74e0ea461b9d050f431fbd55"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55">curl::Url_ref_t::set_code</a></div><div class="ttdeci">set_code</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00035">curl_url.hpp:35</a></div></div>
+<div class="ttc" id="astructcurl_1_1Url__ref__t_1_1curl__string__deleter_html"><div class="ttname"><a href="structcurl_1_1Url__ref__t_1_1curl__string__deleter.html">curl::Url_ref_t::curl_string_deleter</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00071">curl_url.hpp:71</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a0b60a9d9db7c6d7fbb54cc9be30e94ed"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a0b60a9d9db7c6d7fbb54cc9be30e94ed">curl::Url_ref_t::set_url</a></div><div class="ttdeci">auto set_url(const char *url_arg) noexcept -&gt; Ret_except&lt; set_code, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8cc_source.html#l00049">curl_url.cc:49</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Url__ref__t_html"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html">curl::Url_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00023">curl_url.hpp:23</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Url__ref__t_html"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html">curl::Url_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00024">curl_url.hpp:24</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a3747eff0fb120edc4d742e732df88321"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a3747eff0fb120edc4d742e732df88321">curl::Url_ref_t::set_options</a></div><div class="ttdeci">auto set_options(const char *options) noexcept -&gt; Ret_except&lt; set_code, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8cc_source.html#l00057">curl_url.cc:57</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a8d5f0b4c825ae2ae2054fa4b55e2dd68"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a8d5f0b4c825ae2ae2054fa4b55e2dd68">curl::Url_ref_t::set_query</a></div><div class="ttdeci">auto set_query(const char *query) noexcept -&gt; Ret_except&lt; set_code, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8cc_source.html#l00061">curl_url.cc:61</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a21ac5e8f74e0ea461b9d050f431fbd55a48acc9d6bdaca34e0358116dd19eb5d4"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55a48acc9d6bdaca34e0358116dd19eb5d4">curl::Url_ref_t::set_code::malform_input</a></div><div class="ttdeci">@ malform_input</div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a981658a18a44b25c563ab890c0234f05"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a981658a18a44b25c563ab890c0234f05">curl::Url_ref_t::set_scheme</a></div><div class="ttdeci">auto set_scheme(const char *scheme) noexcept -&gt; Ret_except&lt; set_code, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8cc_source.html#l00053">curl_url.cc:53</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a07d52bacdd6a98094a62b830067c41d7"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">curl::Url_ref_t::get_code</a></div><div class="ttdeci">get_code</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00082">curl_url.hpp:82</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_ac0b7c78e0b4e121e2db16554f1194550"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">curl::Url_ref_t::url</a></div><div class="ttdeci">char * url</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00032">curl_url.hpp:32</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a07d52bacdd6a98094a62b830067c41d7"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a07d52bacdd6a98094a62b830067c41d7">curl::Url_ref_t::get_code</a></div><div class="ttdeci">get_code</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00083">curl_url.hpp:83</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Url__ref__t_html_ac0b7c78e0b4e121e2db16554f1194550"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#ac0b7c78e0b4e121e2db16554f1194550">curl::Url_ref_t::url</a></div><div class="ttdeci">char * url</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00033">curl_url.hpp:33</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html_a48173ce87b4fecc77762a2e06193f94e"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html#a48173ce87b4fecc77762a2e06193f94e">curl::Url_ref_t::get_url</a></div><div class="ttdeci">auto get_url() const noexcept -&gt; Ret_except&lt; string, get_code, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8cc_source.html#l00104">curl_url.cc:104</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 16 2020 19:53:17 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 20:41:35 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
