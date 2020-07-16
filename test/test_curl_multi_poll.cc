@@ -3,6 +3,7 @@
 #include "../curl_multi.hpp"
 
 #include <cassert>
+#include <vector>
 #include "utility.hpp"
 
 using curl::Easy_ref_t;
