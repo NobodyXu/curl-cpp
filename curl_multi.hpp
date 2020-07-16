@@ -148,7 +148,7 @@ public:
     auto perform(perform_callback_t perform_callback, void *arg) noexcept -> 
         Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>;
 
-    /* 
+    /** 
      * @return should be 0
      *
      * Interface for using arbitary event-based interface - multi_socket interface 
