@@ -8,6 +8,8 @@
 # include "curl.hpp"
 # include "utils/curl_slist.hpp"
 
+# include <curl/curl.h>
+
 namespace curl {
 /**
  * Why make Easy_ref_t RAII-less?
