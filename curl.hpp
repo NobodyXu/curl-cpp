@@ -59,6 +59,8 @@ class Url_ref_t;
 class curl_t {
 public:
     /**
+     * @example curl_version.cc
+     *
      * This struct encapsulate operations on libcurl version.
      */
     struct Version {
