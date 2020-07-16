@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['multi_5ft_133',['Multi_t',['../classcurl_1_1Multi__t.html',1,'curl']]]
+  ['notbuiltin_5ferror_134',['NotBuiltIn_error',['../classcurl_1_1NotBuiltIn__error.html',1,'curl::NotBuiltIn_error'],['../classcurl_1_1Easy__ref__t_1_1NotBuiltIn__error.html',1,'curl::Easy_ref_t::NotBuiltIn_error']]]
 ];

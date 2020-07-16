@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iterator_5ftemplate_131',['Iterator_template',['../structcurl_1_1utils_1_1slist_1_1Iterator__template.html',1,'curl::utils::slist']]]
+  ['libcurl_5fbug_132',['libcurl_bug',['../classcurl_1_1libcurl__bug.html',1,'curl']]]
 ];

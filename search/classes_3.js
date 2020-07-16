@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['libcurl_5fbug_132',['libcurl_bug',['../classcurl_1_1libcurl__bug.html',1,'curl']]]
+  ['multi_5ft_133',['Multi_t',['../classcurl_1_1Multi__t.html',1,'curl']]]
 ];

@@ -115,14 +115,14 @@ Collaboration diagram for curl::utils::slist:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">Iterator_template</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcurl_1_1utils_1_1slist_1_1const__iterator.html">const_iterator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a52b40fda3e447da72cfab08204466341"><td class="memItemLeft" align="right" valign="top"><a id="a52b40fda3e447da72cfab08204466341"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = char *const</td></tr>
-<tr class="separator:a52b40fda3e447da72cfab08204466341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72a26b26a58dc3bc1ee4e5609120c4fc"><td class="memItemLeft" align="right" valign="top"><a id="a72a26b26a58dc3bc1ee4e5609120c4fc"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = const char *</td></tr>
+<tr class="separator:a72a26b26a58dc3bc1ee4e5609120c4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a288a09718e854cfdfa2f4c3fc2d2909e"><td class="memItemLeft" align="right" valign="top"><a id="a288a09718e854cfdfa2f4c3fc2d2909e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>size_type</b> = std::size_t</td></tr>
 <tr class="separator:a288a09718e854cfdfa2f4c3fc2d2909e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,18 +141,12 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>pointer</b> = value_
 <tr class="memitem:a944c5f32ddba569a8b8a0a4e6a4bcecb"><td class="memItemLeft" align="right" valign="top"><a id="a944c5f32ddba569a8b8a0a4e6a4bcecb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>const_pointer</b> = const value_type *</td></tr>
 <tr class="separator:a944c5f32ddba569a8b8a0a4e6a4bcecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74eac9bfc44f281ac213a1691af740f7"><td class="memItemLeft" align="right" valign="top"><a id="a74eac9bfc44f281ac213a1691af740f7"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>iterator</b> = <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">Iterator_template</a>&lt; curl_slist *, char *const  &gt;</td></tr>
-<tr class="separator:a74eac9bfc44f281ac213a1691af740f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a262744bb03f50469fc768ee3320df2f0"><td class="memItemLeft" align="right" valign="top"><a id="a262744bb03f50469fc768ee3320df2f0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>const_iterator</b> = <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">Iterator_template</a>&lt; const curl_slist *, const char *const  &gt;</td></tr>
-<tr class="separator:a262744bb03f50469fc768ee3320df2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af491ee7f84620e7c35f60e6cf7924bac"><td class="memItemLeft" align="right" valign="top"><a id="af491ee7f84620e7c35f60e6cf7924bac"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>slist</b> (curl_slist *l) noexcept</td></tr>
-<tr class="separator:af491ee7f84620e7c35f60e6cf7924bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a6bb658e557095fde5098a76eb42875"><td class="memItemLeft" align="right" valign="top"><a id="a2a6bb658e557095fde5098a76eb42875"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>slist</b> (void *l) noexcept</td></tr>
+<tr class="separator:a2a6bb658e557095fde5098a76eb42875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3217a3f389282d74c38cac04a3e3a6be"><td class="memItemLeft" align="right" valign="top"><a id="a3217a3f389282d74c38cac04a3e3a6be"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>slist</b> (const <a class="el" href="classcurl_1_1utils_1_1slist.html">slist</a> &amp;)=delete</td></tr>
 <tr class="separator:a3217a3f389282d74c38cac04a3e3a6be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,23 +167,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="e
 <tr class="memitem:ac1559a5434ebaed08616b1201bdd35e8"><td class="memItemLeft" align="right" valign="top"><a id="ac1559a5434ebaed08616b1201bdd35e8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_empty</b> () const noexcept</td></tr>
 <tr class="separator:ac1559a5434ebaed08616b1201bdd35e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b4c8c255ec45d47750603da1a83c105"><td class="memItemLeft" align="right" valign="top"><a id="a0b4c8c255ec45d47750603da1a83c105"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">iterator</a></td></tr>
-<tr class="separator:a0b4c8c255ec45d47750603da1a83c105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c1fc4012207f598e2b969a90913a3ab"><td class="memItemLeft" align="right" valign="top"><a id="a8c1fc4012207f598e2b969a90913a3ab"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">iterator</a></td></tr>
-<tr class="separator:a8c1fc4012207f598e2b969a90913a3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51c7680f69916cb6ac7445dd2f3469a5"><td class="memItemLeft" align="right" valign="top"><a id="a51c7680f69916cb6ac7445dd2f3469a5"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">const_iterator</a></td></tr>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1const__iterator.html">const_iterator</a></td></tr>
 <tr class="separator:a51c7680f69916cb6ac7445dd2f3469a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb5c35589a4a59f7910236b1c675b95a"><td class="memItemLeft" align="right" valign="top"><a id="abb5c35589a4a59f7910236b1c675b95a"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">const_iterator</a></td></tr>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1const__iterator.html">const_iterator</a></td></tr>
 <tr class="separator:abb5c35589a4a59f7910236b1c675b95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa612b82b3935da89b80689b6dcc608a1"><td class="memItemLeft" align="right" valign="top"><a id="aa612b82b3935da89b80689b6dcc608a1"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>cbegin</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">const_iterator</a></td></tr>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>cbegin</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1const__iterator.html">const_iterator</a></td></tr>
 <tr class="separator:aa612b82b3935da89b80689b6dcc608a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6ab2849fd74f318e9e6f2c7118ed31c"><td class="memItemLeft" align="right" valign="top"><a id="ab6ab2849fd74f318e9e6f2c7118ed31c"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>cend</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1Iterator__template.html">const_iterator</a></td></tr>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>cend</b> () const noexcept -&gt; <a class="el" href="structcurl_1_1utils_1_1slist_1_1const__iterator.html">const_iterator</a></td></tr>
 <tr class="separator:ab6ab2849fd74f318e9e6f2c7118ed31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00066f84356410c824a4a3a208eaee7a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1utils_1_1slist.html#a00066f84356410c824a4a3a208eaee7a">get_underlying_ptr</a> () const noexcept -&gt; void *</td></tr>
 <tr class="separator:a00066f84356410c824a4a3a208eaee7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +198,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>list</b> = nullptr<
 <li>If another thread is modifing this class, other reader should wait until it is done. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="curl__slist_8hpp_source.html#l00023">23</a> of file <a class="el" href="curl__slist_8hpp_source.html">curl_slist.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__slist_8hpp_source.html#l00021">21</a> of file <a class="el" href="curl__slist_8hpp_source.html">curl_slist.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a024136efea8f0ea374f7e4d51728a369"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a024136efea8f0ea374f7e4d51728a369">&#9670;&nbsp;</a></span>clear()</h2>
@@ -270,10 +258,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>list</b> = nullptr<
 </div><div class="memdoc">
 <p>Get underlying struct curl_slist* pointer. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__slist_8cc_source.html#l00066">66</a> of file <a class="el" href="curl__slist_8cc_source.html">curl_slist.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> list;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__slist_8cc_source.html#l00081">81</a> of file <a class="el" href="curl__slist_8cc_source.html">curl_slist.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> list;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -316,16 +304,16 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__slist_8cc_source.html#l00076">76</a> of file <a class="el" href="curl__slist_8cc_source.html">curl_slist.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">auto</span> temp = curl_slist_append(<span class="keyword">static_cast&lt;</span>struct curl_slist*<span class="keyword">&gt;</span>(list), str);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (!temp)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    list = temp;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__slist_8cc_source.html#l00091">91</a> of file <a class="el" href="curl__slist_8cc_source.html">curl_slist.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">auto</span> temp = curl_slist_append(<span class="keyword">static_cast&lt;</span>struct curl_slist*<span class="keyword">&gt;</span>(list), str);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (!temp)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    list = temp;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -336,7 +324,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 16 2020 19:19:37 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 16 2020 19:53:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
