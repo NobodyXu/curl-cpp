@@ -1,3 +1,7 @@
+/**
+ * Example/test for using Multi_t::multi_socket_action interface and libuv without vector.
+ */
+
 #include "../curl_easy.hpp"
 #include "../curl_url.hpp"
 #include "../curl_multi.hpp"

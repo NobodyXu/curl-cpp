@@ -1,3 +1,7 @@
+/**
+ * Example/test for using Multi_t::poll interface without vector.
+ */
+
 #include "../curl_easy.hpp"
 #include "../curl_url.hpp"
 #include "../curl_multi.hpp"
