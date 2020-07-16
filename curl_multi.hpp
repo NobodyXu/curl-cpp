@@ -2,6 +2,7 @@
 # define __curl_cpp_curl_multi_HPP__
 
 # include "curl_easy.hpp"
+# include <curl/curl.h>
 
 namespace curl {
 /**
