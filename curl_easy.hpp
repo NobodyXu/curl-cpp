@@ -405,6 +405,7 @@ public:
     /**
      * @pre curl_t::has_set_ip_addr_only_support()
      * @param ip_addr ipv4/ipv6 address
+     *                If it is nullptr, then set to whatever TCP stack find available (default).
      */
     auto set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
 
