@@ -13,8 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: init-submodule
-      run: git submodule init
+    - name: init-and-update-submodule
+      run: git submodule update --init
     - name: make
       run: make -j $(nproc)
     - name: make test
