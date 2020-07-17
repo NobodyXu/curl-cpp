@@ -95,7 +95,7 @@ void assert_same_impl(const T1 &v1, const char *expr1, const T2 &v2, const char 
     if (v1 != v2) {
         impl::print(std::cerr, std::forward<Ts>(args)...);
         std::cerr << expr1 << " != " << expr2 << ": " 
-                  << v1 << " != " << v2 << std::endl;
+                  << "'" << v1 << "' != '" << v2 << "'" << std::endl;
         std::exit(1);
     }
 }
