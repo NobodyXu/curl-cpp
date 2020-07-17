@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 source $(dirname $0)/common.sh
 
@@ -13,3 +13,5 @@ if ! container_up $container_name; then
 else
     echo $container_name is already running!
 fi
+
+echo

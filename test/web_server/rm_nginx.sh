@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 source $(dirname $0)/stop_nginx.sh
 
@@ -7,3 +7,5 @@ if has_container $container_name; then
 else
     echo No $container_name exists
 fi
+
+echo
