@@ -54,7 +54,10 @@ class Multi_t;
 class Url_ref_t;
 
 /**
- * Must be defined before any thread is created.
+ * @warning Must be defined before any thread is created.
+ *
+ * There can be multiple instances of this object, as long as during
+ * ctor and dtor, there is only one thread in the program.
  */
 class curl_t {
 public:
