@@ -16,7 +16,7 @@ jobs:
     - name: init-and-update-submodule
       run: git submodule update --init
     - name: Install dependencies
-      run: apt update && apt install -y libcurl4-openssl-dev clang
+      run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev clang
     - name: make
       run: make -j $(nproc)
     - name: make test
