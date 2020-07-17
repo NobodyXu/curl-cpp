@@ -15,8 +15,8 @@ else
 fi
 
 container_up() {
-    podman ps --format "{{.Names}}" --no-trunc | grep -q $1
+    $DOCKER ps --format "{{.Names}}" --no-trunc | grep -q $1
 }
 has_container() {
-    podman ps -a --format "{{.Names}}" --no-trunc | grep -q $1
+    $DOCKER ps -a --format "{{.Names}}" --no-trunc | grep -q $1
 }
