@@ -1,5 +1,7 @@
 # curl-cpp
 
+![C/C++ CI](https://github.com/NobodyXu/curl-cpp/workflows/C/C++%20CI/badge.svg)
+
 cpp wrapper for libcurl that support -fno-exceptions and static linking.
 
 curl-cpp provides simple measures to test whether certain features is supported before any easy handle is created
