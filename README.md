@@ -17,3 +17,10 @@ git clone https://github.com/NobodyXu/curl-cpp.git
 cd curl-cpp/
 make
 ```
+
+## How to build doc locally
+
+```
+cd curl-cpp/
+make gendoc # This will give html, latex and man pages
+```
