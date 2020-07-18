@@ -138,7 +138,8 @@ public:
      *          This will cause the transfer to get aborted and the libcurl function used will return 
      *          code::writeback_error.
      *
-     *          If CURL_WRITEFUNC_PAUSE is returned, it will cause transfer to be paused.
+     *          If curl_t::has_pause_support() == true, and CURL_WRITEFUNC_PAUSE is returned, 
+     *          it will cause transfer to be paused.
      *          See curl_easy_pause for more details.
      *
      *
@@ -500,17 +501,18 @@ public:
      *
      * @return bytes writen to the buffer.
      *
-     *               0 to signal end-of-file to the library and cause it to stop the current transfer.
+     *         0 to signal end-of-file to the library and cause it to stop the current transfer.
      *
-     *               CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
-     *               stop immediately, result code::aborted_by_callback.
+     *         CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
+     *         stop immediately, result code::aborted_by_callback.
      *
-     *               The callback can return CURL_READFUNC_PAUSE to cause reading from this connection 
-     *               to pause. See curl_easy_pause for further details.
+     *         If curl_t::has_pause_support() == true, and CURL_READFUNC_PAUSE is returned,
+     *         it would cause reading from this connection to pause.
+     *         See curl_easy_pause for further details.
      *
-     *               Bugs: when doing TFTP uploads, you must return the exact amount of data that 
-     *               the callback wants, or it will be considered the final packet by the server end and 
-     *               the transfer will end there.
+     *         Bugs: when doing TFTP uploads, you must return the exact amount of data that 
+     *         the callback wants, or it will be considered the final packet by the server end and 
+     *         the transfer will end there.
      *
      * If you stop the current transfer by returning 0 "pre-maturely" 
      * (i.e before the server expected it, like when you've said you will 

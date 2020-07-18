@@ -123,6 +123,10 @@ curl_t::curl_t(FILE *stderr_stream_arg,
                  version_str, version.num);
 }
 
+bool curl_t::has_pause_support() const noexcept
+{
+    return version >= Version::from(7, 18, 0);
+}
 
 bool curl_t::has_compression_support() const noexcept
 {

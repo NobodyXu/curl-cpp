@@ -222,6 +222,8 @@ public:
      */
     ~curl_t();
 
+    bool has_pause_support() const noexcept;
+
     bool has_compression_support() const noexcept;
     bool has_largefile_support() const noexcept;
     /**
