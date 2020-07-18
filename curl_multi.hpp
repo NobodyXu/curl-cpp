@@ -70,7 +70,7 @@ public:
     /**
      * @param easy must be in valid state
      * @return true if not yet added;
-     *         false if already added.
+     *         <br>false if already added.
      */
     bool add_easy(Easy_ref_t &easy) noexcept;
     /**
@@ -85,13 +85,13 @@ public:
      *
      * @pre curl_t::has_http2_multiplex_support()
      * @param max_concurrent_stream max concurrent stream for a given connection.
-     *                              Should be between [1, 2 ^ 31 - 1].
-     *                              Set it to 1 or 0 disable multiplexing.
+     *                              <br>Should be between [1, 2 ^ 31 - 1].
+     *                              <br>Set it to 1 or 0 disable multiplexing.
      *
      * Since curl_t::version >= 7.62.0, multiplex is turned on by default.
      *
      * NOTE that libcurl not always accept max_concurrent_stream tuning.
-     * Check curl_t::has_max_concurrent_stream_support().
+     * <br>Check curl_t::has_max_concurrent_stream_support().
      *
      * If libcurl does not support tuning, this option will be only used
      * for turning on and off the http2 multiplex.
@@ -179,11 +179,11 @@ public:
     /**
      * @param timeout_ms -1 means you should delete the timer. 
      *                   All other values are valid expire times in number of milliseconds.
-     * @return should be 0 on success
+     * @return should be 0 on success, 
      *                   -1 on failure.
      *
      * Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms.
-     * When time that timer fires, call multi_socket_action().
+     * <br>When time that timer fires, call multi_socket_action().
      *
      * The timer_callback will only be called when the timeout expire time is changed.
      */
@@ -212,10 +212,10 @@ public:
 
     /**
      * @pre enable_multi_socket_interface() is called,
-     *               perform_callback, socket_callback, timer_callback is set.
+     *      perform_callback, socket_callback, timer_callback is set.
      *
      * @param socketfd fd to be notified;
-     *                 CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process.
+     *                 <br>CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process.
      * @param ev_bitmask Or-ed with 0 or one of the value below:
      *    - CURL_CSELECT_IN,
      *    - CURL_CSELECT_OUT,
