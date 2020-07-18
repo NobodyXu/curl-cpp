@@ -50,9 +50,9 @@ public:
     Share_base& operator = (const Share_base&) = delete;
     /**
      * @param other if bool(other) is true, then it will be unusable after this operation.
-     *              otherwise, this object will also be destroyed.
+     *              <br>Otherwise, this object will also be destroyed.
      * @param this this object can also be an unusable object which bool(*this) is false.
-     *             Calling this function on an unusable object will make that object again
+     *             <br>Calling this function on an unusable object will make that object again
      *             usable.
      *
      * **NOTE that if this object still holds easy handler and bool(other) is false,
@@ -141,7 +141,7 @@ public:
 
     /**
      * @param option must be one of enum class Options.
-     *               Cannot be or-ed value.
+     *               <br>Cannot be or-ed value.
      *
      * All sharing enable/disable must be done when no easy is added
      * or all easy is removed.
@@ -149,7 +149,7 @@ public:
     auto enable_sharing(Options option) noexcept -> Ret_except<int, std::bad_alloc>;
     /**
      * @param option must be one of enum class Options.
-     *               Cannot be or-ed value.
+     *               <br>Cannot be or-ed value.
      *
      * All sharing enable/disable must be done when no easy is added
      * or all easy is removed.
@@ -163,14 +163,11 @@ public:
 /**
  * @tparam Shared_mutex_t For shared or single lock, their unlock function must be
  *                        the same function -- Shared_mutex_t::unlock().
- *
- *                        If Shared_mutex_t lock, lock_shared or unlock
+ *                        <br>If Shared_mutex_t lock, lock_shared or unlock
  *                        throw an exception, it would terminte the program.
- *
- *                        If Shared_mutex_t has type Ret_except_t (Ret == void), then 
+ *                        <br>If Shared_mutex_t has type Ret_except_t (Ret == void), then 
  *                        Shared_mutex_t(Ret_except_t&) would be called.
- *
- *                        Pass void to disable locking, which make
+ *                        <br>Pass void to disable locking, which make
  *                        multithreaded use unsafe.
  */
 template <class Shared_mutex_t = utils::shared_mutex>
