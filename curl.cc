@@ -123,11 +123,6 @@ curl_t::curl_t(FILE *stderr_stream_arg,
                  version_str, version.num);
 }
 
-bool curl_t::has_pause_support() const noexcept
-{
-    return version >= Version::from(7, 18, 0);
-}
-
 bool curl_t::has_compression_support() const noexcept
 {
     auto *info = static_cast<const curl_version_info_data*>(version_info);
@@ -191,6 +186,11 @@ bool curl_t::has_readfunc_abort_support() const noexcept
 {
     return version >= Version::from(7, 12, 1);
 }
+bool curl_t::has_pause_support() const noexcept
+{
+    return version >= Version::from(7, 18, 0);
+}
+
 bool curl_t::has_header_option_support() const noexcept
 {
     return version >= Version::from(7, 37, 0);

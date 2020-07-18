@@ -222,8 +222,6 @@ public:
      */
     ~curl_t();
 
-    bool has_pause_support() const noexcept;
-
     bool has_compression_support() const noexcept;
     bool has_largefile_support() const noexcept;
     /**
@@ -243,6 +241,8 @@ public:
     bool has_private_ptr_support() const noexcept;
 
     bool has_readfunc_abort_support() const noexcept;
+    bool has_pause_support() const noexcept;
+
     bool has_header_option_support() const noexcept;
     bool has_set_ip_addr_only_support() const noexcept;
 
