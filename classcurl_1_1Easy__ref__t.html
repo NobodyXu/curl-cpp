@@ -293,15 +293,12 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>check_perform<
   </table>
   </dd>
 </dl>
-<p>@ return if less than size, then it will singal an err cond to libcurl. </p><pre class="fragment">     This will cause the transfer to get aborted and the libcurl function used will return 
-     code::writeback_error.
+<p>@ return if less than size, then it will singal an err cond to libcurl. <br  />
+This will cause the transfer to get aborted and the libcurl function used will return code::writeback_error. <br  />
+If curl_t::has_pause_support() == true, and CURL_WRITEFUNC_PAUSE is returned, it will cause transfer to be paused. See curl_easy_pause for more details.</p>
+<p><b>It would be undefined behavior to call any easy member function in writeback.</b> </p>
 
-     If curl_t::has_pause_support() == true, and CURL_WRITEFUNC_PAUSE is returned, 
-     it will cause transfer to be paused.
-     See curl_easy_pause for more details.
-</pre><p>It would be undefined behavior to call any easy member function in writeback. </p>
-
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00149">149</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00145">145</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
 
 </div>
 </div>
@@ -317,22 +314,14 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>check_perform<
       </table>
 </div><div class="memdoc">
 <p>The length of buffer is size * nitems.</p>
-<dl class="section return"><dt>Returns</dt><dd>bytes writen to the buffer. <pre class="fragment">    0 to signal end-of-file to the library and cause it to stop the current transfer.
-
-    CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
-    stop immediately, result code::aborted_by_callback.
-
-    If curl_t::has_pause_support() == true, and CURL_READFUNC_PAUSE is returned,
-    it would cause reading from this connection to pause.
-    See curl_easy_pause for further details.
-
-    Bugs: when doing TFTP uploads, you must return the exact amount of data that 
-    the callback wants, or it will be considered the final packet by the server end and 
-    the transfer will end there.
-</pre></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bytes writen to the buffer. <br  />
+0 to signal end-of-file to the library and cause it to stop the current transfer. <br  />
+CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to stop immediately, result code::aborted_by_callback. <br  />
+If curl_t::has_pause_support() == true, and CURL_READFUNC_PAUSE is returned, it would cause reading from this connection to pause. See curl_easy_pause for further details. <br  />
+Bugs: when doing TFTP uploads, you must return the exact amount of data that the callback wants, or it will be considered the final packet by the server end and the transfer will end there.</dd></dl>
 <p>If you stop the current transfer by returning 0 "pre-maturely" (i.e before the server expected it, like when you've said you will upload N bytes and you upload less than N bytes), you may experience that the server "hangs" waiting for the rest of the data that won't come. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00521">521</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00513">513</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
 
 </div>
 </div>
@@ -365,12 +354,12 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>check_perform<
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00425">425</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                             {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        unspecified,</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        unified, <span class="comment">// header specified with set_http_header will also be used for proxy</span></div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        separate, <span class="comment">// reverse of unified</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00421">421</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                             {</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        unspecified,</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        unified, <span class="comment">// header specified with set_http_header will also be used for proxy</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        separate, <span class="comment">// reverse of unified</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -401,21 +390,21 @@ static auto&#160;</td><td class="memItemRight" valign="bottom"><b>check_perform<
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00533">533</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                    {</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        ok = 0,</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        unsupported_protocol,</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        url_malformat,</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        cannot_resolve_proxy,</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        cannot_resolve_host,</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        cannot_connect, <span class="comment">// Cannot connect to host or proxy</span></div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        remote_access_denied,</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        writeback_error,</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        upload_failure, <span class="comment">// Failed starting the upload</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        timedout,</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        aborted_by_callback, <span class="comment">// If readback return CURL_READFUNC_ABORT.</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        too_many_redirects, </div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00525">525</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;                    {</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        ok = 0,</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        unsupported_protocol,</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        url_malformat,</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        cannot_resolve_proxy,</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        cannot_resolve_host,</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        cannot_connect, <span class="comment">// Cannot connect to host or proxy</span></div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        remote_access_denied,</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        writeback_error,</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        upload_failure, <span class="comment">// Failed starting the upload</span></div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        timedout,</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        aborted_by_callback, <span class="comment">// If readback return CURL_READFUNC_ABORT.</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        too_many_redirects, </div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -453,13 +442,13 @@ Thus, the readback won't be called/the data registered with request_post won't b
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00553">553</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;                            {</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;        recv = 1 &lt;&lt; 0,</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        send = 1 &lt;&lt; 2, <span class="comment">// Make value of pause_send the same as stock libcurl</span></div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="comment"></span>        all = recv | send, </div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        cont = 0,</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00545">545</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;                            {</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;        recv = 1 &lt;&lt; 0,</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        send = 1 &lt;&lt; 2, <span class="comment">// Make value of pause_send the same as stock libcurl</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="comment"></span>        all = recv | send, </div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        cont = 0,</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -494,13 +483,13 @@ Thus, the readback won't be called/the data registered with request_post won't b
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00065">65</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (stderr_stream_arg) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_STDERR, stderr_stream_arg);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_VERBOSE, 1L);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00064">64</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (stderr_stream_arg) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_STDERR, stderr_stream_arg);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_VERBOSE, 1L);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,10 +517,10 @@ Thus, the readback won't be called/the data registered with request_post won't b
 </div><div class="memdoc">
 <p>Minimum length for error buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00072">72</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> CURL_ERROR_SIZE;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00071">71</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> CURL_ERROR_SIZE;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -567,10 +556,10 @@ Thus, the readback won't be called/the data registered with request_post won't b
 <p>The error buffer must be kept around until call set_error_buffer again or curl::Easy_t is destroyed.</p>
 <p>The error buffer is only set if <a class="el" href="classcurl_1_1Easy__ref__t_1_1ProtocolInternal__error.html">ProtocolInternal_error</a> is thrown. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00076">76</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00075">75</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_ERRORBUFFER, error_buffer);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,10 +594,10 @@ Thus, the readback won't be called/the data registered with request_post won't b
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00081">81</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, userp);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00080">80</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_PRIVATE, userp);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -637,12 +626,12 @@ Thus, the readback won't be called/the data registered with request_post won't b
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_private_ptr_support() </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer set via set_private or nullptr if not set at all. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00085">85</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">char</span> *userp;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_PRIVATE, &amp;userp);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> userp;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00084">84</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">char</span> *userp;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_PRIVATE, &amp;userp);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> userp;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -681,11 +670,11 @@ Thus, the readback won't be called/the data registered with request_post won't b
 </div><div class="memdoc">
 <p>By default, writeback == std::fwrite, userp == stdout </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00092">92</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, userp);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00091">91</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_WRITEFUNCTION, writeback);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_WRITEDATA, userp);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -732,10 +721,10 @@ Here is the caller graph for this function:</div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="curl_easy_get_8cc-example.html#a3">curl_easy_get.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00098">98</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00097">97</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_CURLU, url.url);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -769,11 +758,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00102">102</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00101">101</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_URL, url));</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -803,27 +792,31 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cookies</td><td>null-terminated string, in format "name1=content1; name2=content2;" This string will be strdup-ed and override previous call. This is defaulted to nullptr. </td></tr>
+    <tr><td class="paramname">cookies</td><td>null-terminated string, in format "name1=content1; name2=content2;" <br  />
+This string will be strdup-ed and override previous call. <br  />
+This is defaulted to nullptr. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>.</dd></dl>
-<p>This option sets the cookie header explicitly in the outgoing request(s). If multiple requests are done due to authentication, followed redirections or similar, they will all get this cookie passed on.</p>
+<p>This option sets the cookie header explicitly in the outgoing request(s). <br  />
+If multiple requests are done due to authentication, followed redirections or similar, they will all get this cookie passed on.</p>
 <p>The cookies set by this option are separate from the internal cookie storage held by the cookie engine and will not be modified by it.</p>
 <p>If you enable the cookie engine and either you've imported a cookie of the same name (e.g. 'foo') or the server has set one, it will have no effect on the cookies you set here.</p>
-<p>A request to the server will send both the 'foo' held by the cookie engine and the 'foo' held by this option. To set a cookie that is instead held by the cookie engine and can be modified by the server use set_cookielist.</p>
+<p>A request to the server will send both the 'foo' held by the cookie engine and the 'foo' held by this option. <br  />
+To set a cookie that is instead held by the cookie engine and can be modified by the server use set_cookielist.</p>
 <p>This option will not enable the cookie engine. Use set_cookiefile or set_cookiejar to enable parsing and sending cookies automatically. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00108">108</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIE, cookies);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>};</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00107">107</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIE, cookies);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>};</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -853,7 +846,11 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cookie_filename</td><td>null-terminte string for the filename of the cookie file; "" to enable cookie engine without any initial cookies; "-" to read the cookie from stdin; Does not have to keep around after this call. This is default to nullptr. </td></tr>
+    <tr><td class="paramname">cookie_filename</td><td>null-terminte string for the filename of the cookie file; <br  />
+"" to enable cookie engine without any initial cookies; <br  />
+"-" to read the cookie from stdin; <br  />
+Does not have to keep around after this call. <br  />
+This is default to nullptr. </td></tr>
   </table>
   </dd>
 </dl>
@@ -861,7 +858,8 @@ Here is the caller graph for this function:</div>
 <p>The cookie data can be in either the old Netscape / Mozilla cookie data format or just regular HTTP headers (Set-Cookie style) dumped to a file.</p>
 <p>It enables the cookie engine, making libcurl parse response and send cookies on subsequent requests with this handle.</p>
 <p>This function can be used with set_cookielist.</p>
-<p>It only reads cookies right before a transfer is started. To make libcurl write cookies to file, see set_cookiejar.</p>
+<p>It only reads cookies right before a transfer is started. <br  />
+To make libcurl write cookies to file, see set_cookiejar.</p>
 <p>Exercise caution if you are using this option and multiple transfers may occur due to redirect:</p>
 <p>If you use the Set-Cookie format: "name1=content1; name2=content2;" and don't specify a domain then the cookie is sent for any domain (even after redirects are followed) and cannot be modified by a server-set cookie.</p>
 <p>If a server sets a cookie of the same name then both will be sent on a future transfer to that server, likely not what you intended. To address these issues set a domain in Set-Cookie HTTP header (doing that will include sub-domains) or use the Netscape format: </p><pre class="fragment">char *my_cookie =
@@ -874,12 +872,12 @@ Here is the caller graph for this function:</div>
   "\t" "bar";      // Value
 </pre><p>If you call this function multiple times, you just add more files to read. Subsequent files will add more cookies. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00119">119</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> (curl_easy_setopt(curl_easy, CURLOPT_COOKIEFILE, cookie_filename) == CURLE_UNKNOWN_OPTION)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00118">118</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (curl_easy_setopt(curl_easy, CURLOPT_COOKIEFILE, cookie_filename) == CURLE_UNKNOWN_OPTION)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -909,7 +907,10 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cookie_filename</td><td>null-terminated string; "-" write cookies to stdout; Does not have to keep around after this call. This is default to nullptr. </td></tr>
+    <tr><td class="paramname">cookie_filename</td><td>null-terminated string; <br  />
+"-" write cookies to stdout; <br  />
+Does not have to keep around after this call. <br  />
+This is default to nullptr. </td></tr>
   </table>
   </dd>
 </dl>
@@ -917,20 +918,22 @@ Here is the caller graph for this function:</div>
 <p>This will make libcurl write all internally known cookies to the specified file when curl::Easy_t is destroyed.</p>
 <p>If no cookies, then no file will be created.</p>
 <p>Using this option also enables cookies for this session, so if you for example follow a location it will make matching cookies get sent accordingly.</p>
-<p>Note that libcurl doesn't read any cookies from the cookie jar. If you want to read cookies from a file, use set_cookiefile.</p>
-<p>If the cookie jar file can't be created or written to, libcurl will not and cannot report an error for this. Using set_verbose, set curl::stderr_stream to non-null before creating curl::Easy_t or CURLOPT_DEBUGFUNCTION will get a warning to display, but that is the only visible feedback you get about this possibly lethal situation.</p>
+<p>Note that libcurl doesn't read any cookies from the cookie jar. <br  />
+If you want to read cookies from a file, use set_cookiefile.</p>
+<p>If the cookie jar file can't be created or written to, libcurl will not and cannot report an error for this. <br  />
+Using set_verbose, set curl::stderr_stream to non-null before creating curl::Easy_t or CURLOPT_DEBUGFUNCTION will get a warning to display, but that is the only visible feedback you get about this possibly lethal situation.</p>
 <p>Since 7.43.0 cookies that were imported in the Set-Cookie format without a domain name are not exported by this function. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00126">126</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;{</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIEJAR, cookie_filename);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00125">125</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIEJAR, cookie_filename);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -960,7 +963,9 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cookie_filename</td><td>null-terminte string for the filename of the cookie file; Does not have to keep around after this call. This is default to nullptr. </td></tr>
+    <tr><td class="paramname">cookie_filename</td><td>null-terminte string for the filename of the cookie file; <br  />
+Does not have to keep around after this call. <br  />
+This is default to nullptr. </td></tr>
   </table>
   </dd>
 </dl>
@@ -979,16 +984,16 @@ Here is the caller graph for this function:</div>
   "\t" "foo"       // Name
   "\t" "bar";      // Value
 </pre> 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00137">137</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIELIST, cookie);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00136">136</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;{</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> = curl_easy_setopt(curl_easy, CURLOPT_COOKIELIST, cookie);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_UNKNOWN_OPTION)</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">code</a> == CURLE_OUT_OF_MEMORY)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1033,10 +1038,10 @@ Here is the caller graph for this function:</div>
 <p>By default, libcurl always stores and loads all cookies, independent if they are session cookies or not.</p>
 <p>NOTE that cookie support can be removed in compile time of libcurl, there is no guarantee this would work. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00148">148</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_COOKIESESSION, 1L);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00147">147</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_COOKIESESSION, 1L);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1065,10 +1070,10 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http") &amp;&amp; curl_t::has_erase_all_cookies_in_mem_support(). </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00152">152</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;ALL&quot;</span>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00151">151</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;ALL&quot;</span>);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1108,10 +1113,10 @@ Here is the call graph for this function:</div>
 <p>Session cookies are cookies without expiry date and they are meant to be alive and existing for this "session" only.</p>
 <p>A "session" is usually defined in browser land for as long as you have your browser up, more or less. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00157">157</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;{</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;SESS&quot;</span>);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00156">156</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;{</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;SESS&quot;</span>);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1150,10 +1155,10 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>.</dd></dl>
 <p>writes all known cookies to the file specified by set_cookiejar. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00162">162</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;{</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;FLUSH&quot;</span>);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00161">161</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;{</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;FLUSH&quot;</span>);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1192,10 +1197,10 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>.</dd></dl>
 <p>loads all cookies from the files specified by set_cookiefile. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00167">167</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;{</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;RELOAD&quot;</span>);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00166">166</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;{</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">set_cookielist</a>(<span class="stringliteral">&quot;RELOAD&quot;</span>);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1239,14 +1244,14 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00173">173</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;{</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span> (redir != 0) {</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 1L);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_MAXREDIRS, redir);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 0L);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00172">172</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;{</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">if</span> (redir != 0) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 1L);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_MAXREDIRS, redir);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_FOLLOWLOCATION, 0L);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1281,11 +1286,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00182">182</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00181">181</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;{</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_USERAGENT, useragent));</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1320,11 +1325,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00187">187</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00186">186</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;{</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_ACCEPT_ENCODING, encoding));</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1358,11 +1363,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00193">193</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, value));</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00192">192</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    CHECK_OOM(curl_easy_setopt(curl_easy, CURLOPT_INTERFACE, value));</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1406,14 +1411,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00198">198</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    constexpr <span class="keyword">const</span> <span class="keyword">auto</span> buffer_size = 5 + INET6_ADDRSTRLEN + 1;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordtype">char</span> buffer[buffer_size];</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    std::snprintf(buffer, buffer_size, <span class="stringliteral">&quot;host!%s&quot;</span>, ip_addr);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a61168829a4d4020d959a6e412087a67a">set_interface</a>(buffer);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00197">197</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;{</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    constexpr <span class="keyword">const</span> <span class="keyword">auto</span> buffer_size = 5 + 46;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">char</span> buffer[buffer_size];</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    std::snprintf(buffer, buffer_size, <span class="stringliteral">&quot;host!%s&quot;</span>, ip_addr);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a61168829a4d4020d959a6e412087a67a">set_interface</a>(buffer);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1451,15 +1456,15 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeout</td><td>in milliseconds. Set to 0 to disable; should be less than std::numeric_limits&lt;long&gt;::max(). </td></tr>
+    <tr><td class="paramname">timeout</td><td>in milliseconds. Set to 0 to disable (default); should be less than std::numeric_limits&lt;long&gt;::max(). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00207">207</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;{</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_TIMEOUT_MS, timeout);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00206">206</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;{</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_TIMEOUT_MS, timeout);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1520,19 +1525,19 @@ Here is the call graph for this function:</div>
 <p>Starting in 7.58.0, libcurl will specifically prevent "Authorization:" headers from being sent to hosts other than the first used one, unless specifically permitted with the CURLOPT_UNRESTRICTED_AUTH option.</p>
 <p>Starting in 7.64.0, libcurl will specifically prevent "Cookie:" headers from being sent to hosts other than the first used one, unless specifically permitted with the CURLOPT_UNRESTRICTED_AUTH option. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00212">212</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;{</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_HTTPHEADER, <span class="keyword">static_cast&lt;</span>struct curl_slist*<span class="keyword">&gt;</span>(l.get_underlying_ptr()));</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">if</span> (option != <a class="code" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48">header_option::unspecified</a>) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordtype">long</span> value;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="keywordflow">if</span> (option == header_option::separate)</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            value = CURLHEADER_SEPARATE;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            value = CURLHEADER_UNIFIED;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_HEADEROPT, value);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00211">211</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;{</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_HTTPHEADER, <span class="keyword">static_cast&lt;</span>struct curl_slist*<span class="keyword">&gt;</span>(l.get_underlying_ptr()));</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">if</span> (option != <a class="code" href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48">header_option::unspecified</a>) {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordtype">long</span> value;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">if</span> (option == header_option::separate)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            value = CURLHEADER_SEPARATE;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            value = CURLHEADER_UNIFIED;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        curl_easy_setopt(curl_easy, CURLOPT_HEADEROPT, value);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1575,10 +1580,10 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00226">226</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;{</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, enable);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00225">225</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;{</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, enable);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1607,10 +1612,10 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>url is set to use http(s) &amp;&amp; <a class="el" href="classcurl_1_1curl__t.html#a12b8ab4f2d1c5e779021a6389f816196">curl_t::has_protocol</a>("http")</dd></dl>
 <p>This is the default for http, and would also set_nobody(false). </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00231">231</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;{</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00230">230</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_HTTPGET, 1L);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1665,11 +1670,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <p>The data pointed to is NOT copied by the library: as a consequence, it must be preserved by the calling application until the associated transfer finishes. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00235">235</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;{</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00234">234</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDSIZE_LARGE, len);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_POSTFIELDS, data);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1729,13 +1734,13 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00240">240</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;{</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <a class="code" href="classcurl_1_1Easy__ref__t.html#af5ad3114fbbe5ba54d4ac21ad6a702e9">request_post</a>(<span class="keyword">nullptr</span>, len);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_READFUNCTION, readback);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_READDATA, userp);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00239">239</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="classcurl_1_1Easy__ref__t.html#af5ad3114fbbe5ba54d4ac21ad6a702e9">request_post</a>(<span class="keyword">nullptr</span>, len);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_READFUNCTION, readback);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_READDATA, userp);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1774,31 +1779,35 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_pause_support() and there's an ongoing transfer </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>If no exception is thrown, then it is either code::ok or code::writeback_error.</dd></dl>
 <p><b>The pausing of transfers does not work with protocols that work without network connectivity, like FILE://. Trying to pause such a transfer, in any direction, will cause problems in the worst case or an error in the best case.</b></p>
-<p>Use of set_pause with multi_socket_action interface Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking or similar of the socket's state, which made the continuation of the transfer get delayed until next multi-socket call invoke or even longer. Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.</p>
+<h3><a class="anchor" id="autotoc_md1"></a>
+Use of set_pause with multi_socket_action interface</h3>
+<p>Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking or similar of the socket's state, which made the continuation of the transfer get delayed until next multi-socket call invoke or even longer. Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.</p>
 <p>Starting in libcurl 7.32.0, unpausing a transfer will schedule a timeout trigger for that handle 1 millisecond into the future, so that a curl_multi_socket_action( ... CURL_SOCKET_TIMEOUT) can be used immediately afterwards to get the transfer going again as desired.</p>
 <p>If you use multi interface, you can use multi_socket_action to have a more in-detail control of pausing the easy.</p>
-<p>MEMORY USE When pausing a read by returning the magic return code from a write callback, the read data is already in libcurl's internal buffers so it'll have to keep it in an allocated buffer until the reading is again unpaused using this function.</p>
+<h3><a class="anchor" id="autotoc_md2"></a>
+MEMORY USE</h3>
+<p>When pausing a read by returning the magic return code from a write callback, the read data is already in libcurl's internal buffers so it'll have to keep it in an allocated buffer until the reading is again unpaused using this function.</p>
 <p>If the downloaded data is compressed and is asked to get uncompressed automatically on download, libcurl will continue to uncompress the entire downloaded chunk and it will cache the data uncompressed. This has the side-effect that if you download something that is compressed a lot, it can result in a very large amount of data required to be allocated to be kept around during the pause.</p>
 <p>This said, you should probably consider not using paused reading if you allow libcurl to uncompress data automatically. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00259">259</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;{</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordtype">int</span> bitmask = 0;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">if</span> (option &amp; <a class="code" href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58">PauseOptions::recv</a>)</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        bitmask |= CURLPAUSE_RECV;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">if</span> (option &amp; <a class="code" href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756a2541d938b0a58946090d7abdde0d3890">PauseOptions::send</a>)</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        bitmask |= CURLPAUSE_SEND;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keyword">auto</span> result = curl_easy_pause(curl_easy, bitmask);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">if</span> (result == CURLE_WRITE_ERROR)</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">return</span> {code::writeback_error};</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == CURLE_OUT_OF_MEMORY)</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result != CURLE_OK)</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">return</span> {Exception{result}};</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">return</span> {code::ok};</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00258">258</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;{</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">int</span> bitmask = 0;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">if</span> (option &amp; <a class="code" href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58">PauseOptions::recv</a>)</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        bitmask |= CURLPAUSE_RECV;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keywordflow">if</span> (option &amp; <a class="code" href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756a2541d938b0a58946090d7abdde0d3890">PauseOptions::send</a>)</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        bitmask |= CURLPAUSE_SEND;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">auto</span> result = curl_easy_pause(curl_easy, bitmask);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keywordflow">if</span> (result == CURLE_WRITE_ERROR)</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">return</span> {code::writeback_error};</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result == CURLE_OUT_OF_MEMORY)</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">return</span> {std::bad_alloc{}};</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result != CURLE_OK)</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordflow">return</span> {Exception{result}};</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keywordflow">return</span> {code::ok};</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1827,12 +1836,12 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_sizeof_upload_support() </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00285">285</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;{</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    curl_off_t ul;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &amp;ul);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> ul;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00284">284</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;{</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    curl_off_t ul;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &amp;ul);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">return</span> ul;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1861,12 +1870,12 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_sizeof_response_header_support() </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00291">291</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;{</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordtype">long</span> size;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &amp;size);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00290">290</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;{</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordtype">long</span> size;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_HEADER_SIZE, &amp;size);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1895,12 +1904,12 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_sizeof_response_body_support() </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00297">297</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;{</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    curl_off_t dl;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &amp;dl);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> dl;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00296">296</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;{</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    curl_off_t dl;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &amp;dl);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">return</span> dl;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1929,12 +1938,12 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>curl_t::has_transfer_time_support() </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>transfer time in ms </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00303">303</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;{</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    curl_off_t total;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &amp;total);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">return</span> total;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00302">302</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;{</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    curl_off_t total;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &amp;total);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">return</span> total;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1965,12 +1974,12 @@ Here is the call graph for this function:</div>
 <p>If you disable redirection or CURLOPT_MAXREDIRS limit prevented a redirect to happen (since 7.54.1), a would-be redirect-to url is returned.</p>
 <p>This function is only meaningful for http(s) protocol. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00309">309</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;{</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordtype">char</span> *url = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_REDIRECT_URL, &amp;url);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">return</span> url;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00308">308</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;{</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordtype">char</span> *url = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_REDIRECT_URL, &amp;url);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">return</span> url;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2000,14 +2009,14 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>note that libcurl can be built with cookies disabled, thus this library can return exception <a class="el" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>. If <a class="el" href="classcurl_1_1utils_1_1slist.html">utils::slist</a> is empty, it might be due to std::bad_alloc, or no cookie is present(cookie engine not enabled or no cookie has received).</dd></dl>
 <p>Since 7.43.0 cookies that were imported in the Set-Cookie format without a domain name are not exported by this option. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00316">316</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;{</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    curl_slist *cookies = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordflow">if</span> (curl_easy_getinfo(curl_easy, CURLINFO_COOKIELIST, &amp;cookies) == CURLE_UNKNOWN_OPTION)</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">return</span> {utils::slist{cookies}};</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00315">315</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;{</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    curl_slist *cookies = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">if</span> (curl_easy_getinfo(curl_easy, CURLINFO_COOKIELIST, &amp;cookies) == CURLE_UNKNOWN_OPTION)</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a>{<span class="stringliteral">&quot;cookies not supported&quot;</span>}};</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">return</span> {utils::slist{cookies}};</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2037,12 +2046,12 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>CURL_SOCKET_BAD if no valid socket or not supported</dd></dl>
 <p>The return value can be used in <a class="el" href="classcurl_1_1Multi__t.html#ae7fc43c375eb97ee584bc8592cd16fc6">Multi_t::multi_assign()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00326">326</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;{</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    curl_socket_t socketfd = CURL_SOCKET_BAD;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_ACTIVESOCKET, &amp;socketfd);</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">return</span> socketfd;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00325">325</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;{</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    curl_socket_t socketfd = CURL_SOCKET_BAD;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    curl_easy_getinfo(curl_easy, CURLINFO_ACTIVESOCKET, &amp;socketfd);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">return</span> socketfd;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2073,14 +2082,14 @@ template&lt;class String  = std::string&gt; </div>
 </div><div class="memdoc">
 <p>set_readall_callback() can be used for get or post. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00677">677</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    {</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a>([](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;            <span class="keyword">auto</span> &amp;response = *<span class="keyword">static_cast&lt;</span>String*<span class="keyword">&gt;</span>(ptr);</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;            response.append(buffer, buffer + size);</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;            <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;        }, &amp;response);</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00671">671</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    {</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a>([](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;            <span class="keyword">auto</span> &amp;response = *<span class="keyword">static_cast&lt;</span>String*<span class="keyword">&gt;</span>(ptr);</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;            response.append(buffer, buffer + size);</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        }, &amp;response);</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    }</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2125,20 +2134,20 @@ template&lt;class String  = std::string, class size_type  = typename String::siz
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00691">691</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    {</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a>([](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;            <span class="keyword">auto</span> &amp;args = *<span class="keyword">static_cast&lt;</span>std::pair&lt;String, size_type&gt;*<span class="keyword">&gt;</span>(ptr);</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;            <span class="keyword">auto</span> &amp;response = args.first;</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            <span class="keyword">auto</span> &amp;requested_len = args.second;</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160; </div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;            <span class="keyword">auto</span> str_size = response.size();</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;            <span class="keywordflow">if</span> (str_size &lt; requested_len)</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                response.append(buffer, buffer + std::min(size, requested_len - str_size));</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160; </div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;            <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;        }, &amp;arg);</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="curl__easy_8hpp_source.html#l00685">685</a> of file <a class="el" href="curl__easy_8hpp_source.html">curl_easy.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    {</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a>([](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;            <span class="keyword">auto</span> &amp;args = *<span class="keyword">static_cast&lt;</span>std::pair&lt;String, size_type&gt;*<span class="keyword">&gt;</span>(ptr);</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;            <span class="keyword">auto</span> &amp;response = args.first;</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;            <span class="keyword">auto</span> &amp;requested_len = args.second;</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160; </div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;            <span class="keyword">auto</span> str_size = response.size();</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;            <span class="keywordflow">if</span> (str_size &lt; requested_len)</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                response.append(buffer, buffer + std::min(size, requested_len - str_size));</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160; </div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        }, &amp;arg);</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    }</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2175,18 +2184,27 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>After this call, Easy_ref_t::perform/Multi_t::perform or multi_socket_action must be called to establish the connection.</p>
 <p>To use the established connection, call set_nobody(false) or request_*() to disable nobody.</p>
-<p>Example usage:</p>
-<p>int main(int argc, char* argv[]) { <a class="el" href="classcurl_1_1curl__t.html">curl::curl_t</a> curl{nullptr};</p>
-<p>auto easy = curl.create_easy(); assert(easy.p1 &amp;&amp; easy.p2);</p>
-<p>auto easy_ref = <a class="el" href="classcurl_1_1Easy__ref__t.html">curl::Easy_ref_t</a>{easy}; easy_ref.set_url("https://www.google.com");</p>
-<p><a class="el" href="classcurl_1_1Easy__ref__t.html#a32bf013c5ba6f47e9c0dec7f167984e8">setup_establish_connection_only()</a>; easy_ref.perform(); // Establish the connection</p>
-<p><a class="el" href="classcurl_1_1Easy__ref__t.html#a0a61c56926b7a0fb85f57e3556382c7d">request_get()</a>; easy_ref.perform(); // Now result is writen to stdout. } </p>
+<p>Example usage: </p><pre class="fragment">int main(int argc, char* argv[]) {
+    curl::curl_t curl{nullptr};
 
-<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00333">333</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;{</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <a class="code" href="classcurl_1_1Easy__ref__t.html#a0a61c56926b7a0fb85f57e3556382c7d">request_get</a>();</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;}</div>
+    auto easy = curl.create_easy();
+    assert(easy.p1 &amp;&amp; easy.p2);
+
+    auto easy_ref = curl::Easy_ref_t{easy};
+    easy_ref.set_url("https://www.google.com");
+
+    setup_establish_connection_only();
+    easy_ref.perform(); // Establish the connection
+
+    request_get();
+    easy_ref.perform(); // Now result is writen to stdout.
+}
+</pre> 
+<p class="definition">Definition at line <a class="el" href="curl__easy_8cc_source.html#l00332">332</a> of file <a class="el" href="curl__easy_8cc_source.html">curl_easy.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;{</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <a class="code" href="classcurl_1_1Easy__ref__t.html#a0a61c56926b7a0fb85f57e3556382c7d">request_get</a>();</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    curl_easy_setopt(curl_easy, CURLOPT_NOBODY, 1);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2206,18 +2224,18 @@ Here is the call graph for this function:</div>
 </ul>
 </div><!-- contents -->
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58">curl::Easy_ref_t::PauseOptions::recv</a></div><div class="ttdeci">@ recv</div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ae663d90e1256551901a90773d3cba917"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">curl::Easy_ref_t::set_cookielist</a></div><div class="ttdeci">auto set_cookielist(const char *cookie) noexcept -&gt; Ret_except&lt; void, std::bad_alloc, curl::NotBuiltIn_error &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00137">curl_easy.cc:137</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a0a61c56926b7a0fb85f57e3556382c7d"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a0a61c56926b7a0fb85f57e3556382c7d">curl::Easy_ref_t::request_get</a></div><div class="ttdeci">void request_get() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00231">curl_easy.cc:231</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_af5ad3114fbbe5ba54d4ac21ad6a702e9"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#af5ad3114fbbe5ba54d4ac21ad6a702e9">curl::Easy_ref_t::request_post</a></div><div class="ttdeci">void request_post(const void *data, std::size_t len) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00235">curl_easy.cc:235</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ae663d90e1256551901a90773d3cba917"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ae663d90e1256551901a90773d3cba917">curl::Easy_ref_t::set_cookielist</a></div><div class="ttdeci">auto set_cookielist(const char *cookie) noexcept -&gt; Ret_except&lt; void, std::bad_alloc, curl::NotBuiltIn_error &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00136">curl_easy.cc:136</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a0a61c56926b7a0fb85f57e3556382c7d"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a0a61c56926b7a0fb85f57e3556382c7d">curl::Easy_ref_t::request_get</a></div><div class="ttdeci">void request_get() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00230">curl_easy.cc:230</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_af5ad3114fbbe5ba54d4ac21ad6a702e9"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#af5ad3114fbbe5ba54d4ac21ad6a702e9">curl::Easy_ref_t::request_post</a></div><div class="ttdeci">void request_post(const void *data, std::size_t len) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00234">curl_easy.cc:234</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48">curl::Easy_ref_t::header_option::unspecified</a></div><div class="ttdeci">@ unspecified</div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a61168829a4d4020d959a6e412087a67a"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a61168829a4d4020d959a6e412087a67a">curl::Easy_ref_t::set_interface</a></div><div class="ttdeci">auto set_interface(const char *value) noexcept -&gt; Ret_except&lt; void, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00193">curl_easy.cc:193</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a61168829a4d4020d959a6e412087a67a"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a61168829a4d4020d959a6e412087a67a">curl::Easy_ref_t::set_interface</a></div><div class="ttdeci">auto set_interface(const char *value) noexcept -&gt; Ret_except&lt; void, std::bad_alloc &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00192">curl_easy.cc:192</a></div></div>
 <div class="ttc" id="aclasscurl_1_1NotBuiltIn__error_html"><div class="ttname"><a href="classcurl_1_1NotBuiltIn__error.html">curl::NotBuiltIn_error</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00025">curl.hpp:25</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_affb6a0252c86104b9ad08b5223b047c4"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">curl::Easy_ref_t::code</a></div><div class="ttdeci">code</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00533">curl_easy.hpp:533</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a75c60a5b6f839f1808fc81fb48e424de"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">curl::Easy_ref_t::set_writeback</a></div><div class="ttdeci">void set_writeback(writeback_t writeback, void *userp) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00092">curl_easy.cc:92</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_affb6a0252c86104b9ad08b5223b047c4"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#affb6a0252c86104b9ad08b5223b047c4">curl::Easy_ref_t::code</a></div><div class="ttdeci">code</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00525">curl_easy.hpp:525</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a75c60a5b6f839f1808fc81fb48e424de"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">curl::Easy_ref_t::set_writeback</a></div><div class="ttdeci">void set_writeback(writeback_t writeback, void *userp) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00091">curl_easy.cc:91</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a85f6a6823e2abed6cd5e4081ecfd7756a2541d938b0a58946090d7abdde0d3890"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756a2541d938b0a58946090d7abdde0d3890">curl::Easy_ref_t::PauseOptions::send</a></div><div class="ttdeci">@ send</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jul 18 2020 18:00:49 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 19 2020 00:14:22 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

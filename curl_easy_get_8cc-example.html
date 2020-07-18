@@ -89,29 +89,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>It would simplify design of Easy_ref_t, since it doesn't need to implement RAII-part logic.</p>
 <p>It would also make it easier to use member function of Easy_ref_t in Multi_t, provided that libcurl callback provides CURL* and that option CURLOPT_PRIVATE which enables storing any object, isn't support until 7.10.3.</p>
 <p>Easy_ref_t's member function cannot be called in multiple threads simultaneously.</p>
-<p>PERSISTENT CONNECTIONS </p><pre class="fragment">Persistent connections means that libcurl can re-use the same connection for several transfers, 
-if the conditions are right.
-
-libcurl  will  always  attempt  to use persistent connections. 
-
-Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, 
-libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
-open a new one that will be subject for re-use on a possible following call to these functions.
-
-To allow libcurl to take full advantage of persistent connections, you should do 
-as many of your file transfers as possible using the same handle.
-
-If you use the easy interface, and the Easy_t get destroyed, all the possibly 
-open connections held by libcurl will be closed and forgotten.
-
-When you've created a multi handle and are using the multi interface, the connection pool is 
-instead kept in the multi handle so closing and creating new easy handles to do transfers 
-will not affect them. 
-Instead all added easy handles can take advantage of the single shared pool.
-
-It can also be archieved by using curl::Share_base or curl::Share and 
-enable_sharing(Share_base::Options::connection_cache).
-</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;../curl_easy.hpp&quot;</span></div>
+<h3><a class="anchor" id="autotoc_md0"></a>
+PERSISTENT CONNECTIONS</h3>
+<p>Persistent connections means that libcurl can re-use the same connection for several transfers, if the conditions are right.</p>
+<p>libcurl will always attempt to use persistent connections.</p>
+<p>Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll open a new one that will be subject for re-use on a possible following call to these functions.</p>
+<p>To allow libcurl to take full advantage of persistent connections, you should do as many of your file transfers as possible using the same handle.</p>
+<p>If you use the easy interface, and the Easy_t get destroyed, all the possibly open connections held by libcurl will be closed and forgotten.</p>
+<p>When you've created a multi handle and are using the multi interface, the connection pool is instead kept in the multi handle so closing and creating new easy handles to do transfers will not affect them. Instead all added easy handles can take advantage of the single shared pool.</p>
+<p>It can also be archieved by using <a class="el" href="classcurl_1_1Share__base.html">curl::Share_base</a> or <a class="el" href="classcurl_1_1Share.html">curl::Share</a> and enable_sharing(Share_base::Options::connection_cache).</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;../curl_easy.hpp&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;../curl_url.hpp&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;cassert&gt;</span></div>
@@ -172,10 +159,10 @@ enable_sharing(Share_base::Options::connection_cache).
 <div class="ttc" id="aclasscurl_1_1Url__ref__t_html"><div class="ttname"><a href="classcurl_1_1Url__ref__t.html">curl::Url_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__url_8hpp_source.html#l00024">curl_url.hpp:24</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html">curl::Easy_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00053">curl_easy.hpp:53</a></div></div>
 <div class="ttc" id="aclasscurl_1_1curl__t_html"><div class="ttname"><a href="classcurl_1_1curl__t.html">curl::curl_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00062">curl.hpp:62</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a69e54a4ca1e2f6c3012465ac14fa32ae"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a69e54a4ca1e2f6c3012465ac14fa32ae">curl::Easy_ref_t::set_url</a></div><div class="ttdeci">void set_url(const Url_ref_t &amp;url) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00098">curl_easy.cc:98</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a69e54a4ca1e2f6c3012465ac14fa32ae"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a69e54a4ca1e2f6c3012465ac14fa32ae">curl::Easy_ref_t::set_url</a></div><div class="ttdeci">void set_url(const Url_ref_t &amp;url) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00097">curl_easy.cc:97</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jul 18 2020 18:00:47 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 19 2020 00:14:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

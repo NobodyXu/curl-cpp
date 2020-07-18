@@ -246,8 +246,9 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>should be 0 on success -1 on failure.</dd></dl>
-<p>Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms. When time that timer fires, call <a class="el" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action()</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>should be 0 on success, -1 on failure.</dd></dl>
+<p>Your callback function timer_callback should install a non-repeating timer with an interval of timeout_ms. <br  />
+When time that timer fires, call <a class="el" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action()</a>.</p>
 <p>The timer_callback will only be called when the timeout expire time is changed. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00190">190</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
@@ -425,7 +426,8 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if not yet added; false if already added. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if not yet added; <br  />
+false if already added. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="curl__multi_8cc_source.html#l00049">49</a> of file <a class="el" href="curl__multi_8cc_source.html">curl_multi.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
@@ -500,12 +502,15 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classcurl_1_1curl__t.html#a4c132e6270123ef0dba5fef23125878f">curl_t::has_http2_multiplex_support()</a> </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">max_concurrent_stream</td><td>max concurrent stream for a given connection. Should be between [1, 2 ^ 31 - 1]. Set it to 1 or 0 disable multiplexing.</td></tr>
+    <tr><td class="paramname">max_concurrent_stream</td><td>max concurrent stream for a given connection. <br  />
+Should be between [1, 2 ^ 31 - 1]. <br  />
+Set it to 1 or 0 disable multiplexing.</td></tr>
   </table>
   </dd>
 </dl>
 <p>Since <a class="el" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl_t::version</a> &gt;= 7.62.0, multiplex is turned on by default.</p>
-<p>NOTE that libcurl not always accept max_concurrent_stream tuning. Check curl_t::has_max_concurrent_stream_support().</p>
+<p>NOTE that libcurl not always accept max_concurrent_stream tuning. <br  />
+Check curl_t::has_max_concurrent_stream_support().</p>
 <p>If libcurl does not support tuning, this option will be only used for turning on and off the http2 multiplex. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl__multi_8cc_source.html#l00068">68</a> of file <a class="el" href="curl__multi_8cc_source.html">curl_multi.cc</a>.</p>
@@ -877,7 +882,8 @@ Here is the call graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>enable_multi_socket_interface() is called, perform_callback, socket_callback, timer_callback is set.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">socketfd</td><td>fd to be notified; CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process. </td></tr>
+    <tr><td class="paramname">socketfd</td><td>fd to be notified; <br  />
+CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process. </td></tr>
     <tr><td class="paramname">ev_bitmask</td><td>Or-ed with 0 or one of the value below:<ul>
 <li>CURL_CSELECT_IN,</li>
 <li>CURL_CSELECT_OUT,</li>
@@ -913,7 +919,7 @@ Here is the call graph for this function:</div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_ad9e0c1117b58aad4fcb4350b92276e3a"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">curl::Multi_t::poll</a></div><div class="ttdeci">auto poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00078">curl_multi.cc:78</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jul 18 2020 18:00:49 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 19 2020 00:14:22 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
