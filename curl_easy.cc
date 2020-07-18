@@ -3,7 +3,6 @@
 
 #include <new>
 #include <curl/curl.h>
-#include <arpa/inet.h>
 
 #include <utility>
 #include <type_traits>
@@ -197,7 +196,7 @@ auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, s
 }
 auto Easy_ref_t::set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
 {
-    constexpr const auto buffer_size = 5 + INET6_ADDRSTRLEN + 1;
+    constexpr const auto buffer_size = 5 + 46;
     char buffer[buffer_size];
     std::snprintf(buffer, buffer_size, "host!%s", ip_addr);
 
