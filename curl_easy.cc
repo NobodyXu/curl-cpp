@@ -4,7 +4,9 @@
 #include <new>
 #include <curl/curl.h>
 #include <arpa/inet.h>
+
 #include <utility>
+#include <type_traits>
 
 #define CHECK_OOM(code)                \
     if ((code) == CURLE_OUT_OF_MEMORY) \
@@ -246,6 +248,31 @@ void Easy_ref_t::request_post(readback_t readback, void *userp, std::size_t len)
 auto Easy_ref_t::perform() noexcept -> perform_ret_t
 {
     return check_perform(curl_easy_perform(curl_easy), "curl::Easy_ref_t::perform");
+}
+
+auto operator & (Easy_ref_t::PauseOptions x, Easy_ref_t::PauseOptions y) noexcept
+{
+    using type = std::underlying_type_t<Easy_ref_t::PauseOptions>;
+
+    return static_cast<type>(x) & static_cast<type>(y);
+}
+auto Easy_ref_t::set_pause(PauseOptions option) noexcept -> Ret_except<code, std::bad_alloc, Exception>
+{
+    int bitmask = 0;
+    if (option & PauseOptions::recv)
+        bitmask |= CURLPAUSE_RECV;
+    if (option & PauseOptions::send)
+        bitmask |= CURLPAUSE_SEND;
+
+    auto result = curl_easy_pause(curl_easy, bitmask);
+    if (result == CURLE_WRITE_ERROR)
+        return {code::writeback_error};
+    else if (result == CURLE_OUT_OF_MEMORY)
+        return {std::bad_alloc{}};
+    else if (result != CURLE_OK)
+        return {Exception{result}};
+    else
+        return {code::ok};
 }
 
 long Easy_ref_t::get_response_code() const noexcept

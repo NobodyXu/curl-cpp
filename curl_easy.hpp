@@ -551,6 +551,63 @@ public:
 
     auto perform() noexcept -> perform_ret_t;
 
+    enum class PauseOptions {
+        /**
+         * Pause receiving data. 
+         * <br>There will be no data received on this connection until this function is called again without this bit set. 
+         * <br>Thus, the writeback won't be called.
+         */
+        recv = 1 << 0,
+        /**
+         * Pause sending data. 
+         * <br>There will be no data sent on this connection until this function is called again without this bit set. 
+         * <br>Thus, the readback won't be called/the data registered with request_post won't be copied.
+         */
+        send = 1 << 2, // Make value of pause_send the same as stock libcurl
+        /**
+         * Convenience define that pauses both directions.
+         */
+        all = recv | send, 
+        /**
+         * Convenience define that unpauses both directions.
+         */
+        cont = 0,
+    };
+
+    /**
+     * @pre curl_t::has_pause_support() and there's an ongoing transfer
+     * @return If no exception is thrown, then it is either code::ok or code::writeback_error.
+     *
+     * **The pausing of transfers does not work with protocols that work without network connectivity, like FILE://.
+     * Trying to pause such a transfer, in any direction, will cause problems in the worst case or an error in the best case.**
+     *
+     * Use of set_pause with multi_socket_action interface
+     *   Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking 
+     *   or similar of the socket's state, which made the continuation of the transfer get delayed until next 
+     *   multi-socket call invoke or even longer. 
+     *   Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.
+     *   
+     *   Starting in libcurl 7.32.0, unpausing a transfer will schedule a timeout trigger for that handle 
+     *   1 millisecond into the future, so that a curl_multi_socket_action( ... CURL_SOCKET_TIMEOUT) can be used 
+     *   immediately afterwards to get the transfer going again as desired.
+     * 
+     * If you use multi interface, you can use multi_socket_action to have a more in-detail
+     * control of pausing the easy.
+     *
+     * MEMORY USE
+     *   When pausing a read by returning the magic return code from a write callback, the read data 
+     *   is already in libcurl's internal buffers so it'll have to keep it in an allocated buffer 
+     *   until the reading is again unpaused using this function.
+     *
+     *   If the downloaded data is compressed and is asked to get uncompressed automatically on download, 
+     *   libcurl will continue to uncompress the entire downloaded chunk and it will cache the data uncompressed. 
+     *   This has the side-effect that if you download something that is compressed a lot, it can result in a 
+     *   very large amount of data required to be allocated to be kept around during the pause. 
+     *
+     *   This said, you should probably consider not using paused reading if you allow libcurl to uncompress data automatically.
+     */
+    auto set_pause(PauseOptions option) noexcept -> Ret_except<code, std::bad_alloc, Exception>;
+
     long get_response_code() const noexcept;
 
     /**
