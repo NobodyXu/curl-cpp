@@ -130,13 +130,20 @@ public:
     void* get_private() const noexcept;
 
     /**
-     * If return value is less than @param size, then it will singal an err cond to libcurl.
-     * This will cause the transfer to get aborted and the libcurl function used will return 
-     * code::writeback_error.
+     * @param buffer not null-terminated
+     * @param size at most CURL_MAX_WRITE_SIZE
+     *
+     * @ return if less than size, then it will singal an err cond to libcurl.
+     *
+     *          This will cause the transfer to get aborted and the libcurl function used will return 
+     *          code::writeback_error.
+     *
+     *          If CURL_WRITEFUNC_PAUSE is returned, it will cause transfer to be paused.
+     *          See curl_easy_pause for more details.
+     *
      *
      * It would be undefined behavior to call any easy member function in writeback.
 	 * 
-     * @param buffer not null-terminated
      */
     using writeback_t = std::size_t (*)(char *buffer, std::size_t _, std::size_t size, void *userp);
 
