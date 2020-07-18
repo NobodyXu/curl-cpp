@@ -196,6 +196,13 @@ auto Easy_ref_t::set_interface(const char *value) noexcept -> Ret_except<void, s
 }
 auto Easy_ref_t::set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>
 {
+    /**
+     * 46 is the maximum length for ipv6 address represented in string.
+     *
+     * Information retrieved from [here][1].
+     *
+     * [1]: https://stackoverflow.com/questions/166132/maximum-length-of-the-textual-representation-of-an-ipv6-address
+     */
     constexpr const auto buffer_size = 5 + 46;
     char buffer[buffer_size];
     std::snprintf(buffer, buffer_size, "host!%s", ip_addr);
