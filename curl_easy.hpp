@@ -492,9 +492,18 @@ public:
      * The length of buffer is size * nitems.
      *
      * @return bytes writen to the buffer.
+     *
      *               0 to signal end-of-file to the library and cause it to stop the current transfer.
+     *
      *               CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
      *               stop immediately, result code::aborted_by_callback.
+     *
+     *               The callback can return CURL_READFUNC_PAUSE to cause reading from this connection 
+     *               to pause. See curl_easy_pause for further details.
+     *
+     *               Bugs: when doing TFTP uploads, you must return the exact amount of data that 
+     *               the callback wants, or it will be considered the final packet by the server end and 
+     *               the transfer will end there.
      *
      * If you stop the current transfer by returning 0 "pre-maturely" 
      * (i.e before the server expected it, like when you've said you will 
