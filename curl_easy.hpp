@@ -539,7 +539,7 @@ public:
         cannot_resolve_host,
         cannot_connect, // Cannot connect to host or proxy
         remote_access_denied,
-        writeback_error, // Check writeback_exception_thrown
+        writeback_error,
         upload_failure, // Failed starting the upload
         timedout,
         aborted_by_callback, // If readback return CURL_READFUNC_ABORT.
