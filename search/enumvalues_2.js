@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['malform_5finput_248',['malform_input',['../classcurl_1_1Url__ref__t.html#a21ac5e8f74e0ea461b9d050f431fbd55a48acc9d6bdaca34e0358116dd19eb5d4',1,'curl::Url_ref_t']]]
+  ['dns_256',['dns',['../classcurl_1_1Share__base.html#a1f46c90ac9cfd0358d0f1df0a56b6a39ab3bf60b851ebaeb2768b01a32e2ef32f',1,'curl::Share_base']]]
 ];

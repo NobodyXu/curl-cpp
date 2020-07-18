@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unified_251',['unified',['../classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883a40b03ccf3c2da88cc503272d1de3441c',1,'curl::Easy_ref_t']]],
-  ['unspecified_252',['unspecified',['../classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883ad415f0e30c471dfdd9bc4f827329ef48',1,'curl::Easy_ref_t']]]
+  ['recv_259',['recv',['../classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58',1,'curl::Easy_ref_t']]]
 ];
