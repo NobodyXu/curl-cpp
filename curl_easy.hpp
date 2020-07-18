@@ -160,8 +160,7 @@ public:
      */
     void set_url(const Url_ref_t &url) noexcept;
     /**
-     * @param url content of it must not be changed during call to perform(),
-     *            but can be changed once it is finished.
+     * @param url would be dupped, thus it can be freed up after this function call.
      */
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
