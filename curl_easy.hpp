@@ -25,30 +25,30 @@ namespace curl {
  *
  * Easy_ref_t's member function cannot be called in multiple threads simultaneously. 
  *
- * PERSISTENT CONNECTIONS
+ * ### PERSISTENT CONNECTIONS
  *
- *     Persistent connections means that libcurl can re-use the same connection for several transfers, 
- *     if the conditions are right.
+ * Persistent connections means that libcurl can re-use the same connection for several transfers, 
+ * if the conditions are right.
  * 
- *     libcurl  will  always  attempt  to use persistent connections. 
+ * libcurl  will  always  attempt  to use persistent connections. 
  *
- *     Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, 
- *     libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
- *     open a new one that will be subject for re-use on a possible following call to these functions.
+ * Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, 
+ * libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
+ * open a new one that will be subject for re-use on a possible following call to these functions.
  * 
- *     To allow libcurl to take full advantage of persistent connections, you should do 
- *     as many of your file transfers as possible using the same handle.
+ * To allow libcurl to take full advantage of persistent connections, you should do 
+ * as many of your file transfers as possible using the same handle.
  * 
- *     If you use the easy interface, and the Easy_t get destroyed, all the possibly 
- *     open connections held by libcurl will be closed and forgotten.
+ * If you use the easy interface, and the Easy_t get destroyed, all the possibly 
+ * open connections held by libcurl will be closed and forgotten.
  * 
- *     When you've created a multi handle and are using the multi interface, the connection pool is 
- *     instead kept in the multi handle so closing and creating new easy handles to do transfers 
- *     will not affect them. 
- *     Instead all added easy handles can take advantage of the single shared pool.
+ * When you've created a multi handle and are using the multi interface, the connection pool is 
+ * instead kept in the multi handle so closing and creating new easy handles to do transfers 
+ * will not affect them. 
+ * Instead all added easy handles can take advantage of the single shared pool.
  *
- *     It can also be archieved by using curl::Share_base or curl::Share and 
- *     enable_sharing(Share_base::Options::connection_cache).
+ * It can also be archieved by using curl::Share_base or curl::Share and 
+ * enable_sharing(Share_base::Options::connection_cache).
  */
 class Easy_ref_t {
 public:
@@ -109,7 +109,7 @@ public:
 
     /**
      * @param buffer either nullptr to disable error buffer,
-     *              or at least get_error_buffer_size() big.
+     *               or at least get_error_buffer_size() big.
      *
      * The error buffer must be kept around until call set_error_buffer again
      * or curl::Easy_t is destroyed.
@@ -134,17 +134,13 @@ public:
      * @param size at most CURL_MAX_WRITE_SIZE
      *
      * @ return if less than size, then it will singal an err cond to libcurl.
-     *
-     *          This will cause the transfer to get aborted and the libcurl function used will return 
+     *          <br>This will cause the transfer to get aborted and the libcurl function used will return 
      *          code::writeback_error.
-     *
-     *          If curl_t::has_pause_support() == true, and CURL_WRITEFUNC_PAUSE is returned, 
+     *          <br>If curl_t::has_pause_support() == true, and CURL_WRITEFUNC_PAUSE is returned, 
      *          it will cause transfer to be paused.
      *          See curl_easy_pause for more details.
      *
-     *
-     * It would be undefined behavior to call any easy member function in writeback.
-	 * 
+     * **It would be undefined behavior to call any easy member function in writeback.**
      */
     using writeback_t = std::size_t (*)(char *buffer, std::size_t _, std::size_t size, void *userp);
 
@@ -167,13 +163,13 @@ public:
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
-     *                This string will be strdup-ed and override previous call.
-     *                This is defaulted to nullptr.
+     *                <br>This string will be strdup-ed and override previous call.
+     *                <br>This is defaulted to nullptr.
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
      * This option sets the cookie header explicitly in the outgoing request(s). 
-     * If multiple requests are done due to authentication, followed redirections or similar, 
+     * <br>If multiple requests are done due to authentication, followed redirections or similar, 
      * they will all get this cookie passed on.
      *
      * The cookies set by this option are separate from the internal cookie storage held 
@@ -184,7 +180,7 @@ public:
      *
      * A request to the server will send both the 'foo' held by the cookie engine and 
      * the 'foo' held by this option. 
-     * To set a cookie that is instead held by the cookie engine and can be modified by the 
+     * <br>To set a cookie that is instead held by the cookie engine and can be modified by the 
      * server use set_cookielist.
      *
      * This option will not enable the cookie engine. 
@@ -196,10 +192,10 @@ public:
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminte string for the filename of the cookie file;
-     *                        "" to enable cookie engine without any initial cookies;
-     *                        "-" to read the cookie from stdin;
-     *                        Does not have to keep around after this call.
-     *                        This is default to nullptr.
+     *                        <br>"" to enable cookie engine without any initial cookies;
+     *                        <br>"-" to read the cookie from stdin;
+     *                        <br>Does not have to keep around after this call.
+     *                        <br>This is default to nullptr.
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -212,18 +208,18 @@ public:
      * This function can be used with set_cookielist.
      * 
      * It only reads cookies right before a transfer is started. 
-     * To make libcurl write cookies to file, see set_cookiejar.
+     * <br>To make libcurl write cookies to file, see set_cookiejar.
      * 
      * Exercise caution if you are using this option and multiple transfers may occur
      * due to redirect: 
      *
      * If you use the Set-Cookie format: "name1=content1; name2=content2;" and don't specify a domain 
      * then 
-     *     the cookie is sent for any domain (even after redirects are followed) 
-     *     and cannot be modified by a server-set cookie. 
+     *   the cookie is sent for any domain (even after redirects are followed) 
+     *   and cannot be modified by a server-set cookie. 
      *
-     *     If a server sets a cookie of the same name then both will be sent 
-     *     on a future transfer to that server, likely not what you intended. 
+     *   If a server sets a cookie of the same name then both will be sent 
+     *   on a future transfer to that server, likely not what you intended. 
      * To address these issues set a domain in Set-Cookie HTTP header
      * (doing that will include sub-domains) or use the Netscape format:
      *
@@ -245,9 +241,9 @@ public:
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminated string;
-     *                        "-" write cookies to stdout;
-     *                        Does not have to keep around after this call.
-     *                        This is default to nullptr.
+     *                        <br>"-" write cookies to stdout;
+     *                        <br>Does not have to keep around after this call.
+     *                        <br>This is default to nullptr.
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -260,11 +256,11 @@ public:
      * for example follow a location it will make matching cookies get sent accordingly.
      * 
      * Note that libcurl doesn't read any cookies from the cookie jar. 
-     * If you want to read cookies from a file, use set_cookiefile.
+     * <br>If you want to read cookies from a file, use set_cookiefile.
      * 
      * If the cookie jar file can't be created or written to, libcurl will not 
      * and cannot report an error for this.
-     * Using set_verbose, set curl::stderr_stream to non-null before creating curl::Easy_t 
+     * <br>Using set_verbose, set curl::stderr_stream to non-null before creating curl::Easy_t 
      * or CURLOPT_DEBUGFUNCTION will get a warning to display, 
      * but that is the only visible feedback you get about this possibly lethal situation.
      * 
@@ -277,8 +273,8 @@ public:
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookie_filename null-terminte string for the filename of the cookie file;
-     *                        Does not have to keep around after this call.
-     *                        This is default to nullptr.
+     *                        <br>Does not have to keep around after this call.
+     *                        <br>This is default to nullptr.
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -296,11 +292,11 @@ public:
      *
      * If you use the Set-Cookie format: "name1=content1; name2=content2;" and don't specify a domain 
      * then 
-     *     the cookie is sent for any domain (even after redirects are followed) 
-     *     and cannot be modified by a server-set cookie. 
+     *   the cookie is sent for any domain (even after redirects are followed) 
+     *   and cannot be modified by a server-set cookie. 
      *
-     *     If a server sets a cookie of the same name then both will be sent 
-     *     on a future transfer to that server, likely not what you intended. 
+     *   If a server sets a cookie of the same name then both will be sent 
+     *   on a future transfer to that server, likely not what you intended. 
      * To address these issues set a domain in Set-Cookie HTTP header
      * (doing that will include sub-domains) or use the Netscape format:
      *
@@ -339,7 +335,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               curl_t::has_erase_all_cookies_in_mem_support().
+     *      curl_t::has_erase_all_cookies_in_mem_support().
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      */
@@ -348,7 +344,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               curl_t::has_erase_all_session_cookies_in_mem_support()
+     *      curl_t::has_erase_all_session_cookies_in_mem_support()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -363,7 +359,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               curl_t::has_flush_cookies_to_jar()
+     *      curl_t::has_flush_cookies_to_jar()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -374,7 +370,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               curl_t::has_reload_cookies_from_file()
+     *      curl_t::has_reload_cookies_from_file()
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
      *
@@ -499,17 +495,13 @@ public:
      * The length of buffer is size * nitems.
      *
      * @return bytes writen to the buffer.
-     *
-     *         0 to signal end-of-file to the library and cause it to stop the current transfer.
-     *
-     *         CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
+     *         <br>0 to signal end-of-file to the library and cause it to stop the current transfer.
+     *         <br>CURL_READFUNC_ABORT (requires curl_t::has_readfunc_abort_support()) to 
      *         stop immediately, result code::aborted_by_callback.
-     *
-     *         If curl_t::has_pause_support() == true, and CURL_READFUNC_PAUSE is returned,
+     *         <br>If curl_t::has_pause_support() == true, and CURL_READFUNC_PAUSE is returned,
      *         it would cause reading from this connection to pause.
      *         See curl_easy_pause for further details.
-     *
-     *         Bugs: when doing TFTP uploads, you must return the exact amount of data that 
+     *         <br>Bugs: when doing TFTP uploads, you must return the exact amount of data that 
      *         the callback wants, or it will be considered the final packet by the server end and 
      *         the transfer will end there.
      *
@@ -580,30 +572,32 @@ public:
      * **The pausing of transfers does not work with protocols that work without network connectivity, like FILE://.
      * Trying to pause such a transfer, in any direction, will cause problems in the worst case or an error in the best case.**
      *
-     * Use of set_pause with multi_socket_action interface
-     *   Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking 
-     *   or similar of the socket's state, which made the continuation of the transfer get delayed until next 
-     *   multi-socket call invoke or even longer. 
-     *   Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.
-     *   
-     *   Starting in libcurl 7.32.0, unpausing a transfer will schedule a timeout trigger for that handle 
-     *   1 millisecond into the future, so that a curl_multi_socket_action( ... CURL_SOCKET_TIMEOUT) can be used 
-     *   immediately afterwards to get the transfer going again as desired.
+     * ### Use of set_pause with multi_socket_action interface
+     *
+     * Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking 
+     * or similar of the socket's state, which made the continuation of the transfer get delayed until next 
+     * multi-socket call invoke or even longer. 
+     * Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.
+     * 
+     * Starting in libcurl 7.32.0, unpausing a transfer will schedule a timeout trigger for that handle 
+     * 1 millisecond into the future, so that a curl_multi_socket_action( ... CURL_SOCKET_TIMEOUT) can be used 
+     * immediately afterwards to get the transfer going again as desired.
      * 
      * If you use multi interface, you can use multi_socket_action to have a more in-detail
      * control of pausing the easy.
      *
-     * MEMORY USE
-     *   When pausing a read by returning the magic return code from a write callback, the read data 
-     *   is already in libcurl's internal buffers so it'll have to keep it in an allocated buffer 
-     *   until the reading is again unpaused using this function.
+     * ### MEMORY USE
      *
-     *   If the downloaded data is compressed and is asked to get uncompressed automatically on download, 
-     *   libcurl will continue to uncompress the entire downloaded chunk and it will cache the data uncompressed. 
-     *   This has the side-effect that if you download something that is compressed a lot, it can result in a 
-     *   very large amount of data required to be allocated to be kept around during the pause. 
+     * When pausing a read by returning the magic return code from a write callback, the read data 
+     * is already in libcurl's internal buffers so it'll have to keep it in an allocated buffer 
+     * until the reading is again unpaused using this function.
      *
-     *   This said, you should probably consider not using paused reading if you allow libcurl to uncompress data automatically.
+     * If the downloaded data is compressed and is asked to get uncompressed automatically on download, 
+     * libcurl will continue to uncompress the entire downloaded chunk and it will cache the data uncompressed. 
+     * This has the side-effect that if you download something that is compressed a lot, it can result in a 
+     * very large amount of data required to be allocated to be kept around during the pause. 
+     *
+     * This said, you should probably consider not using paused reading if you allow libcurl to uncompress data automatically.
      */
     auto set_pause(PauseOptions option) noexcept -> Ret_except<code, std::bad_alloc, Exception>;
 
@@ -633,7 +627,7 @@ public:
 
     /**
      * @pre curl_t::has_redirect_url_support() && 
-     *               url is set to use http(s) && curl_t::has_protocol("http")
+     *      url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *
      * If you disable redirection or CURLOPT_MAXREDIRS limit 
@@ -646,7 +640,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
-     *               curl_t::has_getinfo_cookie_list_support()
+     *      curl_t::has_getinfo_cookie_list_support()
      *
      * @return note that libcurl can be built with cookies disabled, thus this library
      *         can return exception curl::NotBuiltIn_error.
@@ -712,21 +706,21 @@ public:
      *
      * Example usage:
      *
-     * int main(int argc, char* argv[]) {
-     *     curl::curl_t curl{nullptr};
+     *     int main(int argc, char* argv[]) {
+     *         curl::curl_t curl{nullptr};
      *
-     *     auto easy = curl.create_easy();
-     *     assert(easy.p1 && easy.p2);
+     *         auto easy = curl.create_easy();
+     *         assert(easy.p1 && easy.p2);
      *
-     *     auto easy_ref = curl::Easy_ref_t{easy};
-     *     easy_ref.set_url("https://www.google.com");
+     *         auto easy_ref = curl::Easy_ref_t{easy};
+     *         easy_ref.set_url("https://www.google.com");
      *
-     *     setup_establish_connection_only();
-     *     easy_ref.perform(); // Establish the connection
+     *         setup_establish_connection_only();
+     *         easy_ref.perform(); // Establish the connection
      *
-     *     request_get();
-     *     easy_ref.perform(); // Now result is writen to stdout.
-     * }
+     *         request_get();
+     *         easy_ref.perform(); // Now result is writen to stdout.
+     *     }
      */
     void setup_establish_connection_only() noexcept;
 
