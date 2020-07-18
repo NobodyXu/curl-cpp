@@ -417,7 +417,7 @@ public:
     auto set_ip_addr_only(const char *ip_addr) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
-     * @param timeout in milliseconds. Set to 0 to disable;
+     * @param timeout in milliseconds. Set to 0 to disable (default);
      *                should be less than std::numeric_limits<long>::max().
      */
     void set_timeout(unsigned long timeout) noexcept;
