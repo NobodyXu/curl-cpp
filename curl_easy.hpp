@@ -30,7 +30,7 @@ namespace curl {
  * Persistent connections means that libcurl can re-use the same connection for several transfers, 
  * if the conditions are right.
  * 
- * libcurl  will  always  attempt  to use persistent connections. 
+ * libcurl  will  always  attempt  to use persistent connections. It will by default, cache 5 connections.
  *
  * Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, 
  * libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll
