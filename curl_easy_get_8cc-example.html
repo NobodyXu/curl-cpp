@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="autotoc_md0"></a>
 PERSISTENT CONNECTIONS</h3>
 <p>Persistent connections means that libcurl can re-use the same connection for several transfers, if the conditions are right.</p>
-<p>libcurl will always attempt to use persistent connections.</p>
+<p>libcurl will always attempt to use persistent connections. It will by default, cache 5 connections.</p>
 <p>Whenever you use Easy_ref_t::perform or Multi::perform/Multi::socket_action, libcurl will attempt to use an existing connection to do the transfer, and if none exists it'll open a new one that will be subject for re-use on a possible following call to these functions.</p>
 <p>To allow libcurl to take full advantage of persistent connections, you should do as many of your file transfers as possible using the same handle.</p>
 <p>If you use the easy interface, and the Easy_t get destroyed, all the possibly open connections held by libcurl will be closed and forgotten.</p>
@@ -162,7 +162,7 @@ PERSISTENT CONNECTIONS</h3>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a69e54a4ca1e2f6c3012465ac14fa32ae"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a69e54a4ca1e2f6c3012465ac14fa32ae">curl::Easy_ref_t::set_url</a></div><div class="ttdeci">void set_url(const Url_ref_t &amp;url) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00097">curl_easy.cc:97</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 19 2020 00:14:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2020 00:03:06 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
