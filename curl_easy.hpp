@@ -622,6 +622,17 @@ public:
     /**
      * @pre curl_t::has_transfer_time_support()
      * @return transfer time in ms
+     * 
+     * What transfer time really measures:
+     *
+     *     |
+     *     |--NAMELOOKUP
+     *     |--|--CONNECT
+     *     |--|--|--APPCONNECT
+     *     |--|--|--|--PRETRANSFER
+     *     |--|--|--|--|--STARTTRANSFER
+     *     |--|--|--|--|--|--transfer time
+     *     |--|--|--|--|--|--REDIRECT
      */
     std::size_t getinfo_transfer_time() const noexcept;
 
