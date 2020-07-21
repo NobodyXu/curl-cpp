@@ -333,7 +333,7 @@ auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
 }
 auto Easy_ref_t::getinfo_effective_url() const noexcept -> const char*
 {
-    char *url = NULL;
+    char *url = nullptr;
     curl_easy_getinfo(curl_easy, CURLINFO_EFFECTIVE_URL, &url);
     return url;
 }
