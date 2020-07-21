@@ -615,7 +615,7 @@ public:
     std::size_t getinfo_sizeof_response_header() const noexcept;
     /**
      * @pre curl_t::has_sizeof_response_body_support()
-     * @return in bytes
+     * @return in bytes, does not include response from redirection
      */
     std::size_t getinfo_sizeof_response_body() const noexcept;
 
