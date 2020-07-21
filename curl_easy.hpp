@@ -641,6 +641,7 @@ public:
      *      url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *         <br>Would be freed up when corresponding curl::Easy_t is destroyed.
+     *         <br>If not supported, would return nullptr.
      *
      * If you disable redirection or CURLOPT_MAXREDIRS limit 
      * prevented a redirect to happen (since 7.54.1), 
@@ -655,6 +656,7 @@ public:
      *      url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *         <br>Would be freed up when corresponding curl::Easy_t is destroyed.
+     *         <br>If not supported, would return nullptr.
      *
      * It might be the url you set or the redirected actual url.
      */
