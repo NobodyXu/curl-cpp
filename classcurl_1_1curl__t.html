@@ -214,24 +214,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_header_option_sup
 <tr class="memitem:a8366ee2c44ee32238ef5267d252d10a0"><td class="memItemLeft" align="right" valign="top"><a id="a8366ee2c44ee32238ef5267d252d10a0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_set_ip_addr_only_support</b> () const noexcept</td></tr>
 <tr class="separator:a8366ee2c44ee32238ef5267d252d10a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7814f097d7a823fbbf4a4bf4f5a4064"><td class="memItemLeft" align="right" valign="top"><a id="ae7814f097d7a823fbbf4a4bf4f5a4064"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_sizeof_upload_support</b> () const noexcept</td></tr>
-<tr class="separator:ae7814f097d7a823fbbf4a4bf4f5a4064"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace450ca8fd68538955819aa269302533"><td class="memItemLeft" align="right" valign="top"><a id="ace450ca8fd68538955819aa269302533"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_sizeof_response_header_support</b> () const noexcept</td></tr>
-<tr class="separator:ace450ca8fd68538955819aa269302533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb9bf6e5beb7ca45ffe94daf888f5cd8"><td class="memItemLeft" align="right" valign="top"><a id="adb9bf6e5beb7ca45ffe94daf888f5cd8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_sizeof_response_body_support</b> () const noexcept</td></tr>
-<tr class="separator:adb9bf6e5beb7ca45ffe94daf888f5cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66a390666478eacf411fb17ce750da21"><td class="memItemLeft" align="right" valign="top"><a id="a66a390666478eacf411fb17ce750da21"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_transfer_time_support</b> () const noexcept</td></tr>
-<tr class="separator:a66a390666478eacf411fb17ce750da21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9eb135652409bc666fbb63c1dbab18c"><td class="memItemLeft" align="right" valign="top"><a id="ac9eb135652409bc666fbb63c1dbab18c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_redirect_url_support</b> () const noexcept</td></tr>
 <tr class="separator:ac9eb135652409bc666fbb63c1dbab18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7570fcc044436da286f6c87d36006fcc"><td class="memItemLeft" align="right" valign="top"><a id="a7570fcc044436da286f6c87d36006fcc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_effective_url_support</b> () const noexcept</td></tr>
-<tr class="separator:a7570fcc044436da286f6c87d36006fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79628550b256c6fbcc9cc137e2bb5c6f"><td class="memItemLeft" align="right" valign="top"><a id="a79628550b256c6fbcc9cc137e2bb5c6f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_getinfo_cookie_list_support</b> () const noexcept</td></tr>
 <tr class="separator:a79628550b256c6fbcc9cc137e2bb5c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -376,7 +361,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Since <a class="el" href="classcurl_1_1curl__t.html">curl_t</a> is designed to be usable as static variable, it would call errx on error.</p>
-<p>It would make sure that handle_t::get_response_code() is usable before initializing libcurl.</p>
+<p>It would make sure that Easy_ref_t::get_response_code() is usable before initializing libcurl. <br  />
+As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_transfer_time, getinfo_effective_url must be present.</p>
 <p>This is not thread-safe. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00070">70</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
@@ -453,9 +439,12 @@ Public Attributes</h2></td></tr>
 <p>If you are using libcurl from multiple threads or libcurl was built with the threaded resolver option, then the callback functions must be thread safe.</p>
 <p>The threaded resolver is a common build option to enable (and in some cases the default) so portable application should make these callback functions thread safe.</p>
 <p>All callback arguments must be set to valid function pointers.</p>
-<p>libcurl support this from 7.12.0. If this wasn't supported, you binary probably would have problem during dynamic binding.</p>
+<p>libcurl support this from 7.12.0. <br  />
+If this wasn't supported, you binary probably would have problem during dynamic binding. <br  />
+NOTE: as a side effect, it also guarantees curl_t::has_buffer_size_tuning_support() to be true.</p>
 <p>it would call errx on error.</p>
-<p>It would make sure that handle_t::get_response_code() is usable before initializing libcurl.</p>
+<p>It would make sure that Easy_ref_t::get_response_code() is usable before initializing libcurl. <br  />
+As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_transfer_time, getinfo_effective_url must be present.</p>
 <p>This is not thread-safe. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00105">105</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
@@ -499,10 +488,10 @@ Public Attributes</h2></td></tr>
 <p>We recommend you do not run libcurl from any module that may be unloaded dynamically.</p>
 <p>This behavior may be addressed in the future. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00286">286</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;{</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    curl_global_cleanup();</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00265">265</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;{</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    curl_global_cleanup();</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -717,10 +706,10 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>has curl::Url support </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00248">248</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">version</a> &gt;= Version::from(7, 63, 0);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00227">227</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;{</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">version</a> &gt;= Version::from(7, 63, 0);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -820,10 +809,10 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>http2 multiplex is turn on by default, if supported. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00262">262</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;{</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">version</a> &gt;= Version::from(7, 43, 0);</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="curl_8cc_source.html#l00241">241</a> of file <a class="el" href="curl_8cc_source.html">curl.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;{</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">version</a> &gt;= Version::from(7, 43, 0);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1003,7 +992,7 @@ Public Attributes</h2></td></tr>
 <div class="ttc" id="aclasscurl_1_1curl__t_html_a66467a053125e69aff37db2295c38c0a"><div class="ttname"><a href="classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a">curl::curl_t::Url_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Url_deleter &gt; Url_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00334">curl.hpp:334</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 21 2020 14:49:42 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2020 15:38:58 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
