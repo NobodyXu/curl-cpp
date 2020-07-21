@@ -733,117 +733,119 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="comment">     *      url is set to use http(s) &amp;&amp; curl_t::has_protocol(&quot;http&quot;)</span></div>
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="comment">     * @return null-terminated string, freeing not required.</span></div>
 <div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="comment">     *         &lt;br&gt;Would be freed up when corresponding curl::Easy_t is destroyed.</span></div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment">     * If you disable redirection or CURLOPT_MAXREDIRS limit </span></div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment">     * prevented a redirect to happen (since 7.54.1), </span></div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment">     * a would-be redirect-to url is returned.</span></div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="comment">     * This function is only meaningful for http(s) protocol.</span></div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a2414e845752592f46acbfdacfe833643">getinfo_redirect_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; <span class="keyword">const</span> <span class="keywordtype">char</span>*;</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160; </div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="comment">     * @pre curl_t::has_effective_url_support() &amp;&amp; </span></div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="comment">     *      url is set to use http(s) &amp;&amp; curl_t::has_protocol(&quot;http&quot;)</span></div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment">     * @return null-terminated string, freeing not required.</span></div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="comment">     *         &lt;br&gt;Would be freed up when corresponding curl::Easy_t is destroyed.</span></div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="comment">     * It might be the url you set or the redirected actual url.</span></div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a816f0ae50c796898ccb7dd99aef32df1">getinfo_effective_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; <span class="keyword">const</span> <span class="keywordtype">char</span>*;</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;<span class="comment">     * @pre url is set to use http(s) &amp;&amp; curl_t::has_protocol(&quot;http&quot;) &amp;&amp;</span></div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;<span class="comment">     *      curl_t::has_getinfo_cookie_list_support()</span></div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="comment">     * @return note that libcurl can be built with cookies disabled, thus this library</span></div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="comment">     *         can return exception curl::NotBuiltIn_error.</span></div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;<span class="comment">     *         If utils::slist is empty, it might be due to std::bad_alloc, or</span></div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;<span class="comment">     *         no cookie is present(cookie engine not enabled or no cookie has</span></div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="comment">     *         received).</span></div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;<span class="comment">     * Since 7.43.0 cookies that were imported in the Set-Cookie format </span></div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="comment">     * without a domain name are not exported by this option.</span></div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a6442217bc09ebb2f5d22c17319aec569">getinfo_cookie_list</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt;</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        Ret_except&lt;utils::<a class="code" href="classcurl_1_1utils_1_1slist.html">slist</a>, curl::<a class="code" href="classcurl_1_1NotBuiltIn__error.html">NotBuiltIn_error</a>&gt;;</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="comment">     * @pre curl_t::has_get_active_socket_support()</span></div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="comment">     * @return CURL_SOCKET_BAD if no valid socket or not supported</span></div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;<span class="comment">     * The return value can be used in Multi_t::multi_assign()</span></div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a6b66b3aacacdc8546c0a896a318100a1">get_active_socket</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; curl_socket_t;</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160; </div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="comment">// High-level functions</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="comment">     *         &lt;br&gt;If not supported, would return nullptr.</span></div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment">     * If you disable redirection or CURLOPT_MAXREDIRS limit </span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment">     * prevented a redirect to happen (since 7.54.1), </span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="comment">     * a would-be redirect-to url is returned.</span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="comment">     * This function is only meaningful for http(s) protocol.</span></div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a2414e845752592f46acbfdacfe833643">getinfo_redirect_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; <span class="keyword">const</span> <span class="keywordtype">char</span>*;</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160; </div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="comment">     * @pre curl_t::has_effective_url_support() &amp;&amp; </span></div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment">     *      url is set to use http(s) &amp;&amp; curl_t::has_protocol(&quot;http&quot;)</span></div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="comment">     * @return null-terminated string, freeing not required.</span></div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="comment">     *         &lt;br&gt;Would be freed up when corresponding curl::Easy_t is destroyed.</span></div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="comment">     *         &lt;br&gt;If not supported, would return nullptr.</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;<span class="comment">     * It might be the url you set or the redirected actual url.</span></div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a816f0ae50c796898ccb7dd99aef32df1">getinfo_effective_url</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; <span class="keyword">const</span> <span class="keywordtype">char</span>*;</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160; </div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="comment">     * @pre url is set to use http(s) &amp;&amp; curl_t::has_protocol(&quot;http&quot;) &amp;&amp;</span></div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="comment">     *      curl_t::has_getinfo_cookie_list_support()</span></div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;<span class="comment">     * @return note that libcurl can be built with cookies disabled, thus this library</span></div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;<span class="comment">     *         can return exception curl::NotBuiltIn_error.</span></div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="comment">     *         If utils::slist is empty, it might be due to std::bad_alloc, or</span></div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="comment">     *         no cookie is present(cookie engine not enabled or no cookie has</span></div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;<span class="comment">     *         received).</span></div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="comment">     * Since 7.43.0 cookies that were imported in the Set-Cookie format </span></div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="comment">     * without a domain name are not exported by this option.</span></div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a6442217bc09ebb2f5d22c17319aec569">getinfo_cookie_list</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt;</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;        Ret_except&lt;utils::<a class="code" href="classcurl_1_1utils_1_1slist.html">slist</a>, curl::<a class="code" href="classcurl_1_1NotBuiltIn__error.html">NotBuiltIn_error</a>&gt;;</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160; </div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="comment">     * @pre curl_t::has_get_active_socket_support()</span></div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;<span class="comment">     * @return CURL_SOCKET_BAD if no valid socket or not supported</span></div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="comment">     * The return value can be used in Multi_t::multi_assign()</span></div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a6b66b3aacacdc8546c0a896a318100a1">get_active_socket</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span> -&gt; curl_socket_t;</div>
 <div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160; </div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="comment">     * set_readall_callback() can be used for get or post.</span></div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> String = std::string&gt;</div>
-<div class="line"><a name="l00693"></a><span class="lineno"><a class="line" href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">  693</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">set_readall_writeback</a>(String &amp;response) <span class="keyword">noexcept</span></div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    {</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a><a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">(</a>[](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            <span class="keyword">auto</span> &amp;response = *<span class="keyword">static_cast</span>&lt;String*&gt;(ptr);</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;            response.append(buffer, buffer + size);</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;            <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        }<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">,</a> &amp;response<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">)</a>;</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    }</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160; </div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;<span class="comment">     * set_read_callback() can be used for get or post.</span></div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="comment">     * @param len read in len bytes</span></div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> String = std::string, <span class="keyword">class</span> size_type = <span class="keyword">typename</span> String::size_type&gt;</div>
-<div class="line"><a name="l00707"></a><span class="lineno"><a class="line" href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">  707</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">set_read_writeback</a>(std::pair&lt;String, size_type&gt; arg) <span class="keyword">noexcept</span></div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;    {</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a><a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">(</a>[](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;            <span class="keyword">auto</span> &amp;args = *<span class="keyword">static_cast</span>&lt;std::pair&lt;String, size_type&gt;*&gt;(ptr);</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;            <span class="keyword">auto</span> &amp;response = args.first;</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            <span class="keyword">auto</span> &amp;requested_len = args.second;</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160; </div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;            <span class="keyword">auto</span> str_size = response.size();</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            <span class="keywordflow">if</span> (str_size &lt; requested_len)</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                response.append(buffer, buffer + std::min(size, requested_len - str_size));</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160; </div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;            <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        }<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">,</a> &amp;arg<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">)</a>;</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    }</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160; </div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment">     * After this call, Easy_ref_t::perform/Multi_t::perform or multi_socket_action must be </span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment">     * called to establish the connection.</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">     * To use the established connection, call set_nobody(false) or request_*()</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment">     * to disable nobody.</span></div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="comment">     * Example usage:</span></div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="comment">// High-level functions</span></div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160; </div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;<span class="comment">     * set_readall_callback() can be used for get or post.</span></div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> String = std::string&gt;</div>
+<div class="line"><a name="l00695"></a><span class="lineno"><a class="line" href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">  695</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">set_readall_writeback</a>(String &amp;response) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    {</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a><a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">(</a>[](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;            <span class="keyword">auto</span> &amp;response = *<span class="keyword">static_cast</span>&lt;String*&gt;(ptr);</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;            response.append(buffer, buffer + size);</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        }<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">,</a> &amp;response<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">)</a>;</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    }</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160; </div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="comment">     * set_read_callback() can be used for get or post.</span></div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="comment">     * @param len read in len bytes</span></div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> String = std::string, <span class="keyword">class</span> size_type = <span class="keyword">typename</span> String::size_type&gt;</div>
+<div class="line"><a name="l00709"></a><span class="lineno"><a class="line" href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">  709</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">set_read_writeback</a>(std::pair&lt;String, size_type&gt; arg) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;    {</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;        <a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">set_writeback</a><a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">(</a>[](<span class="keywordtype">char</span> *buffer, std::size_t _, std::size_t size, <span class="keywordtype">void</span> *ptr) {</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            <span class="keyword">auto</span> &amp;args = *<span class="keyword">static_cast</span>&lt;std::pair&lt;String, size_type&gt;*&gt;(ptr);</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            <span class="keyword">auto</span> &amp;response = args.first;</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;            <span class="keyword">auto</span> &amp;requested_len = args.second;</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160; </div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;            <span class="keyword">auto</span> str_size = response.size();</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            <span class="keywordflow">if</span> (str_size &lt; requested_len)</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                response.append(buffer, buffer + std::min(size, requested_len - str_size));</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160; </div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        }<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">,</a> &amp;arg<a class="code" href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">)</a>;</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;    }</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160; </div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment">     * After this call, Easy_ref_t::perform/Multi_t::perform or multi_socket_action must be </span></div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">     * called to establish the connection.</span></div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="comment">     * To use the established connection, call set_nobody(false) or request_*()</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="comment">     * to disable nobody.</span></div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="comment">     *     int main(int argc, char* argv[]) {</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment">     *         curl::curl_t curl{nullptr};</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="comment">     *         auto easy = curl.create_easy();</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment">     *         assert(easy.p1 &amp;&amp; easy.p2);</span></div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="comment">     *         auto easy_ref = curl::Easy_ref_t{easy};</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="comment">     *         easy_ref.set_url(&quot;https://www.google.com&quot;);</span></div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="comment">     *         setup_establish_connection_only();</span></div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="comment">     *         easy_ref.perform(); // Establish the connection</span></div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="comment">     *</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment">     *         request_get();</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment">     *         easy_ref.perform(); // Now result is writen to stdout.</span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment">     *     }</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a32bf013c5ba6f47e9c0dec7f167984e8">setup_establish_connection_only</a>() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160; </div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> check_perform(<span class="keywordtype">long</span> code, <span class="keyword">const</span> <span class="keywordtype">char</span> *fname) <span class="keyword">noexcept</span> -&gt; perform_ret_t;</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;};</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;} <span class="comment">/* namespace curl */</span></div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160; </div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="comment">     * Example usage:</span></div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="comment">     *     int main(int argc, char* argv[]) {</span></div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="comment">     *         curl::curl_t curl{nullptr};</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="comment">     *         auto easy = curl.create_easy();</span></div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="comment">     *         assert(easy.p1 &amp;&amp; easy.p2);</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="comment">     *         auto easy_ref = curl::Easy_ref_t{easy};</span></div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="comment">     *         easy_ref.set_url(&quot;https://www.google.com&quot;);</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="comment">     *         setup_establish_connection_only();</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment">     *         easy_ref.perform(); // Establish the connection</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment">     *         request_get();</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment">     *         easy_ref.perform(); // Now result is writen to stdout.</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="comment">     *     }</span></div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Easy__ref__t.html#a32bf013c5ba6f47e9c0dec7f167984e8">setup_establish_connection_only</a>() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> check_perform(<span class="keywordtype">long</span> code, <span class="keyword">const</span> <span class="keywordtype">char</span> *fname) <span class="keyword">noexcept</span> -&gt; perform_ret_t;</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;};</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;} <span class="comment">/* namespace curl */</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160; </div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_1_1ProtocolInternal__error_html"><div class="ttname"><a href="classcurl_1_1Easy__ref__t_1_1ProtocolInternal__error.html">curl::Easy_ref_t::ProtocolInternal_error</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00094">curl_easy.hpp:94</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756af701fee85540b78d08cb276d14953d58">curl::Easy_ref_t::PauseOptions::recv</a></div><div class="ttdeci">@ recv</div></div>
@@ -888,12 +890,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_aee93710d546606f86cc1a287dca5e2f9"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#aee93710d546606f86cc1a287dca5e2f9">curl::Easy_ref_t::set_timeout</a></div><div class="ttdeci">void set_timeout(unsigned long timeout) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00213">curl_easy.cc:213</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a19175a9dad63f3411880bdc35e503883a40b03ccf3c2da88cc503272d1de3441c"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a19175a9dad63f3411880bdc35e503883a40b03ccf3c2da88cc503272d1de3441c">curl::Easy_ref_t::header_option::unified</a></div><div class="ttdeci">@ unified</div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a75c60a5b6f839f1808fc81fb48e424de"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a75c60a5b6f839f1808fc81fb48e424de">curl::Easy_ref_t::set_writeback</a></div><div class="ttdeci">void set_writeback(writeback_t writeback, void *userp) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00091">curl_easy.cc:91</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a15a775de39f65d2de3173144cd344ead"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">curl::Easy_ref_t::set_read_writeback</a></div><div class="ttdeci">auto set_read_writeback(std::pair&lt; String, size_type &gt; arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00707">curl_easy.hpp:707</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a15a775de39f65d2de3173144cd344ead"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a15a775de39f65d2de3173144cd344ead">curl::Easy_ref_t::set_read_writeback</a></div><div class="ttdeci">auto set_read_writeback(std::pair&lt; String, size_type &gt; arg) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00709">curl_easy.hpp:709</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ac0abfe85dbf885648d871ed53b7c2a2a"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ac0abfe85dbf885648d871ed53b7c2a2a">curl::Easy_ref_t::request_post</a></div><div class="ttdeci">void request_post(readback_t readback, void *userp, std::size_t len=-1) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00246">curl_easy.cc:246</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_aec56005bed379c92637ca99721da1be0"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#aec56005bed379c92637ca99721da1be0">curl::Easy_ref_t::getinfo_sizeof_response_header</a></div><div class="ttdeci">std::size_t getinfo_sizeof_response_header() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00301">curl_easy.cc:301</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a467d6c5000c48ca09c023193171aa1ac"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a467d6c5000c48ca09c023193171aa1ac">curl::Easy_ref_t::start_new_cookie_session</a></div><div class="ttdeci">void start_new_cookie_session() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00147">curl_easy.cc:147</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a1674252bb4572aead49f52ebaab8af48"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a1674252bb4572aead49f52ebaab8af48">curl::Easy_ref_t::set_nobody</a></div><div class="ttdeci">void set_nobody(bool enable) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00232">curl_easy.cc:232</a></div></div>
-<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ab5d5a2f9a2972ec42b928c41c7a56ec0"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">curl::Easy_ref_t::set_readall_writeback</a></div><div class="ttdeci">auto set_readall_writeback(String &amp;response) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00693">curl_easy.hpp:693</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ab5d5a2f9a2972ec42b928c41c7a56ec0"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ab5d5a2f9a2972ec42b928c41c7a56ec0">curl::Easy_ref_t::set_readall_writeback</a></div><div class="ttdeci">auto set_readall_writeback(String &amp;response) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00695">curl_easy.hpp:695</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_ab9768e0f87a794b35078dee4e1e93751"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#ab9768e0f87a794b35078dee4e1e93751">curl::Easy_ref_t::set_cookiejar</a></div><div class="ttdeci">auto set_cookiejar(const char *cookie_filename) noexcept -&gt; Ret_except&lt; void, std::bad_alloc, curl::NotBuiltIn_error &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00125">curl_easy.cc:125</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a623bd0306a6e86bdba428bd77685484e"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a623bd0306a6e86bdba428bd77685484e">curl::Easy_ref_t::getinfo_sizeof_response_body</a></div><div class="ttdeci">std::size_t getinfo_sizeof_response_body() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00307">curl_easy.cc:307</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a6b66b3aacacdc8546c0a896a318100a1"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a6b66b3aacacdc8546c0a896a318100a1">curl::Easy_ref_t::get_active_socket</a></div><div class="ttdeci">auto get_active_socket() const noexcept -&gt; curl_socket_t</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8cc_source.html#l00351">curl_easy.cc:351</a></div></div>
@@ -906,7 +908,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html_a85f6a6823e2abed6cd5e4081ecfd7756"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html#a85f6a6823e2abed6cd5e4081ecfd7756">curl::Easy_ref_t::PauseOptions</a></div><div class="ttdeci">PauseOptions</div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00545">curl_easy.hpp:545</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 21 2020 13:13:23 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2020 14:49:41 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
