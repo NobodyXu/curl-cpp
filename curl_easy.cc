@@ -303,7 +303,11 @@ std::size_t Easy_ref_t::getinfo_sizeof_response_header() const noexcept
 std::size_t Easy_ref_t::getinfo_sizeof_response_body() const noexcept
 {
     curl_off_t dl;
-    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl);
+    if (curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD_T, &dl) == CURLE_UNKNOWN_OPTION) {
+        double bytes;
+        curl_easy_getinfo(curl_easy, CURLINFO_SIZE_DOWNLOAD, &bytes);
+        return static_cast<std::size_t>(bytes);
+    }
     return dl;
 }
 std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept

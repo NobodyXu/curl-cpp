@@ -210,7 +210,7 @@ bool curl_t::has_sizeof_response_header_support() const noexcept
 }
 bool curl_t::has_sizeof_response_body_support() const noexcept
 {
-    return version >= Version::from(7, 55, 0);
+    return version >= Version::from(7, 4, 1);
 }
 bool curl_t::has_transfer_time_support() const noexcept
 {
