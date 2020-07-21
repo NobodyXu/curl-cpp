@@ -177,8 +177,10 @@ public:
      * All callback arguments must be set to valid function pointers. 
      *
      * libcurl support this from 7.12.0.
-     * If this wasn't supported, you binary probably would have problem
+     * <br>If this wasn't supported, you binary probably would have problem
      * during dynamic binding.
+     * <br>NOTE: as a side effect, it also guarantees curl_t::has_buffer_size_tuning_support()
+     * to be true.
      *
      * it would call errx on error.
      *
