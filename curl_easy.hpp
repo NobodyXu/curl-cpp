@@ -651,6 +651,16 @@ public:
     auto getinfo_redirect_url() const noexcept -> const char*;
 
     /**
+     * @pre curl_t::has_effective_url_support() && 
+     *      url is set to use http(s) && curl_t::has_protocol("http")
+     * @return null-terminated string, freeing not required.
+     *         <br>Would be freed up when corresponding curl::Easy_t is destroyed.
+     *
+     * It might be the url you set or the redirected actual url.
+     */
+    auto getinfo_effective_url() const noexcept -> const char*;
+
+    /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http") &&
      *      curl_t::has_getinfo_cookie_list_support()
      *

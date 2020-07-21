@@ -216,9 +216,14 @@ bool curl_t::has_transfer_time_support() const noexcept
 {
     return version >= Version::from(7, 4, 1);
 }
+
 bool curl_t::has_redirect_url_support() const noexcept
 {
     return version >= Version::from(7, 18, 2);
+}
+bool curl_t::has_effective_url_support() const noexcept
+{
+    return version >= Version::from(7, 4, 0);
 }
 
 bool curl_t::has_getinfo_cookie_list_support() const noexcept
