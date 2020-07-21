@@ -291,7 +291,11 @@ long Easy_ref_t::get_response_code() const noexcept
 std::size_t Easy_ref_t::getinfo_sizeof_uploaded() const noexcept
 {
     curl_off_t ul;
-    curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul);
+    if (curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD_T, &ul)) {
+        double bytes;
+        curl_easy_getinfo(curl_easy, CURLINFO_SIZE_UPLOAD, &bytes);
+        return static_cast<std::size_t>(bytes);
+    }
     return ul;
 }
 std::size_t Easy_ref_t::getinfo_sizeof_response_header() const noexcept

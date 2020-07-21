@@ -202,7 +202,7 @@ bool curl_t::has_set_ip_addr_only_support() const noexcept
 
 bool curl_t::has_sizeof_upload_support() const noexcept
 {
-    return version >= Version::from(7, 55, 0);
+    return version >= Version::from(7, 4, 1);
 }
 bool curl_t::has_sizeof_response_header_support() const noexcept
 {
