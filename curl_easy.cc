@@ -309,7 +309,11 @@ std::size_t Easy_ref_t::getinfo_sizeof_response_body() const noexcept
 std::size_t Easy_ref_t::getinfo_transfer_time() const noexcept
 {
     curl_off_t total;
-    curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total);
+    if (curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME_T, &total) == CURLE_UNKNOWN_OPTION) {
+        double seconds;
+        curl_easy_getinfo(curl_easy, CURLINFO_TOTAL_TIME, &seconds);
+        return static_cast<std::size_t>(seconds * 1000);
+    }
     return total;
 }
 auto Easy_ref_t::getinfo_redirect_url() const noexcept -> const char*
