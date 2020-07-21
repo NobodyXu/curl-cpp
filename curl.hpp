@@ -151,7 +151,9 @@ public:
      * Since curl_t is designed to be usable as static variable,
      * it would call errx on error.
      *
-     * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
+     * It would make sure that Easy_ref_t::get_response_code() is usable before initializing libcurl.
+     * <br>As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_transfer_time,
+     * getinfo_effective_url must be present.
      *
      * This is not thread-safe.
      */
@@ -180,7 +182,9 @@ public:
      *
      * it would call errx on error.
      *
-     * It would make sure that handle_t::get_response_code() is usable before initializing libcurl.
+     * It would make sure that Easy_ref_t::get_response_code() is usable before initializing libcurl.
+     * <br>As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_transfer_time,
+     * getinfo_effective_url must be present.
      *
      * This is not thread-safe.
      */
@@ -246,13 +250,7 @@ public:
     bool has_header_option_support() const noexcept;
     bool has_set_ip_addr_only_support() const noexcept;
 
-    bool has_sizeof_upload_support() const noexcept;
-    bool has_sizeof_response_header_support() const noexcept;
-    bool has_sizeof_response_body_support() const noexcept;
-    bool has_transfer_time_support() const noexcept;
-
     bool has_redirect_url_support() const noexcept;
-    bool has_effective_url_support() const noexcept;
 
     bool has_getinfo_cookie_list_support() const noexcept;
 

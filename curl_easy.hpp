@@ -604,23 +604,19 @@ public:
     long get_response_code() const noexcept;
 
     /**
-     * @pre curl_t::has_sizeof_upload_support()
      * @return in bytes
      */
     std::size_t getinfo_sizeof_uploaded() const noexcept;
     /**
-     * @pre curl_t::has_sizeof_response_header_support()
      * @return in bytes
      */
     std::size_t getinfo_sizeof_response_header() const noexcept;
     /**
-     * @pre curl_t::has_sizeof_response_body_support()
      * @return in bytes, does not include response from redirection
      */
     std::size_t getinfo_sizeof_response_body() const noexcept;
 
     /**
-     * @pre curl_t::has_transfer_time_support()
      * @return transfer time in ms
      * 
      * What transfer time really measures:
@@ -652,8 +648,7 @@ public:
     auto getinfo_redirect_url() const noexcept -> const char*;
 
     /**
-     * @pre curl_t::has_effective_url_support() && 
-     *      url is set to use http(s) && curl_t::has_protocol("http")
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @return null-terminated string, freeing not required.
      *         <br>Would be freed up when corresponding curl::Easy_t is destroyed.
      *         <br>If not supported, would return nullptr.
