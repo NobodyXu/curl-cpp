@@ -46,6 +46,12 @@ public:
         auto what() const noexcept -> const char*;
     };
 
+    /**
+     * This constructor takes CURLM*
+     *
+     * @param multi pass nullptr for an empty Multi_t that can only be
+     *              move assigned with value or be destroyed.
+     */
     Multi_t(void *multi) noexcept;
 
     Multi_t(const Multi_t&) = delete;
