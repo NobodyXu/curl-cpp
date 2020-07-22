@@ -28,7 +28,7 @@ namespace curl {
  */
 class Multi_t {
 protected:
-    void *curl_multi;
+    void *curl_multi = nullptr;
     std::size_t handles = 0;
 
 public:
@@ -45,6 +45,12 @@ public:
 
         auto what() const noexcept -> const char*;
     };
+
+    /**
+     * Construct an empty Multi_t that can only be 
+     * move assigned with value or be destroyed.
+     */
+    Multi_t() = default;
 
     /**
      * This constructor takes CURLM*
