@@ -115,6 +115,19 @@ public:
     FILE *stderr_stream;
 
     /**
+     * Result of curl_version_info(CURLVERSION_NOW).
+     * Cached for faster access.
+     */
+    const void * const version_info;
+    /**
+     * Version of the libcurl loaded dynamically.
+     */
+    const Version version;
+
+    /**
+     * disable_signal_handling_v is placed here to compress alignment requirement for bool
+     * and Version.
+     *
      * @pre has_disable_signal_handling_support()
      *
      * If your libcurl uses standard name resolver, disable signal handling might cause timeout to never 
@@ -133,15 +146,6 @@ public:
      */
     bool disable_signal_handling_v = false;
 
-    /**
-     * Result of curl_version_info(CURLVERSION_NOW).
-     * Cached for faster access.
-     */
-    const void * const version_info;
-    /**
-     * Version of the libcurl loaded dynamically.
-     */
-    const Version version;
     /**
      * Version of the libcurl linked dynamically in string.
      */
