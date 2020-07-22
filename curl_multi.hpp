@@ -85,8 +85,8 @@ public:
      *
      * @pre curl_t::has_http2_multiplex_support()
      * @param max_concurrent_stream max concurrent stream for a given connection.
-     *                              <br>Should be between [1, 2 ^ 31 - 1].
-     *                              <br>Set it to 1 or 0 disable multiplexing.
+     *                              <br>Should be between [0, 2 ^ 31 - 1].
+     *                              <br>Set it to 0 disable multiplexing.
      *
      * Since curl_t::version >= 7.62.0 (version released way after http2 multiplex support)
      * , multiplex is turned on by default.

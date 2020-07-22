@@ -67,10 +67,10 @@ std::size_t Multi_t::get_number_of_handles() const noexcept
 
 void Multi_t::set_multiplexing(long max_concurrent_stream) noexcept
 {
-    long bitmask = max_concurrent_stream > 1 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;
+    long bitmask = max_concurrent_stream != 0 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;
     curl_multi_setopt(curl_multi, CURLMOPT_PIPELINING, bitmask);
 
-    if (max_concurrent_stream > 1)
+    if (max_concurrent_stream >= 1)
         curl_multi_setopt(curl_multi, CURLMOPT_MAX_CONCURRENT_STREAMS, max_concurrent_stream);
 }
 
