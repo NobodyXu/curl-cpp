@@ -268,12 +268,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_psl_sharing_suppo
 Public Attributes</h2></td></tr>
 <tr class="memitem:ae02fa1776f894802fc1f10e50e35fa49"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#ae02fa1776f894802fc1f10e50e35fa49">stderr_stream</a></td></tr>
 <tr class="separator:ae02fa1776f894802fc1f10e50e35fa49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12469ff0e13014cb131f5956ea8a7ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">disable_signal_handling_v</a> = false</td></tr>
-<tr class="separator:a12469ff0e13014cb131f5956ea8a7ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd13a0e33585608406f05bef322392a7"><td class="memItemLeft" align="right" valign="top">const void *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#acd13a0e33585608406f05bef322392a7">version_info</a></td></tr>
 <tr class="separator:acd13a0e33585608406f05bef322392a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">version</a></td></tr>
 <tr class="separator:aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12469ff0e13014cb131f5956ea8a7ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">disable_signal_handling_v</a> = false</td></tr>
+<tr class="separator:a12469ff0e13014cb131f5956ea8a7ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae65ae20228883dd1bd8ac01ae47a1903"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1curl__t.html#ae65ae20228883dd1bd8ac01ae47a1903">version_str</a></td></tr>
 <tr class="separator:ae65ae20228883dd1bd8ac01ae47a1903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -298,7 +298,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's easy handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00274">274</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00278">278</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -315,7 +315,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's Url parser. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00334">334</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00338">338</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -332,7 +332,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>RAII wrapper for curl's <a class="el" href="classcurl_1_1Share.html">Share</a> handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00380">380</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00384">384</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -900,28 +900,6 @@ As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_t
 
 </div>
 </div>
-<a id="a12469ff0e13014cb131f5956ea8a7ee1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12469ff0e13014cb131f5956ea8a7ee1">&#9670;&nbsp;</a></span>disable_signal_handling_v</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool curl::curl_t::disable_signal_handling_v = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section pre"><dt>Precondition</dt><dd>has_disable_signal_handling_support()</dd></dl>
-<p>If your libcurl uses standard name resolver, disable signal handling might cause timeout to never occur during name resolution.</p>
-<p>Disable signal handling makes libcurl NOT ask the system to ignore SIGPIPE signals, which otherwise are sent by the system when trying to send data to a socket which is closed in the other end.</p>
-<p>libcurl makes an effort to never cause such SIGPIPEs to trigger, but some operating systems have no way to avoid them and even on those that have there are some corner cases when they may still happen, contrary to our desire.</p>
-<p>In addition, using CURLAUTH_NTLM_WB authentication could cause a SIGCHLD signal to be raised.</p>
-<p>Modifing this would only affect Easy_t handle created after the modification. </p>
-
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00134">134</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
-
-</div>
-</div>
 <a id="acd13a0e33585608406f05bef322392a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd13a0e33585608406f05bef322392a7">&#9670;&nbsp;</a></span>version_info</h2>
 
@@ -935,7 +913,7 @@ As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_t
 </div><div class="memdoc">
 <p>Result of curl_version_info(CURLVERSION_NOW). Cached for faster access. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00140">140</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00121">121</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -952,7 +930,30 @@ As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_t
 </div><div class="memdoc">
 <p><a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a> of the libcurl loaded dynamically. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00144">144</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00125">125</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a12469ff0e13014cb131f5956ea8a7ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12469ff0e13014cb131f5956ea8a7ee1">&#9670;&nbsp;</a></span>disable_signal_handling_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool curl::curl_t::disable_signal_handling_v = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>disable_signal_handling_v is placed here to compress alignment requirement for bool and <a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a>.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>has_disable_signal_handling_support()</dd></dl>
+<p>If your libcurl uses standard name resolver, disable signal handling might cause timeout to never occur during name resolution.</p>
+<p>Disable signal handling makes libcurl NOT ask the system to ignore SIGPIPE signals, which otherwise are sent by the system when trying to send data to a socket which is closed in the other end.</p>
+<p>libcurl makes an effort to never cause such SIGPIPEs to trigger, but some operating systems have no way to avoid them and even on those that have there are some corner cases when they may still happen, contrary to our desire.</p>
+<p>In addition, using CURLAUTH_NTLM_WB authentication could cause a SIGCHLD signal to be raised.</p>
+<p>Modifing this would only affect Easy_t handle created after the modification. </p>
+
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00147">147</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -969,7 +970,7 @@ As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_t
 </div><div class="memdoc">
 <p><a class="el" href="structcurl_1_1curl__t_1_1Version.html">Version</a> of the libcurl linked dynamically in string. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00148">148</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl_8hpp_source.html#l00152">152</a> of file <a class="el" href="curl_8hpp_source.html">curl.hpp</a>.</p>
 
 </div>
 </div>
@@ -982,17 +983,17 @@ As a side effect, it also make sure that Easy_ref_t::getinfo_sizeof_*, getinfo_t
 <li><a class="el" href="curl__url_8cc_source.html">curl_url.cc</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclasscurl_1_1curl__t_html_aa9e6a5ecbcfb72cb5c1aa6392f907a01"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa9e6a5ecbcfb72cb5c1aa6392f907a01">curl::curl_t::Share_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Share_deleter &gt; Share_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00380">curl.hpp:380</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_aa9e6a5ecbcfb72cb5c1aa6392f907a01"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa9e6a5ecbcfb72cb5c1aa6392f907a01">curl::curl_t::Share_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Share_deleter &gt; Share_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00384">curl.hpp:384</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Exception_html"><div class="ttname"><a href="classcurl_1_1Exception.html">curl::Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00016">curl.hpp:16</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_ae65ae20228883dd1bd8ac01ae47a1903"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae65ae20228883dd1bd8ac01ae47a1903">curl::curl_t::version_str</a></div><div class="ttdeci">const char *const version_str</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00148">curl.hpp:148</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_a12469ff0e13014cb131f5956ea8a7ee1"><div class="ttname"><a href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">curl::curl_t::disable_signal_handling_v</a></div><div class="ttdeci">bool disable_signal_handling_v</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00134">curl.hpp:134</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_acd13a0e33585608406f05bef322392a7"><div class="ttname"><a href="classcurl_1_1curl__t.html#acd13a0e33585608406f05bef322392a7">curl::curl_t::version_info</a></div><div class="ttdeci">const void *const version_info</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00140">curl.hpp:140</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_ae65ae20228883dd1bd8ac01ae47a1903"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae65ae20228883dd1bd8ac01ae47a1903">curl::curl_t::version_str</a></div><div class="ttdeci">const char *const version_str</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00152">curl.hpp:152</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_a12469ff0e13014cb131f5956ea8a7ee1"><div class="ttname"><a href="classcurl_1_1curl__t.html#a12469ff0e13014cb131f5956ea8a7ee1">curl::curl_t::disable_signal_handling_v</a></div><div class="ttdeci">bool disable_signal_handling_v</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00147">curl.hpp:147</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_acd13a0e33585608406f05bef322392a7"><div class="ttname"><a href="classcurl_1_1curl__t.html#acd13a0e33585608406f05bef322392a7">curl::curl_t::version_info</a></div><div class="ttdeci">const void *const version_info</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00121">curl.hpp:121</a></div></div>
 <div class="ttc" id="aclasscurl_1_1curl__t_html_ae02fa1776f894802fc1f10e50e35fa49"><div class="ttname"><a href="classcurl_1_1curl__t.html#ae02fa1776f894802fc1f10e50e35fa49">curl::curl_t::stderr_stream</a></div><div class="ttdeci">FILE * stderr_stream</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00115">curl.hpp:115</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl::curl_t::version</a></div><div class="ttdeci">const Version version</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00144">curl.hpp:144</a></div></div>
-<div class="ttc" id="aclasscurl_1_1curl__t_html_a66467a053125e69aff37db2295c38c0a"><div class="ttname"><a href="classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a">curl::curl_t::Url_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Url_deleter &gt; Url_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00334">curl.hpp:334</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_aa0ceca27e2a5d75f2a2e8aba6a85eb6a"><div class="ttname"><a href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl::curl_t::version</a></div><div class="ttdeci">const Version version</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00125">curl.hpp:125</a></div></div>
+<div class="ttc" id="aclasscurl_1_1curl__t_html_a66467a053125e69aff37db2295c38c0a"><div class="ttname"><a href="classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a">curl::curl_t::Url_t</a></div><div class="ttdeci">std::unique_ptr&lt; char, Url_deleter &gt; Url_t</div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00338">curl.hpp:338</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 21 2020 15:38:58 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 22 2020 13:21:56 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
