@@ -129,8 +129,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa03b009bc391b6e8e4a980fed48b1c74"><td class="memItemLeft" align="right" valign="top"><a id="aa03b009bc391b6e8e4a980fed48b1c74"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Multi_t</b> (void *multi) noexcept</td></tr>
+<tr class="memitem:ae096fc37dd8a2d1244bfa96d7d18d3e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#ae096fc37dd8a2d1244bfa96d7d18d3e0">Multi_t</a> ()=default</td></tr>
+<tr class="separator:ae096fc37dd8a2d1244bfa96d7d18d3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa03b009bc391b6e8e4a980fed48b1c74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcurl_1_1Multi__t.html#aa03b009bc391b6e8e4a980fed48b1c74">Multi_t</a> (void *multi) noexcept</td></tr>
 <tr class="separator:aa03b009bc391b6e8e4a980fed48b1c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ef649de2a35d8c011c2a06711ab2e2b"><td class="memItemLeft" align="right" valign="top"><a id="a5ef649de2a35d8c011c2a06711ab2e2b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Multi_t</b> (const <a class="el" href="classcurl_1_1Multi__t.html">Multi_t</a> &amp;)=delete</td></tr>
@@ -177,7 +178,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>check_perform</b> (lo
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a7256960919fdbb2991e5e2047de146ad"><td class="memItemLeft" align="right" valign="top"><a id="a7256960919fdbb2991e5e2047de146ad"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>curl_multi</b></td></tr>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>curl_multi</b> = nullptr</td></tr>
 <tr class="separator:a7256960919fdbb2991e5e2047de146ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cdf387286a7c9abf65730850be4a1db"><td class="memItemLeft" align="right" valign="top"><a id="a8cdf387286a7c9abf65730850be4a1db"></a>
 std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 0</td></tr>
@@ -204,7 +205,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
 <p>If you want to destroy and free easy.curl_easy, you must first multi.remove_easy(easy_ref) it.</p>
 <p>If easy_ref isn't removed from Multi, then the same transfer will happen again in the next call to <a class="el" href="classcurl_1_1Multi__t.html#a301adcac2e96560001d9cf2c68fce1fb">Multi_t::perform</a> or Multi_t::multi_socket_action(socketfd of this easy handler, events, ...). </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00140">140</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00153">153</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
 
 </div>
 </div>
@@ -225,7 +226,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
 <li>curl_t::has_multi_socket_support() </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00177">177</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00190">190</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
 
 </div>
 </div>
@@ -251,13 +252,77 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>handles</b> = 
 When time that timer fires, call <a class="el" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action()</a>.</p>
 <p>The timer_callback will only be called when the timeout expire time is changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00190">190</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="curl__multi_8hpp_source.html#l00203">203</a> of file <a class="el" href="curl__multi_8hpp_source.html">curl_multi.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae096fc37dd8a2d1244bfa96d7d18d3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae096fc37dd8a2d1244bfa96d7d18d3e0">&#9670;&nbsp;</a></span>Multi_t() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">curl::Multi_t::Multi_t </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Construct an empty <a class="el" href="classcurl_1_1Multi__t.html">Multi_t</a> that can only be move assigned with value or be destroyed. </p>
+
+</div>
+</div>
+<a id="aa03b009bc391b6e8e4a980fed48b1c74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa03b009bc391b6e8e4a980fed48b1c74">&#9670;&nbsp;</a></span>Multi_t() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">curl::Multi_t::Multi_t </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>multi</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This constructor takes CURLM*</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">multi</td><td>pass nullptr for an empty <a class="el" href="classcurl_1_1Multi__t.html">Multi_t</a> that can only be move assigned with value or be destroyed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="curl__multi_8cc_source.html#l00015">15</a> of file <a class="el" href="curl__multi_8cc_source.html">curl_multi.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                    :</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    curl_multi{multi}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a0fa5766946a2e509fb96d91f1c46a783"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fa5766946a2e509fb96d91f1c46a783">&#9670;&nbsp;</a></span>Multi_t()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fa5766946a2e509fb96d91f1c46a783">&#9670;&nbsp;</a></span>Multi_t() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -503,22 +568,22 @@ false if already added. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">max_concurrent_stream</td><td>max concurrent stream for a given connection. <br  />
-Should be between [1, 2 ^ 31 - 1]. <br  />
-Set it to 1 or 0 disable multiplexing.</td></tr>
+Should be between [0, 2 ^ 31 - 1]. <br  />
+Set it to 0 disable multiplexing.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Since <a class="el" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl_t::version</a> &gt;= 7.62.0, multiplex is turned on by default.</p>
+<p>Since <a class="el" href="classcurl_1_1curl__t.html#aa0ceca27e2a5d75f2a2e8aba6a85eb6a">curl_t::version</a> &gt;= 7.62.0 (version released way after http2 multiplex support) , multiplex is turned on by default.</p>
 <p>NOTE that libcurl not always accept max_concurrent_stream tuning. <br  />
 Check curl_t::has_max_concurrent_stream_support().</p>
 <p>If libcurl does not support tuning, this option will be only used for turning on and off the http2 multiplex. </p>
 
 <p class="definition">Definition at line <a class="el" href="curl__multi_8cc_source.html#l00068">68</a> of file <a class="el" href="curl__multi_8cc_source.html">curl_multi.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">long</span> bitmask = max_concurrent_stream &gt; 1 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">long</span> bitmask = max_concurrent_stream != 0 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    curl_multi_setopt(curl_multi, CURLMOPT_PIPELINING, bitmask);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (max_concurrent_stream &gt; 1)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (max_concurrent_stream &gt;= 1)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        curl_multi_setopt(curl_multi, CURLMOPT_MAX_CONCURRENT_STREAMS, max_concurrent_stream);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
 </div><!-- fragment -->
@@ -919,7 +984,7 @@ CURL_SOCKET_TIMEOUT on timeout or to initiate the whole process. </td></tr>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_ad9e0c1117b58aad4fcb4350b92276e3a"><div class="ttname"><a href="classcurl_1_1Multi__t.html#ad9e0c1117b58aad4fcb4350b92276e3a">curl::Multi_t::poll</a></div><div class="ttdeci">auto poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00078">curl_multi.cc:78</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 22 2020 13:21:56 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 22 2020 18:42:20 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

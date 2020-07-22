@@ -104,7 +104,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> {std::in_place_type&lt;<a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>&gt;, multi};</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>::Multi_t(<span class="keywordtype">void</span> *multi) <span class="keyword">noexcept</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#aa03b009bc391b6e8e4a980fed48b1c74">   15</a></span>&#160;<a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>::<a class="code" href="classcurl_1_1Multi__t.html#aa03b009bc391b6e8e4a980fed48b1c74">Multi_t</a>(<span class="keywordtype">void</span> *multi) <span class="keyword">noexcept</span>:</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    curl_multi{multi}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
@@ -159,10 +159,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classcurl_1_1Multi__t.html">Multi_t</a>::<a class="code" href="classcurl_1_1Multi__t.html#adf6b697512b20c4811a542ed47896ce1">set_multiplexing</a>(<span class="keywordtype">long</span> max_concurrent_stream) <span class="keyword">noexcept</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">long</span> bitmask = max_concurrent_stream &gt; 1 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">long</span> bitmask = max_concurrent_stream != 0 ? CURLPIPE_MULTIPLEX : CURLPIPE_NOTHING;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    curl_multi_setopt(curl_multi, CURLMOPT_PIPELINING, bitmask);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (max_concurrent_stream &gt; 1)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (max_concurrent_stream &gt;= 1)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        curl_multi_setopt(curl_multi, CURLMOPT_MAX_CONCURRENT_STREAMS, max_concurrent_stream);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
@@ -273,6 +273,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="aclasscurl_1_1Multi__t_1_1Exception_html"><div class="ttname"><a href="classcurl_1_1Multi__t_1_1Exception.html">curl::Multi_t::Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8hpp_source.html#l00039">curl_multi.hpp:39</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_a8c14c2e67419178ba0f01f3c6cfde4c6"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a8c14c2e67419178ba0f01f3c6cfde4c6">curl::Multi_t::add_easy</a></div><div class="ttdeci">bool add_easy(Easy_ref_t &amp;easy) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00049">curl_multi.cc:49</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Recursive__api__call__Exception_html"><div class="ttname"><a href="classcurl_1_1Recursive__api__call__Exception.html">curl::Recursive_api_call_Exception</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00040">curl.hpp:40</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_aa03b009bc391b6e8e4a980fed48b1c74"><div class="ttname"><a href="classcurl_1_1Multi__t.html#aa03b009bc391b6e8e4a980fed48b1c74">curl::Multi_t::Multi_t</a></div><div class="ttdeci">Multi_t(void *multi) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00015">curl_multi.cc:15</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_aaa2894dade63837d638acc8d6a96dad7"><div class="ttname"><a href="classcurl_1_1Multi__t.html#aaa2894dade63837d638acc8d6a96dad7">curl::Multi_t::operator bool</a></div><div class="ttdeci">operator bool() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00038">curl_multi.cc:38</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html_a2d8a8a61610b3df723c71c0597e67283"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a2d8a8a61610b3df723c71c0597e67283">curl::Multi_t::break_or_poll</a></div><div class="ttdeci">auto break_or_poll(curl_waitfd *extra_fds=nullptr, unsigned extra_nfds=0U, int timeout=0) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00093">curl_multi.cc:93</a></div></div>
 <div class="ttc" id="aclasscurl_1_1curl__t_html_ac5f9a6d33f0863e66aeaa061f3deb94b"><div class="ttname"><a href="classcurl_1_1curl__t.html#ac5f9a6d33f0863e66aeaa061f3deb94b">curl::curl_t::create_multi</a></div><div class="ttdeci">auto create_multi() noexcept -&gt; Ret_except&lt; Multi_t, curl::Exception &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00007">curl_multi.cc:7</a></div></div>
@@ -280,7 +281,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="aclasscurl_1_1libcurl__bug_html"><div class="ttname"><a href="classcurl_1_1libcurl__bug.html">curl::libcurl_bug</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00032">curl.hpp:32</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 22 2020 13:21:55 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 22 2020 18:42:19 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
