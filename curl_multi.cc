@@ -99,8 +99,18 @@ auto Multi_t::break_or_poll(curl_waitfd *extra_fds, unsigned extra_nfds, int tim
         return poll(extra_fds, extra_nfds, timeout);
 }
 
-auto Multi_t::check_perform(long code, int running_handles, const char *fname,
-                            perform_callback_t perform_callback, void *arg) noexcept -> 
+auto Multi_t::get_finished_easy() const noexcept -> std::pair<Easy_ref_t, Easy_ref_t::perform_ret_t>
+{
+    int msgq = 0;
+    for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
+        if (m->msg == CURLMSG_DONE) {
+            Easy_ref_t easy_ref{static_cast<char*>(m->easy_handle)};
+            return {easy_ref, easy_ref.check_perform(m->data.result, "")};
+        }
+
+    return {Easy_ref_t{nullptr}, Easy_ref_t::perform_ret_t{Easy_ref_t::code::ok}};
+}
+auto Multi_t::check_perform(long code, int running_handles, const char *fname) noexcept -> 
     Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
 {
     if (code == CURLM_OUT_OF_MEMORY)
@@ -112,24 +122,16 @@ auto Multi_t::check_perform(long code, int running_handles, const char *fname,
 
     assert(code == CURLM_OK);
 
-    int msgq = 0;
-    for (CURLMsg *m; (m = curl_multi_info_read(curl_multi, &msgq)); )
-        if (m->msg == CURLMSG_DONE) {
-            Easy_ref_t easy{static_cast<char*>(m->easy_handle)};
-            perform_callback(easy, easy.check_perform(m->data.result, fname), *this, arg);
-        }
-
     return {running_handles};
 }
-auto Multi_t::perform(perform_callback_t perform_callback, void *arg) noexcept -> 
-    Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
+auto Multi_t::perform_impl() noexcept ->  perform_ret_t
 {
     int running_handles = 0;
 
     CURLMcode code;
     while ((code = curl_multi_perform(curl_multi, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles, "In curl_multi_perform", perform_callback, arg);
+    return check_perform(code, running_handles, "In curl_multi_perform");
 }
 
 /* Interface for using arbitary event-based interface - multi_socket interface */
@@ -152,15 +154,14 @@ auto Multi_t::multi_assign(curl_socket_t socketfd, void *per_sockptr) noexcept -
 
     return {};
 }
-auto Multi_t::multi_socket_action(curl_socket_t socketfd, int ev_bitmask, 
-                                  perform_callback_t perform_callback, void *arg) noexcept -> 
-    Ret_except<int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug>
+auto Multi_t::multi_socket_action_impl(curl_socket_t socketfd, int ev_bitmask) noexcept -> perform_ret_t
 {
     int running_handles;
 
     CURLMcode code;
-    while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles)) == CURLM_CALL_MULTI_PERFORM);
+    while ((code = curl_multi_socket_action(curl_multi, socketfd, ev_bitmask, &running_handles)) == 
+            CURLM_CALL_MULTI_PERFORM);
 
-    return check_perform(code, running_handles, "In curl_multi_socket_action", perform_callback, arg);
+    return check_perform(code, running_handles, "In curl_multi_socket_action");
 }
 } /* namespace curl */
