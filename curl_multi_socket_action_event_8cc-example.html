@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="keyword">struct </span>event *timeout = evtimer_new(base, [](evutil_socket_t fd, <span class="keywordtype">short</span> events, <span class="keywordtype">void</span> *arg) noexcept</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keyword">auto</span> &amp;multi = *<span class="keyword">static_cast&lt;</span><a class="code" href="classcurl_1_1Multi__t.html">curl::Multi_t</a>*<span class="keyword">&gt;</span>(arg);</div>
-<div class="line">        multi.<a name="a3"></a><a class="code" href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">multi_socket_action</a>(CURL_SOCKET_TIMEOUT, 0, perform_callback, <span class="keyword">nullptr</span>);</div>
+<div class="line">        multi.<a name="a3"></a><a class="code" href="classcurl_1_1Multi__t.html#a9fc856d8f66f5bf6edc52077fffafd26">multi_socket_action</a>(CURL_SOCKET_TIMEOUT, 0, perform_callback, <span class="keyword">nullptr</span>);</div>
 <div class="line">    }, &amp;multi);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">using</span> Arg = std::pair&lt;struct event_base*, curl::Multi_t&amp;&gt;;</div>
@@ -260,13 +260,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
-<div class="ttc" id="aclasscurl_1_1Multi__t_html_a3ec91024af38c4a687811bb6444c9652"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a3ec91024af38c4a687811bb6444c9652">curl::Multi_t::multi_socket_action</a></div><div class="ttdeci">auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, perform_callback_t perform_callback, void *arg) noexcept -&gt; Ret_except&lt; int, std::bad_alloc, Exception, Recursive_api_call_Exception, libcurl_bug &gt;</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8cc_source.html#l00155">curl_multi.cc:155</a></div></div>
+<div class="ttc" id="aclasscurl_1_1Multi__t_html_a9fc856d8f66f5bf6edc52077fffafd26"><div class="ttname"><a href="classcurl_1_1Multi__t.html#a9fc856d8f66f5bf6edc52077fffafd26">curl::Multi_t::multi_socket_action</a></div><div class="ttdeci">auto multi_socket_action(curl_socket_t socketfd, int ev_bitmask, perform_callback_t &amp;&amp;perform_callback, T &amp;&amp;arg) noexcept -&gt; perform_ret_t</div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8hpp_source.html#l00277">curl_multi.hpp:277</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Easy__ref__t_html"><div class="ttname"><a href="classcurl_1_1Easy__ref__t.html">curl::Easy_ref_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__easy_8hpp_source.html#l00053">curl_easy.hpp:53</a></div></div>
 <div class="ttc" id="aclasscurl_1_1Multi__t_html"><div class="ttname"><a href="classcurl_1_1Multi__t.html">curl::Multi_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl__multi_8hpp_source.html#l00029">curl_multi.hpp:29</a></div></div>
 <div class="ttc" id="aclasscurl_1_1curl__t_html"><div class="ttname"><a href="classcurl_1_1curl__t.html">curl::curl_t</a></div><div class="ttdef"><b>Definition:</b> <a href="curl_8hpp_source.html#l00062">curl.hpp:62</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 22 2020 18:42:18 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 23 2020 19:23:56 for curl-cpp by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

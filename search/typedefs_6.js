@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unlock_5ffunction_5ft_246',['unlock_function_t',['../classcurl_1_1Share__base.html#a8c9605e358ad9b1f9c52e7cf02769043',1,'curl::Share_base']]],
-  ['url_5ft_247',['Url_t',['../classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a',1,'curl::curl_t']]]
+  ['writeback_5ft_248',['writeback_t',['../classcurl_1_1Easy__ref__t.html#a9736a9ea6773bf91720e0c5dc8eea73d',1,'curl::Easy_ref_t']]]
 ];

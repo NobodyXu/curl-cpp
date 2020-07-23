@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timer_5fcallback_5ft_245',['timer_callback_t',['../classcurl_1_1Multi__t.html#ac673ac44e050f4108999d583988e5bb7',1,'curl::Multi_t']]]
+  ['unlock_5ffunction_5ft_246',['unlock_function_t',['../classcurl_1_1Share__base.html#a8c9605e358ad9b1f9c52e7cf02769043',1,'curl::Share_base']]],
+  ['url_5ft_247',['Url_t',['../classcurl_1_1curl__t.html#a66467a053125e69aff37db2295c38c0a',1,'curl::curl_t']]]
 ];

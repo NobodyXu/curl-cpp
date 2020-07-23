@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['perform_5fcallback_5ft_240',['perform_callback_t',['../classcurl_1_1Multi__t.html#a09f95344eee9e5ea1b9e5b9491addb60',1,'curl::Multi_t']]]
+  ['readback_5ft_241',['readback_t',['../classcurl_1_1Easy__ref__t.html#afae0b3fa70c3cfb865cd28396f145c56',1,'curl::Easy_ref_t']]]
 ];
