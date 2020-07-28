@@ -605,7 +605,7 @@ public:
 
     /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
-     * @return size of issued request headers in bytes
+     * @return size of issued request headers in bytes, including headers sent in redirection.
      */
     std::size_t getinfo_sizeof_request() const noexcept;
     /**
