@@ -288,6 +288,12 @@ long Easy_ref_t::get_response_code() const noexcept
     return response_code;
 }
 
+std::size_t Easy_ref_t::getinfo_sizeof_request() const noexcept
+{
+    long size;
+    curl_easy_getinfo(curl_easy, CURLINFO_REQUEST_SIZE, &size);
+    return size;
+}
 std::size_t Easy_ref_t::getinfo_sizeof_uploaded() const noexcept
 {
     curl_off_t ul;

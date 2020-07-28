@@ -604,6 +604,11 @@ public:
     long get_response_code() const noexcept;
 
     /**
+     * @pre url is set to use http(s) && curl_t::has_protocol("http")
+     * @return size of issued request headers in bytes
+     */
+    std::size_t getinfo_sizeof_request() const noexcept;
+    /**
      * @return in bytes
      */
     std::size_t getinfo_sizeof_uploaded() const noexcept;
