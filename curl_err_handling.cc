@@ -69,6 +69,9 @@ auto Easy_ref_t::check_perform(long code, const char *fname) noexcept -> perform
         case CURLE_RECURSIVE_API_CALL:
             return {Recursive_api_call_Exception{fname}};
 
+        case CURLE_SSL_PINNEDPUBKEYNOTMATCH:
+            return {code::ssl_pinned_pubkey_mismatch};
+
         default:
             return {Exception{code}};
 

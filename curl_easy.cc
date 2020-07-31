@@ -104,6 +104,19 @@ auto Easy_ref_t::set_url(const char *url) noexcept -> Ret_except<void, std::bad_
     return {};
 }
 
+auto Easy_ref_t::pin_publickey(const char *pubkey) -> 
+    Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
+{
+    auto result = curl_easy_setopt(curl_easy, CURLOPT_PINNEDPUBLICKEY, pubkey);
+    if (result == CURLE_OUT_OF_MEMORY)
+        return {std::bad_alloc{}};
+    else if (result == CURLE_UNKNOWN_OPTION)
+        return {curl::NotBuiltIn_error{"pining public key is not supported by this version of libcurl "
+                                       "on this specific ssl version"}};
+    else
+        return {};
+}
+
 auto Easy_ref_t::set_cookie(const char *cookies) noexcept -> 
     Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>
 {

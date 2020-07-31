@@ -161,6 +161,32 @@ public:
     auto set_url(const char *url) noexcept -> Ret_except<void, std::bad_alloc>;
 
     /**
+     * @pre url set to use TLS based protocols: HTTPS, FTPS, IMAPS, POP3S, SMTPS etc && 
+     *      curl_t::has_protocol(protolcol)
+     *
+     * @param pubkey null-terminated string.
+     *               The string can be the file name of your pinned public key. 
+     *               The file format expected is "PEM" or "DER". 
+     *               <br>The string can also be any number of base64 encoded 
+     *               sha256 hashes preceded by "sha256//" and separated by ";".
+     *               <br>The application does not have to keep the string around after setting this option.
+     *
+     * @return note that whether this is supported depend on:
+     *          - ssl lib
+     *          - libcurl version
+     *          - whether pubkey is a path to file or sha256.
+     *
+     * When negotiating a TLS or SSL connection, the server sends a certificate indicating its identity. 
+     * A public key is extracted from this certificate and if it does not exactly match 
+     * the public key provided to this option, curl will abort the connection before sending 
+     * or receiving any data.
+     * 
+     * On mismatch, code::ssl_pinned_pubkey_mismatch is returned.
+     */
+    auto pin_publickey(const char *pubkey) -> 
+        Ret_except<void, std::bad_alloc, curl::NotBuiltIn_error>;
+
+    /**
      * @pre url is set to use http(s) && curl_t::has_protocol("http")
      * @param cookies null-terminated string, in format "name1=content1; name2=content2;"
      *                <br>This string will be strdup-ed and override previous call.
@@ -535,6 +561,7 @@ public:
         timedout,
         aborted_by_callback, // If readback return CURL_READFUNC_ABORT.
         too_many_redirects, 
+        ssl_pinned_pubkey_mismatch,
     };
     using perform_ret_t = Ret_except<code, std::bad_alloc, std::invalid_argument, std::length_error, 
                                      Exception, Recursive_api_call_Exception, NotBuiltIn_error, 
@@ -545,13 +572,15 @@ public:
     enum class PauseOptions {
         /**
          * Pause receiving data. 
-         * <br>There will be no data received on this connection until this function is called again without this bit set. 
+         * <br>There will be no data received on this connection until this function is called again 
+         * without this bit set. 
          * <br>Thus, the writeback won't be called.
          */
         recv = 1 << 0,
         /**
          * Pause sending data. 
-         * <br>There will be no data sent on this connection until this function is called again without this bit set. 
+         * <br>There will be no data sent on this connection until this function is called again 
+         * without this bit set. 
          * <br>Thus, the readback won't be called/the data registered with request_post won't be copied.
          */
         send = 1 << 2, // Make value of pause_send the same as stock libcurl
@@ -569,15 +598,19 @@ public:
      * @pre curl_t::has_pause_support() and there's an ongoing transfer
      * @return If no exception is thrown, then it is either code::ok or code::writeback_error.
      *
-     * **The pausing of transfers does not work with protocols that work without network connectivity, like FILE://.
-     * Trying to pause such a transfer, in any direction, will cause problems in the worst case or an error in the best case.**
+     * **The pausing of transfers does not work with protocols that work without 
+     * network connectivity, like FILE://.
+     * Trying to pause such a transfer, in any direction, will cause problems in the worst case 
+     * or an error in the best case.**
      *
      * ### Use of set_pause with multi_socket_action interface
      *
-     * Before libcurl 7.32.0, when a specific handle was unpaused with this function, there was no particular forced rechecking 
-     * or similar of the socket's state, which made the continuation of the transfer get delayed until next 
-     * multi-socket call invoke or even longer. 
-     * Alternatively, the user could forcibly call for example curl_multi_socket_all - with a rather hefty performance penalty.
+     * Before libcurl 7.32.0, when a specific handle was unpaused with this function, 
+     * there was no particular forced rechecking or similar of the socket's state, 
+     * which made the continuation of the transfer get delayed until next  multi-socket call invoke 
+     * or even longer. 
+     * <br>Alternatively, the user could forcibly call for example curl_multi_socket_all - 
+     * with a rather hefty performance penalty.
      * 
      * Starting in libcurl 7.32.0, unpausing a transfer will schedule a timeout trigger for that handle 
      * 1 millisecond into the future, so that a curl_multi_socket_action( ... CURL_SOCKET_TIMEOUT) can be used 
@@ -597,7 +630,8 @@ public:
      * This has the side-effect that if you download something that is compressed a lot, it can result in a 
      * very large amount of data required to be allocated to be kept around during the pause. 
      *
-     * This said, you should probably consider not using paused reading if you allow libcurl to uncompress data automatically.
+     * This said, you should probably consider not using paused reading if you allow libcurl to 
+     * uncompress data automatically.
      */
     auto set_pause(PauseOptions option) noexcept -> Ret_except<code, std::bad_alloc, Exception>;
 
