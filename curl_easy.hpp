@@ -725,7 +725,7 @@ public:
     /**
      * set_readall_callback() can be used for get or post.
      */
-    template <class String = std::string>
+    template <class String>
     auto set_readall_writeback(String &response) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
