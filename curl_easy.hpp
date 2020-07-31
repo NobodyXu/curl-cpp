@@ -740,7 +740,7 @@ public:
      * @param len read in len bytes
      */
     template <class String = std::string, class size_type = typename String::size_type>
-    auto set_read_writeback(std::pair<String, size_type> arg) noexcept
+    auto set_read_writeback(std::pair<String, size_type> &arg) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
             auto &args = *static_cast<std::pair<String, size_type>*>(ptr);
