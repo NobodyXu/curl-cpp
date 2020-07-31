@@ -739,7 +739,7 @@ public:
      * set_read_callback() can be used for get or post.
      * @param len read in len bytes
      */
-    template <class String = std::string, class size_type = typename std::decay_t<String>::size_type>
+    template <class String, class size_type>
     auto set_read_writeback(std::pair<String, size_type> &arg) noexcept
     {
         set_writeback([](char *buffer, std::size_t _, std::size_t size, void *ptr) {
