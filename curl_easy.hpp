@@ -737,7 +737,9 @@ public:
 
     /**
      * set_read_callback() can be used for get or post.
-     * @param len read in len bytes
+     *
+     * This function will set writeback to only write arg.second bytes into
+     * arg.first.
      */
     template <class String, class size_type>
     auto set_read_writeback(std::pair<String, size_type> &arg) noexcept
