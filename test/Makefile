@@ -1,5 +1,5 @@
 CXX := clang++
-LDFLAGS := 
+LDFLAGS := -fuse-ld=lld
 
 include ../linking.mk
 
