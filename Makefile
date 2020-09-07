@@ -9,7 +9,6 @@ OBJS := $(SRCS:.cc=.o)
 
 libcurl_cpp.a: $(OBJS)
 	llvm-ar rcsT $@ $^
-	llvm-ranlib $@
 
 $(DEPS): 
 include $(wildcard $(DEPS))
