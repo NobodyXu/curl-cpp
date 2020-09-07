@@ -8,7 +8,7 @@ DEPS := $(SRCS:.cc=.d)
 OBJS := $(SRCS:.cc=.o)
 
 libcurl_cpp.a: $(OBJS)
-	llvm-ar rcsT $@ $^
+	llvm-ar rcsuT $@ $^
 
 $(DEPS): 
 include $(wildcard $(DEPS))
